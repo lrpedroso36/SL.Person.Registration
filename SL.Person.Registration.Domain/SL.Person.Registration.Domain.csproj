@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="PersonAggregate\" />
+    <Folder Include="Repositories\" />
+    <Folder Include="PersonAggregate\Enuns\" />
+    <Folder Include="InterViewAggregate\" />
+    <Folder Include="InterViewAggregate\Enuns\" />
+    <Folder Include="RegistrationAggregate\" />
+    <Folder Include="Results\" />
+    <Folder Include="DonationAggregate\" />
+    <Folder Include="DonationAggregate\Enuns\" />
+  </ItemGroup>
+</Project>
