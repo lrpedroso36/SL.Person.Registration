@@ -11,9 +11,6 @@ namespace SL.Person.Registration.Application.Query.Handler
 {
     public class FindLookupQueryHandler : IRequestHandler<FindLookupQuery, IEnumerable<FindLookupResult>>
     {
-        public FindLookupQueryHandler()
-        {
-        }
 
         public async Task<IEnumerable<FindLookupResult>> Handle(FindLookupQuery request, CancellationToken cancellationToken)
         {
