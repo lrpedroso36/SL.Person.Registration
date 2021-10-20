@@ -16,6 +16,11 @@
 
         public string State { get; set; }
 
+        protected Address()
+        {
+
+        }
+
         protected Address(long zipCode, string street, string number, string neighborhood, string complement, string city, string state)
         {
             ZipCode = zipCode;

@@ -13,27 +13,36 @@ namespace SL.Person.Registration.Domain.InterViewAggregate
 
         public DateTime Date { get; private set; }
 
-        public PersonRegistration Person { get; private set; }
+        public string InterviewName { get; private set; }
 
         public string Opinion { get; private set; }
+
+        protected Interview()
+        {
+
+        }
 
         protected Interview(TreatmentType treatmentType, InterviewType type, DateTime date, PersonRegistration person, string opinion)
         {
             TreatmentType = treatmentType;
             Type = type;
             Date = date;
-            Person = SetPerson(person);
+            InterviewName = SetPerson(person);
             Opinion = opinion;
         }
 
-        public static Interview CreateInstance(TreatmentType treatmentType, InterviewType type, DateTime date, PersonRegistration person, string opinion)
-            => new Interview(treatmentType, type, date, person, opinion);
+        public static Interview CreateInstance(TreatmentType treatmentType,
+                                               InterviewType type,
+                                               DateTime date,
+                                               PersonRegistration person,
+                                               string opinion)
+        => new Interview(treatmentType, type, date, person, opinion);
 
-        private PersonRegistration SetPerson(PersonRegistration person)
+        private string SetPerson(PersonRegistration person)
         {
             if (person.Types.Contains(PersonType.Entrevistador))
             {
-                return person;
+                return person.Name;
             }
 
             return null;

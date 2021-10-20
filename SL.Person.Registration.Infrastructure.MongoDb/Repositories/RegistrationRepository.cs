@@ -21,5 +21,10 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public Task<InformationRegistration> Update(InformationRegistration registration, CancellationToken cancellationToken)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

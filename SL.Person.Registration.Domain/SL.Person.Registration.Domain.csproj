@@ -11,5 +11,8 @@
     <Folder Include="InterViewAggregate\" />
     <Folder Include="InterViewAggregate\Enuns\" />
     <Folder Include="RegistrationAggregate\" />
+    <Folder Include="Results\" />
+    <Folder Include="DonationAggregate\" />
+    <Folder Include="DonationAggregate\Enuns\" />
   </ItemGroup>
 </Project>

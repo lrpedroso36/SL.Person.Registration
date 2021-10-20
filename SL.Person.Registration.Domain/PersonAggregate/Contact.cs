@@ -6,6 +6,11 @@
 
         public long PhoneNumber { get; private set; }
 
+        protected Contact()
+        {
+
+        }
+
         protected Contact(int ddd, long phoneNumber)
         {
             DDD = ddd;

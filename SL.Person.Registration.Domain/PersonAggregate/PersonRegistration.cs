@@ -6,7 +6,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 {
     public class PersonRegistration
     {
-        public List<PersonType> Types { get; set; }
+        public List<PersonType> Types { get; set; } = new List<PersonType>();
 
         public string Name { get; private set; }
 
@@ -21,6 +21,11 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public Contact Contact { get; private set; }
 
         public Authentication Authentication { get; private set; }
+
+        protected PersonRegistration()
+        {
+
+        }
 
         protected PersonRegistration(List<PersonType> types,
             string name,
