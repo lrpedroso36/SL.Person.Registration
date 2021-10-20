@@ -8,6 +8,6 @@ namespace SL.Person.Registration.Domain.Repositories
     {
         Task<bool> Insert(InformationRegistration registration, CancellationToken cancellationToken);
 
-        Task<InformationRegistration> GetPerson(long documentNumber, CancellationToken cancellationToken); 
+        Task<InformationRegistration> Get(long documentNumber, CancellationToken cancellationToken); 
     }
 }

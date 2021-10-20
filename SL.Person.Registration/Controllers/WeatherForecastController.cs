@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SL.Person.Registration.Domain.RegistrationAggregate;
 
 namespace SL.Person.Registration.Controllers
 {
@@ -23,10 +25,10 @@ namespace SL.Person.Registration.Controllers
         }
 
         [HttpGet]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(200, Type = typeof(InformationRegistration))]
         public IEnumerable<WeatherForecast> Get()
         {
-            _logger.LogInformation("Olha estou logando");
-
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
