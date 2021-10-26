@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SL.Person.Registration.Controllers
 {
     [ApiController]
-    [Route("api/v1/persons")]
+    [Route("api/v1/person")]
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;

@@ -10,7 +10,7 @@ using SL.Person.Registration.Domain.Results;
 namespace SL.Person.Registration.Controllers
 {
     [ApiController]
-    [Route("api/v1/lookups")]
+    [Route("api/v1/lookup")]
     public class LookupController : ControllerBase
     {
         private readonly IMediator _mediator;
