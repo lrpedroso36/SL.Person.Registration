@@ -1,10 +1,21 @@
+using System;
+using System.Linq;
+using System.Net.Mime;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
+using SL.Person.Registratio.CrossCuting.Configurations;
+using SL.Person.Registration.Configurations;
+using SL.Person.Registration.Extensions;
 
 namespace SL.Person.Registration
 {
@@ -19,8 +30,13 @@ namespace SL.Person.Registration
 
         public void ConfigureServices(IServiceCollection services)
         {
+            
+            services.AddOptions();
+
+
             services.AddControllers()
-                .AddJsonOptions(x => {
+                .AddJsonOptions(x =>
+                {
                     x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
                 });
 
@@ -32,7 +48,11 @@ namespace SL.Person.Registration
                      Description = "Api para cadastrar os frequentadores do Centro Espiríta Seara de Luz",
                  }));
 
+            services.AddConfiguration(Configuration);
+            services.AddAppHealthCheck(Configuration);
+            services.AddInfraestructure();
             services.AddMediatorQuery();
+            services.AddMediatorCommand();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -58,6 +78,24 @@ namespace SL.Person.Registration
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                endpoints.MapHealthChecks("/health",
+                    new HealthCheckOptions
+                    {
+                        ResponseWriter = async (context, report) =>
+                        {
+                            var result = JsonSerializer.Serialize(
+                                new
+                                {
+                                    status = report.Status.ToString(),
+                                    monitors = report.Entries.Select(e => new { key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status) })
+                                });
+
+                            context.Response.ContentType = MediaTypeNames.Application.Json;
+                            await context.Response.WriteAsync(result);
+                        }
+                    }
+                );
             });
         }
     }

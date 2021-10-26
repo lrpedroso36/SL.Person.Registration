@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL.Person.Registration.Application.Query;
-using SL.Person.Registration.Domain.DonationAggregate.Enuns;
 using SL.Person.Registration.Domain.InterViewAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Results;
@@ -62,28 +60,15 @@ namespace SL.Person.Registration.Controllers
         }
 
         /// <summary>
-        /// Lista de tipos de doação
+        /// Lista de tipos de genero
         /// </summary>
         /// <returns></returns>
-        [HttpGet("donation")]
+        [HttpGet("gender")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
-        public async Task<IActionResult> GetDonationTypeAsync()
+        public async Task<IActionResult> GetGenderTypeAsync()
         {
-            var result = await _mediator.Send(new FindLookupQuery(typeof(DonationType)));
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Lista de tipos de doação recebida
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("receive")]
-        [ProducesDefaultResponseType]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
-        public async Task<IActionResult> GetReceiveTypeAsync()
-        {
-            var result = await _mediator.Send(new FindLookupQuery(typeof(ReceiveType)));
+            var result = await _mediator.Send(new FindLookupQuery(typeof(GenderType)));
             return Ok(result);
         }
     }

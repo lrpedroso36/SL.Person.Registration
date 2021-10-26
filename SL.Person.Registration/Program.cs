@@ -1,8 +1,8 @@
 using System;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using SL.Person.Registration.Extensions;
 
 namespace SL.Person.Registration
 {
@@ -26,11 +26,7 @@ namespace SL.Person.Registration
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    var settings = config.Build();
-                    Log.Logger = new LoggerConfiguration()
-                        .Enrich.FromLogContext()
-                        .WriteTo.MongoDB(settings.GetConnectionString("BaseLog"), collectionName: "SLPersonRegistration")
-                        .CreateLogger();
+                    config.AddConfigurationSerilog();
                 })
                 .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>

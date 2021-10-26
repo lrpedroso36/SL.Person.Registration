@@ -10,7 +10,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public string Name { get; private set; }
 
-        public DateTime BirthDate { get; private set; }
+        public GenderType Gender { get; private set; }
 
         public int YearsOld { get; private set; }
 
@@ -20,8 +20,6 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public Contact Contact { get; private set; }
 
-        public Authentication Authentication { get; private set; }
-
         protected PersonRegistration()
         {
 
@@ -29,32 +27,29 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         protected PersonRegistration(List<PersonType> types,
             string name,
-            DateTime birthDate,
+            GenderType gender,
             int yeasOld,
             long documentNumber,
             Address address,
-            Contact contact,
-            Authentication authentication)
+            Contact contact)
         {
             Types = types;
             Name = name;
-            BirthDate = birthDate;
+            Gender = gender;
             YearsOld = yeasOld;
             DocumentNumber = documentNumber;
             Address = SetAddress(address);
             Contact = SetContact(contact);
-            Authentication = SetAuthentication(authentication);
         }
 
         public static PersonRegistration CreateInstance(List<PersonType> type,
             string name,
-            DateTime birthDate,
+            GenderType gender,
             int yeasOld,
             long documentNumber,
             Address address,
-            Contact contact,
-            Authentication authentication)
-        => new PersonRegistration(type, name, birthDate, yeasOld, documentNumber, address, contact, authentication);
+            Contact contact)
+        => new PersonRegistration(type, name, gender, yeasOld, documentNumber, address, contact);
 
         private Contact SetContact(Contact contact)
         {
@@ -64,11 +59,6 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         private Address SetAddress(Address address)
         {
             return address ?? null;
-        }
-
-        private Authentication SetAuthentication(Authentication authentication)
-        {
-            return authentication ?? null;
         }
     }
 }
