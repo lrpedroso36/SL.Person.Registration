@@ -18,35 +18,39 @@ namespace SL.Person.Registration.UnitTests.Domain.InterViewAggregate
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 Builder<PersonRegistration>.CreateNew().Build(),
+                1,
                 "opinião",
-                null
+                null,
+                null,
             },
             new object[] { TreatmentType.PasseLimpeza,
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Assistido}, "nome", DateTime.Now, 1, 1234567890, null,null,null
-                    ),
+                    new List<PersonType> { PersonType.Assistido}, "nome", GenderType.Masculino, 1, 1234567890, null,null),
+                1,
                 "opinião",
-                null
+                null,
+                Builder<Presence>.CreateListOfSize(1).Build()
             },
             new object[]{ TreatmentType.PasseLimpeza,
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Entrevistador}, "nome", DateTime.Now, 1, 1234567890, null,null,null
-                    ),
+                    new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, 1, 1234567890, null,null),
+                1,
                 "opinião",
-                "nome"
+                "nome",
+                Builder<Presence>.CreateListOfSize(1).Build()
             }
         };
 
         [Theory]
         [MemberData(nameof(Data))]
         public void Should_set_properties(TreatmentType treatmentType, InterviewType type, DateTime date,
-            PersonRegistration person, string opinion, string interviewName)
+            PersonRegistration person, int amount, string opinion, string interviewName, List<Presence> presences)
         {
-            var interview = Interview.CreateInstance(treatmentType, type, date, person, opinion);
+            var interview = Interview.CreateInstance(treatmentType, type, date, person, amount, opinion, presences);
 
             interview.TreatmentType.Should().Be(treatmentType);
 

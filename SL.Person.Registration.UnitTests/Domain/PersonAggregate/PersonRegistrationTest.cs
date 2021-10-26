@@ -14,10 +14,9 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             new object[] { new List<PersonType> { PersonType.Assistido },
                 "nome",
-                new DateTime(1988,04,29),
+                GenderType.Masculino,
                 33,
                 1234567890,
-                null,
                 null,
                 null
             },
@@ -25,57 +24,53 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             {
                 new List<PersonType> { PersonType.Assistido },
                 "nome",
-                new DateTime(1988,04,29),
+                GenderType.Masculino,
                 33,
                 1234567890,
                 Builder<Address>.CreateNew().Build(),
-                null,
                 null
             },
             new object[]
             {
                 new List<PersonType> { PersonType.Assistido },
                 "nome",
-                new DateTime(1988,04,29),
+                GenderType.Masculino,
                 33,
                 1234567890,
                 Builder<Address>.CreateNew().Build(),
-                Builder<Contact>.CreateNew().Build(),
-                null
+                Builder<Contact>.CreateNew().Build()
             },
             new object[]
             {
                 new List<PersonType> { PersonType.Assistido },
                 "nome",
-                new DateTime(1988,04,29),
+                GenderType.Masculino,
                 33,
                 1234567890,
                 Builder<Address>.CreateNew().Build(),
-                Builder<Contact>.CreateNew().Build(),
-                Builder<Authentication>.CreateNew().Build()
+                Builder<Contact>.CreateNew().Build()
             }
         };
 
-       [Theory]
-       [MemberData(nameof(Data))]
-       public void Shoud_set_properties(List<PersonType> types,
-            string name,
-            DateTime birthDate,
-            int yeasOld,
-            long documentNumber,
-            Address address,
-            Contact contact,
-            Authentication authentication)
+        [Theory]
+        [MemberData(nameof(Data))]
+        public void Shoud_set_properties(List<PersonType> types,
+             string name,
+             GenderType gender,
+             int yeasOld,
+             long documentNumber,
+             Address address,
+             Contact contact)
         {
-            var person = PersonRegistration.CreateInstance(types, name, birthDate, yeasOld, documentNumber,
-                address, contact, authentication);
+            var person = PersonRegistration.CreateInstance(types, name, gender, yeasOld, documentNumber,
+                address, contact);
 
             person.Types.Should().BeEquivalentTo(types);
 
             person.Name.Should().Be(name);
             person.Name.Should().BeOfType(typeof(string));
 
-            person.BirthDate.Should().Be(birthDate);
+            person.Gender.Should().Be(gender);
 
             person.YearsOld.Should().Be(yeasOld);
             person.YearsOld.Should().BeOfType(typeof(int));
@@ -86,8 +81,6 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.Address.Should().BeEquivalentTo(address);
 
             person.Contact.Should().BeEquivalentTo(contact);
-
-            person.Authentication.Should().BeEquivalentTo(authentication);
         }
     }
 }

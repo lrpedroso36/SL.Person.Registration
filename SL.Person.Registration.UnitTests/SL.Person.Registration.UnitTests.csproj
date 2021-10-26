@@ -20,13 +20,16 @@
     <Folder Include="Domain\PersonAggregate\" />
     <Folder Include="Domain\InterViewAggregate\" />
     <Folder Include="Domain\RegistrationAggregate\" />
-    <Folder Include="DonationAggregate\" />
     <Folder Include="Application\" />
     <Folder Include="Application\Query\" />
     <Folder Include="Application\Query\Handler\" />
+    <Folder Include="Domain\Results\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
     <ProjectReference Include="..\SL.Person.Registration.Application\SL.Person.Registration.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Domain\Results\" />
   </ItemGroup>
 </Project>

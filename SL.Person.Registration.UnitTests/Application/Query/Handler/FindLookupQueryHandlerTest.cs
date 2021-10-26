@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
-using SL.Person.Registration.Domain.DonationAggregate.Enuns;
 using SL.Person.Registration.Domain.InterViewAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using Xunit;
@@ -15,11 +14,11 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { typeof(DonationType), 3 },
-            new object[] { typeof(ReceiveType), 2 },
             new object[] { typeof(InterviewType), 2 },
-            new object[] { typeof(TreatmentType), 3 },
-            new object[] { typeof(PersonType), 5 },
+            new object[] { typeof(TreatmentType), 8 },
+            new object[] { typeof(PersonType), 4 },
+            new object[] { typeof(WeakDayType), 4},
+            new object[] { typeof(GenderType), 3},
 
         };
 

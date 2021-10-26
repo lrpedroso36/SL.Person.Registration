@@ -6,8 +6,19 @@
 
   <ItemGroup>
     <Folder Include="Repositories\" />
+    <Folder Include="Contexts\" />
+    <Folder Include="Contexts\Contracts\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
+    <ProjectReference Include="..\SL.Person.Registratio.CrossCuting\SL.Person.Registratio.CrossCuting.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Contexts\" />
+    <None Remove="Contexts\Contracts\" />
+    <None Remove="MongoDB.Driver" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
   </ItemGroup>
 </Project>
