@@ -8,7 +8,7 @@ namespace SL.Person.Registration.Application.Query.Handler
 {
     public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, FindPersonResult>
     {
-        private IInformationRegistrationRepository _repository;
+        private readonly IInformationRegistrationRepository _repository;
 
         public FindPersonByDocumentQueryHandler(IInformationRegistrationRepository repository)
         {
@@ -17,11 +17,16 @@ namespace SL.Person.Registration.Application.Query.Handler
 
         public async Task<FindPersonResult> Handle(FindPersonByDocumentQuery request, CancellationToken cancellationToken)
         {
-            var informationRegistration =  _repository.GetByDocument(request.DocumentNumber);
-
             var result = new FindPersonResult();
 
-            if(informationRegistration == null && informationRegistration.PersonRegistration == null)
+            if (request.DocumentNumber == 0)
+            {
+                return result;
+            }
+
+            var informationRegistration =  _repository.GetByDocument(request.DocumentNumber);
+
+            if(informationRegistration == null || informationRegistration.PersonRegistration == null)
             {
                 return result;
             }

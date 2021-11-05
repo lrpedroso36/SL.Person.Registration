@@ -12,9 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using MongoDB.Driver;
-using SL.Person.Registratio.CrossCuting.Configurations;
-using SL.Person.Registration.Configurations;
 using SL.Person.Registration.Extensions;
 
 namespace SL.Person.Registration
@@ -32,7 +29,6 @@ namespace SL.Person.Registration
         {
             
             services.AddOptions();
-
 
             services.AddControllers()
                 .AddJsonOptions(x =>
@@ -52,7 +48,6 @@ namespace SL.Person.Registration
             services.AddAppHealthCheck(Configuration);
             services.AddInfraestructure();
             services.AddMediatorQuery();
-            services.AddMediatorCommand();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

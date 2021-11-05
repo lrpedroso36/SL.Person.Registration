@@ -17,7 +17,12 @@ namespace SL.Person.Registration.Application.Command.Hanler
 
         public async Task<bool> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
         {
-            var person = request.GetPersonRegistration();
+            if(request.Person == null || request.Person.DocumentNumber == 0)
+            {
+                return false;
+            }
+
+            var person = request.Person.GetPersonRegistration();
 
             var registration = InformationRegistration.CreateInstance(person, null);
 

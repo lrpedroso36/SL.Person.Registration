@@ -17,9 +17,19 @@ namespace SL.Person.Registration.Application.Command.Handler
 
         public async Task<bool> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
-            var informationRegistration = _repository.GetByDocument(request.DocumentNumber);
+            if (request.Person == null || request.Person.DocumentNumber == 0)
+            {
+                return false;
+            }
 
-            var person = request.GetPersonRegistration();
+            var informationRegistration = _repository.GetByDocument(request.Person.DocumentNumber);
+
+            if(informationRegistration == null || informationRegistration.PersonRegistration == null)
+            {
+                return false;
+            }
+
+            var person = request.Person.GetPersonRegistration();
 
             var update = InformationRegistration.CreateInstance(person, null, informationRegistration._id);
 

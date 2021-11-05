@@ -12,5 +12,9 @@
     <Folder Include="InterViewAggregate\Enuns\" />
     <Folder Include="RegistrationAggregate\" />
     <Folder Include="Results\" />
+    <Folder Include="Requests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Requests\" />
   </ItemGroup>
 </Project>

@@ -60,6 +60,20 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         {
             return address ?? null;
         }
+
+        public void AddPersonType(PersonType personType){
+            if(Types == null){
+                Types = new List<PersonType>();
+            }
+            Types.Add(personType);
+        }
+
+        public void AddAdress(Address address){
+            Address = SetAddress(address);
+        }
+        public void AddContact(Contact contact){
+            Contact = SetContact(contact);
+        }
     }
 }
 

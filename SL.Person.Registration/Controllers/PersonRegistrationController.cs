@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SL.Person.Registration.Application.Command;
-using SL.Person.Registration.Domain.RegistrationAggregate;
 using MediatR;
 using System.Threading;
 using SL.Person.Registration.Application.Query;
 using System.Threading.Tasks;
+using SL.Person.Registration.Domain.Requests;
+using SL.Person.Registration.Domain.Results;
+using Microsoft.AspNetCore.Http;
 
 namespace SL.Person.Registration.Controllers
 {
@@ -24,7 +26,8 @@ namespace SL.Person.Registration.Controllers
 
         [HttpGet("{documentNumber}")]
         [ProducesDefaultResponseType]
-        [ProducesResponseType(200, Type = typeof(InformationRegistration))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindPersonResult))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FindPersonByDocumentAsync(long documentNumber, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new FindPersonByDocumentQuery(documentNumber), cancellationToken);
@@ -40,12 +43,12 @@ namespace SL.Person.Registration.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesDefaultResponseType]
-        [ProducesResponseType(201, Type = typeof(InsertPersonCommand))]
-        public IActionResult PostAsync([FromBody] InsertPersonCommand command, CancellationToken cancellationToken)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult PostAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
         {
-            var result = _mediator.Send(command, cancellationToken);
-
-            return Created("", result);
+            var result = _mediator.Send(new InsertPersonCommand(request), cancellationToken);
+            return Created(string.Empty, result);
         }
 
         /// <summary>
@@ -56,11 +59,11 @@ namespace SL.Person.Registration.Controllers
         /// <returns></returns>
         [HttpPut]
         [ProducesDefaultResponseType]
-        [ProducesResponseType(200, Type = typeof(UpdatePersonCommand))]
-        public IActionResult PutAsync([FromBody] UpdatePersonCommand command, CancellationToken cancellationToken)
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult PutAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
         {
-            var result = _mediator.Send(command, cancellationToken);
-
+            var result = _mediator.Send(new UpdatePersonCommand(request), cancellationToken);
             return Ok(result);
         }
     }

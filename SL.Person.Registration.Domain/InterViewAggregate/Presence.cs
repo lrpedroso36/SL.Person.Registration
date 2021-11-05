@@ -34,6 +34,5 @@ namespace SL.Person.Registration.Domain.InterViewAggregate
 
         public static Presence CreateInstance(DateTime date, PersonRegistration taskMaster)
             => new Presence(date, taskMaster);
-        
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Domain.InterViewAggregate;
@@ -14,17 +15,20 @@ namespace SL.Person.Registration.UnitTests.Domain.RegistrationAggregate
         {
             new object[] { Builder<PersonRegistration>.CreateNew().Build(),
                 Builder<Interview>.CreateListOfSize(1).Build(),
+                null,
+                null
             },
             new object[]
             {
                 Builder<PersonRegistration>.CreateNew().Build(),
+                null,
                 null
             },
             new object[]
             {
                 Builder<PersonRegistration>.CreateNew().Build(),
                 Builder<Interview>.CreateListOfSize(1).Build(),
-                null
+                Guid.NewGuid()
             },
             new object[]
             {
@@ -37,9 +41,9 @@ namespace SL.Person.Registration.UnitTests.Domain.RegistrationAggregate
         [Theory]
         [MemberData(nameof(Data))]
 
-        public void Should_set_properties(PersonRegistration personRegistration, List<Interview> interviews)
+        public void Should_set_properties(PersonRegistration personRegistration, List<Interview> interviews, object id)
         {
-            var informationRegistration = InformationRegistration.CreateInstance(personRegistration, interviews);
+            var informationRegistration = InformationRegistration.CreateInstance(personRegistration, interviews, id);
 
             informationRegistration.PersonRegistration.Should().BeEquivalentTo(personRegistration);
 

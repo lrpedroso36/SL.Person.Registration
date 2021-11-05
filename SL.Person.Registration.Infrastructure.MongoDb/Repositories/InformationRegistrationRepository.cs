@@ -30,7 +30,7 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
 
         public bool Update(InformationRegistration registration)
         {
-            _context.Collection.ReplaceOne(x => x._id == registration._id, registration);
+            _context.Collection.ReplaceOneAsync(x => x._id == registration._id, registration);
             return true;
         }
     }
