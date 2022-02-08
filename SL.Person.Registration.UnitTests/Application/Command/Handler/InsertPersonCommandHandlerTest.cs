@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using Moq;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Hanler;
-using SL.Person.Registration.Domain.RegistrationAggregate;
+using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Command.Handler
@@ -38,7 +37,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             var commandHandler = new InsertPersonCommandHandler(mockRepository.Object);
             var result = await commandHandler.Handle(command, default);
 
-            mockRepository.Verify(x => x.Insert(It.IsAny<InformationRegistration>()), Times.AtMost(atMostInsert));
+            mockRepository.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
 
             result.Should().Be(resultCommand);
         }

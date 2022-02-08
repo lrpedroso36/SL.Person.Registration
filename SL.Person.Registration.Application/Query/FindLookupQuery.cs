@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using MediatR;
+﻿using MediatR;
 using SL.Person.Registration.Domain.Results;
+using System;
+using System.Collections.Generic;
 
 namespace SL.Person.Registration.Application.Query
 {

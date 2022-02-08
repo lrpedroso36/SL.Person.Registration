@@ -1,17 +1,17 @@
-﻿using System;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using SL.Person.Registratio.CrossCuting.Configurations.Contracts;
-using SL.Person.Registration.Domain.RegistrationAggregate;
+using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts.Contracts;
+using System;
 
 namespace SL.Person.Registration.Infrastructure.MongoDb.Contexts
 {
-    public class InformationRegistrationDbContext : IInformationRegistrationDbContext<InformationRegistration>
+    public class PersonRegistrationDbContext : IPersonRegistrationDbContext<PersonRegistration>
     {
         private readonly IMongoDatabase _dataBase;
         private readonly string _personRegistrationCollection;
 
-        public InformationRegistrationDbContext(IConfigurationPersonRegistration configuration)
+        public PersonRegistrationDbContext(IConfigurationPersonRegistration configuration)
         {
             try
             {
@@ -28,11 +28,11 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Contexts
             }
         }
 
-        public IMongoCollection<InformationRegistration> Collection
+        public IMongoCollection<PersonRegistration> Collection
         {
             get
             {
-                return _dataBase.GetCollection<InformationRegistration>(_personRegistrationCollection);
+                return _dataBase.GetCollection<PersonRegistration>(_personRegistrationCollection);
             }
         }
     }

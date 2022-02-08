@@ -1,16 +1,16 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
     public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, FindPersonResult>
     {
-        private readonly IInformationRegistrationRepository _repository;
+        private readonly IPersonRepository _repository;
 
-        public FindPersonByDocumentQueryHandler(IInformationRegistrationRepository repository)
+        public FindPersonByDocumentQueryHandler(IPersonRepository repository)
         {
             _repository = repository;
         }
@@ -24,14 +24,14 @@ namespace SL.Person.Registration.Application.Query.Handler
                 return result;
             }
 
-            var informationRegistration =  _repository.GetByDocument(request.DocumentNumber);
+            var personRegistration = _repository.GetByDocument(request.DocumentNumber);
 
-            if(informationRegistration == null || informationRegistration.PersonRegistration == null)
+            if (personRegistration == null)
             {
                 return result;
             }
 
-            result = (FindPersonResult)informationRegistration.PersonRegistration;
+            result = (FindPersonResult)personRegistration;
 
             return result;
         }

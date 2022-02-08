@@ -8,8 +8,6 @@
     <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Query\" />
-    <Folder Include="Query\Handler\" />
     <Folder Include="Extensions\" />
     <Folder Include="Command\" />
     <Folder Include="Command\Handler\" />

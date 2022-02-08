@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Results;
+using System.Collections.Generic;
 
 namespace SL.Person.Registration.UnitTests.Domain.Results
 {

@@ -1,8 +1,8 @@
-using System;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using SL.Person.Registration.Extensions;
+using System;
 
 namespace SL.Person.Registration
 {

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using FluentAssertions;
+﻿using FluentAssertions;
 using SL.Person.Registration.Application.Query;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Query

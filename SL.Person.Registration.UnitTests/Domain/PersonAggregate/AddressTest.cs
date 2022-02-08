@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿using FluentAssertions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using FluentAssertions;
+using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 {

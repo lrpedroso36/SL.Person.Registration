@@ -1,21 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.808.0
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F161220A-7AE3-4A89-88A8-430585F59CD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL.Person.Registration.Domain", "SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj", "{98557CE0-82F9-41A0-B4CA-9DC39D850A80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SL.Person.Registration.Domain", "SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj", "{98557CE0-82F9-41A0-B4CA-9DC39D850A80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL.Person.Registration.Infrastructure.MongoDb", "SL.Person.Registration.Infrastructure.MongoDb\SL.Person.Registration.Infrastructure.MongoDb.csproj", "{FA87F345-31D1-40F3-B157-B2E77035143B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SL.Person.Registration.Infrastructure.MongoDb", "SL.Person.Registration.Infrastructure.MongoDb\SL.Person.Registration.Infrastructure.MongoDb.csproj", "{FA87F345-31D1-40F3-B157-B2E77035143B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL.Person.Registration.UnitTests", "SL.Person.Registration.UnitTests\SL.Person.Registration.UnitTests.csproj", "{8BDE57D2-6DC1-4821-89CD-169EF7D1BDC6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SL.Person.Registration.UnitTests", "SL.Person.Registration.UnitTests\SL.Person.Registration.UnitTests.csproj", "{8BDE57D2-6DC1-4821-89CD-169EF7D1BDC6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL.Person.Registration.Application", "SL.Person.Registration.Application\SL.Person.Registration.Application.csproj", "{8823E502-B745-40BF-A40D-982C100F64AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SL.Person.Registration.Application", "SL.Person.Registration.Application\SL.Person.Registration.Application.csproj", "{8823E502-B745-40BF-A40D-982C100F64AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL.Person.Registration", "SL.Person.Registration\SL.Person.Registration.csproj", "{2D599788-AF99-4784-9152-11736F51D663}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SL.Person.Registratio.CrossCuting", "SL.Person.Registratio.CrossCuting\SL.Person.Registratio.CrossCuting.csproj", "{31F3650D-A0AB-48C9-8A64-DDE702555475}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SL.Person.Registratio.CrossCuting", "SL.Person.Registratio.CrossCuting\SL.Person.Registratio.CrossCuting.csproj", "{31F3650D-A0AB-48C9-8A64-DDE702555475}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SL.Person.Registration.Api", "SL.Person.Registration.Api\SL.Person.Registration.Api.csproj", "{0AACB6C3-9446-43C4-9C69-A1C0AFD16962}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,22 +39,22 @@ Global
 		{8823E502-B745-40BF-A40D-982C100F64AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8823E502-B745-40BF-A40D-982C100F64AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8823E502-B745-40BF-A40D-982C100F64AB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2D599788-AF99-4784-9152-11736F51D663}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2D599788-AF99-4784-9152-11736F51D663}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2D599788-AF99-4784-9152-11736F51D663}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2D599788-AF99-4784-9152-11736F51D663}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31F3650D-A0AB-48C9-8A64-DDE702555475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31F3650D-A0AB-48C9-8A64-DDE702555475}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31F3650D-A0AB-48C9-8A64-DDE702555475}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31F3650D-A0AB-48C9-8A64-DDE702555475}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AACB6C3-9446-43C4-9C69-A1C0AFD16962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AACB6C3-9446-43C4-9C69-A1C0AFD16962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AACB6C3-9446-43C4-9C69-A1C0AFD16962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AACB6C3-9446-43C4-9C69-A1C0AFD16962}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {61099B48-5EA9-40E6-92C1-F36E9C9ABE8B}
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8BDE57D2-6DC1-4821-89CD-169EF7D1BDC6} = {F161220A-7AE3-4A89-88A8-430585F59CD7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61099B48-5EA9-40E6-92C1-F36E9C9ABE8B}
 	EndGlobalSection
 EndGlobal

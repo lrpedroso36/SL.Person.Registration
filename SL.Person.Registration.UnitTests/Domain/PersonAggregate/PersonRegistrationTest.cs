@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
@@ -39,17 +38,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 1234567890,
                 Builder<Address>.CreateNew().Build(),
                 Builder<Contact>.CreateNew().Build()
-            },
-            new object[]
-            {
-                new List<PersonType> { PersonType.Assistido },
-                "nome",
-                GenderType.Masculino,
-                33,
-                1234567890,
-                Builder<Address>.CreateNew().Build(),
-                Builder<Contact>.CreateNew().Build()
-            }
+             }
         };
 
         [Theory]

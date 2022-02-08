@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Domain.Requests;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.Requests

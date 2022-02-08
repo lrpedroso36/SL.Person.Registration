@@ -1,5 +1,4 @@
-﻿using System;
-namespace SL.Person.Registration.UnitTests.Domain.Results
+﻿namespace SL.Person.Registration.UnitTests.Domain.Results
 {
     public class CommandResultTest
     {

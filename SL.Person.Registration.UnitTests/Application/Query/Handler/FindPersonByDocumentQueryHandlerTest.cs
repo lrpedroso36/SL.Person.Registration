@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.RegistrationAggregate;
 using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Query.Handler
@@ -24,7 +23,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             new object[] {
                 new FindPersonByDocumentQuery(0),
                 new FindPersonResult(),
-                InformationRegistration.CreateInstance(null, null,null)
+                null
             },
             new object[]
             {
@@ -45,7 +44,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         [Theory]
         [MemberData(nameof(Data))]
         public async Task Should_execute_handler(FindPersonByDocumentQuery query, FindPersonResult result,
-            InformationRegistration registration)
+            PersonRegistration registration)
         {
             var moqRepository = MockInformatioRegistrationRepository.GetMockRepository(registration);
 

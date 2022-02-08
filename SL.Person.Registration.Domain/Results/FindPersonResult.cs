@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using SL.Person.Registration.Domain.PersonAggregate;
+﻿using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System.Collections.Generic;
 
 namespace SL.Person.Registration.Domain.Results
 {

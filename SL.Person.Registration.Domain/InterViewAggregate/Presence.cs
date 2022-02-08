@@ -1,7 +1,7 @@
-﻿using System;
-using System.Linq;
-using SL.Person.Registration.Domain.PersonAggregate;
+﻿using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
+using System.Linq;
 
 namespace SL.Person.Registration.Domain.InterViewAggregate
 {
@@ -24,7 +24,7 @@ namespace SL.Person.Registration.Domain.InterViewAggregate
 
         private string SetTaskMaster(PersonRegistration taskMaster)
         {
-            if(taskMaster != null && taskMaster.Types.Any(x => x == PersonType.Tarefeiro))
+            if (taskMaster != null && taskMaster.Types.Any(x => x == PersonType.Tarefeiro))
             {
                 return taskMaster.Name;
             }

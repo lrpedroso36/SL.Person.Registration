@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Repositories\" />
-    <Folder Include="Contexts\" />
-    <Folder Include="Contexts\Contracts\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />

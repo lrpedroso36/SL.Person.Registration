@@ -6,11 +6,9 @@
 
   <ItemGroup>
     <Folder Include="PersonAggregate\" />
-    <Folder Include="Repositories\" />
     <Folder Include="PersonAggregate\Enuns\" />
     <Folder Include="InterViewAggregate\" />
     <Folder Include="InterViewAggregate\Enuns\" />
-    <Folder Include="RegistrationAggregate\" />
     <Folder Include="Results\" />
     <Folder Include="Requests\" />
   </ItemGroup>

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using SL.Person.Registration.Domain.InterViewAggregate.Enuns;
+﻿using SL.Person.Registration.Domain.InterViewAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SL.Person.Registration.Domain.InterViewAggregate
 {

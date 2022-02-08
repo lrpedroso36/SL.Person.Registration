@@ -21,9 +21,6 @@
     <Folder Include="Domain\" />
     <Folder Include="Domain\PersonAggregate\" />
     <Folder Include="Domain\InterViewAggregate\" />
-    <Folder Include="Domain\RegistrationAggregate\" />
-    <Folder Include="Application\" />
-    <Folder Include="Application\Query\" />
     <Folder Include="Application\Query\Handler\" />
     <Folder Include="Domain\Results\" />
     <Folder Include="Domain\Requests\" />

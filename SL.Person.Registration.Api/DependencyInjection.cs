@@ -1,16 +1,16 @@
-﻿using System.Reflection;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SL.Person.Registratio.CrossCuting.Configurations;
 using SL.Person.Registratio.CrossCuting.Configurations.Contracts;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Configurations;
-using SL.Person.Registration.Domain.RegistrationAggregate;
+using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts.Contracts;
 using SL.Person.Registration.Infrastructure.MongoDb.Repositories;
+using System.Reflection;
 
 namespace SL.Person.Registration
 {
@@ -33,9 +33,9 @@ namespace SL.Person.Registration
 
         public static IServiceCollection AddInfraestructure(this IServiceCollection service)
         {
-            service.AddTransient<IInformationRegistrationDbContext<InformationRegistration>, InformationRegistrationDbContext>();
+            service.AddScoped<IPersonRegistrationDbContext<PersonRegistration>, PersonRegistrationDbContext>();
 
-            service.AddTransient<IInformationRegistrationRepository, PersonRegistrationRepository>();
+            service.AddScoped<IPersonRepository, PersonRegistrationRepository>();
             return service;
         }
 

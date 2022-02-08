@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Domain.InterViewAggregate;
 using SL.Person.Registration.Domain.InterViewAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.InterViewAggregate

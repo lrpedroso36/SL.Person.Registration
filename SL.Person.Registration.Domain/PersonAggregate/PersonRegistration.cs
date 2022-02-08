@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
 using System.Collections.Generic;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 
 namespace SL.Person.Registration.Domain.PersonAggregate
 {
     public class PersonRegistration
     {
+        public Guid _id { get; private set; }
+
         public List<PersonType> Types { get; set; } = new List<PersonType>();
 
         public string Name { get; private set; }
@@ -51,6 +53,11 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             Contact contact)
         => new PersonRegistration(type, name, gender, yeasOld, documentNumber, address, contact);
 
+        public void SetId(Guid id)
+        {
+            _id = id;
+        }
+
         private Contact SetContact(Contact contact)
         {
             return contact ?? null;
@@ -61,17 +68,21 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             return address ?? null;
         }
 
-        public void AddPersonType(PersonType personType){
-            if(Types == null){
+        public void AddPersonType(PersonType personType)
+        {
+            if (Types == null)
+            {
                 Types = new List<PersonType>();
             }
             Types.Add(personType);
         }
 
-        public void AddAdress(Address address){
+        public void AddAdress(Address address)
+        {
             Address = SetAddress(address);
         }
-        public void AddContact(Contact contact){
+        public void AddContact(Contact contact)
+        {
             Contact = SetContact(contact);
         }
     }

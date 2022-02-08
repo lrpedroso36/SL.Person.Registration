@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
 using SL.Person.Registration.Domain.InterViewAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Query.Handler
@@ -52,7 +52,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             {
                 await queryHandler.Handle(query, default);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Assert.True(true);
             }
