@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SL.Person.Registration.Domain.Repositories
 {
-    public interface IPersonRepository
+    public interface IPersonRegistrationRepository
     {
         void Insert(PersonRegistration registration);
 

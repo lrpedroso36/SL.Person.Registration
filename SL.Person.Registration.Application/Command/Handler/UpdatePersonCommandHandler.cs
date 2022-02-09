@@ -8,9 +8,9 @@ namespace SL.Person.Registration.Application.Command.Handler
 {
     public class UpdatePersonCommandHandler : IRequestHandler<UpdatePersonCommand, bool>
     {
-        private IPersonRepository _repository;
+        private IPersonRegistrationRepository _repository;
 
-        public UpdatePersonCommandHandler(IPersonRepository repository)
+        public UpdatePersonCommandHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }

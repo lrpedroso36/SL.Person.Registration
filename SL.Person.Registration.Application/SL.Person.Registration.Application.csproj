@@ -9,11 +9,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="Command\" />
-    <Folder Include="Command\Handler\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
+    <ProjectReference Include="..\SL.Person.Registration.Infrastructure.MongoDb\SL.Person.Registration.Infrastructure.MongoDb.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Command\" />

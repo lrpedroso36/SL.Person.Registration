@@ -8,9 +8,9 @@ namespace SL.Person.Registration.Application.Command.Hanler
 {
     public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand, bool>
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPersonRegistrationRepository _repository;
 
-        public InsertPersonCommandHandler(IPersonRepository repository)
+        public InsertPersonCommandHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }

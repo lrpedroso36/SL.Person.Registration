@@ -3,15 +3,6 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Folder Include="PersonAggregate\" />
-    <Folder Include="PersonAggregate\Enuns\" />
-    <Folder Include="InterViewAggregate\" />
-    <Folder Include="InterViewAggregate\Enuns\" />
-    <Folder Include="Results\" />
-    <Folder Include="Requests\" />
-  </ItemGroup>
   <ItemGroup>
     <None Remove="Requests\" />
   </ItemGroup>

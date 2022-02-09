@@ -18,11 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Domain\PersonAggregate\" />
-    <Folder Include="Domain\InterViewAggregate\" />
-    <Folder Include="Application\Query\Handler\" />
-    <Folder Include="Domain\Results\" />
     <Folder Include="Domain\Requests\" />
     <Folder Include="MoqUnitTest\" />
     <Folder Include="Application\Command\" />

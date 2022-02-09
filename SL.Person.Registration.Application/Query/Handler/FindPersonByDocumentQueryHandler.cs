@@ -1,26 +1,29 @@
 ﻿using MediatR;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Base;
+using SL.Person.Registration.Domain.Results.Contrats;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
-    public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, FindPersonResult>
+    public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, IResult<FindPersonResult>>
     {
-        private readonly IPersonRepository _repository;
+        private readonly IPersonRegistrationRepository _repository;
 
-        public FindPersonByDocumentQueryHandler(IPersonRepository repository)
+        public FindPersonByDocumentQueryHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<FindPersonResult> Handle(FindPersonByDocumentQuery request, CancellationToken cancellationToken)
+        public async Task<IResult<FindPersonResult>> Handle(FindPersonByDocumentQuery request, CancellationToken cancellationToken)
         {
-            var result = new FindPersonResult();
+            var result = new Result<FindPersonResult>();
 
             if (request.DocumentNumber == 0)
             {
+                result.AddErrors("Informe o número do Documento.");
                 return result;
             }
 
@@ -28,10 +31,11 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             if (personRegistration == null)
             {
+                result.AddErrors("Pessoa não encontrada.");
                 return result;
             }
 
-            result = (FindPersonResult)personRegistration;
+            result.SetData((FindPersonResult)personRegistration);
 
             return result;
         }

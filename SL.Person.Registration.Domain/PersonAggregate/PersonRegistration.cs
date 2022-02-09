@@ -22,6 +22,8 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public Contact Contact { get; private set; }
 
+        public List<Interview> Interviews { get; private set; }
+
         protected PersonRegistration()
         {
 
@@ -84,6 +86,16 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public void AddContact(Contact contact)
         {
             Contact = SetContact(contact);
+        }
+
+        public void AddInterview(Interview interview)
+        {
+            if (Interviews == null)
+            {
+                Interviews = new List<Interview>();
+            }
+
+            Interviews.Add(interview);
         }
     }
 }

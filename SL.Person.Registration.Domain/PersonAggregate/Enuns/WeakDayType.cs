@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SL.Person.Registration.Domain.InterViewAggregate.Enuns
+namespace SL.Person.Registration.Domain.PersonAggregate.Enuns
 {
     public enum WeakDayType
     {

@@ -11,19 +11,19 @@ using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Query.Handler
 {
-    public class FindPersonByDocumentQueryHandlerTest
+    public class FindPersonByContactNumberQueryHandlerTest
     {
         public static List<object[]> Data = new List<object[]>()
         {
             new object[] {
-                new FindPersonByDocumentQuery(0),
+                new FindPersonByContactNumberQuery(0,0),
                 null,
                 null,
                 false,
-                new List<string>() { "Informe o número do Documento." }
+                new List<string>() { "Informe o número do DDD e Celular." }
             },
-             new object[] {
-                new FindPersonByDocumentQuery(1),
+            new object[] {
+                new FindPersonByContactNumberQuery(1,1),
                 null,
                 null,
                 false,
@@ -31,7 +31,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             },
             new object[]
             {
-                new FindPersonByDocumentQuery(123456789),
+                new FindPersonByContactNumberQuery(1,1),
                 Builder<FindPersonResult>.CreateNew().Build(),
                 GetPersonRegistration(),
                 true,
@@ -49,12 +49,12 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(FindPersonByDocumentQuery query, FindPersonResult result,
+        public async Task Should_execute_handler(FindPersonByContactNumberQuery query, FindPersonResult result,
             PersonRegistration registration, bool isSucess, List<string> errors)
         {
             var moqRepository = MockInformatioRegistrationRepository.GetMockRepository(registration);
 
-            var resultHandler = new FindPersonByDocumentQueryHandler(moqRepository.Object);
+            var resultHandler = new FindPersonByContactNumberQueryHandler(moqRepository.Object);
 
             var handler = await resultHandler.Handle(query, default);
             handler.Data.Should().BeEquivalentTo(result);

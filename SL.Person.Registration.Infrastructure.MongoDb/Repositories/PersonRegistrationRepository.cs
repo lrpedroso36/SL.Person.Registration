@@ -1,14 +1,13 @@
-﻿using MongoDB.Bson;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts.Contracts;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
 {
-    public class PersonRegistrationRepository : IPersonRepository
+    public class PersonRegistrationRepository : IPersonRegistrationRepository
     {
         private readonly IPersonRegistrationDbContext<PersonRegistration> _context;
 
@@ -19,34 +18,17 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
 
         public PersonRegistration GetByContactNumber(int ddd, long phoneNumber)
         {
-            var filterDDD = Builders<PersonRegistration>.Filter.Lte("Contact.DDD", ddd);
-            var filterPhoneNumber = Builders<PersonRegistration>.Filter.Lte("Contact.PhoneNumber", phoneNumber);
-            var filter = Builders<PersonRegistration>.Filter.And(filterDDD, filterPhoneNumber);
-
-            var result = _context.Collection.Find(filter).FirstOrDefault();
-
-            return result;
+            return _context.Collection.AsQueryable().FirstOrDefault(x => x.Contact != null && x.Contact.DDD == ddd && x.Contact.PhoneNumber == phoneNumber);
         }
 
         public PersonRegistration GetByDocument(long documentNumber)
         {
-            var filter = Builders<PersonRegistration>.Filter.Lte("DocumentNumber", documentNumber);
-
-            var result = _context.Collection.Find(filter).FirstOrDefault();
-
-            return result;
+            return _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber);
         }
 
         public IEnumerable<PersonRegistration> GetByName(string name)
         {
-            var queryExpr = new BsonRegularExpression(new Regex($"^{name}.*", RegexOptions.None));
-
-            var builder = Builders<PersonRegistration>.Filter;
-            var filter = builder.Regex("Name", queryExpr);
-
-            var result = _context.Collection.Find(filter).ToList();
-
-            return result;
+            return _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()));
         }
 
         public void Insert(PersonRegistration registration)

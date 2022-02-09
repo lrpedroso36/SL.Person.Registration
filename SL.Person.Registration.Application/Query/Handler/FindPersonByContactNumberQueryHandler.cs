@@ -1,26 +1,29 @@
 ﻿using MediatR;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Base;
+using SL.Person.Registration.Domain.Results.Contrats;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
-    public class FindPersonByContactNumberQueryHandler : IRequestHandler<FindPersonByContactNumberQuery, FindPersonResult>
+    public class FindPersonByContactNumberQueryHandler : IRequestHandler<FindPersonByContactNumberQuery, IResult<FindPersonResult>>
     {
-        private IPersonRepository _personRepository;
+        private readonly IPersonRegistrationRepository _personRepository;
 
-        public FindPersonByContactNumberQueryHandler(IPersonRepository personRepository)
+        public FindPersonByContactNumberQueryHandler(IPersonRegistrationRepository personRepository)
         {
             _personRepository = personRepository;
         }
 
-        public async Task<FindPersonResult> Handle(FindPersonByContactNumberQuery request, CancellationToken cancellationToken)
+        public async Task<IResult<FindPersonResult>> Handle(FindPersonByContactNumberQuery request, CancellationToken cancellationToken)
         {
-            var result = new FindPersonResult();
+            var result = new Result<FindPersonResult>();
 
             if (request.Ddd == 0 || request.PhoneNumber == 0)
             {
+                result.AddErrors("Informe o número do DDD e Celular.");
                 return result;
             }
 
@@ -28,10 +31,11 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             if (personRegistration == null)
             {
+                result.AddErrors("Pessoa não encontrada.");
                 return result;
             }
 
-            result = (FindPersonResult)personRegistration;
+            result.SetData((FindPersonResult)personRegistration);
 
             return result;
         }

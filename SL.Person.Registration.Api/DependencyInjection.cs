@@ -35,7 +35,7 @@ namespace SL.Person.Registration
         {
             service.AddScoped<IPersonRegistrationDbContext<PersonRegistration>, PersonRegistrationDbContext>();
 
-            service.AddScoped<IPersonRepository, PersonRegistrationRepository>();
+            service.AddScoped<IPersonRegistrationRepository, PersonRegistrationRepository>();
             return service;
         }
 

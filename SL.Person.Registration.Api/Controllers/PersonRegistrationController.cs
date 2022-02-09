@@ -6,6 +6,8 @@ using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Base;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,14 +31,19 @@ namespace SL.Person.Registration.Controllers
         /// </summary>
         /// <param name="documentNumber"></param>
         /// <param name="cancellationToken"></param>
+        /// <response code="200">Pesquisa realizada com sucesso</response>
+        /// <response code="400">Informe o número do Documento / Pessoa não encontrada</response>
         /// <returns></returns>
         [HttpGet("{documentNumber}")]
-        [ProducesDefaultResponseType]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindPersonResult))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FindPersonByDocumentAsync(long documentNumber, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new FindPersonByDocumentQuery(documentNumber), cancellationToken);
+
+            if (!result.IsSuccess)
+                return BadRequest(result);
 
             return Ok(result);
         }
@@ -47,14 +54,19 @@ namespace SL.Person.Registration.Controllers
         /// <param name="ddd"></param>
         /// <param name="phoneNumber"></param>
         /// <param name="cancellationToken"></param>
+        /// <response code="200">Pesquisa realizada com sucesso</response>
+        /// <response code="400">Informe o número do DDD e Celular / Pessoa não encontrada</response>
         /// <returns></returns>
         [HttpGet("{ddd}/{phoneNumber}")]
-        [ProducesDefaultResponseType]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindPersonResult))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FindPersonByContactNumber(int ddd, long phoneNumber, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new FindPersonByContactNumberQuery(ddd, phoneNumber), cancellationToken);
+
+            if (!result.IsSuccess)
+                return BadRequest(result);
 
             return Ok(result);
         }
@@ -65,14 +77,19 @@ namespace SL.Person.Registration.Controllers
         /// </summary>
         /// <param name="name"></param>
         /// <param name="cancellationToken"></param>
+        /// <response code="200">Pesquisa realizada com sucesso</response>
+        /// <response code="400">Informe o nome da pessoa que deseja pesquisar / Pessoa não encontrada</response>
         /// <returns></returns>
         [HttpGet("list/{name}")]
-        [ProducesDefaultResponseType]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindPersonResult))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<IEnumerable<FindPersonResult>>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<IEnumerable<FindPersonResult>>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FindPersonByName(string name, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new FindPersonByNameQuery(name), cancellationToken);
+
+            if (!result.IsSuccess)
+                return BadRequest(result);
 
             return Ok(result);
         }
@@ -84,7 +101,6 @@ namespace SL.Person.Registration.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult PostAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
@@ -100,7 +116,6 @@ namespace SL.Person.Registration.Controllers
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
         [HttpPut]
-        [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult PutAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
