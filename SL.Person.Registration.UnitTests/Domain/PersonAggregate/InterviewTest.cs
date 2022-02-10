@@ -41,8 +41,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                     new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, 1, 1234567890, null,null),
                 1,
                 "opinião",
-                PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, 1, 1234567890, null,null),
+                PersonRegistration.CreateInstance(Guid.Empty, new List<PersonType> { PersonType.Entrevistador}, "nome",1234567890),
                 GetTrataments()
             }
         };
@@ -57,8 +56,11 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         public void Should_set_properties(TreatmentType treatmentType, WeakDayType weakDayType, InterviewType type, DateTime date,
             PersonRegistration person, int amount, string opinion, PersonRegistration interviewer, List<Tratament> presences)
         {
+            //arrange
+            //act
             var interview = Interview.CreateInstance(treatmentType, weakDayType, type, date, person, amount, opinion);
 
+            //assert
             interview.TreatmentType.Should().Be(treatmentType);
 
             interview.WeakDayType.Should().Be(weakDayType);
@@ -73,6 +75,24 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             interview.Opinion.Should().BeOfType(typeof(string));
 
             interview.Trataments.Should().BeEquivalentTo(presences);
+        }
+
+        [Fact]
+        public void Should_set_trataments()
+        {
+            //arrange
+            var trataments = new List<Tratament>()
+            {
+                Tratament.CreateInstance(new DateTime(2022,02,12), null),
+                Tratament.CreateInstance(new DateTime(2022,02,19), null)
+            };
+
+            //act
+            var interview = Interview.CreateInstance(TreatmentType.PasseA3, WeakDayType.Sabado, InterviewType.Retorno, new DateTime(2022, 02, 09),
+                Builder<PersonRegistration>.CreateNew().Build(), 2, "teste opniao");
+
+            //assert
+            interview.Trataments.Should().BeEquivalentTo(trataments);
         }
     }
 }

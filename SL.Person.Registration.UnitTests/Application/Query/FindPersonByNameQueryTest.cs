@@ -10,7 +10,11 @@ namespace SL.Person.Registration.UnitTests.Application.Query
         [InlineData("nome")]
         public void Should_set_properties(string name)
         {
+            //arrange
+            //act
             var query = new FindPersonByNameQuery(name);
+
+            //assert
             query.Name.Should().Be(name);
         }
     }

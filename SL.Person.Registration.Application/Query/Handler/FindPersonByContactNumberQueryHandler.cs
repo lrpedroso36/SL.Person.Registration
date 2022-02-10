@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using SL.Person.Registration.Application.Query.Validations;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Base;
 using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results.Enums;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,11 +20,10 @@ namespace SL.Person.Registration.Application.Query.Handler
 
         public async Task<IResult<FindPersonResult>> Handle(FindPersonByContactNumberQuery request, CancellationToken cancellationToken)
         {
-            var result = new Result<FindPersonResult>();
+            var result = request.RequestValidate();
 
-            if (request.Ddd == 0 || request.PhoneNumber == 0)
+            if (!result.IsSuccess)
             {
-                result.AddErrors("Informe o número do DDD e Celular.");
                 return result;
             }
 
@@ -31,7 +31,7 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             if (personRegistration == null)
             {
-                result.AddErrors("Pessoa não encontrada.");
+                result.AddErrors("Pessoa não encontrada.", ErrorType.NotFoundData);
                 return result;
             }
 

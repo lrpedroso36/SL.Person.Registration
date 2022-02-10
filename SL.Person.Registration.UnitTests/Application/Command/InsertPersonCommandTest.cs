@@ -19,6 +19,9 @@ namespace SL.Person.Registration.UnitTests.Application.Command
         [MemberData(nameof(Data))]
         public void Should_set_properties(InsertPersonCommand command, PersonRequest personRequest)
         {
+            //arrange
+            //act
+            //asserts
             command.Person.Should().BeEquivalentTo(personRequest);
         }
     }

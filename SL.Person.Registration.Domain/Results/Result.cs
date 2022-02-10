@@ -1,8 +1,10 @@
 ﻿using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results.Enums;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json.Serialization;
 
-namespace SL.Person.Registration.Domain.Results.Base
+namespace SL.Person.Registration.Domain.Results
 {
     public class Result<T> : IResult<T>
     {
@@ -10,7 +12,10 @@ namespace SL.Person.Registration.Domain.Results.Base
         public bool IsSuccess { get { return !Errors.Any(); } }
         public List<string> Errors { get; private set; } = new List<string>();
 
-        public void AddErrors(string error)
+        [JsonIgnore]
+        public ErrorType ErrorType { get; private set; }
+
+        public void AddErrors(string error, ErrorType errorType)
         {
             if (Errors == null)
             {
@@ -19,6 +24,8 @@ namespace SL.Person.Registration.Domain.Results.Base
 
             if (!string.IsNullOrWhiteSpace(error) && !Errors.Contains(error))
                 Errors.Add(error);
+
+            ErrorType = errorType;
         }
 
         public void SetData(T data)

@@ -27,7 +27,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         {
             if (taskMaster != null && taskMaster.Types.Any(x => x == PersonType.Tarefeiro))
             {
-                return taskMaster;
+                return PersonRegistration.CreateInstance(taskMaster._id, taskMaster.Types, taskMaster.Name, taskMaster.DocumentNumber);
             }
 
             return null;

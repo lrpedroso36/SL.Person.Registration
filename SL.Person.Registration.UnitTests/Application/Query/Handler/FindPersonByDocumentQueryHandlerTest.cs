@@ -4,6 +4,7 @@ using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Enums;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -20,14 +21,16 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
                 null,
                 null,
                 false,
-                new List<string>() { "Informe o número do Documento." }
+                new List<string>() { "Informe o número do Documento." },
+                ErrorType.InvalidParameters
             },
              new object[] {
                 new FindPersonByDocumentQuery(1),
                 null,
                 null,
                 false,
-                new List<string>() { "Pessoa não encontrada." }
+                new List<string>() { "Pessoa não encontrada." },
+                ErrorType.NotFoundData
             },
             new object[]
             {
@@ -35,7 +38,8 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
                 Builder<FindPersonResult>.CreateNew().Build(),
                 GetPersonRegistration(),
                 true,
-                new List<string>()
+                new List<string>(),
+                (ErrorType)0
             }
         };
 
@@ -50,16 +54,20 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         [Theory]
         [MemberData(nameof(Data))]
         public async Task Should_execute_handler(FindPersonByDocumentQuery query, FindPersonResult result,
-            PersonRegistration registration, bool isSucess, List<string> errors)
+            PersonRegistration registration, bool isSucess, List<string> errors, ErrorType errorType)
         {
+            //arrange
             var moqRepository = MockInformatioRegistrationRepository.GetMockRepository(registration);
 
+            //act
             var resultHandler = new FindPersonByDocumentQueryHandler(moqRepository.Object);
-
             var handler = await resultHandler.Handle(query, default);
+
+            //assert
             handler.Data.Should().BeEquivalentTo(result);
             handler.IsSuccess.Should().Be(isSucess);
             handler.Errors.Should().BeEquivalentTo(errors);
+            handler.ErrorType.Should().Be(errorType);
         }
     }
 }

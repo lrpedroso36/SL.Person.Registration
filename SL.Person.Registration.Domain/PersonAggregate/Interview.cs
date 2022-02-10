@@ -52,7 +52,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         {
             if (person.Types.Contains(PersonType.Entrevistador))
             {
-                return person;
+                return PersonRegistration.CreateInstance(person._id, person.Types, person.Name, person.DocumentNumber);
             }
 
             return null;

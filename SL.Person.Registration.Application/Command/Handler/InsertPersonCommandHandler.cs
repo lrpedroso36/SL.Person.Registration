@@ -1,12 +1,14 @@
 ﻿using MediatR;
+using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
+using SL.Person.Registration.Domain.Results.Contrats;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Hanler
 {
-    public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand, bool>
+    public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand, IResult<bool>>
     {
         private readonly IPersonRegistrationRepository _repository;
 
@@ -15,11 +17,13 @@ namespace SL.Person.Registration.Application.Command.Hanler
             _repository = repository;
         }
 
-        public async Task<bool> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
+        public async Task<IResult<bool>> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
         {
-            if (request.Person == null || request.Person.DocumentNumber == 0)
+            var result = request.RequestValidate();
+
+            if (!result.IsSuccess)
             {
-                return false;
+                return result;
             }
 
             var person = request.Person.GetPersonRegistration();
@@ -29,7 +33,9 @@ namespace SL.Person.Registration.Application.Command.Hanler
 
             _repository.Insert(registration);
 
-            return true;
+            result.SetData(true);
+
+            return result;
         }
     }
 }

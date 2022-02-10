@@ -1,12 +1,15 @@
 ﻿using MediatR;
+using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
+using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results.Enums;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class UpdatePersonCommandHandler : IRequestHandler<UpdatePersonCommand, bool>
+    public class UpdatePersonCommandHandler : IRequestHandler<UpdatePersonCommand, IResult<bool>>
     {
         private IPersonRegistrationRepository _repository;
 
@@ -15,18 +18,21 @@ namespace SL.Person.Registration.Application.Command.Handler
             _repository = repository;
         }
 
-        public async Task<bool> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
+        public async Task<IResult<bool>> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
         {
-            if (request.Person == null || request.Person.DocumentNumber == 0)
+            var result = request.RequestValidate();
+
+            if (!result.IsSuccess)
             {
-                return false;
+                return result;
             }
 
             var personRegistration = _repository.GetByDocument(request.Person.DocumentNumber);
 
             if (personRegistration == null)
             {
-                return false;
+                result.AddErrors("Não foi possível encontrar os dados da pessoa.", ErrorType.NotFoundData);
+                return result;
             }
 
             var person = request.Person.GetPersonRegistration();
@@ -38,7 +44,9 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             _repository.Update(update);
 
-            return true;
+            result.SetData(true);
+
+            return result;
         }
     }
 }

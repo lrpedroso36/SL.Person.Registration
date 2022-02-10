@@ -20,7 +20,11 @@ namespace SL.Person.Registration.UnitTests.Application.Query
         [MemberData(nameof(Data))]
         public void Should_set_properties(Type type)
         {
+            //arrange
+            //act
             var query = new FindLookupQuery(type);
+
+            //assert
             query.EnumType.Should().Be(type);
         }
     }

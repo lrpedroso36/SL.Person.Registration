@@ -17,8 +17,11 @@ namespace SL.Person.Registration.UnitTests.Domain.Requests
         [MemberData(nameof(Data))]
         public void Should_get_person(PersonRequest personRequest)
         {
+            //arrange
+            //act
             var person = personRequest.GetPersonRegistration();
 
+            //assert
             person.Types.Should().BeEquivalentTo(personRequest.Types);
             person.Name.Should().Be(personRequest.Name);
             person.Gender.Should().Be(personRequest.Gender);

@@ -21,14 +21,18 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             var person = Builder<PersonRegistration>.CreateNew().Build();
             person.AddPersonType(PersonType.Tarefeiro);
-            return person;
+            return PersonRegistration.CreateInstance(person._id, person.Types, person.Name, person.DocumentNumber);
         }
 
         [Theory]
         [MemberData(nameof(Data))]
         public void Should_set_properties(DateTime date, PersonRegistration taskMaster, PersonRegistration taskMasterExpected)
         {
+            //arrange
+            //act
             var presence = Tratament.CreateInstance(date, taskMaster);
+
+            //assert
             presence.Date.Should().Be(date);
             presence.TaskMaster.Should().BeEquivalentTo(taskMasterExpected);
         }

@@ -1,7 +1,8 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
-using SL.Person.Registration.Domain.Results.Base;
+using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results.Enums;
 using System.Collections.Generic;
 using Xunit;
 
@@ -21,7 +22,11 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
         [MemberData(nameof(Data))]
         public void Should_set_properties(IResult<ResultMoq> result, bool sucess, string error, List<string> errors)
         {
-            result.AddErrors(error);
+            //arrange
+            //act
+            result.AddErrors(error, ErrorType.InvalidParameters);
+
+            //assert
             result.Errors.Should().BeEquivalentTo(errors);
             result.IsSuccess.Should().Be(sucess);
         }
@@ -29,10 +34,14 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
         [Fact]
         public void Should_not_add_same_errors()
         {
+            //arrage
             var result = Builder<Result<ResultMoq>>.CreateNew().Build();
-            result.AddErrors("teste");
-            result.AddErrors("teste");
 
+            //act
+            result.AddErrors("teste", ErrorType.InvalidParameters);
+            result.AddErrors("teste", ErrorType.InvalidParameters);
+
+            //assert
             result.Errors.Should().HaveCount(1);
         }
     }

@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using SL.Person.Registration.Application.Query.Validations;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Base;
 using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -21,11 +22,10 @@ namespace SL.Person.Registration.Application.Query.Handler
 
         public async Task<IResult<IEnumerable<FindPersonResult>>> Handle(FindPersonByNameQuery request, CancellationToken cancellationToken)
         {
-            var result = new Result<IEnumerable<FindPersonResult>>();
+            var result = request.RequestValidate();
 
-            if (string.IsNullOrWhiteSpace(request.Name))
+            if (!result.IsSuccess)
             {
-                result.AddErrors("Informe o nome da pessoa que deseja pesquisar.");
                 return result;
             }
 
@@ -33,7 +33,7 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             if (personRegistration == null || !personRegistration.Any())
             {
-                result.AddErrors("Pessoa não encontrada.");
+                result.AddErrors("Pessoa não encontrada.", ErrorType.NotFoundData);
                 return result;
             }
 

@@ -55,6 +55,17 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             Contact contact)
         => new PersonRegistration(type, name, gender, yeasOld, documentNumber, address, contact);
 
+        protected PersonRegistration(Guid id, List<PersonType> types, string name, long documentNumber)
+        {
+            _id = id;
+            Types = types;
+            Name = name;
+            DocumentNumber = documentNumber;
+        }
+
+        public static PersonRegistration CreateInstance(Guid id, List<PersonType> types, string name, long documentNumber)
+            => new PersonRegistration(id, types, name, documentNumber);
+
         public void SetId(Guid id)
         {
             _id = id;

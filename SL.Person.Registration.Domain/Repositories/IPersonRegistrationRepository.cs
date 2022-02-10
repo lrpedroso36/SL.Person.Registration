@@ -1,4 +1,5 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate;
+using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System.Collections.Generic;
 
 namespace SL.Person.Registration.Domain.Repositories
@@ -14,5 +15,7 @@ namespace SL.Person.Registration.Domain.Repositories
         IEnumerable<PersonRegistration> GetByName(string name);
 
         bool Update(PersonRegistration registration);
+
+        PersonRegistration GetByDocument(long documentNumber, PersonType personType);
     }
 }
