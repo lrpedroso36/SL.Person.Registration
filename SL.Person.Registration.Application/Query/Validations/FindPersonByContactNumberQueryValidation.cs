@@ -1,4 +1,5 @@
-﻿using SL.Person.Registration.Domain.Results;
+﻿using SL.Person.Registratio.CrossCuting.Resources;
+using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
 
 namespace SL.Person.Registration.Application.Query.Validations
@@ -11,7 +12,7 @@ namespace SL.Person.Registration.Application.Query.Validations
 
             if (request.Ddd == 0 || request.PhoneNumber == 0)
             {
-                result.AddErrors("Informe o número do DDD e Celular.", ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters);
                 return result;
             }
 

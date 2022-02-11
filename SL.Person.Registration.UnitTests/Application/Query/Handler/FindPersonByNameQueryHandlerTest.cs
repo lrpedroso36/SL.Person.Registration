@@ -1,5 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
+using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -22,7 +23,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
                 null,
                 null,
                 false,
-                new List<string> { "Informe o nome da pessoa que deseja pesquisar." },
+                new List<string> { ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid },
                 ErrorType.InvalidParameters
             },
             new object[] {
@@ -30,7 +31,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
                 null,
                 null,
                 false,
-                new List<string> { "Informe o nome da pessoa que deseja pesquisar." },
+                new List<string> { ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid },
                 ErrorType.InvalidParameters
             },
              new object[] {
@@ -38,7 +39,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
                 null,
                 null,
                 false,
-                new List<string> { "Informe o nome da pessoa que deseja pesquisar." },
+                new List<string> { ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid },
                 ErrorType.InvalidParameters
             },
             new object[]

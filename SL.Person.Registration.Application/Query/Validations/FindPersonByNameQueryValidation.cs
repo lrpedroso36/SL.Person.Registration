@@ -1,4 +1,5 @@
-﻿using SL.Person.Registration.Domain.Results;
+﻿using SL.Person.Registratio.CrossCuting.Resources;
+using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
 using System.Collections.Generic;
 
@@ -12,7 +13,7 @@ namespace SL.Person.Registration.Application.Query.Validations
 
             if (string.IsNullOrWhiteSpace(request.Name))
             {
-                result.AddErrors("Informe o nome da pessoa que deseja pesquisar.", ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid, ErrorType.InvalidParameters);
                 return result;
             }
 

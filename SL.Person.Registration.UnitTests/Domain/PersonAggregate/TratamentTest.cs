@@ -36,5 +36,22 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             presence.Date.Should().Be(date);
             presence.TaskMaster.Should().BeEquivalentTo(taskMasterExpected);
         }
+
+        [Fact]
+        public void Should_set_presence()
+        {
+            //arrange
+            var date = new DateTime(2022, 2, 10);
+            var taskMaster = GetPersonRegistration();
+            var tratament = Builder<Tratament>.CreateNew().Build();
+
+            //act
+            tratament.SetPresence(date, taskMaster);
+
+            //assert
+            tratament.Date.Should().Be(date);
+            tratament.TaskMaster.Should().BeEquivalentTo(taskMaster);
+            tratament.Presence.Should().BeTrue();
+        }
     }
 }

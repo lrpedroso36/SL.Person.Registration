@@ -1,6 +1,7 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SL.Person.Registration.Domain.PersonAggregate
 {
@@ -13,6 +14,8 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public InterviewType Type { get; private set; }
 
         public DateTime Date { get; private set; }
+
+        public TratamentStatus Status { get; private set; }
 
         public PersonRegistration Interviewer { get; private set; }
 
@@ -36,6 +39,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             Interviewer = SetPerson(person);
             Amount = amount;
             Opinion = opinion;
+            Status = TratamentStatus.InProcess;
             SetTrataments(weakDayType, amount);
         }
 
@@ -74,6 +78,17 @@ namespace SL.Person.Registration.Domain.PersonAggregate
                     Trataments.Add(Tratament.CreateInstance(dateTime, null));
                     count++;
                 }
+            }
+        }
+
+        public void SetPresenceTratament(DateTime date, PersonRegistration taskMaster)
+        {
+            Trataments.OrderBy(x => x.Date)
+                      .FirstOrDefault(x => !x.Presence.HasValue)?.SetPresence(date, taskMaster);
+
+            if (Trataments.All(x => x.Presence.HasValue && x.Presence.Value))
+            {
+                Status = TratamentStatus.Concluded;
             }
         }
     }

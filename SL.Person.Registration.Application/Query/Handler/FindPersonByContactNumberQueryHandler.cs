@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Query.Validations;
+using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Contrats;
-using SL.Person.Registration.Domain.Results.Enums;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,9 +29,10 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             var personRegistration = _personRepository.GetByContactNumber(request.Ddd, request.PhoneNumber);
 
-            if (personRegistration == null)
+            result = personRegistration.Validate<FindPersonResult>();
+
+            if (!result.IsSuccess)
             {
-                result.AddErrors("Pessoa não encontrada.", ErrorType.NotFoundData);
                 return result;
             }
 

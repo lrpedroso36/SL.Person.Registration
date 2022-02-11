@@ -1,6 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using Moq;
+using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Hanler;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -17,8 +18,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new InsertPersonCommand(null), false, 0, new List<string>() { "Informe os dados da pessoa." }, ErrorType.InvalidParameters },
-            new object[] { new InsertPersonCommand(GetPerson()), false, 0, new List<string>() { "Informe os dados da pessoa." }, ErrorType.InvalidParameters },
+            new object[] { new InsertPersonCommand(null), false, 0, new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters },
+            new object[] { new InsertPersonCommand(GetPerson()), false, 0, new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters },
             new object[] { new InsertPersonCommand(Builder<PersonRequest>.CreateNew().Build()), true, 1, new List<string>(), (ErrorType)0 }
         };
 

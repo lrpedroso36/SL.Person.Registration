@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Domain.PersonAggregate;
+using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results.Contrats;
-using SL.Person.Registration.Domain.Results.Enums;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,9 +29,10 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var personRegistration = _repository.GetByDocument(request.Person.DocumentNumber);
 
-            if (personRegistration == null)
+            result = personRegistration.Validate<bool>();
+
+            if (!result.IsSuccess)
             {
-                result.AddErrors("Não foi possível encontrar os dados da pessoa.", ErrorType.NotFoundData);
                 return result;
             }
 

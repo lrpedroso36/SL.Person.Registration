@@ -1,6 +1,7 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SL.Person.Registration.Domain.PersonAggregate
 {
@@ -29,6 +30,14 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         }
 
+        protected PersonRegistration(Guid id, List<PersonType> types, string name, long documentNumber)
+        {
+            _id = id;
+            Types = types;
+            Name = name;
+            DocumentNumber = documentNumber;
+        }
+
         protected PersonRegistration(List<PersonType> types,
             string name,
             GenderType gender,
@@ -55,22 +64,6 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             Contact contact)
         => new PersonRegistration(type, name, gender, yeasOld, documentNumber, address, contact);
 
-        protected PersonRegistration(Guid id, List<PersonType> types, string name, long documentNumber)
-        {
-            _id = id;
-            Types = types;
-            Name = name;
-            DocumentNumber = documentNumber;
-        }
-
-        public static PersonRegistration CreateInstance(Guid id, List<PersonType> types, string name, long documentNumber)
-            => new PersonRegistration(id, types, name, documentNumber);
-
-        public void SetId(Guid id)
-        {
-            _id = id;
-        }
-
         private Contact SetContact(Contact contact)
         {
             return contact ?? null;
@@ -81,19 +74,30 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             return address ?? null;
         }
 
+        public static PersonRegistration CreateInstance(Guid id, List<PersonType> types, string name, long documentNumber)
+            => new PersonRegistration(id, types, name, documentNumber);
+
+        public void SetId(Guid id)
+        {
+            _id = id;
+        }
+
         public void AddPersonType(PersonType personType)
         {
             if (Types == null)
             {
                 Types = new List<PersonType>();
             }
-            Types.Add(personType);
+
+            if (!Types.Contains(personType))
+                Types.Add(personType);
         }
 
         public void AddAdress(Address address)
         {
             Address = SetAddress(address);
         }
+
         public void AddContact(Contact contact)
         {
             Contact = SetContact(contact);
@@ -107,6 +111,12 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             }
 
             Interviews.Add(interview);
+        }
+
+        public void SetPresenceTratament(DateTime dateTime, PersonRegistration taskMaster)
+        {
+            var tratament = Interviews?.FirstOrDefault(x => x.Status == TratamentStatus.InProcess);
+            tratament?.SetPresenceTratament(dateTime, taskMaster);
         }
     }
 }

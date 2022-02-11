@@ -1,4 +1,5 @@
-﻿using SL.Person.Registration.Domain.Results;
+﻿using SL.Person.Registratio.CrossCuting.Resources;
+using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
 
 namespace SL.Person.Registration.Application.Command.Validations
@@ -11,13 +12,13 @@ namespace SL.Person.Registration.Application.Command.Validations
 
             if (request.Interview == null)
             {
-                result.AddErrors("Informe os dados da entrevista.", ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_RequestInvalid, ErrorType.InvalidParameters);
                 return result;
             }
 
-            if (request.Interview.DocumnetNumber == 0 || request.Interview.DocumentNumberInterview == 0)
+            if (request.Interview.Interviewed == 0 || request.Interview.Interviewer == 0)
             {
-                result.AddErrors("Informe o documento do paciente ou o documento do entrevistador.", ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters);
                 return result;
             }
 

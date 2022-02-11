@@ -20,7 +20,6 @@
   <ItemGroup>
     <Folder Include="Domain\Requests\" />
     <Folder Include="MoqUnitTest\" />
-    <Folder Include="Application\Command\Handler\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />

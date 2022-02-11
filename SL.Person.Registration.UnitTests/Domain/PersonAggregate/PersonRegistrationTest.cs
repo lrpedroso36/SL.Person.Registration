@@ -4,6 +4,7 @@ using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
@@ -129,6 +130,22 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         }
 
         [Fact]
+        public void Should_not_add_person_type()
+        {
+            //arrage
+            var personType = PersonType.Palestrante;
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+
+            //act
+            person.AddPersonType(personType);
+            person.AddPersonType(personType);
+
+            //assert
+            person.Types.Should().HaveCount(1);
+            person.Types.Should().Contain(personType);
+        }
+
+        [Fact]
         public void Should_add_address()
         {
             //arrange
@@ -154,6 +171,26 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
             //assert
             person.Contact.Should().BeEquivalentTo(contact);
+        }
+
+        [Fact]
+        public void Should_set_presence_tratament()
+        {
+            //arrange
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            var personInterviewer = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Entrevistador }, "nome", 123456789);
+            var personTaskmaster = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+            person.AddInterview(Interview.CreateInstance(TreatmentType.TratamentoEspiritual, WeakDayType.Sabado, InterviewType.Primeira, new DateTime(2022, 2, 5), personInterviewer, 1, "opnião"));
+
+            var tramentCompare = Tratament.CreateInstance(new DateTime(2022, 2, 10), personTaskmaster, true);
+
+            //act
+            person.SetPresenceTratament(new DateTime(2022, 2, 10), personTaskmaster);
+
+            //assert
+            var interview = person.Interviews.FirstOrDefault();
+            var tratament = interview.Trataments.FirstOrDefault();
+            tratament.Should().BeEquivalentTo(tramentCompare);
         }
     }
 }

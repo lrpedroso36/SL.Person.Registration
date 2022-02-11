@@ -9,6 +9,8 @@ namespace SL.Person.Registration.Domain.Results
     public class Result<T> : IResult<T>
     {
         public T Data { get; private set; }
+
+        [JsonIgnore]
         public bool IsSuccess { get { return !Errors.Any(); } }
         public List<string> Errors { get; private set; } = new List<string>();
 

@@ -1,4 +1,5 @@
-﻿using SL.Person.Registration.Domain.Results;
+﻿using SL.Person.Registratio.CrossCuting.Resources;
+using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
 
 namespace SL.Person.Registration.Application.Command.Validations
@@ -11,7 +12,7 @@ namespace SL.Person.Registration.Application.Command.Validations
 
             if (request.Person == null || request.Person.DocumentNumber == 0)
             {
-                result.AddErrors("Informe os dados da pessoa.", ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid, ErrorType.InvalidParameters);
                 return result;
             }
 

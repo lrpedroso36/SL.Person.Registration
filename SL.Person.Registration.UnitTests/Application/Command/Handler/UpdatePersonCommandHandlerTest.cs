@@ -1,6 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using Moq;
+using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -17,14 +18,14 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new UpdatePersonCommand(null), false, 0, 0, null, new List<string>() { "Informe os dados da pessoa." } ,ErrorType.InvalidParameters },
-            new object[] { new UpdatePersonCommand(GetPerson()), false, 0, 0, null, new List<string>() { "Informe os dados da pessoa." }, ErrorType.InvalidParameters  },
+            new object[] { new UpdatePersonCommand(null), false, 0, 0, null, new List<string>() { ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid } ,ErrorType.InvalidParameters },
+            new object[] { new UpdatePersonCommand(GetPerson()), false, 0, 0, null, new List<string>() { ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters  },
             new object[] { new UpdatePersonCommand(Builder<PersonRequest>.CreateNew().Build()),
                 false,
                 0,
                 1,
                 null,
-                new List<string>() { "Não foi possível encontrar os dados da pessoa." },
+                new List<string>() { ResourceMessagesValidation.PersonRegistration_InstanceInvalid },
                 ErrorType.NotFoundData
             },
             new object[] { new UpdatePersonCommand(Builder<PersonRequest>.CreateNew().Build()),

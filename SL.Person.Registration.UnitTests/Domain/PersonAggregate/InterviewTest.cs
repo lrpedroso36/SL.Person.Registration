@@ -94,5 +94,59 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             //assert
             interview.Trataments.Should().BeEquivalentTo(trataments);
         }
+
+        public static PersonRegistration GetPersonTaskMaster()
+        {
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            person.AddPersonType(PersonType.Tarefeiro);
+            return PersonRegistration.CreateInstance(person._id, person.Types, person.Name, person.DocumentNumber);
+        }
+
+        [Fact]
+        public void Should_set_presence_tratament()
+        {
+            //arrange
+            var taskMaster = GetPersonTaskMaster();
+
+            var interview = Interview.CreateInstance(TreatmentType.PasseA3, WeakDayType.Sabado, InterviewType.Retorno, new DateTime(2022, 02, 09),
+                Builder<PersonRegistration>.CreateNew().Build(), 2, "teste opniao");
+
+            var trataments = new List<Tratament>()
+            {
+                Tratament.CreateInstance(new DateTime(2022, 2, 10), taskMaster, true),
+                Tratament.CreateInstance(new DateTime(2022, 2, 19), null)
+            };
+
+            //act
+            interview.SetPresenceTratament(new DateTime(2022, 2, 10), taskMaster);
+
+            //assert
+            interview.Trataments.Should().BeEquivalentTo(trataments);
+            interview.Status.Should().Be(TratamentStatus.InProcess);
+        }
+
+        [Fact]
+        public void Should_not_set_presence_tratament_if_tratament_completed()
+        {
+            var taskMaster = GetPersonTaskMaster();
+
+            var interview = Interview.CreateInstance(TreatmentType.PasseA3, WeakDayType.Sabado, InterviewType.Retorno, new DateTime(2022, 01, 09),
+                Builder<PersonRegistration>.CreateNew().Build(), 2, "teste opniao");
+
+            var trataments = new List<Tratament>()
+            {
+                Tratament.CreateInstance(new DateTime(2022, 2, 08), taskMaster, true),
+                Tratament.CreateInstance(new DateTime(2022, 2, 09), taskMaster, true)
+            };
+
+            //act
+            interview.SetPresenceTratament(new DateTime(2022, 2, 08), taskMaster);
+            interview.SetPresenceTratament(new DateTime(2022, 2, 09), taskMaster);
+            interview.SetPresenceTratament(new DateTime(2022, 2, 10), taskMaster);
+
+            //assert
+            interview.Trataments.Should().BeEquivalentTo(trataments);
+            interview.Status.Should().Be(TratamentStatus.Concluded);
+        }
     }
 }

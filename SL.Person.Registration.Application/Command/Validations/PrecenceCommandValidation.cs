@@ -4,15 +4,15 @@ using SL.Person.Registration.Domain.Results.Enums;
 
 namespace SL.Person.Registration.Application.Command.Validations
 {
-    public static class InsertPersonCommandValidation
+    public static class PrecenceCommandValidation
     {
-        public static Result<bool> RequestValidate(this InsertPersonCommand request)
+        public static Result<bool> RequestValidate(this PrecenceCommand request)
         {
             var result = new Result<bool>();
 
-            if (request.Person == null || request.Person.DocumentNumber == 0)
+            if (request.Interviewed == 0 || request.TaskMaster == 0)
             {
-                result.AddErrors(ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid, ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters);
                 return result;
             }
 

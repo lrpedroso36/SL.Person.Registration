@@ -29,7 +29,7 @@ namespace SL.Person.Registration.Controllers
         /// <summary>
         /// Pesquisar registro de pessoa pelo o número do documento
         /// </summary>
-        /// <param name="documentNumber"></param>
+        /// <param name="documentNumber">Número do documento da pessoa</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Pesquisa realizada com sucesso</response>
         /// <response code="400">Informe o número do Documento</response>
@@ -46,8 +46,8 @@ namespace SL.Person.Registration.Controllers
         /// <summary>
         /// Pesquisar registro de pessoa pelo o número do contato
         /// </summary>
-        /// <param name="ddd"></param>
-        /// <param name="phoneNumber"></param>
+        /// <param name="ddd">DDD do telafone</param>
+        /// <param name="phoneNumber">Número do telefone</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Pesquisa realizada com sucesso</response>
         /// <response code="400">Informe o número do DDD e Celular</response>
@@ -56,7 +56,6 @@ namespace SL.Person.Registration.Controllers
         [HttpGet("{ddd}/{phoneNumber}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<FindPersonResult>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FindPersonByContactNumber(int ddd, long phoneNumber, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new FindPersonByContactNumberQuery(ddd, phoneNumber), cancellationToken));
@@ -65,7 +64,7 @@ namespace SL.Person.Registration.Controllers
         /// <summary>
         /// Pesquisar uma lista de pessoas pelo o nome
         /// </summary>
-        /// <param name="name"></param>
+        /// <param name="name">Nome da pessoa</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Pesquisa realizada com sucesso</response>
         /// <response code="400">Informe o nome da pessoa que deseja pesquisar</response>

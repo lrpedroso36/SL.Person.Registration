@@ -4,9 +4,9 @@ namespace SL.Person.Registration.Domain.Requests
 {
     public class InterviewRequest
     {
-        public long DocumnetNumber { get; set; }
+        public long Interviewed { get; set; }
 
-        public long DocumentNumberInterview { get; set; }
+        public long Interviewer { get; set; }
 
         public TreatmentType TreatmentType { get; set; }
 

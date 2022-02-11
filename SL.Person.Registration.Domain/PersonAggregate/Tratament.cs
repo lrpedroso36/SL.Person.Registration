@@ -23,6 +23,12 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             TaskMaster = SetTaskMaster(taskMaster);
         }
 
+        private Tratament(DateTime date, PersonRegistration taskMaster, bool presence) : this(date, taskMaster)
+        {
+
+            Presence = presence;
+        }
+
         private PersonRegistration SetTaskMaster(PersonRegistration taskMaster)
         {
             if (taskMaster != null && taskMaster.Types.Any(x => x == PersonType.Tarefeiro))
@@ -35,5 +41,15 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public static Tratament CreateInstance(DateTime date, PersonRegistration taskMaster)
             => new Tratament(date, taskMaster);
+
+        public static Tratament CreateInstance(DateTime date, PersonRegistration taskMaster, bool presence)
+            => new Tratament(date, taskMaster, presence);
+
+        public void SetPresence(DateTime date, PersonRegistration taskMaster)
+        {
+            Date = date;
+            TaskMaster = SetTaskMaster(taskMaster);
+            Presence = true;
+        }
     }
 }
