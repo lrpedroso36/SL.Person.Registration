@@ -13,17 +13,13 @@
     <PackageReference Include="coverlet.collector" Version="1.2.0" />
     <PackageReference Include="FluentAssertions" Version="6.1.0" />
     <PackageReference Include="NBuilder" Version="6.1.0" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="NSubstitute" Version="4.2.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Domain\PersonAggregate\" />
-    <Folder Include="Domain\InterViewAggregate\" />
-    <Folder Include="Domain\RegistrationAggregate\" />
-    <Folder Include="Application\" />
-    <Folder Include="Application\Query\" />
-    <Folder Include="Application\Query\Handler\" />
-    <Folder Include="Domain\Results\" />
+    <Folder Include="Domain\Requests\" />
+    <Folder Include="MoqUnitTest\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
@@ -31,5 +27,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Domain\Results\" />
+    <None Remove="Domain\Requests\" />
+    <None Remove="Mock\" />
+    <None Remove="Moq" />
+    <None Remove="NSubstitute" />
+    <None Remove="MoqUnitTest\" />
+    <None Remove="Application\Command\" />
+    <None Remove="Application\Command\Handler\" />
   </ItemGroup>
 </Project>

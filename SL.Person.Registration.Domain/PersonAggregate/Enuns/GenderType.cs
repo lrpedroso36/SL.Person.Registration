@@ -7,8 +7,8 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Enuns
         [Description("Masculino")]
         Masculino = 1,
 
-        [Description("Feminio")]
-        Feminio = 2,
+        [Description("Feminino")]
+        Feminino = 2,
 
         [Description("Outros")]
         Outros = 3

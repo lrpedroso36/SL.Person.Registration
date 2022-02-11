@@ -1,29 +1,41 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
-using SL.Person.Registration.Domain.RegistrationAggregate;
+﻿using MediatR;
+using SL.Person.Registration.Application.Command.Validations;
+using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
+using SL.Person.Registration.Domain.Results.Contrats;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Hanler
 {
-    public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand, bool>
+    public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand, IResult<bool>>
     {
-        private readonly IInformationRegistrationRepository _repository;
+        private readonly IPersonRegistrationRepository _repository;
 
-        public InsertPersonCommandHandler(IInformationRegistrationRepository repository)
+        public InsertPersonCommandHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<bool> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
+        public async Task<IResult<bool>> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
         {
-            var person = request.GetPersonRegistration();
+            var result = request.RequestValidate();
 
-            var registration = InformationRegistration.CreateInstance(person, null);
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
+
+            var person = request.Person.GetPersonRegistration();
+
+            var registration = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender,
+                           person.YearsOld, person.DocumentNumber, person.Address, person.Contact);
 
             _repository.Insert(registration);
 
-            return true;
+            result.SetData(true);
+
+            return result;
         }
     }
 }

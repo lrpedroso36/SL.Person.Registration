@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -8,14 +8,11 @@
     <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Query\" />
-    <Folder Include="Query\Handler\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Command\" />
-    <Folder Include="Command\Handler\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
+    <ProjectReference Include="..\SL.Person.Registration.Infrastructure.MongoDb\SL.Person.Registration.Infrastructure.MongoDb.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Command\" />

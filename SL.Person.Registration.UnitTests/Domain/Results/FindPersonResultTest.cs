@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using FizzWare.NBuilder;
+﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Results;
+using System.Collections.Generic;
 
 namespace SL.Person.Registration.UnitTests.Domain.Results
 {
@@ -10,10 +10,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { Builder<PersonRegistration>.CreateNew().Build(), Builder<FindPersonResult>.CreateNew().Build() }
+            new object[] { Builder<PersonRegistration>.CreateNew().Build() }
         };
 
-        public void Should_converter_person_registration(PersonRegistration person, FindPersonResult personResult)
+        public void Should_converter_person_registration(PersonRegistration person)
         {
             var result = (FindPersonResult)person;
 

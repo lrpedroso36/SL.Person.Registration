@@ -1,16 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
   <ItemGroup>
-    <Folder Include="PersonAggregate\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="PersonAggregate\Enuns\" />
-    <Folder Include="InterViewAggregate\" />
-    <Folder Include="InterViewAggregate\Enuns\" />
-    <Folder Include="RegistrationAggregate\" />
-    <Folder Include="Results\" />
+    <None Remove="Requests\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SL.Person.Registratio.CrossCuting\SL.Person.Registratio.CrossCuting.csproj" />
   </ItemGroup>
 </Project>

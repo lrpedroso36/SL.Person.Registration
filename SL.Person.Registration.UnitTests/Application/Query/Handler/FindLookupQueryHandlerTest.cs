@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
-using SL.Person.Registration.Domain.InterViewAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Query.Handler
@@ -26,10 +25,14 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         [MemberData(nameof(Data))]
         public async Task Should_execute_query_handler(Type type, int countList)
         {
+            //arrange
             var query = new FindLookupQuery(type);
+
+            //act
             var queryHandler = new FindLookupQueryHandler();
             var result = await queryHandler.Handle(query, default);
 
+            //assert
             result.Should().HaveCount(countList);
         }
 
@@ -45,15 +48,18 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         [MemberData(nameof(DataInvalid))]
         public async Task Should_execute_query_handler_exception(Type type)
         {
+            //arrange
             var query = new FindLookupQuery(type);
             var queryHandler = new FindLookupQueryHandler();
 
             try
             {
+                //act
                 await queryHandler.Handle(query, default);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
+                //assert
                 Assert.True(true);
             }
         }

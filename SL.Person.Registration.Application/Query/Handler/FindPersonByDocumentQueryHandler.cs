@@ -1,32 +1,42 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
+using SL.Person.Registration.Application.Query.Validations;
+using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Contrats;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
-    public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, FindPersonResult>
+    public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, IResult<FindPersonResult>>
     {
-        private IInformationRegistrationRepository _repository;
+        private readonly IPersonRegistrationRepository _repository;
 
-        public FindPersonByDocumentQueryHandler(IInformationRegistrationRepository repository)
+        public FindPersonByDocumentQueryHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<FindPersonResult> Handle(FindPersonByDocumentQuery request, CancellationToken cancellationToken)
+        public async Task<IResult<FindPersonResult>> Handle(FindPersonByDocumentQuery request, CancellationToken cancellationToken)
         {
-            var informationRegistration =  _repository.GetByDocument(request.DocumentNumber);
+            var result = request.RequestValidate();
 
-            var result = new FindPersonResult();
-
-            if(informationRegistration == null && informationRegistration.PersonRegistration == null)
+            if (!result.IsSuccess)
             {
                 return result;
             }
 
-            result = (FindPersonResult)informationRegistration.PersonRegistration;
+            var personRegistration = _repository.GetByDocument(request.DocumentNumber);
+
+            result = personRegistration.Validate<FindPersonResult>();
+
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
+
+            result.SetData((FindPersonResult)personRegistration);
 
             return result;
         }

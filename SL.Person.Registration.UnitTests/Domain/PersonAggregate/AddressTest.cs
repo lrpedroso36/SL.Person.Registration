@@ -1,6 +1,6 @@
-﻿using Xunit;
+﻿using FluentAssertions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using FluentAssertions;
+using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 {
@@ -11,7 +11,11 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         public void Should_set_properties(long zipCode, string street, string number,
             string neighborhood, string complement, string city, string state)
         {
+            //arrange
+            //act
             var address = Address.CreateInstance(zipCode, street, number, neighborhood, complement, city, state);
+
+            //assert
             address.ZipCode.Should().Be(zipCode);
             address.ZipCode.Should().BeOfType(typeof(long));
 
