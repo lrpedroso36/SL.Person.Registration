@@ -31,7 +31,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var personInterviewed = _personRegistrationRepository.GetByDocument(request.Interview.Interviewed);
 
-            result = personInterviewed.Validate<bool>();
+            result = personInterviewed.ValidateInstanceByType<bool>(PersonType.Assistido);
 
             if (!result.IsSuccess)
             {
@@ -40,7 +40,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var personInterviewer = _personRegistrationRepository.GetByDocument(request.Interview.Interviewer, PersonType.Entrevistador);
 
-            result = personInterviewer.Validate<bool>();
+            result = personInterviewer.ValidateInstanceByType<bool>(PersonType.Entrevistador);
 
             if (!result.IsSuccess)
             {

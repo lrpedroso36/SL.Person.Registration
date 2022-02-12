@@ -37,13 +37,13 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
                            null
             },
             new object[] { new PrecenceCommand(1,1),
-                          ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PersonRegistration_InstanceInvalid, ErrorType.NotFoundData),
+                          ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid, ErrorType.NotFoundData),
                           null,
                           null
 
             },
             new object[] { new PrecenceCommand(1,1),
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PersonRegistration_InstanceInvalid, ErrorType.NotFoundData),
+                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PersonRegistrationLabore_InstanceInvalid, ErrorType.NotFoundData),
                            PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome" ,1234567890),
                            null
             },
@@ -64,11 +64,11 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         [Theory]
         [MemberData(nameof(Data))]
         public async Task Should_execute_handler_request_validate(PrecenceCommand precenceCommand, Result<bool> resultExpected,
-            PersonRegistration personWatched, PersonRegistration personTaskMaster)
+            PersonRegistration personWatched, PersonRegistration personLaborer)
         {
             //arrange
             var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(personTaskMaster);
+            moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(personLaborer);
             moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personWatched);
 
             //act

@@ -10,7 +10,7 @@ namespace SL.Person.Registration.Application.Command.Validations
         {
             var result = new Result<bool>();
 
-            if (request.Interviewed == 0 || request.TaskMaster == 0)
+            if (request.InterviewedDocument == 0 || request.LaborerDocument == 0)
             {
                 result.AddErrors(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters);
                 return result;

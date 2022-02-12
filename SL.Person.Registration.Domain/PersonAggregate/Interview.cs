@@ -81,10 +81,10 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             }
         }
 
-        public void SetPresenceTratament(DateTime date, PersonRegistration taskMaster)
+        public void SetPresenceTratament(DateTime date, PersonRegistration laborer)
         {
             Trataments.OrderBy(x => x.Date)
-                      .FirstOrDefault(x => !x.Presence.HasValue)?.SetPresence(date, taskMaster);
+                      .FirstOrDefault(x => !x.Presence.HasValue)?.SetPresence(date, laborer);
 
             if (Trataments.All(x => x.Presence.HasValue && x.Presence.Value))
             {

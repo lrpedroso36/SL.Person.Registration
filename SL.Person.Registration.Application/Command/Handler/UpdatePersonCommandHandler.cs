@@ -29,7 +29,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var personRegistration = _repository.GetByDocument(request.Person.DocumentNumber);
 
-            result = personRegistration.Validate<bool>();
+            result = personRegistration.ValidateInstanec<bool>();
 
             if (!result.IsSuccess)
             {

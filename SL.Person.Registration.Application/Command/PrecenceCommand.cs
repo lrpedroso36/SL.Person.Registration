@@ -5,13 +5,13 @@ namespace SL.Person.Registration.Application.Command
 {
     public class PrecenceCommand : IRequest<IResult<bool>>
     {
-        public long Interviewed { get; private set; }
-        public long TaskMaster { get; private set; }
+        public long InterviewedDocument { get; private set; }
+        public long LaborerDocument { get; private set; }
 
-        public PrecenceCommand(long interviewed, long taskMaster)
+        public PrecenceCommand(long interviewedDocument, long laborerDocument)
         {
-            Interviewed = interviewed;
-            TaskMaster = taskMaster;
+            InterviewedDocument = interviewedDocument;
+            LaborerDocument = laborerDocument;
         }
     }
 }

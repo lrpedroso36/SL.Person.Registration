@@ -55,7 +55,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
              new object[] { new InsertInterviewCommand(Builder<InterviewRequest>.CreateNew().Build()),
                             false,
                             1,
-                            new List<string>() { ResourceMessagesValidation.PersonRegistration_InstanceInvalid },
+                            new List<string>() { ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid },
                             ErrorType.NotFoundData,
                             null,
                             null
@@ -63,7 +63,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             new object[] { new InsertInterviewCommand(Builder<InterviewRequest>.CreateNew().Build()),
                             false,
                             2,
-                            new List<string>() { ResourceMessagesValidation.PersonRegistration_InstanceInvalid },
+                            new List<string>() { ResourceMessagesValidation.PersonRegistrationInterviewer_InstanceInvalid },
                             ErrorType.NotFoundData,
                             Builder<PersonRegistration>.CreateNew().Build(),
                             null

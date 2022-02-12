@@ -25,6 +25,8 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public List<Interview> Interviews { get; private set; }
 
+        public List<Assignment> Assignments { get; private set; }
+
         protected PersonRegistration()
         {
 
@@ -113,10 +115,20 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             Interviews.Add(interview);
         }
 
-        public void SetPresenceTratament(DateTime dateTime, PersonRegistration taskMaster)
+        public void SetPresenceTratament(DateTime dateTime, PersonRegistration laborer)
         {
             var tratament = Interviews?.FirstOrDefault(x => x.Status == TratamentStatus.InProcess);
-            tratament?.SetPresenceTratament(dateTime, taskMaster);
+            tratament?.SetPresenceTratament(dateTime, laborer);
+        }
+
+        public void SetPresenceAssignment(DateTime date, bool presence)
+        {
+            if (Assignments == null)
+            {
+                Assignments = new List<Assignment>();
+            }
+
+            Assignments.Add(Assignment.CreateInstance(date, presence));
         }
     }
 }

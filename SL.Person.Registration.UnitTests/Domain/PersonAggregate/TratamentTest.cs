@@ -26,15 +26,15 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void Should_set_properties(DateTime date, PersonRegistration taskMaster, PersonRegistration taskMasterExpected)
+        public void Should_set_properties(DateTime date, PersonRegistration laborer, PersonRegistration laborerExpected)
         {
             //arrange
             //act
-            var presence = Tratament.CreateInstance(date, taskMaster);
+            var presence = Tratament.CreateInstance(date, laborer);
 
             //assert
             presence.Date.Should().Be(date);
-            presence.TaskMaster.Should().BeEquivalentTo(taskMasterExpected);
+            presence.Laborer.Should().BeEquivalentTo(laborerExpected);
         }
 
         [Fact]
@@ -42,15 +42,15 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             //arrange
             var date = new DateTime(2022, 2, 10);
-            var taskMaster = GetPersonRegistration();
+            var laborer = GetPersonRegistration();
             var tratament = Builder<Tratament>.CreateNew().Build();
 
             //act
-            tratament.SetPresence(date, taskMaster);
+            tratament.SetPresence(date, laborer);
 
             //assert
             tratament.Date.Should().Be(date);
-            tratament.TaskMaster.Should().BeEquivalentTo(taskMaster);
+            tratament.Laborer.Should().BeEquivalentTo(laborer);
             tratament.Presence.Should().BeTrue();
         }
     }

@@ -28,25 +28,25 @@ namespace SL.Person.Registration.Application.Command.Handler
                 return result;
             }
 
-            var personInterviewed = _personRegistrationRepository.GetByDocument(request.Interviewed, PersonType.Assistido);
+            var personInterviewed = _personRegistrationRepository.GetByDocument(request.InterviewedDocument, PersonType.Assistido);
 
-            result = personInterviewed.Validate<bool>();
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
-
-            var personTaskMaster = _personRegistrationRepository.GetByDocument(request.TaskMaster);
-
-            result = personTaskMaster.Validate<bool>();
+            result = personInterviewed.ValidateInstanceByType<bool>(PersonType.Assistido);
 
             if (!result.IsSuccess)
             {
                 return result;
             }
 
-            personInterviewed.SetPresenceTratament(DateTime.Now, personTaskMaster);
+            var personLaborer = _personRegistrationRepository.GetByDocument(request.LaborerDocument);
+
+            result = personLaborer.ValidateInstanceByType<bool>(PersonType.Tarefeiro);
+
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
+
+            personInterviewed.SetPresenceTratament(DateTime.Now, personLaborer);
 
             personInterviewed.SetId(personInterviewed._id);
 

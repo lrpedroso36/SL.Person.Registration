@@ -179,18 +179,41 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             //arrange
             var person = Builder<PersonRegistration>.CreateNew().Build();
             var personInterviewer = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Entrevistador }, "nome", 123456789);
-            var personTaskmaster = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+            var personLaborer = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
             person.AddInterview(Interview.CreateInstance(TreatmentType.TratamentoEspiritual, WeakDayType.Sabado, InterviewType.Primeira, new DateTime(2022, 2, 5), personInterviewer, 1, "opnião"));
 
-            var tramentCompare = Tratament.CreateInstance(new DateTime(2022, 2, 10), personTaskmaster, true);
+            var tramentCompare = Tratament.CreateInstance(new DateTime(2022, 2, 10), personLaborer, true);
 
             //act
-            person.SetPresenceTratament(new DateTime(2022, 2, 10), personTaskmaster);
+            person.SetPresenceTratament(new DateTime(2022, 2, 10), personLaborer);
 
             //assert
             var interview = person.Interviews.FirstOrDefault();
             var tratament = interview.Trataments.FirstOrDefault();
             tratament.Should().BeEquivalentTo(tramentCompare);
+        }
+
+        public static List<object[]> DateAssignment = new List<object[]>
+        {
+            new object[] { true, new DateTime(2022,2,12) },
+            new object[] { false, new DateTime(2022,2,12) }
+        };
+
+        [Theory]
+        [MemberData(nameof(DateAssignment))]
+        public void Should_set_presence_assgment(bool presence, DateTime date)
+        {
+            //arrange
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            var list = new List<Assignment>() { Assignment.CreateInstance(date, presence) };
+
+            //act
+            person.SetPresenceAssignment(date, presence);
+
+            //assert
+            person.Assignments.Should().HaveCount(1);
+            person.Assignments.Should().BeEquivalentTo(list);
+
         }
     }
 }

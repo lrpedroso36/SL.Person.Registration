@@ -124,6 +124,42 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Entrevistador não encontrado..
+        /// </summary>
+        public static string PersonRegistrationInterviewer_InstanceInvalid {
+            get {
+                return ResourceManager.GetString("PersonRegistrationInterviewer_InstanceInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tarefeiro não encontrado..
+        /// </summary>
+        public static string PersonRegistrationLabore_InstanceInvalid {
+            get {
+                return ResourceManager.GetString("PersonRegistrationLabore_InstanceInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Palestranete não encontrado..
+        /// </summary>
+        public static string PersonRegistrationSpeaker_InstanceInvalid {
+            get {
+                return ResourceManager.GetString("PersonRegistrationSpeaker_InstanceInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assistido não encontrado..
+        /// </summary>
+        public static string PersonRegistrationWatched_InstanceInvalid {
+            get {
+                return ResourceManager.GetString("PersonRegistrationWatched_InstanceInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe o documento do paciente ou o documento do tarefeiro..
         /// </summary>
         public static string PrecenceCommandValidation_DataRequestInvalid {
