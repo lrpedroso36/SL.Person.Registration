@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Command.Validations;
-using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results.Contrats;
@@ -9,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class UpdatePersonCommandHandler : IRequestHandler<UpdatePersonCommand, IResult<bool>>
+    public class InsertOrUpdateContactCommandHandler : IRequestHandler<InsertOrUpdateContactCommand, IResult<bool>>
     {
-        private IPersonRegistrationRepository _repository;
+        private readonly IPersonRegistrationRepository _repository;
 
-        public UpdatePersonCommandHandler(IPersonRegistrationRepository repository)
+        public InsertOrUpdateContactCommandHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<IResult<bool>> Handle(UpdatePersonCommand request, CancellationToken cancellationToken)
+        public async Task<IResult<bool>> Handle(InsertOrUpdateContactCommand request, CancellationToken cancellationToken)
         {
             var result = request.RequestValidate();
 
@@ -27,7 +26,7 @@ namespace SL.Person.Registration.Application.Command.Handler
                 return result;
             }
 
-            var personRegistration = _repository.GetByDocument(request.Person.DocumentNumber);
+            var personRegistration = _repository.GetByDocument(request.DocumentNumber);
 
             result = personRegistration.ValidateInstance<bool>();
 
@@ -36,12 +35,11 @@ namespace SL.Person.Registration.Application.Command.Handler
                 return result;
             }
 
-            var person = request.Person.GetPersonRegistration();
+            var contact = request.Contact.GetContact();
 
-            var update = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender,
-                person.YearsOld, person.DocumentNumber);
+            personRegistration.AddContact(contact);
 
-            _repository.Update(update);
+            _repository.Update(personRegistration);
 
             result.SetData(true);
 

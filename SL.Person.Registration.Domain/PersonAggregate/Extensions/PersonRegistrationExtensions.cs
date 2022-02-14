@@ -22,7 +22,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Extensions
             return result;
         }
 
-        public static Result<T> ValidateInstanec<T>(this PersonRegistration person)
+        public static Result<T> ValidateInstance<T>(this PersonRegistration person)
         {
             var result = new Result<T>();
 

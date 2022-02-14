@@ -1,7 +1,9 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System.Diagnostics.CodeAnalysis;
 
 namespace SL.Person.Registration.Domain.Requests
 {
+    [ExcludeFromCodeCoverage]
     public class InterviewRequest
     {
         public long Interviewed { get; set; }

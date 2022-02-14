@@ -44,27 +44,21 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             string name,
             GenderType gender,
             int yeasOld,
-            long documentNumber,
-            Address address,
-            Contact contact)
+            long documentNumber)
         {
             Types = types;
             Name = name;
             Gender = gender;
             YearsOld = yeasOld;
             DocumentNumber = documentNumber;
-            Address = SetAddress(address);
-            Contact = SetContact(contact);
         }
 
         public static PersonRegistration CreateInstance(List<PersonType> type,
             string name,
             GenderType gender,
             int yeasOld,
-            long documentNumber,
-            Address address,
-            Contact contact)
-        => new PersonRegistration(type, name, gender, yeasOld, documentNumber, address, contact);
+            long documentNumber)
+        => new PersonRegistration(type, name, gender, yeasOld, documentNumber);
 
         private Contact SetContact(Contact contact)
         {
@@ -78,11 +72,6 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public static PersonRegistration CreateInstance(Guid id, List<PersonType> types, string name, long documentNumber)
             => new PersonRegistration(id, types, name, documentNumber);
-
-        public void SetId(Guid id)
-        {
-            _id = id;
-        }
 
         public void AddPersonType(PersonType personType)
         {

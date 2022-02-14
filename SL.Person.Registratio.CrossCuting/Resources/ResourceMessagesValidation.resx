@@ -132,6 +132,18 @@
   <data name="InsertInterviewCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da entrevista.</value>
   </data>
+  <data name="InsertOrUpdateAddressCommandValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe os dados do endereço.</value>
+  </data>
+  <data name="InsertOrUpdateAddressCommandValidation_RequestInvalid_Document" xml:space="preserve">
+    <value>Informe o documento da pessoa que deseja adicionar o endereço.</value>
+  </data>
+  <data name="InsertOrUpdateContactCommandValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe os dados do contato</value>
+  </data>
+  <data name="InsertOrUpdateContactCommandValidation_RequestInvalid_Document" xml:space="preserve">
+    <value>Informe o documento da pessoa que deseja adicionar o contato.</value>
+  </data>
   <data name="InsertPersonCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da pessoa.</value>
   </data>

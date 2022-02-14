@@ -29,7 +29,7 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             var personRegistration = _personRepository.GetByContactNumber(request.Ddd, request.PhoneNumber);
 
-            result = personRegistration.ValidateInstanec<FindPersonResult>();
+            result = personRegistration.ValidateInstance<FindPersonResult>();
 
             if (!result.IsSuccess)
             {

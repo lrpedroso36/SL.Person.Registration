@@ -17,9 +17,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 "nome",
                 GenderType.Masculino,
                 33,
-                1234567890,
-                null,
-                null
+                1234567890
             },
             new object[]
             {
@@ -27,9 +25,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 "nome",
                 GenderType.Masculino,
                 33,
-                1234567890,
-                Builder<Address>.CreateNew().Build(),
-                null
+                1234567890
             },
             new object[]
             {
@@ -37,9 +33,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 "nome",
                 GenderType.Masculino,
                 33,
-                1234567890,
-                Builder<Address>.CreateNew().Build(),
-                Builder<Contact>.CreateNew().Build()
+                1234567890
              }
         };
 
@@ -49,14 +43,11 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
              string name,
              GenderType gender,
              int yeasOld,
-             long documentNumber,
-             Address address,
-             Contact contact)
+             long documentNumber)
         {
             //arrange
             //act
-            var person = PersonRegistration.CreateInstance(types, name, gender, yeasOld, documentNumber,
-                address, contact);
+            var person = PersonRegistration.CreateInstance(types, name, gender, yeasOld, documentNumber);
 
             //assert
             person.Types.Should().BeEquivalentTo(types);
@@ -72,9 +63,9 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.DocumentNumber.Should().Be(documentNumber);
             person.DocumentNumber.Should().BeOfType(typeof(long));
 
-            person.Address.Should().BeEquivalentTo(address);
+            person.Address.Should().BeNull();
 
-            person.Contact.Should().BeEquivalentTo(contact);
+            person.Contact.Should().BeNull();
         }
 
         [Fact]
@@ -99,20 +90,6 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.YearsOld.Should().Be(0);
             person.Address.Should().BeNull();
             person.Contact.Should().BeNull();
-        }
-
-        [Fact]
-        public void Should_set_id_person_registration()
-        {
-            //arrage
-            var id = Guid.NewGuid();
-            var person = Builder<PersonRegistration>.CreateNew().Build();
-
-            //act
-            person.SetId(id);
-
-            //assert
-            person._id.Should().Be(id);
         }
 
         [Fact]

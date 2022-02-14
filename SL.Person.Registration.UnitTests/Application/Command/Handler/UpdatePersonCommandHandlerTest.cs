@@ -18,8 +18,20 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new UpdatePersonCommand(null), false, 0, 0, null, new List<string>() { ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid } ,ErrorType.InvalidParameters },
-            new object[] { new UpdatePersonCommand(GetPerson()), false, 0, 0, null, new List<string>() { ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters  },
+            new object[] { new UpdatePersonCommand(null), 
+                           false, 
+                           0, 
+                           0, 
+                           null, 
+                           new List<string>() { ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid } ,ErrorType.InvalidParameters 
+            },
+            new object[] { new UpdatePersonCommand(GetPerson()), 
+                           false, 
+                           0, 
+                           0, 
+                           null, 
+                           new List<string>() { ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters  
+            },
             new object[] { new UpdatePersonCommand(Builder<PersonRequest>.CreateNew().Build()),
                 false,
                 0,
@@ -52,7 +64,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         {
 
             //arrange
-            var mockRepository = MockInformatioRegistrationRepository.GetMockRepository(registration);
+            var mockRepository = MockPersonRegistrationRepository.GetMockRepository(registration);
 
             //act
             var commandHandler = new UpdatePersonCommandHandler(mockRepository.Object);

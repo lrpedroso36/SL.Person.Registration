@@ -52,8 +52,6 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             personInterviewed.AddPersonType(PersonType.Assistido);
 
-            personInterviewed.SetId(personInterviewed._id);
-
             _personRegistrationRepository.Update(personInterviewed);
 
             result.SetData(true);

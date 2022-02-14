@@ -48,8 +48,6 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             personInterviewed.SetPresenceTratament(DateTime.Now, personLaborer);
 
-            personInterviewed.SetId(personInterviewed._id);
-
             _personRegistrationRepository.Update(personInterviewed);
 
             result.SetData(true);

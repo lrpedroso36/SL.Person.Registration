@@ -106,6 +106,42 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informe os dados do endereço..
+        /// </summary>
+        public static string InsertOrUpdateAddressCommandValidation_RequestInvalid {
+            get {
+                return ResourceManager.GetString("InsertOrUpdateAddressCommandValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o documento da pessoa que deseja adicionar o endereço..
+        /// </summary>
+        public static string InsertOrUpdateAddressCommandValidation_RequestInvalid_Document {
+            get {
+                return ResourceManager.GetString("InsertOrUpdateAddressCommandValidation_RequestInvalid_Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe os dados do contato.
+        /// </summary>
+        public static string InsertOrUpdateContactCommandValidation_RequestInvalid {
+            get {
+                return ResourceManager.GetString("InsertOrUpdateContactCommandValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o documento da pessoa que deseja adicionar o contato..
+        /// </summary>
+        public static string InsertOrUpdateContactCommandValidation_RequestInvalid_Document {
+            get {
+                return ResourceManager.GetString("InsertOrUpdateContactCommandValidation_RequestInvalid_Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe os dados da pessoa..
         /// </summary>
         public static string InsertPersonCommandValidation_RequestInvalid {

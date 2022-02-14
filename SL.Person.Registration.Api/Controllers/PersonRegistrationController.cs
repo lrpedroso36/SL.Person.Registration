@@ -107,5 +107,70 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
         public async Task<IActionResult> PutAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new UpdatePersonCommand(request), cancellationToken));
+
+        /// <summary>
+        /// Inserir dados do contato de pessoa
+        /// </summary>
+        /// <param name="documentNumber">Documento da pessoa</param>
+        /// <param name="request">Dados do contato da pessoa</param>
+        /// <param name="cancellationToken"></param>
+        /// <response code="200">Pessoa cadastrada com sucesso</response>
+        /// <response code="400">Informe os dados da pessoa</response>
+        /// <returns></returns>
+        [HttpPost("contact/{documentNumber}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
+        public async Task<IActionResult> PostContactAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
+            => GetActionResult(await _mediator.Send(new InsertOrUpdateContactCommand(documentNumber, request), cancellationToken));
+
+        /// <summary>
+        /// Atualizar os dados do contato da pessoa
+        /// </summary>
+        /// <param name="documentNumber">Documento da pessoa</param>
+        /// <param name="request"></param>
+        /// <param name="cancellationToken"></param>
+        /// <response code="200">Pessoa atualizada com sucesso</response>
+        /// <response code="400">Informe os dados da pessoa</response>
+        /// <response code="404">Pessoa não encontrada</response>
+        /// <returns></returns>
+        [HttpPut("contact/{documnetNumber}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
+        public async Task<IActionResult> PutContactAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
+            => GetActionResult(await _mediator.Send(new InsertOrUpdateContactCommand(documentNumber, request), cancellationToken));
+
+
+        /// <summary>
+        /// Inserir dados do endereço de pessoa
+        /// </summary>
+        /// <param name="documentNumber">Documento da pessoa</param>
+        /// <param name="request">Dados do endereço da pessoa</param>
+        /// <param name="cancellationToken"></param>
+        /// <response code="200">Pessoa cadastrada com sucesso</response>
+        /// <response code="400">Informe os dados da pessoa</response>
+        /// <returns></returns>
+        [HttpPost("address/{documentNumber}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
+        public async Task<IActionResult> PostAddressAsync([FromBody] AddressRequest request, long documentNumber, CancellationToken cancellationToken)
+            => GetActionResult(await _mediator.Send(new InsertOrUpdateAddressCommand(documentNumber, request), cancellationToken));
+
+        /// <summary>
+        /// Atualizar os dados do endereço da pessoa
+        /// </summary>
+        /// <param name="documentNumber">Documento da pessoa</param>
+        /// <param name="request">Data do endereço da pessoa</param>
+        /// <param name="cancellationToken"></param>
+        /// <response code="200">Pessoa atualizada com sucesso</response>
+        /// <response code="400">Informe os dados da pessoa</response>
+        /// <response code="404">Pessoa não encontrada</response>
+        /// <returns></returns>
+        [HttpPut("address/{documnetNumber}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
+        public async Task<IActionResult> PutAddressAsync([FromBody] AddressRequest request, long documentNumber, CancellationToken cancellationToken)
+            => GetActionResult(await _mediator.Send(new InsertOrUpdateAddressCommand(documentNumber, request), cancellationToken));
     }
 }
