@@ -4,9 +4,9 @@ using SL.Person.Registration.Domain.Results.Contrats;
 
 namespace SL.Person.Registration.Application.Command
 {
-    public class InsertOrUpdateAddressCommand : IRequest<IResult<bool>>
+    public class AddressCommand : IRequest<IResult<bool>>
     {
-        public InsertOrUpdateAddressCommand(long documentNumber, AddressRequest request)
+        public AddressCommand(long documentNumber, AddressRequest request)
         {
             Address = request;
             DocumentNumber = documentNumber;

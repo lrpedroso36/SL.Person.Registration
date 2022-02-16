@@ -117,6 +117,42 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddressCommandValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe os dados do endereço.</value>
+  </data>
+  <data name="AddressCommandValidation_RequestInvalid_Document" xml:space="preserve">
+    <value>Informe o documento da pessoa que deseja adicionar o endereço.</value>
+  </data>
+  <data name="AddressValidation_City" xml:space="preserve">
+    <value>Cidade é obrigatória.</value>
+  </data>
+  <data name="AddressValidation_Neighborhood" xml:space="preserve">
+    <value>Bairro é obrigatório.</value>
+  </data>
+  <data name="AddressValidation_Number" xml:space="preserve">
+    <value>Número é obrigatório.</value>
+  </data>
+  <data name="AddressValidation_State" xml:space="preserve">
+    <value>Estado é obrigatório.</value>
+  </data>
+  <data name="AddressValidation_Street" xml:space="preserve">
+    <value>Logradouro é obrigatório.</value>
+  </data>
+  <data name="AddressValidation_ZipCode" xml:space="preserve">
+    <value>CEP é obrigatório.</value>
+  </data>
+  <data name="ContactCommandValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe os dados do contato</value>
+  </data>
+  <data name="ContactCommandValidation_RequestInvalid_Document" xml:space="preserve">
+    <value>Informe o documento da pessoa que deseja adicionar o contato.</value>
+  </data>
+  <data name="ContactValidation_DDD" xml:space="preserve">
+    <value>DDD é obrigatório.</value>
+  </data>
+  <data name="ContactValidation_PhoneNumber" xml:space="preserve">
+    <value>Número de telefone é obrigatório.</value>
+  </data>
   <data name="FindPersonByContactNumberQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o número do DDD e Celular.</value>
   </data>
@@ -132,18 +168,6 @@
   <data name="InsertInterviewCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da entrevista.</value>
   </data>
-  <data name="InsertOrUpdateAddressCommandValidation_RequestInvalid" xml:space="preserve">
-    <value>Informe os dados do endereço.</value>
-  </data>
-  <data name="InsertOrUpdateAddressCommandValidation_RequestInvalid_Document" xml:space="preserve">
-    <value>Informe o documento da pessoa que deseja adicionar o endereço.</value>
-  </data>
-  <data name="InsertOrUpdateContactCommandValidation_RequestInvalid" xml:space="preserve">
-    <value>Informe os dados do contato</value>
-  </data>
-  <data name="InsertOrUpdateContactCommandValidation_RequestInvalid_Document" xml:space="preserve">
-    <value>Informe o documento da pessoa que deseja adicionar o contato.</value>
-  </data>
   <data name="InsertPersonCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da pessoa.</value>
   </data>
@@ -155,6 +179,12 @@
   </data>
   <data name="PersonRegistrationSpeaker_InstanceInvalid" xml:space="preserve">
     <value>Palestranete não encontrado.</value>
+  </data>
+  <data name="PersonRegistrationValidation_DocumentNumber" xml:space="preserve">
+    <value>Número do documento é obrigatório.</value>
+  </data>
+  <data name="PersonRegistrationValidation_Name" xml:space="preserve">
+    <value>Nome é obrigatório</value>
   </data>
   <data name="PersonRegistrationWatched_InstanceInvalid" xml:space="preserve">
     <value>Assistido não encontrado.</value>

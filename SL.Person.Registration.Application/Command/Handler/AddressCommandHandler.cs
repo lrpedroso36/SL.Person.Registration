@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class InsertOrUpdateAddressCommandHandler : IRequestHandler<InsertOrUpdateAddressCommand, IResult<bool>>
+    public class AddressCommandHandler : IRequestHandler<AddressCommand, IResult<bool>>
     {
         private readonly IPersonRegistrationRepository _repository;
 
-        public InsertOrUpdateAddressCommandHandler(IPersonRegistrationRepository repository)
+        public AddressCommandHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<IResult<bool>> Handle(InsertOrUpdateAddressCommand request, CancellationToken cancellationToken)
+        public async Task<IResult<bool>> Handle(AddressCommand request, CancellationToken cancellationToken)
         {
             var result = request.RequestValidate();
 
@@ -36,6 +36,13 @@ namespace SL.Person.Registration.Application.Command.Handler
             }
 
             var address = request.Address.GetAddress();
+
+            result = address.Validate<bool>();
+
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
 
             personRegistration.AddAdress(address);
 

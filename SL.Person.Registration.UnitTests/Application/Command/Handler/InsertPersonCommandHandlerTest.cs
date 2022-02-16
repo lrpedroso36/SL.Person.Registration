@@ -18,21 +18,21 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new InsertPersonCommand(null), 
-                           false, 
-                           0, 
-                           new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters 
+            new object[] { new InsertPersonCommand(null),
+                           false,
+                           0,
+                           new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters
             },
-            new object[] { new InsertPersonCommand(GetPerson()), 
-                           false, 
-                           0, 
-                           new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters 
+            new object[] { new InsertPersonCommand(GetPerson()),
+                           false,
+                           0,
+                           new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters
             },
-            new object[] { new InsertPersonCommand(Builder<PersonRequest>.CreateNew().Build()), 
-                           true, 
-                           1, 
-                           new List<string>(), 
-                           (ErrorType)0 
+            new object[] { new InsertPersonCommand(Builder<PersonRequest>.CreateNew().Build()),
+                           true,
+                           1,
+                           new List<string>(),
+                           (ErrorType)0
             }
         };
 

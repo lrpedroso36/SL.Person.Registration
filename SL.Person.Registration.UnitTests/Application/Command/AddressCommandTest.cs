@@ -7,7 +7,7 @@ using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Command
 {
-    public class InsertAddressCommandTest
+    public class AddressCommandTest
     {
         public static List<object[]> Data = new List<object[]>
         {
@@ -21,7 +21,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command
         {
             //arrange
             //act 
-            var command = new InsertOrUpdateAddressCommand(documentNumber, request);
+            var command = new AddressCommand(documentNumber, request);
 
             //assert
             command.Address.Should().BeEquivalentTo(request);

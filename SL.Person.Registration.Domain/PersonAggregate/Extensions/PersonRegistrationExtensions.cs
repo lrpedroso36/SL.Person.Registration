@@ -11,7 +11,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Extensions
         {
             var result = new Result<T>();
 
-            var validation = new PersonRegistrationValidation(personType)
+            var validation = new PersonRegistrationInstanceValidation(personType)
                 .Validate(person);
 
             if (!validation.IsValid)
@@ -26,12 +26,27 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Extensions
         {
             var result = new Result<T>();
 
-            var validation = new PersonRegistrationValidation()
+            var validation = new PersonRegistrationInstanceValidation()
                 .Validate(person);
 
             if (!validation.IsValid)
             {
                 validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage, ErrorType.NotFoundData));
+            }
+
+            return result;
+        }
+
+        public static Result<bool> Validate<T>(this PersonRegistration person)
+        {
+            var result = new Result<bool>();
+
+            var validation = new PersonRegistrationValidation()
+                .Validate(person);
+
+            if (!validation.IsValid)
+            {
+                validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage, ErrorType.EntitiesProperty));
             }
 
             return result;

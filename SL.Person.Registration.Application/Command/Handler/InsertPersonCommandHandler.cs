@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Domain.PersonAggregate;
+using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results.Contrats;
 using System.Threading;
@@ -27,6 +28,13 @@ namespace SL.Person.Registration.Application.Command.Hanler
             }
 
             var person = request.Person.GetPersonRegistration();
+
+            result = person.Validate<bool>();
+
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
 
             var registration = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender,
                            person.YearsOld, person.DocumentNumber);

@@ -20,7 +20,7 @@ namespace SL.Person.Registration.Domain.Requests
 
         public Address GetAddress()
         {
-            return Address.CreateInstance(ZipCode, Street, Number, Neighborhood,Complement, City, State);
+            return Address.CreateInstance(ZipCode, Street, Number, Neighborhood, Complement, City, State);
         }
     }
 }

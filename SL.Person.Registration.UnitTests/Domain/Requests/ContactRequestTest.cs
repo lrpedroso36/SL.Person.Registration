@@ -16,7 +16,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Requests
 
             //assert
             result.DDD.Should().Be(ddd);
-            result.PhoneNumber.Should().Be(phoneNumber);    
+            result.PhoneNumber.Should().Be(phoneNumber);
         }
     }
 }

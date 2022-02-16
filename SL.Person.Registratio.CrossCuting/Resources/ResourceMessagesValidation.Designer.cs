@@ -61,6 +61,114 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informe os dados do endereço..
+        /// </summary>
+        public static string AddressCommandValidation_RequestInvalid {
+            get {
+                return ResourceManager.GetString("AddressCommandValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o documento da pessoa que deseja adicionar o endereço..
+        /// </summary>
+        public static string AddressCommandValidation_RequestInvalid_Document {
+            get {
+                return ResourceManager.GetString("AddressCommandValidation_RequestInvalid_Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cidade é obrigatória..
+        /// </summary>
+        public static string AddressValidation_City {
+            get {
+                return ResourceManager.GetString("AddressValidation_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bairro é obrigatório..
+        /// </summary>
+        public static string AddressValidation_Neighborhood {
+            get {
+                return ResourceManager.GetString("AddressValidation_Neighborhood", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Número é obrigatório..
+        /// </summary>
+        public static string AddressValidation_Number {
+            get {
+                return ResourceManager.GetString("AddressValidation_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Estado é obrigatório..
+        /// </summary>
+        public static string AddressValidation_State {
+            get {
+                return ResourceManager.GetString("AddressValidation_State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logradouro é obrigatório..
+        /// </summary>
+        public static string AddressValidation_Street {
+            get {
+                return ResourceManager.GetString("AddressValidation_Street", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CEP é obrigatório..
+        /// </summary>
+        public static string AddressValidation_ZipCode {
+            get {
+                return ResourceManager.GetString("AddressValidation_ZipCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe os dados do contato.
+        /// </summary>
+        public static string ContactCommandValidation_RequestInvalid {
+            get {
+                return ResourceManager.GetString("ContactCommandValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o documento da pessoa que deseja adicionar o contato..
+        /// </summary>
+        public static string ContactCommandValidation_RequestInvalid_Document {
+            get {
+                return ResourceManager.GetString("ContactCommandValidation_RequestInvalid_Document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DDD é obrigatório..
+        /// </summary>
+        public static string ContactValidation_DDD {
+            get {
+                return ResourceManager.GetString("ContactValidation_DDD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Número de telefone é obrigatório..
+        /// </summary>
+        public static string ContactValidation_PhoneNumber {
+            get {
+                return ResourceManager.GetString("ContactValidation_PhoneNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe o número do DDD e Celular..
         /// </summary>
         public static string FindPersonByContactNumberQueryValidation_RequestInvalid {
@@ -106,42 +214,6 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Informe os dados do endereço..
-        /// </summary>
-        public static string InsertOrUpdateAddressCommandValidation_RequestInvalid {
-            get {
-                return ResourceManager.GetString("InsertOrUpdateAddressCommandValidation_RequestInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Informe o documento da pessoa que deseja adicionar o endereço..
-        /// </summary>
-        public static string InsertOrUpdateAddressCommandValidation_RequestInvalid_Document {
-            get {
-                return ResourceManager.GetString("InsertOrUpdateAddressCommandValidation_RequestInvalid_Document", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Informe os dados do contato.
-        /// </summary>
-        public static string InsertOrUpdateContactCommandValidation_RequestInvalid {
-            get {
-                return ResourceManager.GetString("InsertOrUpdateContactCommandValidation_RequestInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Informe o documento da pessoa que deseja adicionar o contato..
-        /// </summary>
-        public static string InsertOrUpdateContactCommandValidation_RequestInvalid_Document {
-            get {
-                return ResourceManager.GetString("InsertOrUpdateContactCommandValidation_RequestInvalid_Document", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Informe os dados da pessoa..
         /// </summary>
         public static string InsertPersonCommandValidation_RequestInvalid {
@@ -183,6 +255,24 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         public static string PersonRegistrationSpeaker_InstanceInvalid {
             get {
                 return ResourceManager.GetString("PersonRegistrationSpeaker_InstanceInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Número do documento é obrigatório..
+        /// </summary>
+        public static string PersonRegistrationValidation_DocumentNumber {
+            get {
+                return ResourceManager.GetString("PersonRegistrationValidation_DocumentNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nome é obrigatório.
+        /// </summary>
+        public static string PersonRegistrationValidation_Name {
+            get {
+                return ResourceManager.GetString("PersonRegistrationValidation_Name", resourceCulture);
             }
         }
         

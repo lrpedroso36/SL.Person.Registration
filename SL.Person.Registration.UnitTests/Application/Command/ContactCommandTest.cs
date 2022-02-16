@@ -7,7 +7,7 @@ using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Command
 {
-    public class InserContactCommandTest
+    public class ContactCommandTest
     {
         public static List<object[]> Data = new List<object[]>
         {
@@ -21,7 +21,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command
         {
             //arrange
             //act 
-            var command = new InsertOrUpdateContactCommand(documentNumber, request);
+            var command = new ContactCommand(documentNumber, request);
 
             //assert
             command.DocumentNumber.Should().Be(documentNumber);

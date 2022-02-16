@@ -13,30 +13,30 @@ using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Command.Validations
 {
-    public class InsertOrUpdateContactCommandValidationTest
+    public class ContactCommandValidationTest
     {
         public static List<object[]> Data = new List<object[]>
         {
             new object[]
             {
-               new InsertOrUpdateContactCommand(0, Builder<ContactRequest>.CreateNew().Build()), 
-               ResultBuilder.GetResult<bool>(ResourceMessagesValidation.InsertOrUpdateContactCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters)
+               new ContactCommand(0, Builder<ContactRequest>.CreateNew().Build()),
+               ResultBuilder.GetResult<bool>(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters)
             },
             new object[]
             {
-               new InsertOrUpdateContactCommand(1234567890, null),
-               ResultBuilder.GetResult<bool>(ResourceMessagesValidation.InsertOrUpdateContactCommandValidation_RequestInvalid, ErrorType.InvalidParameters)
+               new ContactCommand(1234567890, null),
+               ResultBuilder.GetResult<bool>(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid, ErrorType.InvalidParameters)
             },
             new object[]
             {
-               new InsertOrUpdateContactCommand(1234567890, Builder<ContactRequest>.CreateNew().Build()),
+               new ContactCommand(1234567890, Builder<ContactRequest>.CreateNew().Build()),
                ResultBuilder.GetResult<bool>(String.Empty, 0)
             }
         };
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void Should_request_validate(InsertOrUpdateContactCommand request, Result<bool> resultExpected)
+        public void Should_request_validate(ContactCommand request, Result<bool> resultExpected)
         {
             //arrange
             //act

@@ -14,6 +14,9 @@ namespace SL.Person.Registration.Api.Controllers
             if (!result.IsSuccess && result.ErrorType == ErrorType.NotFoundData)
                 return NotFound(result);
 
+            if (!result.IsSuccess && result.ErrorType == ErrorType.EntitiesProperty)
+                return Conflict(result);
+
             return Ok(result);
         }
     }

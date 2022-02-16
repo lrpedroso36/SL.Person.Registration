@@ -1,10 +1,10 @@
 ﻿using FluentAssertions;
-using FluentValidation.Results;
 using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Results.Enums;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -54,6 +54,43 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.NotFoundData);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Should_validate_have_errors_name(string name)
+        {
+            //arrange
+            var expected = new List<string> { ResourceMessagesValidation.PersonRegistrationValidation_Name };
+            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
+
+            //act
+            var result = person.Validate<bool>();
+
+            //assert
+            result.Errors.Should().BeEquivalentTo(expected);
+            result.Data.Should().BeFalse();
+            result.IsSuccess.Should().BeFalse();
+            result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
+        }
+
+        [Fact]
+        public void Should_validate_have_errors_document_number()
+        {
+            //arrange
+            var expected = new List<string> { ResourceMessagesValidation.PersonRegistrationValidation_DocumentNumber };
+            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
+
+            //act
+            var result = person.Validate<bool>();
+
+            //assert
+            result.Errors.Should().BeEquivalentTo(expected);
+            result.Data.Should().BeFalse();
+            result.IsSuccess.Should().BeFalse();
+            result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }
     }
 }

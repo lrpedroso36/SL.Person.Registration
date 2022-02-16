@@ -3,6 +3,7 @@
     public enum ErrorType
     {
         InvalidParameters = 1,
-        NotFoundData = 2
+        NotFoundData = 2,
+        EntitiesProperty = 3
     }
 }

@@ -38,6 +38,13 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var person = request.Person.GetPersonRegistration();
 
+            result = person.Validate<bool>();
+
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
+
             var update = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender,
                 person.YearsOld, person.DocumentNumber);
 

@@ -1,9 +1,8 @@
-﻿using FluentAssertions;
-using FluentValidation.Results;
-using SL.Person.Registratio.CrossCuting.Resources;
+﻿using FluentValidation.TestHelper;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Validations;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -11,45 +10,66 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
 {
     public class PersonRegistrationValidationTest
     {
-        [Fact]
-        public void Should_validation_instance()
+        private readonly PersonRegistrationValidation _personRegistrationValidation;
+
+        public PersonRegistrationValidationTest()
         {
-            //arrange
-            PersonRegistration person = null;
-            var validationFailure = new[] { new ValidationFailure("instance", ResourceMessagesValidation.PersonRegistration_InstanceInvalid) };
-
-            //act
-            var validation = new PersonRegistrationValidation();
-            var resultValidation = validation.Validate(person);
-
-            //assert
-            resultValidation.IsValid.Should().BeFalse();
-            resultValidation.Errors.Should().BeEquivalentTo(validationFailure);
+            _personRegistrationValidation = new PersonRegistrationValidation();
         }
 
-        public static List<object[]> Data = new List<object[]>
-        {
-            new object[] { PersonType.Tarefeiro, ResourceMessagesValidation.PersonRegistrationLabore_InstanceInvalid },
-            new object[] { PersonType.Assistido, ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid },
-            new object[] { PersonType.Palestrante, ResourceMessagesValidation.PersonRegistrationSpeaker_InstanceInvalid },
-            new object[] { PersonType.Entrevistador, ResourceMessagesValidation.PersonRegistrationInterviewer_InstanceInvalid }
-        };
-
         [Theory]
-        [MemberData(nameof(Data))]
-        public void Should_validation_instance_by_type(PersonType personType, string message)
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Should_validation_have_errors_in_name(string name)
         {
-            //arrange
-            PersonRegistration person = null;
-            var validationFailure = new[] { new ValidationFailure("instance", message) };
+            //arrange 
+            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
 
             //act
-            var validation = new PersonRegistrationValidation(personType);
-            var resultValidation = validation.Validate(person);
+            var result = _personRegistrationValidation.TestValidate(person);
 
             //assert
-            resultValidation.IsValid.Should().BeFalse();
-            resultValidation.Errors.Should().BeEquivalentTo(validationFailure);
+            result.ShouldHaveValidationErrorFor(person => person.Name);
+        }
+
+        [Fact]
+        public void Should_validation_not_have_errors_in_name()
+        {
+            //arrange 
+            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+
+            //act
+            var result = _personRegistrationValidation.TestValidate(person);
+
+            //assert
+            result.ShouldNotHaveValidationErrorFor(person => person.Name);
+        }
+
+        [Fact]
+        public void Should_validation_have_errors_in_document_number()
+        {
+            //arrange 
+            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
+
+            //act
+            var result = _personRegistrationValidation.TestValidate(person);
+
+            //assert
+            result.ShouldHaveValidationErrorFor(person => person.DocumentNumber);
+        }
+
+        [Fact]
+        public void Should_validation_not_have_errors_in_document_number()
+        {
+            //arrange 
+            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 1234567890);
+
+            //act
+            var result = _personRegistrationValidation.TestValidate(person);
+
+            //assert
+            result.ShouldNotHaveValidationErrorFor(person => person.DocumentNumber);
         }
     }
 }

@@ -15,19 +15,19 @@ using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 {
-    public class InsertOrUpdateAddressCommandHandlerTest
+    public class AddressCommandHandlerTest
     {
         public static List<object[]> Data = new List<object[]>
         {
-            new object[] { new InsertOrUpdateAddressCommand(0, Builder<AddressRequest>.CreateNew().Build()),
+            new object[] { new AddressCommand(0, Builder<AddressRequest>.CreateNew().Build()),
                            null,
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.InsertOrUpdateAddressCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters),
+                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.AddressCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters),
             },
-            new object[] { new InsertOrUpdateAddressCommand(123456789, null),
+            new object[] { new AddressCommand(123456789, null),
                            null,
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.InsertOrUpdateAddressCommandValidation_RequestInvalid, ErrorType.InvalidParameters),
+                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.AddressCommandValidation_RequestInvalid, ErrorType.InvalidParameters),
             },
-            new object[] { new InsertOrUpdateAddressCommand(123456789, Builder<AddressRequest>.CreateNew().Build()),
+            new object[] { new AddressCommand(123456789, Builder<AddressRequest>.CreateNew().Build()),
                            Builder<PersonRegistration>.CreateNew().Build(),
                            GetResult(),
             },
@@ -42,13 +42,13 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(InsertOrUpdateAddressCommand command, PersonRegistration personRegistration ,Result<bool> resultExpected)
+        public async Task Should_execute_handler(AddressCommand command, PersonRegistration personRegistration, Result<bool> resultExpected)
         {
             //arrange
             var moq = MockPersonRegistrationRepository.GetMockRepository(personRegistration);
 
             //act
-            var commandHandler = new InsertOrUpdateAddressCommandHandler(moq.Object);
+            var commandHandler = new AddressCommandHandler(moq.Object);
             var result = await commandHandler.Handle(command, default);
 
             //assert

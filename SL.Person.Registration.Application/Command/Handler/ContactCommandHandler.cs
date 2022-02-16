@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class InsertOrUpdateContactCommandHandler : IRequestHandler<InsertOrUpdateContactCommand, IResult<bool>>
+    public class ContactCommandHandler : IRequestHandler<ContactCommand, IResult<bool>>
     {
         private readonly IPersonRegistrationRepository _repository;
 
-        public InsertOrUpdateContactCommandHandler(IPersonRegistrationRepository repository)
+        public ContactCommandHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<IResult<bool>> Handle(InsertOrUpdateContactCommand request, CancellationToken cancellationToken)
+        public async Task<IResult<bool>> Handle(ContactCommand request, CancellationToken cancellationToken)
         {
             var result = request.RequestValidate();
 
@@ -36,6 +36,13 @@ namespace SL.Person.Registration.Application.Command.Handler
             }
 
             var contact = request.Contact.GetContact();
+
+            result = contact.Validate<bool>();
+
+            if (!result.IsSuccess)
+            {
+                return result;
+            }
 
             personRegistration.AddContact(contact);
 
