@@ -6,9 +6,9 @@ namespace SL.Person.Registration.Application.Command.Validations
 {
     public static class PrecenceCommandValidation
     {
-        public static Result<bool> RequestValidate(this PrecenceCommand request)
+        public static ResultBase RequestValidate(this PrecenceCommand request)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             if (request.InterviewedDocument == 0 || request.LaborerDocument == 0)
             {

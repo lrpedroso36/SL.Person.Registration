@@ -169,6 +169,24 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Endereço não encontrado..
+        /// </summary>
+        public static string FindAddressByZipCodeValidation_NotFound {
+            get {
+                return ResourceManager.GetString("FindAddressByZipCodeValidation_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o CEP do endereço..
+        /// </summary>
+        public static string FindAddressByZipCodeValidation_RequestInvalid {
+            get {
+                return ResourceManager.GetString("FindAddressByZipCodeValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe o número do DDD e Celular..
         /// </summary>
         public static string FindPersonByContactNumberQueryValidation_RequestInvalid {

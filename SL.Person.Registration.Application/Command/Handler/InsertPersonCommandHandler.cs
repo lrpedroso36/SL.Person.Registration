@@ -3,13 +3,13 @@ using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
-using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Hanler
 {
-    public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand, IResult<bool>>
+    public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand, ResultBase>
     {
         private readonly IPersonRegistrationRepository _repository;
 
@@ -18,7 +18,7 @@ namespace SL.Person.Registration.Application.Command.Hanler
             _repository = repository;
         }
 
-        public async Task<IResult<bool>> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
+        public async Task<ResultBase> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
         {
             var result = request.RequestValidate();
 
@@ -29,7 +29,7 @@ namespace SL.Person.Registration.Application.Command.Hanler
 
             var person = request.Person.GetPersonRegistration();
 
-            result = person.Validate<bool>();
+            result = person.Validate();
 
             if (!result.IsSuccess)
             {
@@ -40,8 +40,6 @@ namespace SL.Person.Registration.Application.Command.Hanler
                            person.YearsOld, person.DocumentNumber);
 
             _repository.Insert(registration);
-
-            result.SetData(true);
 
             return result;
         }

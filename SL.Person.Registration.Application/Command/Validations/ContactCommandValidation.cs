@@ -6,9 +6,9 @@ namespace SL.Person.Registration.Application.Command.Validations
 {
     public static class ContactCommandValidation
     {
-        public static Result<bool> RequestValidate(this ContactCommand request)
+        public static ResultBase RequestValidate(this ContactCommand request)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             if (request.DocumentNumber == 0)
             {

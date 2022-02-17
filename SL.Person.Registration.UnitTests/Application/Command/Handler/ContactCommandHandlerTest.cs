@@ -7,7 +7,6 @@ using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
-using SL.Person.Registration.UnitTests.Builder;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -21,28 +20,28 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         {
             new object[] { new ContactCommand(0, Builder<ContactRequest>.CreateNew().Build()),
                            null,
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters),
+                           GetResult(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters),
             },
             new object[] { new ContactCommand(123456789, null),
                            null,
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid, ErrorType.InvalidParameters),
+                           GetResult(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid, ErrorType.InvalidParameters),
             },
             new object[] { new ContactCommand(123456789, Builder<ContactRequest>.CreateNew().Build()),
                            Builder<PersonRegistration>.CreateNew().Build(),
-                           GetResult(),
+                           GetResult(string.Empty,0),
             },
         };
 
-        public static Result<bool> GetResult()
+        public static Result GetResult(string errors, ErrorType errorType)
         {
-            var result = ResultBuilder.GetResult<bool>(string.Empty, 0);
-            result.SetData(true);
+            var result = new Result();
+            result.AddErrors(errors, errorType);
             return result;
         }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(ContactCommand command, PersonRegistration personRegistration, Result<bool> resultExpected)
+        public async Task Should_execute_handler(ContactCommand command, PersonRegistration personRegistration, Result resultExpected)
         {
             //arrange
             var moq = MockPersonRegistrationRepository.GetMockRepository(personRegistration);

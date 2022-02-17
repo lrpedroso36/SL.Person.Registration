@@ -76,7 +76,6 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             mockRepository.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.AtMost(atMostGet));
             mockRepository.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.AtMost(atMostUpdate));
 
-            result.Data.Should().Be(resultCommand);
             result.IsSuccess.Should().Be(resultCommand);
             result.Errors.Should().BeEquivalentTo(errors);
             result.ErrorType.Should().Be(errorType);

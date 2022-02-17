@@ -31,8 +31,8 @@ namespace SL.Person.Registration.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         public async Task<IActionResult> PostAsync([FromBody] InterviewRequest request, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new InsertInterviewCommand(request), cancellationToken));
 
@@ -48,8 +48,8 @@ namespace SL.Person.Registration.Api.Controllers
         /// <returns></returns>
         [HttpPost("presence/{interviewedDocument}/{laborerDocument}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         public async Task<IActionResult> PresenceAsync(long interviewedDocument, long laborerDocument, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new PrecenceCommand(interviewedDocument, laborerDocument), cancellationToken));
     }

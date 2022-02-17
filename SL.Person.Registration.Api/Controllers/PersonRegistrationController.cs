@@ -36,9 +36,9 @@ namespace SL.Person.Registration.Controllers
         /// <response code="404">Pessoa não encontrada</response>
         /// <returns></returns>
         [HttpGet("{documentNumber}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<FindPersonResult>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<FindPersonResult>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FindPersonByDocumentAsync(long documentNumber, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new FindPersonByDocumentQuery(documentNumber), cancellationToken));
@@ -54,8 +54,9 @@ namespace SL.Person.Registration.Controllers
         /// <response code="404">Pessoa não encontrada</response>
         /// <returns></returns>
         [HttpGet("{ddd}/{phoneNumber}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<FindPersonResult>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FindPersonByContactNumber(int ddd, long phoneNumber, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new FindPersonByContactNumberQuery(ddd, phoneNumber), cancellationToken));
@@ -71,9 +72,9 @@ namespace SL.Person.Registration.Controllers
         /// <response code="404">Pessoa não encontrada</response>
         /// <returns></returns>
         [HttpGet("list/{name}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Result<IEnumerable<FindPersonResult>>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<IEnumerable<FindPersonResult>>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> FindPersonByName(string name, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new FindPersonByNameQuery(name), cancellationToken));
@@ -89,8 +90,8 @@ namespace SL.Person.Registration.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
         public async Task<IActionResult> PostAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new InsertPersonCommand(request), cancellationToken));
 
@@ -106,9 +107,9 @@ namespace SL.Person.Registration.Controllers
         /// <returns></returns>
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
         public async Task<IActionResult> PutAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new UpdatePersonCommand(request), cancellationToken));
     }

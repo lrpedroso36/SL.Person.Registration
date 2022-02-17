@@ -18,11 +18,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var address = Address.CreateInstance(0, "rua", "number", "bairro", "complemento", "cidade", "estado");
 
             //act
-            var result = address.Validate<bool>();
+            var result = address.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }
@@ -38,11 +37,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var address = Address.CreateInstance(1, street, "number", "bairro", "complemento", "cidade", "estado");
 
             //act
-            var result = address.Validate<bool>();
+            var result = address.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }
@@ -58,11 +56,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var address = Address.CreateInstance(1, "rua", number, "bairro", "complemento", "cidade", "estado");
 
             //act
-            var result = address.Validate<bool>();
+            var result = address.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }
@@ -78,11 +75,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var address = Address.CreateInstance(1, "rua", "number", neighborhood, "complemento", "cidade", "estado");
 
             //act
-            var result = address.Validate<bool>();
+            var result = address.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }
@@ -98,11 +94,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var address = Address.CreateInstance(1, "rua", "number", "bairro", "complemento", city, "estado");
 
             //act
-            var result = address.Validate<bool>();
+            var result = address.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }
@@ -118,11 +113,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var address = Address.CreateInstance(1, "rua", "number", "bairro", "complemento", "cidade", state);
 
             //act
-            var result = address.Validate<bool>();
+            var result = address.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }

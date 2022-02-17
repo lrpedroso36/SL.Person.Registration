@@ -43,15 +43,23 @@ namespace SL.Person.Registration.Domain.Results
             result.Gender = person.Gender;
             result.YearsOld = person.YearsOld;
             result.DocumentNumber = person.DocumentNumber;
-            result.ZipCode = person.Address.ZipCode;
-            result.Street = person.Address.Street;
-            result.Number = person.Address.Number;
-            result.Neighborhood = person.Address.Neighborhood;
-            result.Complement = person.Address.Complement;
-            result.City = person.Address.City;
-            result.State = person.Address.State;
-            result.DDD = person.Contact.DDD;
-            result.PhoneNumber = person.Contact.PhoneNumber;
+
+            if (person.Address != null)
+            {
+                result.ZipCode = person.Address.ZipCode;
+                result.Street = person.Address.Street;
+                result.Number = person.Address.Number;
+                result.Neighborhood = person.Address.Neighborhood;
+                result.Complement = person.Address.Complement;
+                result.City = person.Address.City;
+                result.State = person.Address.State;
+            }
+
+            if (person.Contact != null)
+            {
+                result.DDD = person.Contact.DDD;
+                result.PhoneNumber = person.Contact.PhoneNumber;
+            }
 
             return result;
         }

@@ -2,13 +2,13 @@
 using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
-using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class ContactCommandHandler : IRequestHandler<ContactCommand, IResult<bool>>
+    public class ContactCommandHandler : IRequestHandler<ContactCommand, ResultBase>
     {
         private readonly IPersonRegistrationRepository _repository;
 
@@ -17,7 +17,7 @@ namespace SL.Person.Registration.Application.Command.Handler
             _repository = repository;
         }
 
-        public async Task<IResult<bool>> Handle(ContactCommand request, CancellationToken cancellationToken)
+        public async Task<ResultBase> Handle(ContactCommand request, CancellationToken cancellationToken)
         {
             var result = request.RequestValidate();
 
@@ -28,7 +28,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var personRegistration = _repository.GetByDocument(request.DocumentNumber);
 
-            result = personRegistration.ValidateInstance<bool>();
+            result = personRegistration.ValidateInstance();
 
             if (!result.IsSuccess)
             {
@@ -37,7 +37,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var contact = request.Contact.GetContact();
 
-            result = contact.Validate<bool>();
+            result = contact.Validate();
 
             if (!result.IsSuccess)
             {
@@ -47,8 +47,6 @@ namespace SL.Person.Registration.Application.Command.Handler
             personRegistration.AddContact(contact);
 
             _repository.Update(personRegistration);
-
-            result.SetData(true);
 
             return result;
         }

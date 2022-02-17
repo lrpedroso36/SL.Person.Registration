@@ -2,7 +2,6 @@
 using SL.Person.Registration.Application.Query.Validations;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Contrats;
 using SL.Person.Registration.Domain.Results.Enums;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
-    public class FindPersonByNameQueryHandler : IRequestHandler<FindPersonByNameQuery, IResult<IEnumerable<FindPersonResult>>>
+    public class FindPersonByNameQueryHandler : IRequestHandler<FindPersonByNameQuery, ResultEntities<IEnumerable<FindPersonResult>>>
     {
         private readonly IPersonRegistrationRepository _personRepository;
 
@@ -20,7 +19,7 @@ namespace SL.Person.Registration.Application.Query.Handler
             _personRepository = personRepository;
         }
 
-        public async Task<IResult<IEnumerable<FindPersonResult>>> Handle(FindPersonByNameQuery request, CancellationToken cancellationToken)
+        public async Task<ResultEntities<IEnumerable<FindPersonResult>>> Handle(FindPersonByNameQuery request, CancellationToken cancellationToken)
         {
             var result = request.RequestValidate();
 

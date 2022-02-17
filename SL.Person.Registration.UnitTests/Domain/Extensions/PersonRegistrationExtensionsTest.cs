@@ -29,11 +29,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             PersonRegistration person = null;
 
             //act
-            var result = person.ValidateInstanceByType<bool>(personType);
+            var result = person.ValidateInstanceByType(personType);
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.NotFoundData);
         }
@@ -47,11 +46,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             PersonRegistration person = null;
 
             //act
-            var result = person.ValidateInstance<bool>();
+            var result = person.ValidateInstance();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.NotFoundData);
         }
@@ -67,11 +65,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
 
             //act
-            var result = person.Validate<bool>();
+            var result = person.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }
@@ -84,11 +81,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
 
             //act
-            var result = person.Validate<bool>();
+            var result = person.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }

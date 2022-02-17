@@ -20,7 +20,7 @@ namespace SL.Person.Registration.Infrastructure.External.Api
 
         public async Task<AddressResponse> GetAddressByZipCode(string zipCode, CancellationToken cancellationToken)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, string.Format(GET_URL_ZIP_CODE, zipCode));
+            var request = new HttpRequestMessage(HttpMethod.Get, string.Format(GET_URL_ZIP_CODE, zipCode.Trim()));
 
             var client = _httpClientFactory.CreateClient();
 

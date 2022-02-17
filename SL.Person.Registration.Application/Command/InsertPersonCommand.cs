@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using SL.Person.Registration.Domain.Requests;
-using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results;
 
 namespace SL.Person.Registration.Application.Command
 {
-    public class InsertPersonCommand : IRequest<IResult<bool>>
+    public class InsertPersonCommand : IRequest<ResultBase>
     {
         public InsertPersonCommand(PersonRequest person)
         {

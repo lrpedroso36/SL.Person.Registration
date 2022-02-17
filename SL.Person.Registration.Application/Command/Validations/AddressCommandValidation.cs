@@ -6,9 +6,9 @@ namespace SL.Person.Registration.Application.Command.Validations
 {
     public static class AddressCommandValidation
     {
-        public static Result<bool> RequestValidate(this AddressCommand request)
+        public static ResultBase RequestValidate(this AddressCommand request)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             if (request.DocumentNumber == 0)
             {

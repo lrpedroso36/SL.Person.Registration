@@ -7,9 +7,9 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Extensions
 {
     public static class PersonRegistrationExtensions
     {
-        public static Result<T> ValidateInstanceByType<T>(this PersonRegistration person, PersonType personType)
+        public static ResultBase ValidateInstanceByType(this PersonRegistration person, PersonType personType)
         {
-            var result = new Result<T>();
+            var result = new ResultEntities<PersonRegistration>();
 
             var validation = new PersonRegistrationInstanceValidation(personType)
                 .Validate(person);
@@ -22,9 +22,9 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Extensions
             return result;
         }
 
-        public static Result<T> ValidateInstance<T>(this PersonRegistration person)
+        public static ResultBase ValidateInstance(this PersonRegistration person)
         {
-            var result = new Result<T>();
+            var result = new ResultEntities<PersonRegistration>();
 
             var validation = new PersonRegistrationInstanceValidation()
                 .Validate(person);
@@ -37,9 +37,9 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Extensions
             return result;
         }
 
-        public static Result<bool> Validate<T>(this PersonRegistration person)
+        public static ResultBase Validate(this PersonRegistration person)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             var validation = new PersonRegistrationValidation()
                 .Validate(person);

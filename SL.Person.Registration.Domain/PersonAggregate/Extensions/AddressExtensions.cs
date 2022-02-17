@@ -6,9 +6,9 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Extensions
 {
     public static class AddressExtensions
     {
-        public static Result<bool> Validate<T>(this Address address)
+        public static ResultBase Validate(this Address address)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             var validation = new AddressValidation()
                 .Validate(address);

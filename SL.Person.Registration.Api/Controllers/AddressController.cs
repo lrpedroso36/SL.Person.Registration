@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Query;
+using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.Domain.Results;
 using System.Threading;
@@ -33,9 +34,9 @@ namespace SL.Person.Registration.Api.Controllers
         /// <returns></returns>
         [HttpPost("{documentNumber}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result<bool>))]
-        public async Task<IActionResult> PostAsync([FromBody] AddressRequest request, long documentNumber, CancellationToken cancellationToken)
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
+        public async Task<IActionResult> PostAsync(long documentNumber, [FromBody] AddressRequest request, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new AddressCommand(documentNumber, request), cancellationToken));
 
         /// <summary>
@@ -49,12 +50,12 @@ namespace SL.Person.Registration.Api.Controllers
         /// <response code="404">Pessoa não encontrada</response>
         /// <response code="409">Dados inválidos para inserir o endereço</response>
         /// <returns></returns>
-        [HttpPut("{documnetNumber}")]
+        [HttpPut("{documentNumber}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result<bool>))]
-        public async Task<IActionResult> PutAsync([FromBody] AddressRequest request, long documentNumber, CancellationToken cancellationToken)
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
+        public async Task<IActionResult> PutAsync(long documentNumber, [FromBody] AddressRequest request, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new AddressCommand(documentNumber, request), cancellationToken));
 
         /// <summary>
@@ -63,9 +64,13 @@ namespace SL.Person.Registration.Api.Controllers
         /// <param name="zipCode">CEP para realizar a busca</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Retorna os dados do endereço</response>
-        /// <response code="400">Não foi possível encontrar o endereço</response>
+        /// <response code="400">CEP informado está inválido</response>
+        /// <response code="404">Não foi possível encontrar o endereço</response>
         /// <returns></returns>
         [HttpGet("{zipCode}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<Address>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<Address>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<Address>))]
         public async Task<IActionResult> GetAsync(string zipCode, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new FindAddressByZipCodeQuery(zipCode), cancellationToken));
     }

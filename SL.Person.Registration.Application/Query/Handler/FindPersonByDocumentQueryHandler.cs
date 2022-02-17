@@ -3,13 +3,12 @@ using SL.Person.Registration.Application.Query.Validations;
 using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Contrats;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
-    public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, IResult<FindPersonResult>>
+    public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, ResultBase>
     {
         private readonly IPersonRegistrationRepository _repository;
 
@@ -18,7 +17,7 @@ namespace SL.Person.Registration.Application.Query.Handler
             _repository = repository;
         }
 
-        public async Task<IResult<FindPersonResult>> Handle(FindPersonByDocumentQuery request, CancellationToken cancellationToken)
+        public async Task<ResultBase> Handle(FindPersonByDocumentQuery request, CancellationToken cancellationToken)
         {
             var result = request.RequestValidate();
 
@@ -29,16 +28,18 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             var personRegistration = _repository.GetByDocument(request.DocumentNumber);
 
-            result = personRegistration.ValidateInstance<FindPersonResult>();
+            result = personRegistration.ValidateInstance();
 
             if (!result.IsSuccess)
             {
                 return result;
             }
 
-            result.SetData((FindPersonResult)personRegistration);
+            var resultFindPerson = new ResultEntities<FindPersonResult>();
 
-            return result;
+            resultFindPerson.SetData((FindPersonResult)personRegistration);
+
+            return resultFindPerson;
         }
     }
 }

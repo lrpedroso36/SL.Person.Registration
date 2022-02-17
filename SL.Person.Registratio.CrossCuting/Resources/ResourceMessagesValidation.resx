@@ -153,6 +153,12 @@
   <data name="ContactValidation_PhoneNumber" xml:space="preserve">
     <value>Número de telefone é obrigatório.</value>
   </data>
+  <data name="FindAddressByZipCodeValidation_NotFound" xml:space="preserve">
+    <value>Endereço não encontrado.</value>
+  </data>
+  <data name="FindAddressByZipCodeValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe o CEP do endereço.</value>
+  </data>
   <data name="FindPersonByContactNumberQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o número do DDD e Celular.</value>
   </data>

@@ -95,7 +95,6 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             var handler = await resultHandler.Handle(query, default);
 
             //assert
-            handler.Data.Should().BeEquivalentTo(result);
             handler.IsSuccess.Should().Be(isSucess);
             handler.Errors.Should().BeEquivalentTo(errors);
             handler.ErrorType.Should().Be(errorType);

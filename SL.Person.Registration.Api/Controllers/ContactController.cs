@@ -32,8 +32,8 @@ namespace SL.Person.Registration.Api.Controllers
         /// <returns></returns>
         [HttpPost("{documentNumber}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
         public async Task<IActionResult> PostAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new ContactCommand(documentNumber, request), cancellationToken));
 
@@ -50,9 +50,9 @@ namespace SL.Person.Registration.Api.Controllers
         /// <returns></returns>
         [HttpPut("{documnetNumber}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
         public async Task<IActionResult> PutAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new ContactCommand(documentNumber, request), cancellationToken));
     }

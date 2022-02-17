@@ -58,7 +58,6 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             //assert
             mockRepository.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
             result.IsSuccess.Should().Be(resultCommand);
-            result.Data.Should().Be(resultCommand);
             result.Errors.Should().BeEquivalentTo(errors);
             result.ErrorType.Should().Be(errorType);
         }

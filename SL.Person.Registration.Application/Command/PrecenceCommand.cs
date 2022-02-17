@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results;
 
 namespace SL.Person.Registration.Application.Command
 {
-    public class PrecenceCommand : IRequest<IResult<bool>>
+    public class PrecenceCommand : IRequest<ResultBase>
     {
         public long InterviewedDocument { get; private set; }
         public long LaborerDocument { get; private set; }

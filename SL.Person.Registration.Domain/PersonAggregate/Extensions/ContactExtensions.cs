@@ -6,9 +6,9 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Extensions
 {
     public static class ContactExtensions
     {
-        public static Result<bool> Validate<T>(this Contact contact)
+        public static ResultBase Validate(this Contact contact)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             var validation = new ContactValidation()
                 .Validate(contact);

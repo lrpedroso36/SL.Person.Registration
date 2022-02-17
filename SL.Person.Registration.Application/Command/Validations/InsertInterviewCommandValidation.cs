@@ -6,9 +6,9 @@ namespace SL.Person.Registration.Application.Command.Validations
 {
     public static class InsertInterviewCommandValidation
     {
-        public static Result<bool> RequestValidate(this InsertInterviewCommand request)
+        public static ResultBase RequestValidate(this InsertInterviewCommand request)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             if (request.Interview == null)
             {

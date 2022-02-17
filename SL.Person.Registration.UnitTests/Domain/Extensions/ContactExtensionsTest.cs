@@ -18,11 +18,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var contact = Contact.CreateInstance(0, 123456789);
 
             //act
-            var result = contact.Validate<bool>();
+            var result = contact.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }
@@ -35,11 +34,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var contact = Contact.CreateInstance(11, 0);
 
             //act
-            var result = contact.Validate<bool>();
+            var result = contact.Validate();
 
             //assert
             result.Errors.Should().BeEquivalentTo(expected);
-            result.Data.Should().BeFalse();
             result.IsSuccess.Should().BeFalse();
             result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
         }

@@ -9,7 +9,6 @@ using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
-using SL.Person.Registration.UnitTests.Builder;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,48 +21,48 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         public static List<object[]> Data = new List<object[]>
         {
             new object[] { new PrecenceCommand(0,1),
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters),
+                           GetResult(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters),
                            null,
                            null
             },
             new object[] { new PrecenceCommand(1,0),
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters),
+                           GetResult(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters),
                            null,
                            null
             },
             new object[] { new PrecenceCommand(0,0),
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters),
+                           GetResult(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters),
                            null,
                            null
             },
             new object[] { new PrecenceCommand(1,1),
-                          ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid, ErrorType.NotFoundData),
+                          GetResult(ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid, ErrorType.NotFoundData),
                           null,
                           null
 
             },
             new object[] { new PrecenceCommand(1,1),
-                           ResultBuilder.GetResult<bool>(ResourceMessagesValidation.PersonRegistrationLabore_InstanceInvalid, ErrorType.NotFoundData),
+                           GetResult(ResourceMessagesValidation.PersonRegistrationLabore_InstanceInvalid, ErrorType.NotFoundData),
                            PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome" ,1234567890),
                            null
             },
             new object[] { new PrecenceCommand(1,1),
-                           GetResult(),
+                           GetResult(string.Empty,0),
                            PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome" ,1234567890),
                            Builder<PersonRegistration>.CreateNew().Build()
             }
         };
 
-        public static Result<bool> GetResult()
+        public static Result GetResult(string errors, ErrorType errorType)
         {
-            var result = ResultBuilder.GetResult<bool>(string.Empty, 0);
-            result.SetData(true);
+            var result = new Result();
+            result.AddErrors(errors, errorType);
             return result;
         }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async Task Should_execute_handler_request_validate(PrecenceCommand precenceCommand, Result<bool> resultExpected,
+        public async Task Should_execute_handler_request_validate(PrecenceCommand precenceCommand, Result resultExpected,
             PersonRegistration personWatched, PersonRegistration personLaborer)
         {
             //arrange
