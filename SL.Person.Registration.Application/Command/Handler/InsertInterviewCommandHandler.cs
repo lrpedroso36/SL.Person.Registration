@@ -4,14 +4,14 @@ using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
-using SL.Person.Registration.Domain.Results.Contrats;
+using SL.Person.Registration.Domain.Results;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class InsertInterviewCommandHandler : IRequestHandler<InsertInterviewCommand, IResult<bool>>
+    public class InsertInterviewCommandHandler : IRequestHandler<InsertInterviewCommand, ResultBase>
     {
         private readonly IPersonRegistrationRepository _personRegistrationRepository;
 
@@ -20,7 +20,7 @@ namespace SL.Person.Registration.Application.Command.Handler
             _personRegistrationRepository = personRegistrationRepository;
         }
 
-        public async Task<IResult<bool>> Handle(InsertInterviewCommand request, CancellationToken cancellationToken)
+        public async Task<ResultBase> Handle(InsertInterviewCommand request, CancellationToken cancellationToken)
         {
             var result = request.RequestValidate();
 
@@ -31,7 +31,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var personInterviewed = _personRegistrationRepository.GetByDocument(request.Interview.Interviewed);
 
-            result = personInterviewed.Validate<bool>();
+            result = personInterviewed.ValidateInstanceByType(PersonType.Assistido);
 
             if (!result.IsSuccess)
             {
@@ -40,7 +40,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var personInterviewer = _personRegistrationRepository.GetByDocument(request.Interview.Interviewer, PersonType.Entrevistador);
 
-            result = personInterviewer.Validate<bool>();
+            result = personInterviewer.ValidateInstanceByType(PersonType.Entrevistador);
 
             if (!result.IsSuccess)
             {
@@ -52,11 +52,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             personInterviewed.AddPersonType(PersonType.Assistido);
 
-            personInterviewed.SetId(personInterviewed._id);
-
             _personRegistrationRepository.Update(personInterviewed);
-
-            result.SetData(true);
 
             return result;
         }

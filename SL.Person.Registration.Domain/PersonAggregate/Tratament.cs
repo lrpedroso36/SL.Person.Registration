@@ -8,7 +8,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
     {
         public DateTime Date { get; private set; }
 
-        public PersonRegistration TaskMaster { get; private set; }
+        public PersonRegistration Laborer { get; private set; }
 
         public bool? Presence { get; private set; }
 
@@ -17,38 +17,37 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         }
 
-        private Tratament(DateTime date, PersonRegistration taskMaster)
+        private Tratament(DateTime date, PersonRegistration laborer)
         {
             Date = date;
-            TaskMaster = SetTaskMaster(taskMaster);
+            Laborer = SetLaborer(laborer);
         }
 
-        private Tratament(DateTime date, PersonRegistration taskMaster, bool presence) : this(date, taskMaster)
+        private Tratament(DateTime date, PersonRegistration laborer, bool presence) : this(date, laborer)
         {
-
             Presence = presence;
         }
 
-        private PersonRegistration SetTaskMaster(PersonRegistration taskMaster)
+        private PersonRegistration SetLaborer(PersonRegistration laborer)
         {
-            if (taskMaster != null && taskMaster.Types.Any(x => x == PersonType.Tarefeiro))
+            if (laborer != null && laborer.Types.Any(x => x == PersonType.Tarefeiro))
             {
-                return PersonRegistration.CreateInstance(taskMaster._id, taskMaster.Types, taskMaster.Name, taskMaster.DocumentNumber);
+                return PersonRegistration.CreateInstance(laborer._id, laborer.Types, laborer.Name, laborer.DocumentNumber);
             }
 
             return null;
         }
 
-        public static Tratament CreateInstance(DateTime date, PersonRegistration taskMaster)
-            => new Tratament(date, taskMaster);
+        public static Tratament CreateInstance(DateTime date, PersonRegistration laborer)
+            => new Tratament(date, laborer);
 
-        public static Tratament CreateInstance(DateTime date, PersonRegistration taskMaster, bool presence)
-            => new Tratament(date, taskMaster, presence);
+        public static Tratament CreateInstance(DateTime date, PersonRegistration laborer, bool presence)
+            => new Tratament(date, laborer, presence);
 
-        public void SetPresence(DateTime date, PersonRegistration taskMaster)
+        public void SetPresence(DateTime date, PersonRegistration laborer)
         {
             Date = date;
-            TaskMaster = SetTaskMaster(taskMaster);
+            Laborer = SetLaborer(laborer);
             Presence = true;
         }
     }

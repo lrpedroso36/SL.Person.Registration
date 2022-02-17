@@ -18,9 +18,22 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new InsertPersonCommand(null), false, 0, new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters },
-            new object[] { new InsertPersonCommand(GetPerson()), false, 0, new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters },
-            new object[] { new InsertPersonCommand(Builder<PersonRequest>.CreateNew().Build()), true, 1, new List<string>(), (ErrorType)0 }
+            new object[] { new InsertPersonCommand(null),
+                           false,
+                           0,
+                           new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters
+            },
+            new object[] { new InsertPersonCommand(GetPerson()),
+                           false,
+                           0,
+                           new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters
+            },
+            new object[] { new InsertPersonCommand(Builder<PersonRequest>.CreateNew().Build()),
+                           true,
+                           1,
+                           new List<string>(),
+                           (ErrorType)0
+            }
         };
 
         private static PersonRequest GetPerson()
@@ -36,7 +49,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             List<string> errors, ErrorType errorType)
         {
             //arrange
-            var mockRepository = MockInformatioRegistrationRepository.GetMockRepository(null);
+            var mockRepository = MockPersonRegistrationRepository.GetMockRepository(null);
 
             //act
             var commandHandler = new InsertPersonCommandHandler(mockRepository.Object);
@@ -45,7 +58,6 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             //assert
             mockRepository.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
             result.IsSuccess.Should().Be(resultCommand);
-            result.Data.Should().Be(resultCommand);
             result.Errors.Should().BeEquivalentTo(errors);
             result.ErrorType.Should().Be(errorType);
         }

@@ -6,9 +6,9 @@ namespace SL.Person.Registration.Application.Command.Validations
 {
     public static class UpdatePersonCommandValidation
     {
-        public static Result<bool> RequestValidate(this UpdatePersonCommand request)
+        public static ResultBase RequestValidate(this UpdatePersonCommand request)
         {
-            var result = new Result<bool>();
+            var result = new Result();
 
             if (request.Person == null || request.Person.DocumentNumber == 0)
             {

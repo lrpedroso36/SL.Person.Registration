@@ -16,14 +16,10 @@
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Domain\Requests\" />
-    <Folder Include="MoqUnitTest\" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
     <ProjectReference Include="..\SL.Person.Registration.Application\SL.Person.Registration.Application.csproj" />
+    <ProjectReference Include="..\SL.Person.Registration.Infrastructure.External\SL.Person.Registration.Infrastructure.External.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Domain\Results\" />
@@ -34,5 +30,8 @@
     <None Remove="MoqUnitTest\" />
     <None Remove="Application\Command\" />
     <None Remove="Application\Command\Handler\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="InfrastructureExternal\" />
   </ItemGroup>
 </Project>

@@ -88,14 +88,13 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             IEnumerable<PersonRegistration> registration, bool isSucess, List<string> errors, ErrorType errorType)
         {
             //arrange
-            var moqRepository = MockInformatioRegistrationRepository.GetMockRepository(registration?.FirstOrDefault());
+            var moqRepository = MockPersonRegistrationRepository.GetMockRepository(registration?.FirstOrDefault());
 
             //act
             var resultHandler = new FindPersonByNameQueryHandler(moqRepository.Object);
             var handler = await resultHandler.Handle(query, default);
 
             //assert
-            handler.Data.Should().BeEquivalentTo(result);
             handler.IsSuccess.Should().Be(isSucess);
             handler.Errors.Should().BeEquivalentTo(errors);
             handler.ErrorType.Should().Be(errorType);

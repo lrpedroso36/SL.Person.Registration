@@ -31,26 +31,26 @@ namespace SL.Person.Registration.Api.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         public async Task<IActionResult> PostAsync([FromBody] InterviewRequest request, CancellationToken cancellationToken)
             => GetActionResult(await _mediator.Send(new InsertInterviewCommand(request), cancellationToken));
 
         /// <summary>
         /// Inserir a presenca no tratamento
         /// </summary>
-        /// <param name="interviewed">Número do documento do entrevistado</param>
-        /// <param name="taskMaster">Número do documento do tarefeiro</param>
+        /// <param name="interviewedDocument">Número do documento do entrevistado</param>
+        /// <param name="laborerDocument">Número do documento do tarefeiro</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Pessoa atualizada com sucesso</response>
         /// <response code="400">Informe os dados da pessoa</response>
         /// <response code="404">Pessoa não encontrada</response>
         /// <returns></returns>
-        [HttpPost("presence/{interviewed}/{taskMaster}")]
+        [HttpPost("presence/{interviewedDocument}/{laborerDocument}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result<bool>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result<bool>))]
-        public async Task<IActionResult> PresenceAsync(long interviewed, long taskMaster, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new PrecenceCommand(interviewed, taskMaster), cancellationToken));
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
+        public async Task<IActionResult> PresenceAsync(long interviewedDocument, long laborerDocument, CancellationToken cancellationToken)
+            => GetActionResult(await _mediator.Send(new PrecenceCommand(interviewedDocument, laborerDocument), cancellationToken));
     }
 }

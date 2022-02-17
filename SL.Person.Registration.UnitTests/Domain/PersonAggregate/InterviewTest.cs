@@ -27,7 +27,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Assistido}, "nome", GenderType.Masculino, 1, 1234567890, null,null),
+                    new List<PersonType> { PersonType.Assistido}, "nome", GenderType.Masculino, 1, 1234567890),
                 1,
                 "opinião",
                 null,
@@ -38,7 +38,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, 1, 1234567890, null,null),
+                    new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, 1, 1234567890),
                 1,
                 "opinião",
                 PersonRegistration.CreateInstance(Guid.Empty, new List<PersonType> { PersonType.Entrevistador}, "nome",1234567890),
@@ -95,7 +95,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             interview.Trataments.Should().BeEquivalentTo(trataments);
         }
 
-        public static PersonRegistration GetPersonTaskMaster()
+        public static PersonRegistration GetPersonLaborer()
         {
             var person = Builder<PersonRegistration>.CreateNew().Build();
             person.AddPersonType(PersonType.Tarefeiro);
@@ -106,19 +106,19 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         public void Should_set_presence_tratament()
         {
             //arrange
-            var taskMaster = GetPersonTaskMaster();
+            var laborer = GetPersonLaborer();
 
             var interview = Interview.CreateInstance(TreatmentType.PasseA3, WeakDayType.Sabado, InterviewType.Retorno, new DateTime(2022, 02, 09),
                 Builder<PersonRegistration>.CreateNew().Build(), 2, "teste opniao");
 
             var trataments = new List<Tratament>()
             {
-                Tratament.CreateInstance(new DateTime(2022, 2, 10), taskMaster, true),
+                Tratament.CreateInstance(new DateTime(2022, 2, 10), laborer, true),
                 Tratament.CreateInstance(new DateTime(2022, 2, 19), null)
             };
 
             //act
-            interview.SetPresenceTratament(new DateTime(2022, 2, 10), taskMaster);
+            interview.SetPresenceTratament(new DateTime(2022, 2, 10), laborer);
 
             //assert
             interview.Trataments.Should().BeEquivalentTo(trataments);
@@ -128,21 +128,21 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         [Fact]
         public void Should_not_set_presence_tratament_if_tratament_completed()
         {
-            var taskMaster = GetPersonTaskMaster();
+            var laborer = GetPersonLaborer();
 
             var interview = Interview.CreateInstance(TreatmentType.PasseA3, WeakDayType.Sabado, InterviewType.Retorno, new DateTime(2022, 01, 09),
                 Builder<PersonRegistration>.CreateNew().Build(), 2, "teste opniao");
 
             var trataments = new List<Tratament>()
             {
-                Tratament.CreateInstance(new DateTime(2022, 2, 08), taskMaster, true),
-                Tratament.CreateInstance(new DateTime(2022, 2, 09), taskMaster, true)
+                Tratament.CreateInstance(new DateTime(2022, 2, 08), laborer, true),
+                Tratament.CreateInstance(new DateTime(2022, 2, 09), laborer, true)
             };
 
             //act
-            interview.SetPresenceTratament(new DateTime(2022, 2, 08), taskMaster);
-            interview.SetPresenceTratament(new DateTime(2022, 2, 09), taskMaster);
-            interview.SetPresenceTratament(new DateTime(2022, 2, 10), taskMaster);
+            interview.SetPresenceTratament(new DateTime(2022, 2, 08), laborer);
+            interview.SetPresenceTratament(new DateTime(2022, 2, 09), laborer);
+            interview.SetPresenceTratament(new DateTime(2022, 2, 10), laborer);
 
             //assert
             interview.Trataments.Should().BeEquivalentTo(trataments);

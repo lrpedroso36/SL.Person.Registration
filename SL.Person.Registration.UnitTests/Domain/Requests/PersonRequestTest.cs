@@ -27,19 +27,6 @@ namespace SL.Person.Registration.UnitTests.Domain.Requests
             person.Gender.Should().Be(personRequest.Gender);
             person.YearsOld.Should().Be(personRequest.YearsOld);
             person.DocumentNumber.Should().Be(personRequest.DocumentNumber);
-
-            person.Address.Should().NotBeNull();
-            person.Address.ZipCode.Should().Be(personRequest.ZipCode);
-            person.Address.Street.Should().Be(personRequest.Street);
-            person.Address.Number.Should().Be(personRequest.Number);
-            person.Address.Neighborhood.Should().Be(personRequest.Neighborhood);
-            person.Address.Complement.Should().Be(personRequest.Complement);
-            person.Address.City.Should().Be(personRequest.City);
-            person.Address.State.Should().Be(personRequest.State);
-
-            person.Contact.Should().NotBeNull();
-            person.Contact.DDD.Should().Be(personRequest.DDD);
-            person.Contact.PhoneNumber.Should().Be(personRequest.PhoneNumber);
         }
     }
 }

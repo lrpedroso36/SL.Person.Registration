@@ -10,15 +10,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command
         public void Should_set_properties()
         {
             //arrange
-            var documentInterviewe = 1;
-            var documentTaskMaster = 1;
+            var interviewDocument = 1;
+            var laborerDocument = 1;
 
             //act
-            var command = new PrecenceCommand(documentInterviewe, documentTaskMaster);
+            var command = new PrecenceCommand(interviewDocument, laborerDocument);
 
             //assert
-            command.Interviewed.Should().Be(documentInterviewe);
-            command.TaskMaster.Should().Be(documentTaskMaster);
+            command.InterviewedDocument.Should().Be(interviewDocument);
+            command.LaborerDocument.Should().Be(laborerDocument);
         }
     }
 }

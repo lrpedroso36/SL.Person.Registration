@@ -51,9 +51,11 @@ namespace SL.Person.Registration
                 options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
 
+            services.AddHttpClient();
             services.AddConfiguration(Configuration);
             services.AddAppHealthCheck(Configuration);
             services.AddInfraestructure();
+            services.AddInfraestructureExternal();
             services.AddMediatorQuery();
         }
 

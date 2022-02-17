@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SL.Person.Registration.UnitTests.MoqUnitTest
 {
-    public class MockInformatioRegistrationRepository
+    public class MockPersonRegistrationRepository
     {
         public static Mock<IPersonRegistrationRepository> GetMockRepository(PersonRegistration resultSetup)
         {

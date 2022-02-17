@@ -6,9 +6,9 @@ namespace SL.Person.Registration.Application.Query.Validations
 {
     public static class FindPersonByContactNumberQueryValidation
     {
-        public static Result<FindPersonResult> RequestValidate(this FindPersonByContactNumberQuery request)
+        public static ResultBase RequestValidate(this FindPersonByContactNumberQuery request)
         {
-            var result = new Result<FindPersonResult>();
+            var result = new ResultEntities<FindPersonResult>();
 
             if (request.Ddd == 0 || request.PhoneNumber == 0)
             {

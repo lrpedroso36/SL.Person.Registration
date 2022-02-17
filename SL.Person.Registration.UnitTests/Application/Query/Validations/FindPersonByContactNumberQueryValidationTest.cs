@@ -4,7 +4,6 @@ using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Validations;
 using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
-using SL.Person.Registration.UnitTests.Builder;
 using System.Collections.Generic;
 using Xunit;
 
@@ -15,22 +14,28 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Validations
         public static List<object[]> Data = new List<object[]>
         {
             new object[] { new FindPersonByContactNumberQuery(0,0),
-                           ResultBuilder.GetResult<FindPersonResult>(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters)
+                           GetResult(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters)
             },
             new object[] { new FindPersonByContactNumberQuery( 1,0 ),
-                           ResultBuilder.GetResult<FindPersonResult>(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters)
+                           GetResult(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters)
             },
             new object[] { new FindPersonByContactNumberQuery( 0,1 ),
-                           ResultBuilder.GetResult<FindPersonResult>(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters)
+                           GetResult(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters)
             },
             new object[] { new FindPersonByContactNumberQuery(1,1),
-                           ResultBuilder.GetResult<FindPersonResult>(string.Empty, 0)
+                           GetResult(string.Empty, 0)
             }
         };
+        public static ResultBase GetResult(string errors, ErrorType errorType)
+        {
+            var result = new ResultEntities<FindPersonResult>();
+            result.AddErrors(errors, errorType);
+            return result;
+        }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void Should_request_validate(FindPersonByContactNumberQuery request, Result<FindPersonResult> resultExpected)
+        public void Should_request_validate(FindPersonByContactNumberQuery request, ResultBase resultExpected)
         {
             //arrange
             //act

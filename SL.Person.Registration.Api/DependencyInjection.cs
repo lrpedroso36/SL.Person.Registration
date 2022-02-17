@@ -5,8 +5,10 @@ using SL.Person.Registratio.CrossCuting.Configurations;
 using SL.Person.Registratio.CrossCuting.Configurations.Contracts;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Configurations;
+using SL.Person.Registration.Domain.External.Contracts;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
+using SL.Person.Registration.Infrastructure.External.Api;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts.Contracts;
 using SL.Person.Registration.Infrastructure.MongoDb.Repositories;
@@ -39,5 +41,11 @@ namespace SL.Person.Registration
             return service;
         }
 
+
+        public static IServiceCollection AddInfraestructureExternal(this IServiceCollection service)
+        {
+            service.AddScoped<IAddressApi, AddressApi>();
+            return service;
+        }
     }
 }
