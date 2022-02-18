@@ -1,22 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Base;
 using SL.Person.Registration.Domain.Results.Enums;
+using System.Net;
 
 namespace SL.Person.Registration.Api.Filters
 {
-    public class HttpResquestExceptionFilter : IActionFilter
+    public class ApplicationRequestExceptionFilter : IActionFilter
     {
         public void OnActionExecuting(ActionExecutingContext context) { }
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            if (context.Exception is HttpRequestException requestException)
+            if (context.Exception is ApplicationRequestException requestException)
             {
                 context.Result = new ObjectResult(requestException.Result)
                 {
-                    StatusCode = (int)GetStatusCode(requestException.Result)
+                    StatusCode = GetStatusCode(requestException.Result)
                 };
             };
 
@@ -26,15 +27,15 @@ namespace SL.Person.Registration.Api.Filters
         private int? GetStatusCode(ResultBase result)
         {
             if (!result.IsSuccess && result.ErrorType == ErrorType.InvalidParameters)
-                return 400;
+                return (int)HttpStatusCode.BadRequest;
 
             if (!result.IsSuccess && result.ErrorType == ErrorType.NotFoundData)
-                return 404;
+                return (int)HttpStatusCode.NotFound;
 
             if (!result.IsSuccess && result.ErrorType == ErrorType.EntitiesProperty)
-                return 409;
+                return (int)HttpStatusCode.Continue;
 
-            return 200;
+            return (int)HttpStatusCode.OK;
         }
     }
 }

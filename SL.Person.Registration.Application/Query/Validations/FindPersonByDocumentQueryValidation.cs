@@ -14,7 +14,7 @@ namespace SL.Person.Registration.Application.Query.Validations
             if (request.DocumentNumber == 0)
             {
                 result.AddErrors(ResourceMessagesValidation.FindPersonByDocumentQueryValidation_RequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

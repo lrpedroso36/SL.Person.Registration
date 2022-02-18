@@ -11,7 +11,7 @@ namespace SL.Person.Registration.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/contact")]
-    public class ContactController : BaseController
+    public class ContactController : ControllerBase
     {
         private readonly IMediator _mediator;
 

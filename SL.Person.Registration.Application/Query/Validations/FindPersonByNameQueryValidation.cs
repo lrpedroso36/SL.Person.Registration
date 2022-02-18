@@ -15,7 +15,7 @@ namespace SL.Person.Registration.Application.Query.Validations
             if (string.IsNullOrWhiteSpace(request.Name))
             {
                 result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

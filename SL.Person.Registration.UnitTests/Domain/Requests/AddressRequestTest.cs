@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Domain.PersonAggregate;
+using SL.Person.Registration.Domain.Requests;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.Requests
@@ -11,17 +11,28 @@ namespace SL.Person.Registration.UnitTests.Domain.Requests
         public void Should_get_address(long zipCode, string street, string number, string neighborhood, string complement, string city, string state)
         {
             //arrange
+            var result = new AddressRequest()
+            {
+                ZipCode = zipCode,
+                Street = street,
+                Number = number,
+                Neighborhood = neighborhood,
+                Complement = complement,
+                City = city,
+                State = state
+            };
+
             //act
-            var result = Address.CreateInstance(zipCode, street, number, neighborhood, complement, city, state);
+            var address = result.GetAddress();
 
             //assert
-            result.ZipCode.Should().Be(zipCode);
-            result.Street.Should().Be(street);
-            result.Number.Should().Be(number);
-            result.Neighborhood.Should().Be(neighborhood);
-            result.Complement.Should().Be(complement);
-            result.City.Should().Be(city);
-            result.State.Should().Be(state);
+            address.ZipCode.Should().Be(zipCode);
+            address.Street.Should().Be(street);
+            address.Number.Should().Be(number);
+            address.Neighborhood.Should().Be(neighborhood);
+            address.Complement.Should().Be(complement);
+            address.City.Should().Be(city);
+            address.State.Should().Be(state);
         }
     }
 }

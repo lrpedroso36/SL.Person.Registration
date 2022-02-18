@@ -11,7 +11,7 @@ namespace SL.Person.Registration.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/interview")]
-    public class InterviewController : BaseController
+    public class InterviewController : ControllerBase
     {
         private readonly IMediator _mediator;
 

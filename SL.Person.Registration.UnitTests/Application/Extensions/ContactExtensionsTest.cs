@@ -1,14 +1,11 @@
 ﻿using FluentAssertions;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.Results.Enums;
 using System;
-using System.Collections.Generic;
 using Xunit;
 
-namespace SL.Person.Registration.UnitTests.Domain.Extensions
+namespace SL.Person.Registration.UnitTests.Application.Extensions
 {
     public class ContactExtensionsTest
     {
@@ -22,7 +19,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             Action action = () => contact.Validate();
 
             //assert
-            action.Should().Throw<HttpRequestException>();
+            action.Should().Throw<ApplicationRequestException>();
         }
 
         [Fact]
@@ -35,7 +32,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             Action action = () => contact.Validate();
 
             //assert
-            action.Should().Throw<HttpRequestException>();
+            action.Should().Throw<ApplicationRequestException>();
         }
     }
 }

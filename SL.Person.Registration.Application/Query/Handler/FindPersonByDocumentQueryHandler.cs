@@ -3,8 +3,10 @@ using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Application.Query.Validations;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Base;
 using System.Threading;
 using System.Threading.Tasks;
+
 
 namespace SL.Person.Registration.Application.Query.Handler
 {

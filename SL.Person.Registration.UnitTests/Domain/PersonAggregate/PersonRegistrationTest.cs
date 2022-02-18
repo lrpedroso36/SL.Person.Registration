@@ -11,65 +11,63 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 {
     public class PersonRegistrationTest
     {
-        public static List<object[]> Data = new List<object[]>()
-        {
-            new object[] { new List<PersonType> { PersonType.Assistido },
-                "nome",
-                GenderType.Masculino,
-                33,
-                1234567890
-            },
-            new object[]
-            {
-                new List<PersonType> { PersonType.Assistido },
-                "nome",
-                GenderType.Masculino,
-                33,
-                1234567890
-            },
-            new object[]
-            {
-                new List<PersonType> { PersonType.Assistido },
-                "nome",
-                GenderType.Masculino,
-                33,
-                1234567890
-             }
-        };
-
-        [Theory]
-        [MemberData(nameof(Data))]
-        public void Shoud_set_properties(List<PersonType> types,
-             string name,
-             GenderType gender,
-             int yeasOld,
-             long documentNumber)
+        [Fact]
+        public void Shoud_set_properties()
         {
             //arrange
+            var types = new List<PersonType> { PersonType.Assistido };
+            var name = "Nome";
+            var gender = GenderType.Masculino;
+            var yearsOld = 33;
+            var documentNumber = 123456789L;
+
             //act
-            var person = PersonRegistration.CreateInstance(types, name, gender, yeasOld, documentNumber);
+            var person = PersonRegistration.CreateInstance(types, name, gender, yearsOld, documentNumber);
 
             //assert
             person.Types.Should().BeEquivalentTo(types);
-
             person.Name.Should().Be(name);
             person.Name.Should().BeOfType(typeof(string));
-
             person.Gender.Should().Be(gender);
-
-            person.YearsOld.Should().Be(yeasOld);
+            person.YearsOld.Should().Be(yearsOld);
             person.YearsOld.Should().BeOfType(typeof(int));
-
             person.DocumentNumber.Should().Be(documentNumber);
             person.DocumentNumber.Should().BeOfType(typeof(long));
 
             person.Address.Should().BeNull();
-
             person.Contact.Should().BeNull();
         }
 
         [Fact]
-        public void Should_set_properties_short_instace()
+        public void Shoud_set_properties_update_instance()
+        {
+            //arrange
+            var id = Guid.NewGuid();
+            var types = new List<PersonType> { PersonType.Assistido };
+            var name = "Nome";
+            var gender = GenderType.Masculino;
+            var yearsOld = 33;
+            var documentNumber = 123456789L;
+
+            //act
+            var person = PersonRegistration.CreateUpdateInstance(id, types, name, gender, yearsOld, documentNumber);
+
+            //assert
+            person.Types.Should().BeEquivalentTo(types);
+            person.Name.Should().Be(name);
+            person.Name.Should().BeOfType(typeof(string));
+            person.Gender.Should().Be(gender);
+            person.YearsOld.Should().Be(yearsOld);
+            person.YearsOld.Should().BeOfType(typeof(int));
+            person.DocumentNumber.Should().Be(documentNumber);
+            person.DocumentNumber.Should().BeOfType(typeof(long));
+
+            person.Address.Should().BeNull();
+            person.Contact.Should().BeNull();
+        }
+
+        [Fact]
+        public void Should_set_properties_instance_simple()
         {
             //arrange
             var id = Guid.NewGuid();
@@ -78,7 +76,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var documentNumber = 123456789L;
 
             //act
-            var person = PersonRegistration.CreateInstance(id, types, name, documentNumber);
+            var person = PersonRegistration.CreateInstanceSimple(id, types, name, documentNumber);
 
             //asserts
             person._id.Should().Be(id);
@@ -155,8 +153,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             //arrange
             var person = Builder<PersonRegistration>.CreateNew().Build();
-            var personInterviewer = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Entrevistador }, "nome", 123456789);
-            var personLaborer = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+            var personInterviewer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Entrevistador }, "nome", 123456789);
+            var personLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
             person.AddInterview(Interview.CreateInstance(TreatmentType.TratamentoEspiritual, WeakDayType.Sabado, InterviewType.Primeira, new DateTime(2022, 2, 5), personInterviewer, 1, "opnião"));
 
             var tramentCompare = Tratament.CreateInstance(new DateTime(2022, 2, 10), personLaborer, true);
@@ -190,7 +188,6 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             //assert
             person.Assignments.Should().HaveCount(1);
             person.Assignments.Should().BeEquivalentTo(list);
-
         }
     }
 }

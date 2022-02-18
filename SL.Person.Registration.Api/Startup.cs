@@ -35,7 +35,7 @@ namespace SL.Person.Registration
 
             services.AddControllers(options =>
             {
-                options.Filters.Add(typeof(HttpResquestExceptionFilter));
+                options.Filters.Add(typeof(ApplicationRequestExceptionFilter));
             }).AddJsonOptions(jsonOptions =>
             {
                 jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());

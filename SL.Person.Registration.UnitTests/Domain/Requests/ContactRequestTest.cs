@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Domain.PersonAggregate;
+using SL.Person.Registration.Domain.Requests;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.Requests
@@ -11,12 +11,14 @@ namespace SL.Person.Registration.UnitTests.Domain.Requests
         public void Should_get_contact(int ddd, long phoneNumber)
         {
             //arrange
+            var result = new ContactRequest() { DDD = ddd, PhoneNumber = phoneNumber };
+
             //act
-            var result = Contact.CreateInstance(ddd, phoneNumber);
+            var contact = result.GetContact();
 
             //assert
-            result.DDD.Should().Be(ddd);
-            result.PhoneNumber.Should().Be(phoneNumber);
+            contact.DDD.Should().Be(ddd);
+            contact.PhoneNumber.Should().Be(phoneNumber);
         }
     }
 }

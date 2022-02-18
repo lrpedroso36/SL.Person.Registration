@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 
-namespace SL.Person.Registration.Domain.Results
+namespace SL.Person.Registration.Domain.Results.Base
 {
     public abstract class ResultBase
     {

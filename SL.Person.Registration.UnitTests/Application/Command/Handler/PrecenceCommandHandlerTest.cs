@@ -2,14 +2,11 @@
 using FluentAssertions;
 using MediatR;
 using Moq;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
-using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Enums;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -23,7 +20,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         {
             new object[] { new PrecenceCommand(1,1),
                            Unit.Value,
-                           PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome" ,1234567890),
+                           PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome" ,1234567890),
                            Builder<PersonRegistration>.CreateNew().Build()
             }
         };

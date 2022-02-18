@@ -14,7 +14,7 @@ namespace SL.Person.Registration.Application.Query.Validations
             if (request.Ddd == 0 || request.PhoneNumber == 0)
             {
                 result.AddErrors(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SL.Person.Registration.Api.Controllers;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Domain.Requests;
@@ -15,7 +14,7 @@ namespace SL.Person.Registration.Controllers
 {
     [ApiController]
     [Route("api/v1/person")]
-    public class PersonController : BaseController
+    public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
         private readonly IMediator _mediator;
@@ -40,8 +39,8 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> FindPersonByDocumentAsync(long documentNumber, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new FindPersonByDocumentQuery(documentNumber), cancellationToken));
+        public async Task FindPersonByDocumentAsync(long documentNumber, CancellationToken cancellationToken)
+            => await _mediator.Send(new FindPersonByDocumentQuery(documentNumber), cancellationToken);
 
         /// <summary>
         /// Pesquisar registro de pessoa pelo o número do contato
@@ -58,8 +57,8 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> FindPersonByContactNumber(int ddd, long phoneNumber, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new FindPersonByContactNumberQuery(ddd, phoneNumber), cancellationToken));
+        public async Task FindPersonByContactNumber(int ddd, long phoneNumber, CancellationToken cancellationToken)
+            => await _mediator.Send(new FindPersonByContactNumberQuery(ddd, phoneNumber), cancellationToken);
 
 
         /// <summary>
@@ -76,8 +75,8 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> FindPersonByName(string name, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new FindPersonByNameQuery(name), cancellationToken));
+        public async Task FindPersonByName(string name, CancellationToken cancellationToken)
+            => await _mediator.Send(new FindPersonByNameQuery(name), cancellationToken);
 
         /// <summary>
         /// Inserir o registro de uma pessoa

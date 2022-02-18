@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using SL.Person.Registration.Domain.Results;
 
 namespace SL.Person.Registration.Application.Command
 {

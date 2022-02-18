@@ -28,7 +28,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
             Action action = () => request.RequestValidate();
 
             //assert
-            action.Should().Throw<HttpRequestException>();
+            action.Should().Throw<ApplicationRequestException>();
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
             Action action = () => request.RequestValidate();
 
             //assert
-            action.Should().NotThrow<HttpRequestException>();
+            action.Should().NotThrow<ApplicationRequestException>();
         }
     }
 }

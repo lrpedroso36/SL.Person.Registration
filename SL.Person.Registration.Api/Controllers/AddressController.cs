@@ -9,11 +9,12 @@ using SL.Person.Registration.Domain.Results;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace SL.Person.Registration.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/address")]
-    public class AddressController : BaseController
+    public class AddressController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -71,7 +72,7 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<Address>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<Address>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<Address>))]
-        public async Task<IActionResult> GetAsync(string zipCode, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new FindAddressByZipCodeQuery(zipCode), cancellationToken));
+        public async Task GetAsync(string zipCode, CancellationToken cancellationToken)
+            => await _mediator.Send(new FindAddressByZipCodeQuery(zipCode), cancellationToken);
     }
 }

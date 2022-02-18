@@ -1,4 +1,5 @@
-﻿using SL.Person.Registration.Domain.Results.Contrats;
+﻿using SL.Person.Registration.Domain.Results.Base;
+using SL.Person.Registration.Domain.Results.Contrats;
 
 namespace SL.Person.Registration.Domain.Results
 {

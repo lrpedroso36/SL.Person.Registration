@@ -3,12 +3,11 @@ using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.Results.Enums;
 using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace SL.Person.Registration.UnitTests.Domain.Extensions
+namespace SL.Person.Registration.UnitTests.Application.Extensions
 {
     public class AddressExtensionsTest
     {
@@ -23,7 +22,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             Action action = () => address.Validate();
 
             //assert
-            action.Should().Throw<HttpRequestException>();
+            action.Should().Throw<ApplicationRequestException>();
         }
 
         [Theory]
@@ -40,7 +39,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<HttpRequestException>();
+            result.Should().Throw<ApplicationRequestException>();
         }
 
         [Theory]
@@ -57,7 +56,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<HttpRequestException>();
+            result.Should().Throw<ApplicationRequestException>();
         }
 
         [Theory]
@@ -74,7 +73,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<HttpRequestException>();
+            result.Should().Throw<ApplicationRequestException>();
         }
 
         [Theory]
@@ -91,7 +90,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<HttpRequestException>();
+            result.Should().Throw<ApplicationRequestException>();
         }
 
         [Theory]
@@ -108,7 +107,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<HttpRequestException>();
+            result.Should().Throw<ApplicationRequestException>();
         }
     }
 }

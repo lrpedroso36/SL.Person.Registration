@@ -24,7 +24,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_name(string name)
         {
             //arrange 
-            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
 
             //act
             var result = _personRegistrationValidation.TestValidate(person);
@@ -37,7 +37,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_not_have_errors_in_name()
         {
             //arrange 
-            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
 
             //act
             var result = _personRegistrationValidation.TestValidate(person);
@@ -50,7 +50,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_document_number()
         {
             //arrange 
-            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
 
             //act
             var result = _personRegistrationValidation.TestValidate(person);
@@ -63,7 +63,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_not_have_errors_in_document_number()
         {
             //arrange 
-            var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 1234567890);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 1234567890);
 
             //act
             var result = _personRegistrationValidation.TestValidate(person);

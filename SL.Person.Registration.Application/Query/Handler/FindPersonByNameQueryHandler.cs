@@ -12,18 +12,18 @@ namespace SL.Person.Registration.Application.Query.Handler
 {
     public class FindPersonByNameQueryHandler : IRequestHandler<FindPersonByNameQuery, ResultEntities<IEnumerable<FindPersonResult>>>
     {
-        private readonly IPersonRegistrationRepository _personRepository;
+        private readonly IPersonRegistrationRepository _repository;
 
-        public FindPersonByNameQueryHandler(IPersonRegistrationRepository personRepository)
+        public FindPersonByNameQueryHandler(IPersonRegistrationRepository repository)
         {
-            _personRepository = personRepository;
+            _repository = repository;
         }
 
         public async Task<ResultEntities<IEnumerable<FindPersonResult>>> Handle(FindPersonByNameQuery request, CancellationToken cancellationToken)
         {
             request.RequestValidate();
 
-            var personRegistration = _personRepository.GetByName(request.Name);
+            var personRegistration = _repository.GetByName(request.Name);
 
             var result = new ResultEntities<IEnumerable<FindPersonResult>>();
 

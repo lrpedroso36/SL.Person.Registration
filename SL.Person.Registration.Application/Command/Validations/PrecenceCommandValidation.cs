@@ -14,7 +14,7 @@ namespace SL.Person.Registration.Application.Command.Validations
             if (request.InterviewedDocument == 0 || request.LaborerDocument == 0)
             {
                 result.AddErrors(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

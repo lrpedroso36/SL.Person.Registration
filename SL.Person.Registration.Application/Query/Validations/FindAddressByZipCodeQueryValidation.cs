@@ -15,7 +15,7 @@ namespace SL.Person.Registration.Application.Query.Validations
             if (string.IsNullOrWhiteSpace(request.ZipCode))
             {
                 result.AddErrors(ResourceMessagesValidation.FindAddressByZipCodeValidation_RequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

@@ -14,7 +14,7 @@ namespace SL.Person.Registration.Application.Command.Validations
             if (request.Person == null || request.Person.DocumentNumber == 0)
             {
                 result.AddErrors(ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

@@ -17,7 +17,7 @@ namespace SL.Person.Registration.Application.Extensions
             {
                 var result = new Result();
                 validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage, ErrorType.EntitiesProperty));
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

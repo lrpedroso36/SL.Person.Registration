@@ -14,13 +14,13 @@ namespace SL.Person.Registration.Application.Command.Validations
             if (request.DocumentNumber == 0)
             {
                 result.AddErrors(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
 
             if (request.Contact == null)
             {
                 result.AddErrors(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

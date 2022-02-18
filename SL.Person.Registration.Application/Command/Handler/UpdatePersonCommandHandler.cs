@@ -3,7 +3,6 @@ using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
-using SL.Person.Registration.Domain.Results;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,7 +29,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             person.Validate();
 
-            var update = PersonRegistration.CreateInstance(personRegistration._id, person.Types, person.Name, person.Gender,
+            var update = PersonRegistration.CreateUpdateInstance(personRegistration._id, person.Types, person.Name, person.Gender,
                 person.YearsOld, person.DocumentNumber);
 
             _repository.Update(update);

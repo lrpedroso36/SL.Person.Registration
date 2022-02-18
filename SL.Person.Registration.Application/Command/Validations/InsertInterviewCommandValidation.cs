@@ -14,13 +14,13 @@ namespace SL.Person.Registration.Application.Command.Validations
             if (request.Interview == null)
             {
                 result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_RequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
 
             if (request.Interview.Interviewed == 0 || request.Interview.Interviewer == 0)
             {
                 result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters);
-                throw new HttpRequestException(result);
+                throw new ApplicationRequestException(result);
             }
         }
     }

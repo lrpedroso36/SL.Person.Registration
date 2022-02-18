@@ -8,11 +8,6 @@ namespace SL.Person.Registration.Domain.Requests
 
         public long PhoneNumber { get; set; }
 
-        protected ContactRequest()
-        {
-
-        }
-
         public Contact GetContact()
         {
             return Contact.CreateInstance(DDD, PhoneNumber);
