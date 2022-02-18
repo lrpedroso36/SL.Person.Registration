@@ -1,6 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
-using SL.Person.Registratio.CrossCuting.Resources;
+using MediatR;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -18,30 +18,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
     {
         public static List<object[]> Data = new List<object[]>
         {
-            new object[] { new AddressCommand(0, Builder<AddressRequest>.CreateNew().Build()),
-                           null,
-                           GetResult(ResourceMessagesValidation.AddressCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters),
-            },
-            new object[] { new AddressCommand(123456789, null),
-                           null,
-                           GetResult(ResourceMessagesValidation.AddressCommandValidation_RequestInvalid, ErrorType.InvalidParameters),
-            },
             new object[] { new AddressCommand(123456789, Builder<AddressRequest>.CreateNew().Build()),
                            Builder<PersonRegistration>.CreateNew().Build(),
-                           GetResult(string.Empty, 0),
-            },
+                           Unit.Value
+            }
         };
-
-        public static Result GetResult(string errors, ErrorType errorType)
-        {
-            var result = new Result();
-            result.AddErrors(errors, errorType);
-            return result;
-        }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(AddressCommand command, PersonRegistration personRegistration, Result resultExpected)
+        public async Task Should_execute_handler(AddressCommand command, PersonRegistration personRegistration, Unit resultExpected)
         {
             //arrange
             var moq = MockPersonRegistrationRepository.GetMockRepository(personRegistration);

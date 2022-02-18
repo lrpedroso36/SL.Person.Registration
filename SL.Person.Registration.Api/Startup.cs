@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SL.Person.Registration.Api.Filters;
 using SL.Person.Registration.Extensions;
 using System;
 using System.IO;
@@ -32,11 +33,13 @@ namespace SL.Person.Registration
 
             services.AddOptions();
 
-            services.AddControllers()
-                .AddJsonOptions(x =>
-                {
-                    x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-                });
+            services.AddControllers(options =>
+            {
+                options.Filters.Add(typeof(HttpResquestExceptionFilter));
+            }).AddJsonOptions(jsonOptions =>
+            {
+                jsonOptions.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             services.AddSwaggerGen(options =>
             {

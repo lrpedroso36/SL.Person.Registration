@@ -4,7 +4,7 @@ using SL.Person.Registration.Domain.Results;
 
 namespace SL.Person.Registration.Application.Command
 {
-    public class AddressCommand : IRequest<ResultBase>
+    public class AddressCommand : IRequest
     {
         public AddressCommand(long documentNumber, AddressRequest request)
         {

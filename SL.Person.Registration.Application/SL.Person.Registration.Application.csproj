@@ -8,9 +8,6 @@
     <PackageReference Include="MediatR" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
     <ProjectReference Include="..\SL.Person.Registration.Infrastructure.MongoDb\SL.Person.Registration.Infrastructure.MongoDb.csproj" />
   </ItemGroup>

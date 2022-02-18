@@ -4,7 +4,7 @@ using SL.Person.Registration.Domain.Results;
 
 namespace SL.Person.Registration.Application.Command
 {
-    public class ContactCommand : IRequest<ResultBase>
+    public class ContactCommand : IRequest
     {
         public ContactCommand(long documentNumber, ContactRequest request)
         {

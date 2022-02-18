@@ -4,7 +4,7 @@ using SL.Person.Registration.Domain.Results;
 
 namespace SL.Person.Registration.Application.Command
 {
-    public class UpdatePersonCommand : IRequest<ResultBase>
+    public class UpdatePersonCommand : IRequest
     {
         public UpdatePersonCommand(PersonRequest person)
         {

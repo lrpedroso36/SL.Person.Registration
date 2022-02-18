@@ -92,8 +92,8 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task<IActionResult> PostAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new InsertPersonCommand(request), cancellationToken));
+        public async Task PostAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
+            => await _mediator.Send(new InsertPersonCommand(request), cancellationToken);
 
         /// <summary>
         /// Atualizar o registro de uma pessoa
@@ -110,7 +110,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task<IActionResult> PutAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new UpdatePersonCommand(request), cancellationToken));
+        public async Task PutAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
+            => await _mediator.Send(new UpdatePersonCommand(request), cancellationToken);
     }
 }

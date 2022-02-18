@@ -17,22 +17,6 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] {
-                new FindPersonByDocumentQuery(0),
-                null,
-                null,
-                false,
-                new List<string>() { ResourceMessagesValidation.FindPersonByDocumentQueryValidation_RequestInvalid },
-                ErrorType.InvalidParameters
-            },
-             new object[] {
-                new FindPersonByDocumentQuery(1),
-                null,
-                null,
-                false,
-                new List<string>() { ResourceMessagesValidation.PersonRegistration_InstanceInvalid },
-                ErrorType.NotFoundData
-            },
             new object[]
             {
                 new FindPersonByDocumentQuery(123456789),

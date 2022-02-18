@@ -1,10 +1,11 @@
 ﻿using FluentAssertions;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Validations;
+using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -14,15 +15,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
     {
         public static List<object[]> Data = new List<object[]>
         {
-            new object[] { new UpdatePersonCommand(null),
-                           GetResult(ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid, ErrorType.InvalidParameters)
-            },
-            new object[] { new UpdatePersonCommand(new PersonRequest() { DocumentNumber = 0 }),
-                           GetResult(ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid, ErrorType.InvalidParameters)
-            },
-            new object[] { new UpdatePersonCommand(new PersonRequest() { DocumentNumber = 1 }),
-                           GetResult(string.Empty, 0)
-            }
+            new object[] { new UpdatePersonCommand(null) },
+            new object[] { new UpdatePersonCommand(new PersonRequest() { DocumentNumber = 0 }) }
         };
 
         public static Result GetResult(string errors, ErrorType errorType)
@@ -34,14 +28,27 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void Should_request_validate(UpdatePersonCommand request, Result resultExpected)
+        public void Should_request_invalid(UpdatePersonCommand request)
         {
             //arrange
             //act
-            var result = request.RequestValidate();
+            Action action = () => request.RequestValidate();
 
             //assert
-            result.Should().BeEquivalentTo(resultExpected);
+            action.Should().Throw<HttpRequestException>();
+        }
+
+        [Fact]
+        public void Should_request_valid()
+        {
+            //arrange
+            var request = new UpdatePersonCommand(new PersonRequest() { DocumentNumber = 1 });
+
+            //act
+            Action action = () => request.RequestValidate();
+
+            //assert
+            action.Should().NotThrow<HttpRequestException>();
         }
     }
 }

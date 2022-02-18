@@ -20,59 +20,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
     {
         public static List<object[]> Data = new List<object[]>
         {
-            new object[] { new InsertInterviewCommand(null),
-                           false,
-                           0,
-                           new List<string>() { ResourceMessagesValidation.InsertInterviewCommandValidation_RequestInvalid },
-                           ErrorType.InvalidParameters,
-                           null,
-                           null
-            },
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 0, Interviewer = 0 }),
-                           false,
-                           0,
-                           new List<string>() { ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid },
-                           ErrorType.InvalidParameters,
-                           null,
-                           null
-            },
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 1, Interviewer = 0 }),
-                           false,
-                           0,
-                           new List<string>() { ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid },
-                           ErrorType.InvalidParameters,
-                           null,
-                           null
-            },
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 0, Interviewer = 1 }),
-                           false,
-                           0,
-                           new List<string>() { ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid },
-                           ErrorType.InvalidParameters,
-                           null,
-                           null
-            },
-             new object[] { new InsertInterviewCommand(Builder<InterviewRequest>.CreateNew().Build()),
-                            false,
-                            1,
-                            new List<string>() { ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid },
-                            ErrorType.NotFoundData,
-                            null,
-                            null
-            },
             new object[] { new InsertInterviewCommand(Builder<InterviewRequest>.CreateNew().Build()),
-                            false,
-                            2,
-                            new List<string>() { ResourceMessagesValidation.PersonRegistrationInterviewer_InstanceInvalid },
-                            ErrorType.NotFoundData,
-                            Builder<PersonRegistration>.CreateNew().Build(),
-                            null
-            },
-            new object[] { new InsertInterviewCommand(Builder<InterviewRequest>.CreateNew().Build()),
-                           true,
                            2,
-                           new List<string>(),
-                           0,
                            Builder<PersonRegistration>.CreateNew().Build(),
                            PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType>() { PersonType.Entrevistador }, "nome", 123456789)
             }
@@ -80,8 +29,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(InsertInterviewCommand command, bool resultCommand, int atMostInsert,
-            List<string> errors, ErrorType errorType, PersonRegistration personRegistration, PersonRegistration personInterview)
+        public async Task Should_execute_handler(InsertInterviewCommand command, int atMostInsert,
+            PersonRegistration personRegistration, PersonRegistration personInterview)
         {
             //arrange
             var moq = new Mock<IPersonRegistrationRepository>();
@@ -94,10 +43,6 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             //assert
             moq.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
-
-            result.IsSuccess.Should().Be(resultCommand);
-            result.Errors.Should().BeEquivalentTo(errors);
-            result.ErrorType.Should().Be(errorType);
         }
     }
 }

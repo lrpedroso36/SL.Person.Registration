@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
 using SL.Person.Registratio.CrossCuting.Resources;
+using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
-using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Results.Enums;
 using System;
 using System.Collections.Generic;
@@ -29,12 +30,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             PersonRegistration person = null;
 
             //act
-            var result = person.ValidateInstanceByType(personType);
+            Action action = () => person.ValidateInstanceByType(personType);
 
             //assert
-            result.Errors.Should().BeEquivalentTo(expected);
-            result.IsSuccess.Should().BeFalse();
-            result.ErrorType.Should().Be(ErrorType.NotFoundData);
+            action.Should().Throw<HttpRequestException>();
         }
 
 
@@ -46,12 +45,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             PersonRegistration person = null;
 
             //act
-            var result = person.ValidateInstance();
+            Action action = () => person.ValidateInstance();
 
             //assert
-            result.Errors.Should().BeEquivalentTo(expected);
-            result.IsSuccess.Should().BeFalse();
-            result.ErrorType.Should().Be(ErrorType.NotFoundData);
+            action.Should().Throw<HttpRequestException>();
         }
 
         [Theory]
@@ -65,12 +62,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
 
             //act
-            var result = person.Validate();
-
+            Action action = () => person.Validate();
+             
             //assert
-            result.Errors.Should().BeEquivalentTo(expected);
-            result.IsSuccess.Should().BeFalse();
-            result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
+            action.Should().Throw<HttpRequestException>();
         }
 
         [Fact]
@@ -81,12 +76,10 @@ namespace SL.Person.Registration.UnitTests.Domain.Extensions
             var person = PersonRegistration.CreateInstance(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
 
             //act
-            var result = person.Validate();
+            Action action = () => person.Validate();
 
             //assert
-            result.Errors.Should().BeEquivalentTo(expected);
-            result.IsSuccess.Should().BeFalse();
-            result.ErrorType.Should().Be(ErrorType.EntitiesProperty);
+            action.Should().Throw<HttpRequestException>();
         }
     }
 }

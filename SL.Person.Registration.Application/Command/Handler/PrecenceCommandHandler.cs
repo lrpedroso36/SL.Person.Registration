@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Command.Validations;
+using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
-using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class PrecenceCommandHandler : IRequestHandler<PrecenceCommand, ResultBase>
+    public class PrecenceCommandHandler : IRequestHandler<PrecenceCommand>
     {
         private readonly IPersonRegistrationRepository _personRegistrationRepository;
 
@@ -19,38 +19,23 @@ namespace SL.Person.Registration.Application.Command.Handler
             _personRegistrationRepository = personRegistrationRepository;
         }
 
-        public async Task<ResultBase> Handle(PrecenceCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(PrecenceCommand request, CancellationToken cancellationToken)
         {
-            var result = request.RequestValidate();
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            request.RequestValidate();
 
             var personInterviewed = _personRegistrationRepository.GetByDocument(request.InterviewedDocument, PersonType.Assistido);
 
-            result = personInterviewed.ValidateInstanceByType(PersonType.Assistido);
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            personInterviewed.ValidateInstanceByType(PersonType.Assistido);
 
             var personLaborer = _personRegistrationRepository.GetByDocument(request.LaborerDocument);
 
-            result = personLaborer.ValidateInstanceByType(PersonType.Tarefeiro);
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            personLaborer.ValidateInstanceByType(PersonType.Tarefeiro);
 
             personInterviewed.SetPresenceTratament(DateTime.Now, personLaborer);
 
             _personRegistrationRepository.Update(personInterviewed);
 
-            return result;
+            return Unit.Value;
         }
     }
 }

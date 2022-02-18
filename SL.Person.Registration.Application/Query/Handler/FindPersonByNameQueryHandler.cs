@@ -21,14 +21,11 @@ namespace SL.Person.Registration.Application.Query.Handler
 
         public async Task<ResultEntities<IEnumerable<FindPersonResult>>> Handle(FindPersonByNameQuery request, CancellationToken cancellationToken)
         {
-            var result = request.RequestValidate();
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            request.RequestValidate();
 
             var personRegistration = _personRepository.GetByName(request.Name);
+
+            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
 
             if (personRegistration == null || !personRegistration.Any())
             {

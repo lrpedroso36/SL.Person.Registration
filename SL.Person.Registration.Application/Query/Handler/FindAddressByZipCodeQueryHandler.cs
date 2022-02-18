@@ -21,14 +21,11 @@ namespace SL.Person.Registration.Application.Query.Handler
 
         public async Task<ResultBase> Handle(FindAddressByZipCodeQuery request, CancellationToken cancellationToken)
         {
-            var result = request.RequestValidate();
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            request.RequestValidate();
 
             var addressResponse = await _addressApi.GetAddressByZipCode(request.ZipCode, cancellationToken);
+
+            var result = new ResultEntities<Address>();
 
             if (addressResponse == null)
             {
@@ -36,11 +33,9 @@ namespace SL.Person.Registration.Application.Query.Handler
                 return result;
             }
 
-            var resultAddress = new ResultEntities<Address>();
+            result.SetData(addressResponse.GetAddress());
 
-            resultAddress.SetData(addressResponse.GetAddress());
-
-            return resultAddress;
+            return result;
         }
     }
 }

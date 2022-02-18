@@ -53,12 +53,28 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             DocumentNumber = documentNumber;
         }
 
+        protected PersonRegistration(Guid id, List<PersonType> types,
+            string name,
+            GenderType gender,
+            int yeasOld,
+            long documentNumber) : this(types, name, gender, yeasOld, documentNumber)
+        {
+            _id = id;
+        }
+
         public static PersonRegistration CreateInstance(List<PersonType> type,
             string name,
             GenderType gender,
             int yeasOld,
             long documentNumber)
         => new PersonRegistration(type, name, gender, yeasOld, documentNumber);
+
+        public static PersonRegistration CreateInstance(Guid id, List<PersonType> type,
+            string name,
+            GenderType gender,
+            int yeasOld,
+            long documentNumber)
+        => new PersonRegistration(id, type, name, gender, yeasOld, documentNumber);
 
         private Contact SetContact(Contact contact)
         {

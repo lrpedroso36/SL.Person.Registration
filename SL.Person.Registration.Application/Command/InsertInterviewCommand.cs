@@ -4,7 +4,7 @@ using SL.Person.Registration.Domain.Results;
 
 namespace SL.Person.Registration.Application.Command
 {
-    public class InsertInterviewCommand : IRequest<ResultBase>
+    public class InsertInterviewCommand : IRequest
     {
         public InsertInterviewCommand(InterviewRequest interview)
         {

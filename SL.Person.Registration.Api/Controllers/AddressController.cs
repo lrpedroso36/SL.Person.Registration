@@ -36,8 +36,8 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task<IActionResult> PostAsync(long documentNumber, [FromBody] AddressRequest request, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new AddressCommand(documentNumber, request), cancellationToken));
+        public async Task PostAsync(long documentNumber, [FromBody] AddressRequest request, CancellationToken cancellationToken)
+            => await _mediator.Send(new AddressCommand(documentNumber, request), cancellationToken);
 
         /// <summary>
         /// Atualizar os dados do endereço da pessoa
@@ -55,8 +55,8 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task<IActionResult> PutAsync(long documentNumber, [FromBody] AddressRequest request, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new AddressCommand(documentNumber, request), cancellationToken));
+        public async Task PutAsync(long documentNumber, [FromBody] AddressRequest request, CancellationToken cancellationToken)
+            => await _mediator.Send(new AddressCommand(documentNumber, request), cancellationToken);
 
         /// <summary>
         /// Obter o endereço por cep

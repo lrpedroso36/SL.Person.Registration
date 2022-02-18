@@ -1,7 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using Moq;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Hanler;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -18,35 +17,14 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new InsertPersonCommand(null),
-                           false,
-                           0,
-                           new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters
-            },
-            new object[] { new InsertPersonCommand(GetPerson()),
-                           false,
-                           0,
-                           new List<string>() { ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid }, ErrorType.InvalidParameters
-            },
             new object[] { new InsertPersonCommand(Builder<PersonRequest>.CreateNew().Build()),
-                           true,
-                           1,
-                           new List<string>(),
-                           (ErrorType)0
+                           1
             }
         };
 
-        private static PersonRequest GetPerson()
-        {
-            var result = new PersonRequest();
-            result.DocumentNumber = 0;
-            return result;
-        }
-
         [Theory]
         [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(InsertPersonCommand command, bool resultCommand, int atMostInsert,
-            List<string> errors, ErrorType errorType)
+        public async Task Should_execute_handler(InsertPersonCommand command, int atMostInsert)
         {
             //arrange
             var mockRepository = MockPersonRegistrationRepository.GetMockRepository(null);
@@ -57,9 +35,6 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             //assert
             mockRepository.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
-            result.IsSuccess.Should().Be(resultCommand);
-            result.Errors.Should().BeEquivalentTo(errors);
-            result.ErrorType.Should().Be(errorType);
         }
     }
 }

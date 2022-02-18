@@ -33,8 +33,8 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
-        public async Task<IActionResult> PostAsync([FromBody] InterviewRequest request, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new InsertInterviewCommand(request), cancellationToken));
+        public async Task PostAsync([FromBody] InterviewRequest request, CancellationToken cancellationToken)
+            => await _mediator.Send(new InsertInterviewCommand(request), cancellationToken);
 
         /// <summary>
         /// Inserir a presenca no tratamento
@@ -50,7 +50,7 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
-        public async Task<IActionResult> PresenceAsync(long interviewedDocument, long laborerDocument, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new PrecenceCommand(interviewedDocument, laborerDocument), cancellationToken));
+        public async Task PresenceAsync(long interviewedDocument, long laborerDocument, CancellationToken cancellationToken)
+            => await _mediator.Send(new PrecenceCommand(interviewedDocument, laborerDocument), cancellationToken);
     }
 }

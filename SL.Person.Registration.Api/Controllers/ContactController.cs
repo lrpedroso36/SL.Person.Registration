@@ -34,8 +34,8 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task<IActionResult> PostAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new ContactCommand(documentNumber, request), cancellationToken));
+        public async Task PostAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
+            => await _mediator.Send(new ContactCommand(documentNumber, request), cancellationToken);
 
         /// <summary>
         /// Atualizar os dados do contato da pessoa
@@ -53,7 +53,7 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task<IActionResult> PutAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
-            => GetActionResult(await _mediator.Send(new ContactCommand(documentNumber, request), cancellationToken));
+        public async Task PutAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
+            => await _mediator.Send(new ContactCommand(documentNumber, request), cancellationToken);
     }
 }
