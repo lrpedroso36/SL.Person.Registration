@@ -11,7 +11,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 {
     public class UpdatePersonCommandHandler : IRequestHandler<UpdatePersonCommand>
     {
-        private IPersonRegistrationRepository _repository;
+        private readonly IPersonRegistrationRepository _repository;
 
         public UpdatePersonCommandHandler(IPersonRegistrationRepository repository)
         {
