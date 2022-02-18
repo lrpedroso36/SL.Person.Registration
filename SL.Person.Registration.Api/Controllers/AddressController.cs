@@ -29,7 +29,7 @@ namespace SL.Person.Registration.Api.Controllers
         /// <param name="documentNumber">Documento da pessoa</param>
         /// <param name="request">Dados do endereço da pessoa</param>
         /// <param name="cancellationToken"></param>
-        /// <response code="200">Pessoa cadastrada com sucesso</response>
+        /// <response code="200">Endereço cadastrado com sucesso</response>
         /// <response code="400">Informe os dados da pessoa</response>
         /// <response code="409">Dados inválidos para inserir o endereço</response>
         /// <returns></returns>
@@ -46,7 +46,7 @@ namespace SL.Person.Registration.Api.Controllers
         /// <param name="documentNumber">Documento da pessoa</param>
         /// <param name="request">Data do endereço da pessoa</param>
         /// <param name="cancellationToken"></param>
-        /// <response code="200">Pessoa atualizada com sucesso</response>
+        /// <response code="200">Endereço atualizado com sucesso</response>
         /// <response code="400">Informe os dados da pessoa</response>
         /// <response code="404">Pessoa não encontrada</response>
         /// <response code="409">Dados inválidos para inserir o endereço</response>

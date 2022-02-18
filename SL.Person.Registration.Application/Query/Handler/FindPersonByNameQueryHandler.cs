@@ -29,7 +29,8 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             if (personRegistration == null || !personRegistration.Any())
             {
-                result.AddErrors("Pessoa não encontrada.", ErrorType.NotFoundData);
+                result.SetErrorType(ErrorType.NotFoundData);
+                result.AddErrors("Pessoa não encontrada.");
                 return result;
             }
 

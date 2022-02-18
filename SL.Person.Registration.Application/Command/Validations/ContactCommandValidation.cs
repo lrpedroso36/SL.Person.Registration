@@ -10,16 +10,17 @@ namespace SL.Person.Registration.Application.Command.Validations
         public static void RequestValidate(this ContactCommand request)
         {
             var result = new Result();
+            result.SetErrorType(ErrorType.InvalidParameters);
 
             if (request.DocumentNumber == 0)
             {
-                result.AddErrors(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid_Document, ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid_Document);
                 throw new ApplicationRequestException(result);
             }
 
             if (request.Contact == null)
             {
-                result.AddErrors(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid, ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.ContactCommandValidation_RequestInvalid);
                 throw new ApplicationRequestException(result);
             }
         }

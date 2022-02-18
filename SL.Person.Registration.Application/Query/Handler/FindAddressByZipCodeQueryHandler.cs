@@ -30,7 +30,8 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             if (addressResponse == null)
             {
-                result.AddErrors(ResourceMessagesValidation.FindAddressByZipCodeValidation_NotFound, ErrorType.NotFoundData);
+                result.SetErrorType(ErrorType.NotFoundData);
+                result.AddErrors(ResourceMessagesValidation.FindAddressByZipCodeValidation_NotFound);
                 return result;
             }
 

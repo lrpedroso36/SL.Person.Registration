@@ -32,7 +32,8 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
 
             //act
             var result = new Result();
-            result.AddErrors(error, errorType);
+            result.SetErrorType(errorType);
+            result.AddErrors(error);
 
             //assert
             result.IsSuccess.Should().BeFalse();
@@ -46,8 +47,9 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //arrage
             //act
             var result = new Result();
-            result.AddErrors("teste", ErrorType.InvalidParameters);
-            result.AddErrors("teste", ErrorType.InvalidParameters);
+            result.SetErrorType(ErrorType.InvalidParameters);
+            result.AddErrors("teste");
+            result.AddErrors("teste");
 
             //assert
             result.Errors.Should().HaveCount(1);

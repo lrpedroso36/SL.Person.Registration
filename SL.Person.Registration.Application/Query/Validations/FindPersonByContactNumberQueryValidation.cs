@@ -9,11 +9,11 @@ namespace SL.Person.Registration.Application.Query.Validations
     {
         public static void RequestValidate(this FindPersonByContactNumberQuery request)
         {
-            var result = new ResultEntities<FindPersonResult>();
-
             if (request.Ddd == 0 || request.PhoneNumber == 0)
             {
-                result.AddErrors(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid, ErrorType.InvalidParameters);
+                var result = new ResultEntities<FindPersonResult>();
+                result.SetErrorType(ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid);
                 throw new ApplicationRequestException(result);
             }
         }

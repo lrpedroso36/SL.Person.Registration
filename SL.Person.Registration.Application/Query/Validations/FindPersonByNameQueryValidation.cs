@@ -10,11 +10,11 @@ namespace SL.Person.Registration.Application.Query.Validations
     {
         public static void RequestValidate(this FindPersonByNameQuery request)
         {
-            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
-
             if (string.IsNullOrWhiteSpace(request.Name))
             {
-                result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid, ErrorType.InvalidParameters);
+                var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+                result.SetErrorType(ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid);
                 throw new ApplicationRequestException(result);
             }
         }

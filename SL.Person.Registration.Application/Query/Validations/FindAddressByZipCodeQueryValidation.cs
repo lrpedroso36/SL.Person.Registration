@@ -10,11 +10,11 @@ namespace SL.Person.Registration.Application.Query.Validations
     {
         public static void RequestValidate(this FindAddressByZipCodeQuery request)
         {
-            var result = new ResultEntities<Address>();
-
             if (string.IsNullOrWhiteSpace(request.ZipCode))
             {
-                result.AddErrors(ResourceMessagesValidation.FindAddressByZipCodeValidation_RequestInvalid, ErrorType.InvalidParameters);
+                var result = new ResultEntities<Address>();
+                result.SetErrorType(ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.FindAddressByZipCodeValidation_RequestInvalid);
                 throw new ApplicationRequestException(result);
             }
         }

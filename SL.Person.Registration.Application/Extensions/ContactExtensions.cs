@@ -16,8 +16,9 @@ namespace SL.Person.Registration.Application.Extensions
             if (!validation.IsValid)
             {
                 var result = new Result();
-                validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage, ErrorType.EntitiesProperty));
-                throw new ApplicationRequestException(result);
+                result.SetErrorType(ErrorType.EntitiesProperty);
+                validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage));
+                throw new DomainException(result);
             }
         }
     }

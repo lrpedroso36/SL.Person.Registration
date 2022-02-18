@@ -19,13 +19,6 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
             new object[] { new UpdatePersonCommand(new PersonRequest() { DocumentNumber = 0 }) }
         };
 
-        public static Result GetResult(string errors, ErrorType errorType)
-        {
-            var result = new Result();
-            result.AddErrors(errors, errorType);
-            return result;
-        }
-
         [Theory]
         [MemberData(nameof(Data))]
         public void Should_request_invalid(UpdatePersonCommand request)

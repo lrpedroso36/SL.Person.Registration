@@ -9,11 +9,11 @@ namespace SL.Person.Registration.Application.Query.Validations
     {
         public static void RequestValidate(this FindPersonByDocumentQuery request)
         {
-            var result = new ResultEntities<FindPersonResult>();
-
             if (request.DocumentNumber == 0)
             {
-                result.AddErrors(ResourceMessagesValidation.FindPersonByDocumentQueryValidation_RequestInvalid, ErrorType.InvalidParameters);
+                var result = new ResultEntities<FindPersonResult>();
+                result.SetErrorType(ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.FindPersonByDocumentQueryValidation_RequestInvalid);
                 throw new ApplicationRequestException(result);
             }
         }

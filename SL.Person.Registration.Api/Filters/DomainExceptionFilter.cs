@@ -7,17 +7,17 @@ using System.Net;
 
 namespace SL.Person.Registration.Api.Filters
 {
-    public class ApplicationRequestExceptionFilter : IActionFilter
+    public class DomainExceptionFilter : IActionFilter
     {
         public void OnActionExecuting(ActionExecutingContext context) { }
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            if (context.Exception is ApplicationRequestException requestException)
+            if (context.Exception is DomainException domainException)
             {
-                context.Result = new ObjectResult(requestException.Result)
+                context.Result = new ObjectResult(domainException.Result)
                 {
-                    StatusCode = GetStatusCode(requestException.Result)
+                    StatusCode = GetStatusCode(domainException.Result)
                 };
             };
 
@@ -26,11 +26,8 @@ namespace SL.Person.Registration.Api.Filters
 
         private int? GetStatusCode(ResultBase result)
         {
-            if (!result.IsSuccess && result.ErrorType == ErrorType.InvalidParameters)
-                return (int)HttpStatusCode.BadRequest;
-
-            if (!result.IsSuccess && result.ErrorType == ErrorType.NotFoundData)
-                return (int)HttpStatusCode.NotFound;
+            if (!result.IsSuccess && result.ErrorType == ErrorType.EntitiesProperty)
+                return (int)HttpStatusCode.Conflict;
 
             return (int)HttpStatusCode.OK;
         }

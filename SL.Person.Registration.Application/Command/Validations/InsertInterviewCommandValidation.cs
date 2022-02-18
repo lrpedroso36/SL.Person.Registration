@@ -10,16 +10,17 @@ namespace SL.Person.Registration.Application.Command.Validations
         public static void RequestValidate(this InsertInterviewCommand request)
         {
             var result = new Result();
+            result.SetErrorType(ErrorType.InvalidParameters);
 
             if (request.Interview == null)
             {
-                result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_RequestInvalid, ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_RequestInvalid);
                 throw new ApplicationRequestException(result);
             }
 
             if (request.Interview.Interviewed == 0 || request.Interview.Interviewer == 0)
             {
-                result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters);
+                result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid);
                 throw new ApplicationRequestException(result);
             }
         }

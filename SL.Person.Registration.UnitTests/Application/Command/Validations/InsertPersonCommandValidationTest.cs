@@ -18,12 +18,6 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
             new object[] { new InsertPersonCommand(null) },
             new object[] { new InsertPersonCommand(new PersonRequest() { DocumentNumber = 0 }) }
         };
-        public static Result GetResult(string errors, ErrorType errorType)
-        {
-            var result = new Result();
-            result.AddErrors(errors, errorType);
-            return result;
-        }
 
         [Theory]
         [MemberData(nameof(Data))]

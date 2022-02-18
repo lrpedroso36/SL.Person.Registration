@@ -15,7 +15,7 @@ namespace SL.Person.Registration.Domain.Results.Base
 
         public List<string> Errors { get; private set; } = new List<string>();
 
-        public void AddErrors(string error, ErrorType errorType)
+        public void AddErrors(string error)
         {
             if (Errors == null)
             {
@@ -24,8 +24,9 @@ namespace SL.Person.Registration.Domain.Results.Base
 
             if (!string.IsNullOrWhiteSpace(error) && !Errors.Contains(error))
                 Errors.Add(error);
-
-            ErrorType = errorType;
         }
+
+        public void SetErrorType(ErrorType errorType)
+            => ErrorType = errorType;
     }
 }

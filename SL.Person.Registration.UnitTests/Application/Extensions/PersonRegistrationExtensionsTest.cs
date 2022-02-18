@@ -64,7 +64,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             Action action = () => person.Validate();
 
             //assert
-            action.Should().Throw<ApplicationRequestException>();
+            action.Should().Throw<DomainException>();
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             Action action = () => person.Validate();
 
             //assert
-            action.Should().Throw<ApplicationRequestException>();
+            action.Should().Throw<DomainException>();
         }
     }
 }

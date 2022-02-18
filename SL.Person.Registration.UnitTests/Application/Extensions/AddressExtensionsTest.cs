@@ -22,7 +22,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             Action action = () => address.Validate();
 
             //assert
-            action.Should().Throw<ApplicationRequestException>();
+            action.Should().Throw<DomainException>();
         }
 
         [Theory]
@@ -39,7 +39,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<ApplicationRequestException>();
+            result.Should().Throw<DomainException>();
         }
 
         [Theory]
@@ -56,7 +56,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<ApplicationRequestException>();
+            result.Should().Throw<DomainException>();
         }
 
         [Theory]
@@ -73,7 +73,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<ApplicationRequestException>();
+            result.Should().Throw<DomainException>();
         }
 
         [Theory]
@@ -90,7 +90,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<ApplicationRequestException>();
+            result.Should().Throw<DomainException>();
         }
 
         [Theory]
@@ -107,7 +107,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             Action result = () => address.Validate();
 
             //assert
-            result.Should().Throw<ApplicationRequestException>();
+            result.Should().Throw<DomainException>();
         }
     }
 }

@@ -23,7 +23,8 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
         {
             //arrange
             //act
-            result.AddErrors(error, ErrorType.InvalidParameters);
+            result.SetErrorType(ErrorType.InvalidParameters);
+            result.AddErrors(error);
 
             //assert
             result.Errors.Should().BeEquivalentTo(errors);
@@ -37,8 +38,9 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             var result = Builder<ResultEntities<ResultMoq>>.CreateNew().Build();
 
             //act
-            result.AddErrors("teste", ErrorType.InvalidParameters);
-            result.AddErrors("teste", ErrorType.InvalidParameters);
+            result.SetErrorType(ErrorType.InvalidParameters);
+            result.AddErrors("teste");
+            result.AddErrors("teste");
 
             //assert
             result.Errors.Should().HaveCount(1);
