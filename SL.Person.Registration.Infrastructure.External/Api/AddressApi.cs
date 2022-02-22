@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SL.Person.Registratio.CrossCuting.Configurations.Contracts;
 using SL.Person.Registration.Domain.External.Contracts;
 using SL.Person.Registration.Domain.External.Response;
 using System.Net.Http;
@@ -9,18 +10,19 @@ namespace SL.Person.Registration.Infrastructure.External.Api
 {
     public class AddressApi : IAddressApi
     {
-        private readonly string GET_URL_ZIP_CODE = "https://viacep.com.br/ws/{0}/json/";
-
         private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfigurationPersonRegistration _configuration;
 
-        public AddressApi(IHttpClientFactory httpClientFactory)
+        public AddressApi(IHttpClientFactory httpClientFactory,
+                          IConfigurationPersonRegistration configuration)
         {
+            _configuration = configuration;
             _httpClientFactory = httpClientFactory;
         }
 
         public async Task<AddressResponse> GetAddressByZipCode(string zipCode, CancellationToken cancellationToken)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, string.Format(GET_URL_ZIP_CODE, zipCode.Trim()));
+            var request = new HttpRequestMessage(HttpMethod.Get, string.Format(_configuration.GetAddressApiSettings().GetAddressByZipCode, zipCode.Trim()));
 
             var client = _httpClientFactory.CreateClient();
 

@@ -1,5 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
+using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -23,7 +24,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
                 null,
                 null,
                 false,
-                new List<string>() { "Pessoa não encontrada." },
+                new List<string>() { ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound },
                 ErrorType.NotFoundData
             },
             new object[]
@@ -32,7 +33,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
                 null,
                 new List<PersonRegistration>(),
                 false,
-                new List<string>() { "Pessoa não encontrada." },
+                new List<string>() { ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound },
                 ErrorType.NotFoundData
             },
             new object[]

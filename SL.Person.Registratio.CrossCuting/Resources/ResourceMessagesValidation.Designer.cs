@@ -205,6 +205,15 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A pesquisa por nome não retornou nenhum resultado..
+        /// </summary>
+        public static string FindPersonByNameQueryValidation_NotFound {
+            get {
+                return ResourceManager.GetString("FindPersonByNameQueryValidation_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe o nome da pessoa que deseja pesquisar..
         /// </summary>
         public static string FindPersonByNameQueryValidation_RequestInvalid {
@@ -228,6 +237,15 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         public static string InsertInterviewCommandValidation_RequestInvalid {
             get {
                 return ResourceManager.GetString("InsertInterviewCommandValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pessoa já está cadastrada..
+        /// </summary>
+        public static string InsertPersonCommandHandler_Found {
+            get {
+                return ResourceManager.GetString("InsertPersonCommandHandler_Found", resourceCulture);
             }
         }
         

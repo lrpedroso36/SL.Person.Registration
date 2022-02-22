@@ -27,7 +27,8 @@ namespace SL.Person.Registration
 
         public static IServiceCollection AddConfiguration(this IServiceCollection service, IConfiguration configuration)
         {
-            service.Configure<MongoConnection>(configuration.GetSection("MongoConnection"));
+            service.Configure<MongoSettings>(configuration.GetSection("MongoSettings"));
+            service.Configure<AddressApiSettings>(configuration.GetSection("AddressApiSettings"));
 
             service.AddSingleton<IConfigurationPersonRegistration, ConfigurationPersonRegistration>();
             return service;

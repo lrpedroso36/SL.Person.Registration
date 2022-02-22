@@ -6,6 +6,7 @@ using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Base;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task FindPersonByDocumentAsync(long documentNumber, CancellationToken cancellationToken)
+        public async Task<ResultBase> FindPersonByDocumentAsync(long documentNumber, CancellationToken cancellationToken)
             => await _mediator.Send(new FindPersonByDocumentQuery(documentNumber), cancellationToken);
 
         /// <summary>
@@ -57,7 +58,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task FindPersonByContactNumber(int ddd, long phoneNumber, CancellationToken cancellationToken)
+        public async Task<ResultBase> FindPersonByContactNumber(int ddd, long phoneNumber, CancellationToken cancellationToken)
             => await _mediator.Send(new FindPersonByContactNumberQuery(ddd, phoneNumber), cancellationToken);
 
 
@@ -75,7 +76,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task FindPersonByName(string name, CancellationToken cancellationToken)
+        public async Task<ResultEntities<IEnumerable<FindPersonResult>>> FindPersonByName(string name, CancellationToken cancellationToken)
             => await _mediator.Send(new FindPersonByNameQuery(name), cancellationToken);
 
         /// <summary>

@@ -6,6 +6,7 @@ using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Base;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -72,7 +73,7 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<Address>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<Address>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<Address>))]
-        public async Task GetAsync(string zipCode, CancellationToken cancellationToken)
+        public async Task<ResultBase> GetAsync(string zipCode, CancellationToken cancellationToken)
             => await _mediator.Send(new FindAddressByZipCodeQuery(zipCode), cancellationToken);
     }
 }

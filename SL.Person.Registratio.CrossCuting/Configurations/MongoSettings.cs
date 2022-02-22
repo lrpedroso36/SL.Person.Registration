@@ -1,9 +1,9 @@
 ﻿namespace SL.Person.Registratio.CrossCuting.Configurations
 {
-    public class MongoConnection
+    public class MongoSettings
     {
         public string ConnectionString { get; set; }
 
-        public string InformationRegistrationCollection { get; set; }
+        public string PersonCollection { get; set; }
     }
 }

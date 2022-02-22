@@ -8,8 +8,8 @@ namespace SL.Person.Registration.Extensions
     {
         public static IServiceCollection AddAppHealthCheck(this IServiceCollection service, IConfiguration configuration)
         {
-            var connectionString = configuration.GetSection("MongoConnection:ConnectionString").Value;
-            var dataBaseName = configuration.GetSection("MongoConnection:PersoRegistration").Value;
+            var connectionString = configuration.GetSection("MongoSettings:ConnectionString").Value;
+            var dataBaseName = configuration.GetSection("MongoSettings:PersoRegistration").Value;
 
             service.AddHealthChecks()
                    .AddMongoDb(connectionString, dataBaseName, name: "mongodb", failureStatus: HealthStatus.Unhealthy);

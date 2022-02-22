@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Query.Validations;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
@@ -30,11 +31,11 @@ namespace SL.Person.Registration.Application.Query.Handler
             if (personRegistration == null || !personRegistration.Any())
             {
                 result.SetErrorType(ErrorType.NotFoundData);
-                result.AddErrors("Pessoa não encontrada.");
+                result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound);
                 return result;
             }
 
-            result.SetData(personRegistration.Select(x => (FindPersonResult)x));
+            result.SetData(personRegistration.Select(x => (FindPersonResult)x).ToList());
             return result;
         }
     }

@@ -27,7 +27,7 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
             => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber && x.Types.Contains(personType));
 
         public IEnumerable<PersonRegistration> GetByName(string name)
-            => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()));
+            => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower())).ToList();
 
         public void Insert(PersonRegistration registration)
             => _context.Collection.InsertOne(registration);
