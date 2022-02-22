@@ -165,6 +165,9 @@
   <data name="FindPersonByDocumentQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o número do Documento.</value>
   </data>
+  <data name="FindPersonByNameQueryValidation_NotFound" xml:space="preserve">
+    <value>A pesquisa por nome não retornou nenhum resultado.</value>
+  </data>
   <data name="FindPersonByNameQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o nome da pessoa que deseja pesquisar.</value>
   </data>
@@ -173,6 +176,9 @@
   </data>
   <data name="InsertInterviewCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da entrevista.</value>
+  </data>
+  <data name="InsertPersonCommandHandler_Found" xml:space="preserve">
+    <value>Pessoa já está cadastrada.</value>
   </data>
   <data name="InsertPersonCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da pessoa.</value>

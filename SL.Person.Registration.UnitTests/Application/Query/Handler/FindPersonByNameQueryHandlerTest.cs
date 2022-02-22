@@ -18,37 +18,13 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] {
-                new FindPersonByNameQuery(null),
-                null,
-                null,
-                false,
-                new List<string> { ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid },
-                ErrorType.InvalidParameters
-            },
-            new object[] {
-                new FindPersonByNameQuery(string.Empty),
-                null,
-                null,
-                false,
-                new List<string> { ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid },
-                ErrorType.InvalidParameters
-            },
-             new object[] {
-                new FindPersonByNameQuery(" "),
-                null,
-                null,
-                false,
-                new List<string> { ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid },
-                ErrorType.InvalidParameters
-            },
             new object[]
             {
                 new FindPersonByNameQuery("teste"),
                 null,
                 null,
                 false,
-                new List<string>() { "Pessoa não encontrada." },
+                new List<string>() { ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound },
                 ErrorType.NotFoundData
             },
             new object[]
@@ -57,7 +33,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
                 null,
                 new List<PersonRegistration>(),
                 false,
-                new List<string>() { "Pessoa não encontrada." },
+                new List<string>() { ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound },
                 ErrorType.NotFoundData
             },
             new object[]

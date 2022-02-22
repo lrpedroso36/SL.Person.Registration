@@ -1,0 +1,33 @@
+﻿using FizzWare.NBuilder;
+using FluentAssertions;
+using Moq;
+using SL.Person.Registration.Application.Query;
+using SL.Person.Registration.Application.Query.Handler;
+using SL.Person.Registration.Domain.External.Contracts;
+using SL.Person.Registration.Domain.External.Response;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace SL.Person.Registration.UnitTests.Application.Query.Handler
+{
+    public class FindAddressByZipCodeQueryHandlerTest
+    {
+        [Fact]
+        public async Task Should_execute_handler()
+        {
+            //arrange
+            var mockApi = new Mock<IAddressApi>();
+            mockApi.Setup(x => x.GetAddressByZipCode(It.IsAny<string>(), default))
+                .ReturnsAsync(Builder<AddressResponse>.CreateNew().Build());
+
+            var queryHandler = new FindAddressByZipCodeQueryHandler(mockApi.Object);
+
+            //act
+            var result = await queryHandler.Handle(new FindAddressByZipCodeQuery("123456789"), default);
+
+            //assert
+            result.IsSuccess.Should().BeTrue();
+            result.Errors.Should().HaveCount(0);
+        }
+    }
+}

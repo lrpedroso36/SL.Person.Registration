@@ -1,15 +1,18 @@
 ﻿using MediatR;
+using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Command.Validations;
+using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Enums;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Hanler
 {
-    public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand, ResultBase>
+    public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand>
     {
         private readonly IPersonRegistrationRepository _repository;
 
@@ -18,30 +21,30 @@ namespace SL.Person.Registration.Application.Command.Hanler
             _repository = repository;
         }
 
-        public async Task<ResultBase> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(InsertPersonCommand request, CancellationToken cancellationToken)
         {
-            var result = request.RequestValidate();
+            request.RequestValidate();
 
-            if (!result.IsSuccess)
+            var personResult = _repository.GetByDocument(request.Person.DocumentNumber);
+
+            if (personResult != null)
             {
-                return result;
+                var result = new Result();
+                result.SetErrorType(ErrorType.Found);
+                result.AddErrors(ResourceMessagesValidation.InsertPersonCommandHandler_Found);
+                throw new ApplicationRequestException(result);
             }
 
             var person = request.Person.GetPersonRegistration();
 
-            result = person.Validate();
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            person.Validate();
 
             var registration = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender,
                            person.YearsOld, person.DocumentNumber);
 
             _repository.Insert(registration);
 
-            return result;
+            return Unit.Value;
         }
     }
 }

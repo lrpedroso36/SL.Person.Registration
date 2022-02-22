@@ -1,6 +1,5 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -17,22 +16,6 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] {
-                new FindPersonByContactNumberQuery(0,0),
-                null,
-                null,
-                false,
-                new List<string>() { ResourceMessagesValidation.FindPersonByContactNumberQueryValidation_RequestInvalid },
-                ErrorType.InvalidParameters
-            },
-            new object[] {
-                new FindPersonByContactNumberQuery(1,1),
-                null,
-                null,
-                false,
-                new List<string>() { ResourceMessagesValidation.PersonRegistration_InstanceInvalid },
-                ErrorType.NotFoundData
-            },
             new object[]
             {
                 new FindPersonByContactNumberQuery(1,1),

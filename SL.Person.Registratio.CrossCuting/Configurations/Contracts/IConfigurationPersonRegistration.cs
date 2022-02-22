@@ -2,6 +2,8 @@
 {
     public interface IConfigurationPersonRegistration
     {
-        MongoConnection GetMongoConnection();
+        MongoSettings GetMongoSettings();
+
+        AddressApiSettings GetAddressApiSettings();
     }
 }

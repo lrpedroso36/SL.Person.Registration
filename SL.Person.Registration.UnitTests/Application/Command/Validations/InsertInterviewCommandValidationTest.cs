@@ -1,10 +1,9 @@
 ﻿using FluentAssertions;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Validations;
+using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Domain.Requests;
-using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Enums;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -14,38 +13,34 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
     {
         public static List<object[]> Data = new List<object[]>
         {
-            new object[] { new InsertInterviewCommand(null), GetResult(ResourceMessagesValidation.InsertInterviewCommandValidation_RequestInvalid, ErrorType.InvalidParameters) },
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 0, Interviewer = 0 }),
-                           GetResult(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters)
-            },
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 1, Interviewer = 0 }),
-                           GetResult(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters)
-            },
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 0, Interviewer = 1 }),
-                           GetResult(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid, ErrorType.InvalidParameters)
-            },
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 1, Interviewer = 1 }),
-                           GetResult(string.Empty, 0)
-            }
+            new object[] { new InsertInterviewCommand(null) },
+            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 0, Interviewer = 0 }) },
+            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 1, Interviewer = 0 }) },
+            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 0, Interviewer = 1 }) }
         };
-
-        public static Result GetResult(string errors, ErrorType errorType)
-        {
-            var result = new Result();
-            result.AddErrors(errors, errorType);
-            return result;
-        }
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void Should_request_validate(InsertInterviewCommand request, Result resultExpected)
+        public void Should_request_invalid(InsertInterviewCommand request)
         {
             //arrange
             //act
-            var result = request.RequestValidate();
+            Action action = () => request.RequestValidate();
 
             //assert
-            result.Should().BeEquivalentTo(resultExpected);
+            action.Should().Throw<ApplicationRequestException>();
+        }
+
+        [Fact]
+        public void Should_request_valid()
+        {
+            //arrange
+            var request = new InsertInterviewCommand(new InterviewRequest() { Interviewed = 1, Interviewer = 1 });
+            //act
+            Action action = () => request.RequestValidate();
+
+            //assert
+            action.Should().NotThrow<ApplicationRequestException>();
         }
     }
 }

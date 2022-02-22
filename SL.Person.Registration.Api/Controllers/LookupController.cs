@@ -27,10 +27,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
         public async Task<IActionResult> GetInterviewTypeAsync()
-        {
-            var result = await _mediator.Send(new FindLookupQuery(typeof(InterviewType)));
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(new FindLookupQuery(typeof(InterviewType))));
 
         /// <summary>
         /// Lista de tipos de tratamentos
@@ -40,10 +37,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
         public async Task<IActionResult> GetTreatmentTypeAsync()
-        {
-            var result = await _mediator.Send(new FindLookupQuery(typeof(TreatmentType)));
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(new FindLookupQuery(typeof(TreatmentType))));
 
         /// <summary>
         /// Lista de tipos de pessoas
@@ -53,10 +47,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
         public async Task<IActionResult> GetPersonTypeAsync()
-        {
-            var result = await _mediator.Send(new FindLookupQuery(typeof(PersonType)));
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(new FindLookupQuery(typeof(PersonType))));
 
         /// <summary>
         /// Lista de tipos de genero
@@ -66,9 +57,6 @@ namespace SL.Person.Registration.Controllers
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
         public async Task<IActionResult> GetGenderTypeAsync()
-        {
-            var result = await _mediator.Send(new FindLookupQuery(typeof(GenderType)));
-            return Ok(result);
-        }
+            => Ok(await _mediator.Send(new FindLookupQuery(typeof(GenderType))));
     }
 }

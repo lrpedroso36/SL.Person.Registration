@@ -21,7 +21,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             var person = Builder<PersonRegistration>.CreateNew().Build();
             person.AddPersonType(PersonType.Tarefeiro);
-            return PersonRegistration.CreateInstance(person._id, person.Types, person.Name, person.DocumentNumber);
+            return PersonRegistration.CreateInstanceSimple(person._id, person.Types, person.Name, person.DocumentNumber);
         }
 
         [Theory]

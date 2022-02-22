@@ -43,9 +43,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             SetTrataments(weakDayType, amount);
         }
 
-        public static Interview CreateInstance(TreatmentType treatmentType,
-                                               WeakDayType weakDayType,
-                                               InterviewType type,
+        public static Interview CreateInstance(TreatmentType treatmentType, WeakDayType weakDayType, InterviewType type,
                                                DateTime date,
                                                PersonRegistration person,
                                                int amount,
@@ -56,7 +54,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         {
             if (person.Types.Contains(PersonType.Entrevistador))
             {
-                return PersonRegistration.CreateInstance(person._id, person.Types, person.Name, person.DocumentNumber);
+                return PersonRegistration.CreateInstanceSimple(person._id, person.Types, person.Name, person.DocumentNumber);
             }
 
             return null;
@@ -65,8 +63,8 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         private void SetTrataments(WeakDayType weakDayType, int amount)
         {
             Trataments = new List<Tratament>();
-            var count = 0;
 
+            var count = 0;
             var dateTime = Date;
 
             while (count != amount)

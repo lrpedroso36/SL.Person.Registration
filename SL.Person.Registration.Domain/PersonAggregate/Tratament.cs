@@ -32,7 +32,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         {
             if (laborer != null && laborer.Types.Any(x => x == PersonType.Tarefeiro))
             {
-                return PersonRegistration.CreateInstance(laborer._id, laborer.Types, laborer.Name, laborer.DocumentNumber);
+                return PersonRegistration.CreateInstanceSimple(laborer._id, laborer.Types, laborer.Name, laborer.DocumentNumber);
             }
 
             return null;

@@ -4,6 +4,7 @@
     {
         InvalidParameters = 1,
         NotFoundData = 2,
-        EntitiesProperty = 3
+        EntitiesProperty = 3,
+        Found = 4
     }
 }

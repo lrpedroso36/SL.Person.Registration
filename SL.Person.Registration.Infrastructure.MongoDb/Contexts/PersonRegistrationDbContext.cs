@@ -15,11 +15,11 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Contexts
         {
             try
             {
-                var mongoConnection = configuration.GetMongoConnection();
+                var mongoSettings = configuration.GetMongoSettings();
 
-                _personRegistrationCollection = mongoConnection.InformationRegistrationCollection;
+                _personRegistrationCollection = mongoSettings.PersonCollection;
 
-                var client = new MongoClient(new MongoUrl(mongoConnection.ConnectionString));
+                var client = new MongoClient(new MongoUrl(mongoSettings.ConnectionString));
                 _dataBase = client.GetDatabase(_personRegistrationCollection);
             }
             catch (Exception ex)

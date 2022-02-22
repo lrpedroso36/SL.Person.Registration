@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json.Serialization;
 
-namespace SL.Person.Registration.Domain.Results
+namespace SL.Person.Registration.Domain.Results.Base
 {
     public abstract class ResultBase
     {
@@ -15,7 +15,7 @@ namespace SL.Person.Registration.Domain.Results
 
         public List<string> Errors { get; private set; } = new List<string>();
 
-        public void AddErrors(string error, ErrorType errorType)
+        public void AddErrors(string error)
         {
             if (Errors == null)
             {
@@ -24,8 +24,9 @@ namespace SL.Person.Registration.Domain.Results
 
             if (!string.IsNullOrWhiteSpace(error) && !Errors.Contains(error))
                 Errors.Add(error);
-
-            ErrorType = errorType;
         }
+
+        public void SetErrorType(ErrorType errorType)
+            => ErrorType = errorType;
     }
 }

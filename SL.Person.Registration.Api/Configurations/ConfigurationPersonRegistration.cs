@@ -6,16 +6,20 @@ namespace SL.Person.Registration.Configurations
 {
     public class ConfigurationPersonRegistration : IConfigurationPersonRegistration
     {
-        private readonly IOptions<MongoConnection> _configuration;
+        private readonly IOptions<MongoSettings> _mongoSettings;
+        private readonly IOptions<AddressApiSettings> _addressApiSettings;
 
-        public ConfigurationPersonRegistration(IOptions<MongoConnection> configuration)
+        public ConfigurationPersonRegistration(IOptions<MongoSettings> mongoSettings,
+                                               IOptions<AddressApiSettings> addressApiSettings)
         {
-            _configuration = configuration;
+            _mongoSettings = mongoSettings;
+            _addressApiSettings = addressApiSettings;
         }
 
-        public MongoConnection GetMongoConnection()
-        {
-            return _configuration.Value;
-        }
+        public AddressApiSettings GetAddressApiSettings()
+            => _addressApiSettings.Value;
+
+        public MongoSettings GetMongoSettings()
+            => _mongoSettings.Value;
     }
 }

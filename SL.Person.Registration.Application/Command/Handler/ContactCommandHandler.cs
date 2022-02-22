@@ -1,14 +1,13 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Command.Validations;
-using SL.Person.Registration.Domain.PersonAggregate.Extensions;
+using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.Repositories;
-using SL.Person.Registration.Domain.Results;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class ContactCommandHandler : IRequestHandler<ContactCommand, ResultBase>
+    public class ContactCommandHandler : IRequestHandler<ContactCommand>
     {
         private readonly IPersonRegistrationRepository _repository;
 
@@ -17,38 +16,23 @@ namespace SL.Person.Registration.Application.Command.Handler
             _repository = repository;
         }
 
-        public async Task<ResultBase> Handle(ContactCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(ContactCommand request, CancellationToken cancellationToken)
         {
-            var result = request.RequestValidate();
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            request.RequestValidate();
 
             var personRegistration = _repository.GetByDocument(request.DocumentNumber);
 
-            result = personRegistration.ValidateInstance();
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            personRegistration.ValidateInstance();
 
             var contact = request.Contact.GetContact();
 
-            result = contact.Validate();
-
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            contact.Validate();
 
             personRegistration.AddContact(contact);
 
             _repository.Update(personRegistration);
 
-            return result;
+            return Unit.Value;
         }
     }
 }

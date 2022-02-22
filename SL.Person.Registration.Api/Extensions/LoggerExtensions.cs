@@ -6,8 +6,8 @@ namespace SL.Person.Registration.Extensions
 {
     public static class LoggerExtensions
     {
-        private const string MongoConnectionString = "MongoConnection:ConnectionString";
-        private const string MongoDataLoggerDataBase = "MongoConnection:LoggerBase";
+        private const string MongoConnectionString = "MongoSettings:ConnectionString";
+        private const string MongoDataLoggerDataBase = "MongoSettings:LoggerCollection";
 
         public static IConfigurationBuilder AddConfigurationSerilog(this IConfigurationBuilder config)
         {

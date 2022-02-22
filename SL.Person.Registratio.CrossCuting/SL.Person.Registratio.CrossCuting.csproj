@@ -9,7 +9,6 @@
     <None Remove="Configurations\Contracts\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Configurations\" />
     <Folder Include="Configurations\Contracts\" />
   </ItemGroup>
   <ItemGroup>

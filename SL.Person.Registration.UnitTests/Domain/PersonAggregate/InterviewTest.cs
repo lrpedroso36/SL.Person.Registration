@@ -41,7 +41,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                     new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, 1, 1234567890),
                 1,
                 "opinião",
-                PersonRegistration.CreateInstance(Guid.Empty, new List<PersonType> { PersonType.Entrevistador}, "nome",1234567890),
+                PersonRegistration.CreateInstanceSimple(Guid.Empty, new List<PersonType> { PersonType.Entrevistador}, "nome",1234567890),
                 GetTrataments()
             }
         };
@@ -99,7 +99,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             var person = Builder<PersonRegistration>.CreateNew().Build();
             person.AddPersonType(PersonType.Tarefeiro);
-            return PersonRegistration.CreateInstance(person._id, person.Types, person.Name, person.DocumentNumber);
+            return PersonRegistration.CreateInstanceSimple(person._id, person.Types, person.Name, person.DocumentNumber);
         }
 
         [Fact]

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Query.Validations;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
@@ -12,31 +13,29 @@ namespace SL.Person.Registration.Application.Query.Handler
 {
     public class FindPersonByNameQueryHandler : IRequestHandler<FindPersonByNameQuery, ResultEntities<IEnumerable<FindPersonResult>>>
     {
-        private readonly IPersonRegistrationRepository _personRepository;
+        private readonly IPersonRegistrationRepository _repository;
 
-        public FindPersonByNameQueryHandler(IPersonRegistrationRepository personRepository)
+        public FindPersonByNameQueryHandler(IPersonRegistrationRepository repository)
         {
-            _personRepository = personRepository;
+            _repository = repository;
         }
 
         public async Task<ResultEntities<IEnumerable<FindPersonResult>>> Handle(FindPersonByNameQuery request, CancellationToken cancellationToken)
         {
-            var result = request.RequestValidate();
+            request.RequestValidate();
 
-            if (!result.IsSuccess)
-            {
-                return result;
-            }
+            var personRegistration = _repository.GetByName(request.Name);
 
-            var personRegistration = _personRepository.GetByName(request.Name);
+            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
 
             if (personRegistration == null || !personRegistration.Any())
             {
-                result.AddErrors("Pessoa não encontrada.", ErrorType.NotFoundData);
+                result.SetErrorType(ErrorType.NotFoundData);
+                result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound);
                 return result;
             }
 
-            result.SetData(personRegistration.Select(x => (FindPersonResult)x));
+            result.SetData(personRegistration.Select(x => (FindPersonResult)x).ToList());
             return result;
         }
     }

@@ -16,7 +16,14 @@ namespace SL.Person.Registration.UnitTests.Domain.External.Response
             var city = "Itupeva";
             var state = "SP";
 
-            var response = new AddressResponse() { Cep = "13295-000", Logradouro = "Rua um", Bairro = "Nova Tuiuti", Localidade = "Itupeva", Uf = "SP" };
+            var response = new AddressResponse()
+            {
+                Cep = "13295-000",
+                Logradouro = "Rua um",
+                Bairro = "Nova Tuiuti",
+                Localidade = "Itupeva",
+                Uf = "SP"
+            };
 
             //act
             var address = response.GetAddress();
