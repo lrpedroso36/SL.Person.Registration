@@ -1,12 +1,13 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
-using SL.Person.Registratio.CrossCuting.Resources;
+using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Domain.Results.Base;
 using SL.Person.Registration.Domain.Results.Enums;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,25 +22,6 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             new object[]
             {
                 new FindPersonByNameQuery("teste"),
-                null,
-                null,
-                false,
-                new List<string>() { ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound },
-                ErrorType.NotFoundData
-            },
-            new object[]
-            {
-                new FindPersonByNameQuery("teste"),
-                null,
-                new List<PersonRegistration>(),
-                false,
-                new List<string>() { ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound },
-                ErrorType.NotFoundData
-            },
-            new object[]
-            {
-                new FindPersonByNameQuery("teste"),
-                Builder<FindPersonResult>.CreateListOfSize(1).Build(),
                 GetPersonRegistration(),
                 true,
                 new List<string>(),
@@ -60,8 +42,8 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
 
         [Theory]
         [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(FindPersonByNameQuery query, IEnumerable<FindPersonResult> result,
-            IEnumerable<PersonRegistration> registration, bool isSucess, List<string> errors, ErrorType errorType)
+        public async Task Should_execute_handler(FindPersonByNameQuery query, IEnumerable<PersonRegistration> registration,
+            bool isSucess, List<string> errors, ErrorType errorType)
         {
             //arrange
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(registration?.FirstOrDefault());
@@ -74,6 +56,36 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             handler.IsSuccess.Should().Be(isSucess);
             handler.Errors.Should().BeEquivalentTo(errors);
             handler.ErrorType.Should().Be(errorType);
+        }
+
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public async Task Should_execute_handler_invalid_request(string name)
+        {
+            //arrange
+            var queryHandler = new FindPersonByNameQueryHandler(null);
+
+            //act
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByNameQuery(name), default);
+
+            //assert
+            await action.Should().ThrowAsync<ApplicationRequestException>();
+        }
+
+        [Fact]
+        public async Task Should_execute_handler_person_not_found()
+        {
+            //arrange
+            var moq = MockPersonRegistrationRepository.GetMockRepository(null);
+            var queryHandler = new FindPersonByNameQueryHandler(moq.Object);
+
+            //act
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByNameQuery("name"), default);
+
+            //assert
+            await action.Should().ThrowAsync<ApplicationRequestException>();
         }
     }
 }

@@ -87,11 +87,13 @@ namespace SL.Person.Registration.Controllers
         /// <response code="200">Pessoa cadastrada com sucesso</response>
         /// <response code="400">Informe os dados da pessoa</response>
         /// <response code="409">Dados inválidos ao atualizar a pessoa</response>
+        /// <response code="422">Pessoa já cadadastrada</response>
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(Result))]
         public async Task PostAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
             => await _mediator.Send(new InsertPersonCommand(request), cancellationToken);
 
