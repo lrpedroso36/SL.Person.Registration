@@ -33,7 +33,7 @@ namespace SL.Person.Registration.Api.Filters
                 return (int)HttpStatusCode.NotFound;
 
             if (!result.IsSuccess && result.ErrorType == ErrorType.Found)
-                return (int)HttpStatusCode.Conflict;
+                return (int)HttpStatusCode.UnprocessableEntity;
 
             return (int)HttpStatusCode.OK;
         }

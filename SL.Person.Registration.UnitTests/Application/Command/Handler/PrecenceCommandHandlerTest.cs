@@ -73,7 +73,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             //act
             var commandHandler = new PrecenceCommandHandler(moq.Object);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(1,1), default);
+            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(1, 1), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
