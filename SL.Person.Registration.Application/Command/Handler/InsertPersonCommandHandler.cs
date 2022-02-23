@@ -27,20 +27,13 @@ namespace SL.Person.Registration.Application.Command.Hanler
 
             var personResult = _repository.GetByDocument(request.Person.DocumentNumber);
 
-            if (personResult != null)
-            {
-                var result = new Result();
-                result.SetErrorType(ErrorType.Found);
-                result.AddErrors(ResourceMessagesValidation.InsertPersonCommandHandler_Found);
-                throw new ApplicationRequestException(result);
-            }
+            personResult.ValidateFoundInstance();
 
             var person = request.Person.GetPersonRegistration();
 
             person.Validate();
 
-            var registration = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender,
-                           person.YearsOld, person.DocumentNumber);
+            var registration = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender, person.YearsOld, person.DocumentNumber);
 
             _repository.Insert(registration);
 

@@ -31,7 +31,4 @@
     <None Remove="Application\Command\" />
     <None Remove="Application\Command\Handler\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="InfrastructureExternal\" />
-  </ItemGroup>
 </Project>

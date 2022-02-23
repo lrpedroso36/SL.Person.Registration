@@ -32,6 +32,9 @@ namespace SL.Person.Registration.Api.Filters
             if (!result.IsSuccess && result.ErrorType == ErrorType.NotFoundData)
                 return (int)HttpStatusCode.NotFound;
 
+            if (!result.IsSuccess && result.ErrorType == ErrorType.Found)
+                return (int)HttpStatusCode.Conflict;
+
             return (int)HttpStatusCode.OK;
         }
     }

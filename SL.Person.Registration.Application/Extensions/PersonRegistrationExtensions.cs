@@ -1,9 +1,12 @@
-﻿using SL.Person.Registration.Application.Exceptions;
+﻿using SL.Person.Registratio.CrossCuting.Resources;
+using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Validations;
 using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Enums;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SL.Person.Registration.Application.Extensions
 {
@@ -48,6 +51,28 @@ namespace SL.Person.Registration.Application.Extensions
                 result.SetErrorType(ErrorType.EntitiesProperty);
                 validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage));
                 throw new DomainException(result);
+            }
+        }
+
+        public static void ValidateList(this IEnumerable<PersonRegistration> persons)
+        {
+            if (persons == null || !persons.Any())
+            {
+                var result = new Result();
+                result.SetErrorType(ErrorType.NotFoundData);
+                result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound);
+                throw new ApplicationRequestException(result);
+            }
+        }
+
+        public static void ValidateFoundInstance(this PersonRegistration person)
+        {
+            if (person != null)
+            {
+                var result = new Result();
+                result.SetErrorType(ErrorType.Found);
+                result.AddErrors(ResourceMessagesValidation.InsertPersonCommandHandler_Found);
+                throw new ApplicationRequestException(result);
             }
         }
     }
