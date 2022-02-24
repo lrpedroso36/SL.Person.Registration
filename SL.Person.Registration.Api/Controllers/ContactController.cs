@@ -34,7 +34,7 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task PostAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
+        public async Task PostAsync(long documentNumber, [FromBody] ContactRequest request, CancellationToken cancellationToken)
             => await _mediator.Send(new ContactCommand(documentNumber, request), cancellationToken);
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task PutAsync([FromBody] ContactRequest request, long documentNumber, CancellationToken cancellationToken)
+        public async Task PutAsync(long documentNumber, [FromBody] ContactRequest request, CancellationToken cancellationToken)
             => await _mediator.Send(new ContactCommand(documentNumber, request), cancellationToken);
     }
 }

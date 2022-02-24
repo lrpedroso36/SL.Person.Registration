@@ -1,6 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using MediatR;
+using Moq;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Handler;
 using SL.Person.Registration.Application.Exceptions;
@@ -16,19 +17,14 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 {
     public class AddressCommandHandlerTest
     {
-        public static List<object[]> Data = new List<object[]>
-        {
-            new object[] { new AddressCommand(123456789, Builder<AddressRequest>.CreateNew().Build()),
-                           Builder<PersonRegistration>.CreateNew().Build(),
-                           Unit.Value
-            }
-        };
-
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(AddressCommand command, PersonRegistration personRegistration, Unit resultExpected)
+        [Fact]
+        public async Task Should_execute_handler()
         {
             //arrange
+            var command = new AddressCommand(123456789, Builder<AddressRequest>.CreateNew().Build());
+            var personRegistration = Builder<PersonRegistration>.CreateNew().Build();
+            var resultExpected = Unit.Value;
+
             var moq = MockPersonRegistrationRepository.GetMockRepository(personRegistration);
 
             //act
@@ -36,6 +32,9 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             var result = await commandHandler.Handle(command, default);
 
             //assert
+            moq.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.Once);
+            moq.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
+
             result.Should().BeEquivalentTo(resultExpected);
         }
 

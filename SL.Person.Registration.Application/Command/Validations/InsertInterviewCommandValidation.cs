@@ -18,7 +18,7 @@ namespace SL.Person.Registration.Application.Command.Validations
                 throw new ApplicationRequestException(result);
             }
 
-            if (request.Interview.Interviewed == 0 || request.Interview.Interviewer == 0)
+            if (request.InterviewedDocument == 0 || request.InterviewerDocument == 0)
             {
                 result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid);
                 throw new ApplicationRequestException(result);

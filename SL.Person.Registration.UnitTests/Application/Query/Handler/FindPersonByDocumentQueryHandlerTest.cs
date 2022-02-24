@@ -4,7 +4,6 @@ using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Base;
 using SL.Person.Registration.Domain.Results.Enums;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
@@ -17,19 +16,6 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
 {
     public class FindPersonByDocumentQueryHandlerTest
     {
-        public static List<object[]> Data = new List<object[]>()
-        {
-            new object[]
-            {
-                new FindPersonByDocumentQuery(123456789),
-                Builder<FindPersonResult>.CreateNew().Build(),
-                GetPersonRegistration(),
-                true,
-                new List<string>(),
-                (ErrorType)0
-            }
-        };
-
         public static PersonRegistration GetPersonRegistration()
         {
             var person = Builder<PersonRegistration>.CreateNew().Build();
@@ -38,12 +24,16 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             return person;
         }
 
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(FindPersonByDocumentQuery query, FindPersonResult result,
-            PersonRegistration registration, bool isSucess, List<string> errors, ErrorType errorType)
+        [Fact]
+        public async Task Should_execute_handler()
         {
             //arrange
+            var query = new FindPersonByDocumentQuery(123456789);
+            var registration = GetPersonRegistration();
+            var isSucess = true;
+            var errors = new List<string>();
+            var errorType = (ErrorType)0;
+
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(registration);
 
             //act

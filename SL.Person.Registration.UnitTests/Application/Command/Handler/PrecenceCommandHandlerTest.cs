@@ -17,21 +17,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 {
     public class PrecenceCommandHandlerTest
     {
-        public static List<object[]> Data = new List<object[]>
-        {
-            new object[] { new PrecenceCommand(1,1),
-                           Unit.Value,
-                           PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome" ,1234567890),
-                           Builder<PersonRegistration>.CreateNew().Build()
-            }
-        };
-
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async Task Should_execute_handler_request_validate(PrecenceCommand precenceCommand, Unit resultExpected,
-            PersonRegistration personWatched, PersonRegistration personLaborer)
+        [Fact]
+        public async Task Should_execute_handler_request_validate()
         {
             //arrange
+            var precenceCommand = new PrecenceCommand(1, 1);
+            var resultExpected = Unit.Value;
+            var personWatched = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome", 1234567890);
+            var personLaborer = Builder<PersonRegistration>.CreateNew().Build();
+
             var moq = new Mock<IPersonRegistrationRepository>();
             moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(personLaborer);
             moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personWatched);
@@ -42,6 +36,11 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             //assert
             result.Should().BeEquivalentTo(resultExpected);
+
+            moq.Verify(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>()), Times.Once);
+            moq.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.Once);
+            moq.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
+
         }
 
         public static List<object[]> DataInvalid = new List<object[]>()

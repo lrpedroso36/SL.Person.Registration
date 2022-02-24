@@ -18,21 +18,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 {
     public class InsertInterviewCommandHandlerTest
     {
-        public static List<object[]> Data = new List<object[]>
-        {
-            new object[] { new InsertInterviewCommand(Builder<InterviewRequest>.CreateNew().Build()),
-                           2,
-                           Builder<PersonRegistration>.CreateNew().Build(),
-                           PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Entrevistador }, "nome", 123456789)
-            }
-        };
-
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(InsertInterviewCommand command, int atMostInsert,
-            PersonRegistration personRegistration, PersonRegistration personInterview)
+        [Fact]
+        public async Task Should_execute_handler()
         {
             //arrange
+            var command = new InsertInterviewCommand(1, 1, Builder<InterviewRequest>.CreateNew().Build());
+            var atMostInsert = 2;
+            var personRegistration = Builder<PersonRegistration>.CreateNew().Build();
+            var personInterview = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Entrevistador }, "nome", 123456789);
+
             var moq = new Mock<IPersonRegistrationRepository>();
             moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(personRegistration);
             moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personInterview);
@@ -43,13 +37,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             //assert
             moq.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
+            moq.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
         }
 
         public static List<object[]> DataInvalid = new List<object[]>()
         {
-            new object[] { new InsertInterviewCommand(null) },
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 1, Interviewer = 0 })},
-            new object[] { new InsertInterviewCommand(new InterviewRequest() { Interviewed = 0, Interviewer = 1 })},
+            new object[] { new InsertInterviewCommand(0, 0, null) },
+            new object[] { new InsertInterviewCommand(0, 0, new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand(1, 0, new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand(0, 1, new InterviewRequest()) }
         };
 
         [Theory]
@@ -75,7 +71,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             //act
             var commandHandler = new InsertInterviewCommandHandler(moq.Object);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new InsertInterviewCommand(new InterviewRequest() { Interviewed = 1, Interviewer = 1 }), default);
+            Func<Task<Unit>> action = async () => await commandHandler.Handle(new InsertInterviewCommand(1, 1, new InterviewRequest()), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -91,7 +87,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             //act
             var commandHandler = new InsertInterviewCommandHandler(moq.Object);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new InsertInterviewCommand(new InterviewRequest() { Interviewed = 1, Interviewer = 1 }), default);
+            Func<Task<Unit>> action = async () => await commandHandler.Handle(new InsertInterviewCommand(1, 1, new InterviewRequest()), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();

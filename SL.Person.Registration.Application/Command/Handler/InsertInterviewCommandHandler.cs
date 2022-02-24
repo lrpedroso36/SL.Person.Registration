@@ -23,11 +23,11 @@ namespace SL.Person.Registration.Application.Command.Handler
         {
             request.RequestValidate();
 
-            var personInterviewed = _personRegistrationRepository.GetByDocument(request.Interview.Interviewed);
+            var personInterviewed = _personRegistrationRepository.GetByDocument(request.InterviewedDocument);
 
             personInterviewed.ValidateInstanceByType(PersonType.Assistido);
 
-            var personInterviewer = _personRegistrationRepository.GetByDocument(request.Interview.Interviewer, PersonType.Entrevistador);
+            var personInterviewer = _personRegistrationRepository.GetByDocument(request.InterviewerDocument, PersonType.Entrevistador);
 
             personInterviewer.ValidateInstanceByType(PersonType.Entrevistador);
 
