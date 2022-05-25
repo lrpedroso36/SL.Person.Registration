@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Api.Controllers
 {
+    [ApiController]
+    [Route("api/v1/assignment")]
     public class AssignmentController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -18,11 +20,11 @@ namespace SL.Person.Registration.Api.Controllers
         }
 
         /// <summary>
-        /// Inserir a precensa do tarefeiro
+        /// Inserir a precença do tarefeiro
         /// </summary>
         /// <param name="laborerDocument"></param>
         /// <param name="cancellationToken"></param>
-        /// <response code="200">Precensa inserida com sucesso</response>
+        /// <response code="200">Precença inserida com sucesso</response>
         /// <response code="400">Informe o documento do terefeiro</response>
         /// <response code="404">Tarefeiro não econtrado</response>
         /// <returns></returns>
