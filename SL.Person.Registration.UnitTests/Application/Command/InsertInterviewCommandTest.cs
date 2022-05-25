@@ -11,8 +11,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new InsertInterviewCommand(null), null },
-            new object[] { new InsertInterviewCommand(Builder<InterviewRequest>.CreateNew().Build()), Builder<InterviewRequest>.CreateNew().Build() }
+            new object[] { new InsertInterviewCommand(0,0,null), null },
+            new object[] { new InsertInterviewCommand(1,1,Builder<InterviewRequest>.CreateNew().Build()), Builder<InterviewRequest>.CreateNew().Build() }
         };
 
         [Theory]

@@ -207,6 +207,9 @@
   <data name="PrecenceCommandValidation_DataRequestInvalid" xml:space="preserve">
     <value>Informe o documento do paciente ou o documento do tarefeiro.</value>
   </data>
+  <data name="PresenceAssignmentCommandValidation_RequestInvalid_Document" xml:space="preserve">
+    <value>Informe o documento do tarefeiro.</value>
+  </data>
   <data name="UpdatePersonCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da pessoa.</value>
   </data>

@@ -18,18 +18,13 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 {
     public class InsertPersonCommandHandlerTest
     {
-        public static List<object[]> Data = new List<object[]>()
-        {
-            new object[] { new InsertPersonCommand(Builder<PersonRequest>.CreateNew().Build()),
-                           1
-            }
-        };
-
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(InsertPersonCommand command, int atMostInsert)
+        [Fact]
+        public async Task Should_execute_handler()
         {
             //arrange
+            var command = new InsertPersonCommand(Builder<PersonRequest>.CreateNew().Build());
+            var atMostInsert = 1;
+
             var mockRepository = MockPersonRegistrationRepository.GetMockRepository(null);
 
             //act
@@ -38,6 +33,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             //assert
             mockRepository.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
+            mockRepository.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.Once);
         }
 
         [Fact]

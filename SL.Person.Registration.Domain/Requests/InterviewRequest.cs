@@ -6,10 +6,6 @@ namespace SL.Person.Registration.Domain.Requests
     [ExcludeFromCodeCoverage]
     public class InterviewRequest
     {
-        public long Interviewed { get; set; }
-
-        public long Interviewer { get; set; }
-
         public TreatmentType TreatmentType { get; set; }
 
         public WeakDayType WeakDayType { get; set; }

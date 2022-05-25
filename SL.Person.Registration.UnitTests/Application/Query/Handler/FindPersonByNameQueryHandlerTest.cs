@@ -17,18 +17,6 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
 {
     public class FindPersonByNameQueryHandlerTest
     {
-        public static List<object[]> Data = new List<object[]>()
-        {
-            new object[]
-            {
-                new FindPersonByNameQuery("teste"),
-                GetPersonRegistration(),
-                true,
-                new List<string>(),
-                (ErrorType)0
-            }
-        };
-
         public static IEnumerable<PersonRegistration> GetPersonRegistration()
         {
             var person = Builder<PersonRegistration>.CreateListOfSize(1).Build();
@@ -40,12 +28,16 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             }
         }
 
-        [Theory]
-        [MemberData(nameof(Data))]
-        public async Task Should_execute_handler(FindPersonByNameQuery query, IEnumerable<PersonRegistration> registration,
-            bool isSucess, List<string> errors, ErrorType errorType)
+        [Fact]
+        public async Task Should_execute_handler()
         {
             //arrange
+            var query = new FindPersonByNameQuery("teste");
+            var registration = GetPersonRegistration();
+            var isSucess = true;
+            var errors = new List<string>();
+            var errorType = (ErrorType)0;
+
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(registration?.FirstOrDefault());
 
             //act

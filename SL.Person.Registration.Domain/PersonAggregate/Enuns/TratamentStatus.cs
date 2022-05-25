@@ -5,6 +5,5 @@
         InProcess = 1,
         Concluded = 2,
         Abandoned = 3
-
     }
 }
