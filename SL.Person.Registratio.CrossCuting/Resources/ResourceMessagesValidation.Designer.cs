@@ -169,6 +169,15 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informe o documento da pessoa..
+        /// </summary>
+        public static string DeletePersonCommandValidation_RequestInvalid {
+            get {
+                return ResourceManager.GetString("DeletePersonCommandValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Endereço não encontrado..
         /// </summary>
         public static string FindAddressByZipCodeValidation_NotFound {
@@ -187,6 +196,24 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A pesquisa não retornou nenhum resultado..
+        /// </summary>
+        public static string FindPeopleQueryValidation_NotFound {
+            get {
+                return ResourceManager.GetString("FindPeopleQueryValidation_NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Informe o nome da pessoa que deseja pesquisar..
+        /// </summary>
+        public static string FindPeopleQueryValidation_RequestInvalid {
+            get {
+                return ResourceManager.GetString("FindPeopleQueryValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe o número do DDD e Celular..
         /// </summary>
         public static string FindPersonByContactNumberQueryValidation_RequestInvalid {
@@ -201,24 +228,6 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         public static string FindPersonByDocumentQueryValidation_RequestInvalid {
             get {
                 return ResourceManager.GetString("FindPersonByDocumentQueryValidation_RequestInvalid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to A pesquisa por nome não retornou nenhum resultado..
-        /// </summary>
-        public static string FindPersonByNameQueryValidation_NotFound {
-            get {
-                return ResourceManager.GetString("FindPersonByNameQueryValidation_NotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Informe o nome da pessoa que deseja pesquisar..
-        /// </summary>
-        public static string FindPersonByNameQueryValidation_RequestInvalid {
-            get {
-                return ResourceManager.GetString("FindPersonByNameQueryValidation_RequestInvalid", resourceCulture);
             }
         }
         

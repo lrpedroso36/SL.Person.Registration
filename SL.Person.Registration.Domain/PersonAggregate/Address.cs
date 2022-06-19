@@ -2,7 +2,7 @@
 {
     public class Address
     {
-        public long ZipCode { get; private set; }
+        public string ZipCode { get; private set; }
 
         public string Street { get; private set; }
 
@@ -21,7 +21,7 @@
 
         }
 
-        protected Address(long zipCode, string street, string number, string neighborhood, string complement, string city, string state)
+        protected Address(string zipCode, string street, string number, string neighborhood, string complement, string city, string state)
         {
             ZipCode = zipCode;
             Street = street;
@@ -32,7 +32,13 @@
             State = state;
         }
 
-        public static Address CreateInstance(long zipCode, string street, string number, string neighborhood, string complement, string city, string state)
+        public static Address CreateInstance(string zipCode, string street, string number, string neighborhood, string complement, string city, string state)
             => new Address(zipCode, street, number, neighborhood, complement, city, state);
+
+        public bool IsValid()
+        {
+            return !string.IsNullOrWhiteSpace(ZipCode) && !string.IsNullOrWhiteSpace(Street) && !string.IsNullOrWhiteSpace(Number) && !string.IsNullOrWhiteSpace(Neighborhood)
+                && !string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(State);
+        }
     }
 }

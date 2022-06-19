@@ -60,7 +60,7 @@ namespace SL.Person.Registration.Application.Extensions
             {
                 var result = new Result();
                 result.SetErrorType(ErrorType.NotFoundData);
-                result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_NotFound);
+                result.AddErrors(ResourceMessagesValidation.FindPeopleQueryValidation_NotFound);
                 throw new ApplicationRequestException(result);
             }
         }

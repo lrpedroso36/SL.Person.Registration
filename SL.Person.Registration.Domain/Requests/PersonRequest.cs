@@ -1,5 +1,6 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
 using System.Collections.Generic;
 
 namespace SL.Person.Registration.Domain.Requests
@@ -12,17 +13,38 @@ namespace SL.Person.Registration.Domain.Requests
 
         public GenderType Gender { get; set; }
 
-        public int YearsOld { get; set; }
+        public DateTime BirthDate { get; set; }
 
         public long DocumentNumber { get; set; }
+
+        public int DDD { get; set; }
+
+        public long PhoneNumber { get; set; }
+
+        public string ZipCode { get; set; }
+
+        public string Street { get; set; }
+
+        public string Number { get; set; }
+
+        public string Neighborhood { get; set; }
+
+        public string Complement { get; set; }
+
+        public string City { get; set; }
+
+        public string State { get; set; }
 
         public PersonRegistration GetPersonRegistration()
         {
             var person = PersonRegistration.CreateInstance(Types,
-                Name,
+                Name.ToUpper(),
                 Gender,
-                YearsOld,
+                BirthDate,
                 DocumentNumber);
+
+            person.AddContact(Contact.CreateInstance(DDD, PhoneNumber));
+            person.AddAdress(Address.CreateInstance(ZipCode, Street, Number, Neighborhood, Complement, City, State));
 
             return person;
         }

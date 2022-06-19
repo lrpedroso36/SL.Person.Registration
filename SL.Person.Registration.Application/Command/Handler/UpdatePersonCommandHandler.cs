@@ -30,7 +30,10 @@ namespace SL.Person.Registration.Application.Command.Handler
             person.Validate();
 
             var update = PersonRegistration.CreateUpdateInstance(personRegistration._id, person.Types, person.Name, person.Gender,
-                person.YearsOld, person.DocumentNumber);
+                person.BithDate, person.DocumentNumber);
+
+            update.AddAdress(person.Address);
+            update.AddContact(person.Contact);
 
             _repository.Update(update);
 

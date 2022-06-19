@@ -10,12 +10,12 @@ namespace SL.Person.Registration.Domain.Repositories
 
         PersonRegistration GetByDocument(long documentNumber);
 
-        PersonRegistration GetByContactNumber(int ddd, long phoneNumber);
-
         IEnumerable<PersonRegistration> GetByName(string name);
 
         bool Update(PersonRegistration registration);
 
         PersonRegistration GetByDocument(long documentNumber, PersonType personType);
+
+        void Delete(long documentNumber);
     }
 }

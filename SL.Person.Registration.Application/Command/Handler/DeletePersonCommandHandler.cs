@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Command.Handler
 {
-    public class AddressCommandHandler : IRequestHandler<AddressCommand>
+    public class DeletePersonCommandHandler : IRequestHandler<DeletePersonCommand>
     {
         private readonly IPersonRegistrationRepository _repository;
 
-        public AddressCommandHandler(IPersonRegistrationRepository repository)
+        public DeletePersonCommandHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<Unit> Handle(AddressCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(DeletePersonCommand request, CancellationToken cancellationToken)
         {
             request.RequestValidate();
 
@@ -24,13 +24,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             personRegistration.ValidateInstance();
 
-            var address = request.Address.GetAddress();
-
-            address.Validate();
-
-            personRegistration.AddAdress(address);
-
-            _repository.Update(personRegistration);
+            _repository.Delete(request.DocumentNumber);
 
             return Unit.Value;
         }

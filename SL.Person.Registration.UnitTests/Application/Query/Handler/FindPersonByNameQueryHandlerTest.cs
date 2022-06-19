@@ -32,7 +32,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         public async Task Should_execute_handler()
         {
             //arrange
-            var query = new FindPersonByNameQuery("teste");
+            var query = new FindPeopleQuery("teste");
             var registration = GetPersonRegistration();
             var isSucess = true;
             var errors = new List<string>();
@@ -41,7 +41,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(registration?.FirstOrDefault());
 
             //act
-            var resultHandler = new FindPersonByNameQueryHandler(moqRepository.Object);
+            var resultHandler = new FindPeopleQueryHandler(moqRepository.Object);
             var handler = await resultHandler.Handle(query, default);
 
             //assert
@@ -57,10 +57,10 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         public async Task Should_execute_handler_invalid_request(string name)
         {
             //arrange
-            var queryHandler = new FindPersonByNameQueryHandler(null);
+            var queryHandler = new FindPeopleQueryHandler(null);
 
             //act
-            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByNameQuery(name), default);
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -71,10 +71,10 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         {
             //arrange
             var moq = MockPersonRegistrationRepository.GetMockRepository(null);
-            var queryHandler = new FindPersonByNameQueryHandler(moq.Object);
+            var queryHandler = new FindPeopleQueryHandler(moq.Object);
 
             //act
-            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByNameQuery("name"), default);
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("name"), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();

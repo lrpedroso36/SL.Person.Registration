@@ -13,7 +13,6 @@ namespace SL.Person.Registration.UnitTests.MoqUnitTest
             var moq = new Mock<IPersonRegistrationRepository>();
             moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(resultSetup);
             moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(resultSetup);
-            moq.Setup(x => x.GetByContactNumber(It.IsAny<int>(), It.IsAny<long>())).Returns(resultSetup);
             MoqGetByName(moq, resultSetup);
             return moq;
         }

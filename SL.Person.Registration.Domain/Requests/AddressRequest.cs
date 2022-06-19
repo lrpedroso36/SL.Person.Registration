@@ -4,7 +4,7 @@ namespace SL.Person.Registration.Domain.Requests
 {
     public class AddressRequest
     {
-        public long ZipCode { get; set; }
+        public string ZipCode { get; set; }
 
         public string Street { get; set; }
 

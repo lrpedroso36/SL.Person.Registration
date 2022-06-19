@@ -2,6 +2,7 @@
 using FluentAssertions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Results;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -22,11 +23,13 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //act
             var result = (FindPersonResult)person;
 
+            var yearsOld = DateTime.Now.Year - person.BithDate.Year;
+
             //assert
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
-            result.YearsOld.Should().Be(person.YearsOld);
+            result.YearsOld.Should().Be(yearsOld);
             result.DocumentNumber.Should().Be(person.DocumentNumber);
         }
 
@@ -37,6 +40,8 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //arrange
             person.AddContact(Builder<Contact>.CreateNew().Build());
 
+            var yearsOld = DateTime.Now.Year - person.BithDate.Year;
+
             //act
             var result = (FindPersonResult)person;
 
@@ -44,7 +49,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
-            result.YearsOld.Should().Be(person.YearsOld);
+            result.YearsOld.Should().Be(yearsOld);
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.DDD.Should().Be(person.Contact.DDD);
             result.PhoneNumber.Should().Be(person.Contact.PhoneNumber);
@@ -57,6 +62,8 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //arrange
             person.AddAdress(Builder<Address>.CreateNew().Build());
 
+            var yearsOld = DateTime.Now.Year - person.BithDate.Year;
+
             //act
             var result = (FindPersonResult)person;
 
@@ -64,7 +71,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
-            result.YearsOld.Should().Be(person.YearsOld);
+            result.YearsOld.Should().Be(yearsOld);
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.ZipCode.Should().Be(person.Address.ZipCode);
             result.Street.Should().Be(person.Address.Street);
@@ -82,6 +89,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //arrange
             person.AddAdress(Builder<Address>.CreateNew().Build());
             person.AddContact(Builder<Contact>.CreateNew().Build());
+            var yearsOld = DateTime.Now.Year - person.BithDate.Year;
 
             //act
             var result = (FindPersonResult)person;
@@ -90,7 +98,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
-            result.YearsOld.Should().Be(person.YearsOld);
+            result.YearsOld.Should().Be(yearsOld);
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.ZipCode.Should().Be(person.Address.ZipCode);
             result.Street.Should().Be(person.Address.Street);

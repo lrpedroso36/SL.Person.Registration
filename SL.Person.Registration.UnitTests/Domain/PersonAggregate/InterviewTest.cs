@@ -27,7 +27,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Assistido}, "nome", GenderType.Masculino, 1, 1234567890),
+                    new List<PersonType> { PersonType.Assistido}, "nome", GenderType.Masculino, new DateTime(1988,04,29), 1234567890),
                 1,
                 "opinião",
                 null,
@@ -38,7 +38,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, 1, 1234567890),
+                    new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, new DateTime(1988,04,29) , 1234567890),
                 1,
                 "opinião",
                 PersonRegistration.CreateInstanceSimple(Guid.Empty, new List<PersonType> { PersonType.Entrevistador}, "nome",1234567890),

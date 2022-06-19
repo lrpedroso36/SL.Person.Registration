@@ -23,9 +23,9 @@ namespace SL.Person.Registration.UnitTests.Domain.Requests
 
             //assert
             person.Types.Should().BeEquivalentTo(personRequest.Types);
-            person.Name.Should().Be(personRequest.Name);
+            person.Name.Should().Be(personRequest.Name.ToUpper());
             person.Gender.Should().Be(personRequest.Gender);
-            person.YearsOld.Should().Be(personRequest.YearsOld);
+            person.BithDate.Should().Be(personRequest.BirthDate);
             person.DocumentNumber.Should().Be(personRequest.DocumentNumber);
         }
     }

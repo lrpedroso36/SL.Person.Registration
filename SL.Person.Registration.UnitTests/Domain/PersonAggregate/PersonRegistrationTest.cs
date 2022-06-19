@@ -18,19 +18,18 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var types = new List<PersonType> { PersonType.Assistido };
             var name = "Nome";
             var gender = GenderType.Masculino;
-            var yearsOld = 33;
+            var birthDate = new DateTime(1988, 04, 29);
             var documentNumber = 123456789L;
 
             //act
-            var person = PersonRegistration.CreateInstance(types, name, gender, yearsOld, documentNumber);
+            var person = PersonRegistration.CreateInstance(types, name, gender, birthDate, documentNumber);
 
             //assert
             person.Types.Should().BeEquivalentTo(types);
             person.Name.Should().Be(name);
             person.Name.Should().BeOfType(typeof(string));
             person.Gender.Should().Be(gender);
-            person.YearsOld.Should().Be(yearsOld);
-            person.YearsOld.Should().BeOfType(typeof(int));
+            person.BithDate.Should().Be(birthDate);
             person.DocumentNumber.Should().Be(documentNumber);
             person.DocumentNumber.Should().BeOfType(typeof(long));
 
@@ -46,19 +45,18 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var types = new List<PersonType> { PersonType.Assistido };
             var name = "Nome";
             var gender = GenderType.Masculino;
-            var yearsOld = 33;
+            var birthDate = new DateTime(1988, 04, 29);
             var documentNumber = 123456789L;
 
             //act
-            var person = PersonRegistration.CreateUpdateInstance(id, types, name, gender, yearsOld, documentNumber);
+            var person = PersonRegistration.CreateUpdateInstance(id, types, name, gender, birthDate, documentNumber);
 
             //assert
             person.Types.Should().BeEquivalentTo(types);
             person.Name.Should().Be(name);
             person.Name.Should().BeOfType(typeof(string));
             person.Gender.Should().Be(gender);
-            person.YearsOld.Should().Be(yearsOld);
-            person.YearsOld.Should().BeOfType(typeof(int));
+            person.BithDate.Should().Be(birthDate);
             person.DocumentNumber.Should().Be(documentNumber);
             person.DocumentNumber.Should().BeOfType(typeof(long));
 
@@ -85,7 +83,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.DocumentNumber.Should().Be(documentNumber);
 
             person.Gender.Should().Be(0);
-            person.YearsOld.Should().Be(0);
+            person.BithDate.Should().Be(DateTime.MinValue);
             person.Address.Should().BeNull();
             person.Contact.Should().BeNull();
         }
