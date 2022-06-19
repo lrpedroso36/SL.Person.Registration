@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Application.Query.Validations;
-using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
 using System.Collections.Generic;
@@ -29,7 +28,7 @@ namespace SL.Person.Registration.Application.Query.Handler
             if (long.TryParse(request.Parameter, out long documentNumber))
             {
                 var personRegistrationDocument = _repository.GetByDocument(documentNumber);
-                 
+
                 personRegistrationDocument.ValidateInstance();
 
                 result.SetData(new List<FindPersonResult>() { (FindPersonResult)personRegistrationDocument });

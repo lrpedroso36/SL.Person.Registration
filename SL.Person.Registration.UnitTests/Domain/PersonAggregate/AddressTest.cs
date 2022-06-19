@@ -7,8 +7,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
     public class AddressTest
     {
         [Theory]
-        [InlineData(123456789, "rua", "numero", "bairro", "complemento", "cidade", "estado")]
-        public void Should_set_properties(long zipCode, string street, string number,
+        [InlineData("123456789", "rua", "numero", "bairro", "complemento", "cidade", "estado")]
+        public void Should_set_properties(string zipCode, string street, string number,
             string neighborhood, string complement, string city, string state)
         {
             //arrange
@@ -17,7 +17,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
             //assert
             address.ZipCode.Should().Be(zipCode);
-            address.ZipCode.Should().BeOfType(typeof(long));
+            address.ZipCode.Should().BeOfType(typeof(string));
 
             address.Street.Should().Be(street);
             address.Street.Should().BeOfType(typeof(string));

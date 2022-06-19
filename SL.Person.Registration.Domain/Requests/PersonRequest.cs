@@ -17,6 +17,24 @@ namespace SL.Person.Registration.Domain.Requests
 
         public long DocumentNumber { get; set; }
 
+        public int DDD { get; set; }
+
+        public long PhoneNumber { get; set; }
+
+        public string ZipCode { get; set; }
+
+        public string Street { get; set; }
+
+        public string Number { get; set; }
+
+        public string Neighborhood { get; set; }
+
+        public string Complement { get; set; }
+
+        public string City { get; set; }
+
+        public string State { get; set; }
+
         public PersonRegistration GetPersonRegistration()
         {
             var person = PersonRegistration.CreateInstance(Types,
@@ -24,6 +42,9 @@ namespace SL.Person.Registration.Domain.Requests
                 Gender,
                 BirthDate,
                 DocumentNumber);
+
+            person.AddContact(Contact.CreateInstance(DDD, PhoneNumber));
+            person.AddAdress(Address.CreateInstance(ZipCode, Street, Number, Neighborhood, Complement, City, State));
 
             return person;
         }

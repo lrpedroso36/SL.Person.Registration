@@ -8,8 +8,10 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Validations
         public AddressValidation()
         {
             RuleFor(x => x.ZipCode)
-                .NotEqual(0)
-                .WithMessage(ResourceMessagesValidation.AddressValidation_ZipCode);
+               .NotEmpty()
+               .WithMessage(ResourceMessagesValidation.AddressValidation_ZipCode)
+               .NotNull()
+               .WithMessage(ResourceMessagesValidation.AddressValidation_ZipCode);
 
             RuleFor(x => x.Street)
                .NotEmpty()

@@ -7,8 +7,8 @@ namespace SL.Person.Registration.UnitTests.Domain.Requests
     public class AddressRequestTest
     {
         [Theory]
-        [InlineData(123456789, "Rua", "Numero", "bairro", "Complemento", "Cidade", "Estado")]
-        public void Should_get_address(long zipCode, string street, string number, string neighborhood, string complement, string city, string state)
+        [InlineData("123456789", "Rua", "Numero", "bairro", "Complemento", "Cidade", "Estado")]
+        public void Should_get_address(string zipCode, string street, string number, string neighborhood, string complement, string city, string state)
         {
             //arrange
             var result = new AddressRequest()

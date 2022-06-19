@@ -10,7 +10,7 @@ namespace SL.Person.Registration.UnitTests.Domain.External.Response
         public void Should_return_address()
         {
             //arrage
-            var zipCode = 13295000;
+            var zipCode = "13295000";
             var street = "Rua um";
             var neighborhood = "Nova Tuiuti";
             var city = "Itupeva";

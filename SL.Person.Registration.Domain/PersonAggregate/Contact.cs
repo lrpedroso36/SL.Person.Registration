@@ -19,5 +19,10 @@
 
         public static Contact CreateInstance(int ddd, long phoneNumber)
             => new Contact(ddd, phoneNumber);
+
+        public bool IsValid()
+        {
+            return DDD > 0 && PhoneNumber > 0;
+        }
     }
 }

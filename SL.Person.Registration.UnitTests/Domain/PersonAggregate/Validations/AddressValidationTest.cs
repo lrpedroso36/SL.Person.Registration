@@ -18,7 +18,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_zip_code()
         {
             //arrange 
-            var address = Address.CreateInstance(0, "rua", "number", "bairro", "complemento", "cidade", "estado");
+            var address = Address.CreateInstance(null, "rua", "number", "bairro", "complemento", "cidade", "estado");
 
             //act
             var result = _addressValidation.TestValidate(address);
@@ -31,7 +31,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_not_have_errors()
         {
             //arrange 
-            var address = Address.CreateInstance(123456789, "rua", "number", "bairro", "complemento", "cidade", "estado");
+            var address = Address.CreateInstance("123456789", "rua", "number", "bairro", "complemento", "cidade", "estado");
 
             //act
             var result = _addressValidation.TestValidate(address);
@@ -52,7 +52,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_street(string street)
         {
             //arrange 
-            var address = Address.CreateInstance(0, street, "number", "bairro", "complemento", "cidade", "estado");
+            var address = Address.CreateInstance("123", street, "number", "bairro", "complemento", "cidade", "estado");
 
             //act
             var result = _addressValidation.TestValidate(address);
@@ -68,7 +68,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_number(string number)
         {
             //arrange 
-            var address = Address.CreateInstance(0, "rua", number, "bairro", "complemento", "cidade", "estado");
+            var address = Address.CreateInstance("123", "rua", number, "bairro", "complemento", "cidade", "estado");
 
             //act
             var result = _addressValidation.TestValidate(address);
@@ -84,7 +84,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_neighborhood(string neighborhood)
         {
             //arrange 
-            var address = Address.CreateInstance(0, "rua", "number", neighborhood, "complemento", "cidade", "estado");
+            var address = Address.CreateInstance("123", "rua", "number", neighborhood, "complemento", "cidade", "estado");
 
             //act
             var result = _addressValidation.TestValidate(address);
@@ -100,7 +100,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_city(string city)
         {
             //arrange 
-            var address = Address.CreateInstance(0, "rua", "number", "bairro", "complemento", city, "estado");
+            var address = Address.CreateInstance("123", "rua", "number", "bairro", "complemento", city, "estado");
 
             //act
             var result = _addressValidation.TestValidate(address);
@@ -116,7 +116,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_state(string state)
         {
             //arrange 
-            var address = Address.CreateInstance(0, "rua", "number", "bairro", "complemento", "cidade", state);
+            var address = Address.CreateInstance("123", "rua", "number", "bairro", "complemento", "cidade", state);
 
             //act
             var result = _addressValidation.TestValidate(address);

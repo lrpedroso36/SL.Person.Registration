@@ -17,7 +17,7 @@ namespace SL.Person.Registration.Domain.Results
 
         public long DocumentNumber { get; set; }
 
-        public long ZipCode { get; set; }
+        public string ZipCode { get; set; }
 
         public string Street { get; set; }
 

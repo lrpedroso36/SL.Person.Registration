@@ -20,12 +20,9 @@ namespace SL.Person.Registration.Domain.External.Response
             return Address.CreateInstance(zipCode, Logradouro, null, Bairro, null, Localidade, Uf);
         }
 
-        private long GetZipCode(string cep)
+        private string GetZipCode(string cep)
         {
-            if (long.TryParse(cep.Replace("-", string.Empty), out long zipCode))
-                return zipCode;
-
-            return 0;
+            return cep.Replace("-", string.Empty);
         }
     }
 }

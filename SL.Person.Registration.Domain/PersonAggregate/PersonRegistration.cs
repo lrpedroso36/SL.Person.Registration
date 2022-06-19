@@ -87,12 +87,18 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public void AddAdress(Address address)
         {
-            Address = SetAddress(address);
+            if (address != null && address.IsValid())
+            {
+                Address = SetAddress(address);
+            }
         }
 
         public void AddContact(Contact contact)
         {
-            Contact = SetContact(contact);
+            if (contact != null && contact.IsValid())
+            {
+                Contact = SetContact(contact);
+            }
         }
 
         public void AddInterview(Interview interview)

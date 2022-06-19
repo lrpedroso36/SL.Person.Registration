@@ -32,10 +32,10 @@ namespace SL.Person.Registration
         {
 
             services.AddOptions();
-            
+
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", builder => 
+                options.AddPolicy("CorsPolicy", builder =>
                 builder.AllowAnyOrigin()
                         .AllowAnyMethod()
                         .AllowAnyHeader());
