@@ -153,23 +153,26 @@
   <data name="ContactValidation_PhoneNumber" xml:space="preserve">
     <value>Número de telefone é obrigatório.</value>
   </data>
+  <data name="DeletePersonCommandValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe o documento da pessoa.</value>
+  </data>
   <data name="FindAddressByZipCodeValidation_NotFound" xml:space="preserve">
     <value>Endereço não encontrado.</value>
   </data>
   <data name="FindAddressByZipCodeValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o CEP do endereço.</value>
   </data>
+  <data name="FindPeopleQueryValidation_NotFound" xml:space="preserve">
+    <value>A pesquisa não retornou nenhum resultado.</value>
+  </data>
+  <data name="FindPeopleQueryValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe o nome da pessoa que deseja pesquisar.</value>
+  </data>
   <data name="FindPersonByContactNumberQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o número do DDD e Celular.</value>
   </data>
   <data name="FindPersonByDocumentQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o número do Documento.</value>
-  </data>
-  <data name="FindPersonByNameQueryValidation_NotFound" xml:space="preserve">
-    <value>A pesquisa por nome não retornou nenhum resultado.</value>
-  </data>
-  <data name="FindPersonByNameQueryValidation_RequestInvalid" xml:space="preserve">
-    <value>Informe o nome da pessoa que deseja pesquisar.</value>
   </data>
   <data name="InsertInterviewCommandValidation_DataRequestInvalid" xml:space="preserve">
     <value>Informe o documento do paciente ou o documento do entrevistador.</value>

@@ -6,15 +6,15 @@ using System.Collections.Generic;
 
 namespace SL.Person.Registration.Application.Query.Validations
 {
-    public static class FindPersonByNameQueryValidation
+    public static class FindPeopleQueryValidation
     {
-        public static void RequestValidate(this FindPersonByNameQuery request)
+        public static void RequestValidate(this FindPeopleQuery request)
         {
-            if (string.IsNullOrWhiteSpace(request.Name))
+            if (string.IsNullOrWhiteSpace(request.Parameter))
             {
                 var result = new ResultEntities<IEnumerable<FindPersonResult>>();
                 result.SetErrorType(ErrorType.InvalidParameters);
-                result.AddErrors(ResourceMessagesValidation.FindPersonByNameQueryValidation_RequestInvalid);
+                result.AddErrors(ResourceMessagesValidation.FindPeopleQueryValidation_RequestInvalid);
                 throw new ApplicationRequestException(result);
             }
         }

@@ -17,8 +17,8 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
             _context = context;
         }
 
-        public PersonRegistration GetByContactNumber(int ddd, long phoneNumber)
-            => _context.Collection.AsQueryable().FirstOrDefault(x => x.Contact != null && x.Contact.DDD == ddd && x.Contact.PhoneNumber == phoneNumber);
+        public void Delete(long documentNumber)
+            => _context.Collection.DeleteMany(x => x.DocumentNumber == documentNumber);
 
         public PersonRegistration GetByDocument(long documentNumber)
             => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber);

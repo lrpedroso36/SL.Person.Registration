@@ -15,7 +15,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public GenderType Gender { get; private set; }
 
-        public int YearsOld { get; private set; }
+        public DateTime BithDate { get; private set; }
 
         public long DocumentNumber { get; private set; }
 
@@ -40,16 +40,17 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             DocumentNumber = documentNumber;
         }
 
-        protected PersonRegistration(List<PersonType> types, string name, GenderType gender, int yeasOld, long documentNumber)
+        protected PersonRegistration(List<PersonType> types, string name, GenderType gender, DateTime birthDate, long documentNumber)
         {
             Types = types;
             Name = name;
             Gender = gender;
-            YearsOld = yeasOld;
+            BithDate = birthDate;
             DocumentNumber = documentNumber;
         }
 
-        protected PersonRegistration(Guid id, List<PersonType> types, string name, GenderType gender, int yeasOld, long documentNumber) : this(types, name, gender, yeasOld, documentNumber)
+        protected PersonRegistration(Guid id, List<PersonType> types, string name, GenderType gender, DateTime birthDate, long documentNumber)
+            : this(types, name, gender, birthDate, documentNumber)
         {
             _id = id;
         }
@@ -57,11 +58,11 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public static PersonRegistration CreateInstanceSimple(Guid id, List<PersonType> types, string name, long documentNumber)
             => new PersonRegistration(id, types, name, documentNumber);
 
-        public static PersonRegistration CreateInstance(List<PersonType> type, string name, GenderType gender, int yeasOld, long documentNumber)
-        => new PersonRegistration(type, name, gender, yeasOld, documentNumber);
+        public static PersonRegistration CreateInstance(List<PersonType> type, string name, GenderType gender, DateTime birthDate, long documentNumber)
+        => new PersonRegistration(type, name, gender, birthDate, documentNumber);
 
-        public static PersonRegistration CreateUpdateInstance(Guid id, List<PersonType> type, string name, GenderType gender, int yeasOld, long documentNumber)
-        => new PersonRegistration(id, type, name, gender, yeasOld, documentNumber);
+        public static PersonRegistration CreateUpdateInstance(Guid id, List<PersonType> type, string name, GenderType gender, DateTime birthDate, long documentNumber)
+        => new PersonRegistration(id, type, name, gender, birthDate, documentNumber);
 
         private Contact SetContact(Contact contact)
         {

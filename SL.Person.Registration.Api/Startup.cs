@@ -32,6 +32,14 @@ namespace SL.Person.Registration
         {
 
             services.AddOptions();
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => 
+                builder.AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
 
             services.AddControllers(options =>
             {
@@ -83,6 +91,8 @@ namespace SL.Person.Registration
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SL.Person.Registration");
             });
+
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {

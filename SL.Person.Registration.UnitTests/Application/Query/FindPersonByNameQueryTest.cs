@@ -8,14 +8,14 @@ namespace SL.Person.Registration.UnitTests.Application.Query
     {
         [Theory]
         [InlineData("nome")]
-        public void Should_set_properties(string name)
+        public void Should_set_properties(string parameter)
         {
             //arrange
             //act
-            var query = new FindPersonByNameQuery(name);
+            var query = new FindPeopleQuery(parameter);
 
             //assert
-            query.Name.Should().Be(name);
+            query.Parameter.Should().Be(parameter);
         }
     }
 }

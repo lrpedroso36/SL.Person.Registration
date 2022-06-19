@@ -29,7 +29,7 @@ namespace SL.Person.Registration.Application.Command.Hanler
 
             person.Validate();
 
-            var registration = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender, person.YearsOld, person.DocumentNumber);
+            var registration = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender, person.BithDate, person.DocumentNumber);
 
             _repository.Insert(registration);
 

@@ -1,5 +1,6 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
 using System.Collections.Generic;
 
 namespace SL.Person.Registration.Domain.Results
@@ -41,7 +42,7 @@ namespace SL.Person.Registration.Domain.Results
             result.Types = person.Types;
             result.Name = person.Name;
             result.Gender = person.Gender;
-            result.YearsOld = person.YearsOld;
+            result.YearsOld = GetYearsOld(person.BithDate);
             result.DocumentNumber = person.DocumentNumber;
 
             if (person.Address != null)
@@ -62,6 +63,16 @@ namespace SL.Person.Registration.Domain.Results
             }
 
             return result;
+        }
+
+        private static int GetYearsOld(DateTime bithDate)
+        {
+            if (bithDate == DateTime.MinValue)
+            {
+                return 0;
+            }
+
+            return DateTime.Now.Year - bithDate.Year;
         }
     }
 }
