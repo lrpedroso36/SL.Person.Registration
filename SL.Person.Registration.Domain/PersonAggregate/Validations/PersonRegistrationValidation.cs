@@ -16,6 +16,16 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Validations
             RuleFor(x => x.DocumentNumber)
                 .NotEqual(0)
                 .WithMessage(ResourceMessagesValidation.PersonRegistrationValidation_DocumentNumber);
+
+            When(x => x.Address != null, () =>
+            {
+                RuleFor(a => a.Address).SetValidator(new AddressValidation());
+            });
+
+            When(x => x.Contact != null, () =>
+            {
+                RuleFor(c => c.Contact).SetValidator(new ContactValidation());
+            });
         }
     }
 }

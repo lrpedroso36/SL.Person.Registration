@@ -34,11 +34,5 @@
 
         public static Address CreateInstance(string zipCode, string street, string number, string neighborhood, string complement, string city, string state)
             => new Address(zipCode, street, number, neighborhood, complement, city, state);
-
-        public bool IsValid()
-        {
-            return !string.IsNullOrWhiteSpace(ZipCode) && !string.IsNullOrWhiteSpace(Street) && !string.IsNullOrWhiteSpace(Number) && !string.IsNullOrWhiteSpace(Neighborhood)
-                && !string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(State);
-        }
     }
 }

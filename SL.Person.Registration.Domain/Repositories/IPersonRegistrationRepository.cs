@@ -12,7 +12,7 @@ namespace SL.Person.Registration.Domain.Repositories
 
         IEnumerable<PersonRegistration> GetByName(string name);
 
-        bool Update(PersonRegistration registration);
+        void Update(PersonRegistration registration);
 
         PersonRegistration GetByDocument(long documentNumber, PersonType personType);
 

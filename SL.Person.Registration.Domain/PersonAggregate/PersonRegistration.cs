@@ -87,7 +87,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public void AddAdress(Address address)
         {
-            if (address != null && address.IsValid())
+            if (address != null)
             {
                 Address = SetAddress(address);
             }
@@ -95,7 +95,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public void AddContact(Contact contact)
         {
-            if (contact != null && contact.IsValid())
+            if (contact != null)
             {
                 Contact = SetContact(contact);
             }

@@ -133,6 +133,19 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         }
 
         [Fact]
+        public void Should_not_add_address()
+        {
+            //arrange
+            Address address = null;
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            //act
+            person.AddAdress(address);
+
+            //assert
+            person.Address.Should().BeNull();
+        }
+
+        [Fact]
         public void Should_add_contact()
         {
             //arrange 
@@ -144,6 +157,20 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
             //assert
             person.Contact.Should().BeEquivalentTo(contact);
+        }
+
+        [Fact]
+        public void Should_not_add_contact()
+        {
+            //arrange 
+            Contact contact = null;
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+
+            //act
+            person.AddContact(contact);
+
+            //assert
+            person.Contact.Should().BeNull();
         }
 
         [Fact]

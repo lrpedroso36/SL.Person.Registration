@@ -43,10 +43,33 @@ namespace SL.Person.Registration.Domain.Requests
                 BirthDate,
                 DocumentNumber);
 
-            person.AddContact(Contact.CreateInstance(DDD, PhoneNumber));
-            person.AddAdress(Address.CreateInstance(ZipCode, Street, Number, Neighborhood, Complement, City, State));
+            if (CheckInformationContact())
+            {
+                person.AddContact(Contact.CreateInstance(DDD, PhoneNumber));
+            }
+
+            if (CheckInformationAddress())
+            {
+                person.AddAdress(Address.CreateInstance(ZipCode, Street, Number, Neighborhood, Complement, City, State));
+            }
 
             return person;
+        }
+
+        private bool CheckInformationContact()
+        {
+            return DDD != 0 || PhoneNumber != 0;
+        }
+
+        private bool CheckInformationAddress()
+        {
+            return !string.IsNullOrWhiteSpace(ZipCode) ||
+                   !string.IsNullOrWhiteSpace(Street) ||
+                   !string.IsNullOrWhiteSpace(Number) ||
+                   !string.IsNullOrWhiteSpace(Neighborhood) ||
+                   !string.IsNullOrWhiteSpace(City) ||
+                   !string.IsNullOrWhiteSpace(State) ||
+                   !string.IsNullOrWhiteSpace(Complement);
         }
     }
 }

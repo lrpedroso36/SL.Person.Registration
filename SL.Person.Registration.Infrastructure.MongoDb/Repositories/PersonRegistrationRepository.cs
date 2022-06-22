@@ -32,10 +32,7 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
         public void Insert(PersonRegistration registration)
             => _context.Collection.InsertOne(registration);
 
-        public bool Update(PersonRegistration registration)
-        {
-            _context.Collection.ReplaceOneAsync(x => x._id == registration._id, registration);
-            return true;
-        }
+        public void Update(PersonRegistration registration)
+            => _context.Collection.ReplaceOneAsync(x => x._id == registration._id, registration);
     }
 }
