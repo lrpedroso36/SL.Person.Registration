@@ -214,5 +214,22 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.Assignments.Should().HaveCount(1);
             person.Assignments.Should().BeEquivalentTo(list);
         }
+
+        [Theory]
+        [InlineData(PersonType.Tarefeiro, true)]
+        [InlineData(PersonType.Entrevistador, false)]
+        [InlineData(PersonType.Palestrante, false)]
+        [InlineData(PersonType.Assistido, false)]
+        public void Should_Enable_Laborer_Presence(PersonType personType, bool resultBe)
+        {
+            //arrange
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { personType }, "nome", 123456789);
+
+            //act
+            var result = person.EnabledLaborerPresence();
+
+            //assert
+            result.Should().Be(resultBe);
+        }
     }
 }

@@ -2,6 +2,7 @@
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SL.Person.Registration.Domain.Results
 {
@@ -14,6 +15,8 @@ namespace SL.Person.Registration.Domain.Results
         public GenderType Gender { get; set; }
 
         public int YearsOld { get; set; }
+
+        public string BirthDate { get; set; }
 
         public long DocumentNumber { get; set; }
 
@@ -33,6 +36,10 @@ namespace SL.Person.Registration.Domain.Results
 
         public int DDD { get; set; }
 
+        public bool EnabledLaborerPresence { get; set; }
+
+        public bool TratamentInProcess { get; set; }
+
         public long PhoneNumber { get; set; }
 
         public static explicit operator FindPersonResult(PersonRegistration person)
@@ -43,7 +50,10 @@ namespace SL.Person.Registration.Domain.Results
             result.Name = person.Name;
             result.Gender = person.Gender;
             result.YearsOld = GetYearsOld(person.BithDate);
+            result.BirthDate = person.BithDate.ToString("yyyy-MM-dd");
             result.DocumentNumber = person.DocumentNumber;
+            result.EnabledLaborerPresence = person.EnabledLaborerPresence();
+            result.TratamentInProcess = person.TratamentInProcess();
 
             if (person.Address != null)
             {

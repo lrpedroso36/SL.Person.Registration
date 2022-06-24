@@ -126,6 +126,16 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
             Assignments.Add(Assignment.CreateInstance(date, presence));
         }
+
+        public bool TratamentInProcess()
+        {
+            return Interviews != null && Interviews.Any(x => x.Status == TratamentStatus.InProcess);
+        }
+
+        public bool EnabledLaborerPresence()
+        {
+            return Types != null && Types.Any(x => x == PersonType.Tarefeiro);
+        }
     }
 }
 

@@ -30,6 +30,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
+            result.BirthDate.Should().Be(person.BithDate.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
         }
 
@@ -50,6 +51,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
+            result.BirthDate.Should().Be(person.BithDate.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.DDD.Should().Be(person.Contact.DDD);
             result.PhoneNumber.Should().Be(person.Contact.PhoneNumber);
@@ -72,6 +74,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
+            result.BirthDate.Should().Be(person.BithDate.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.ZipCode.Should().Be(person.Address.ZipCode);
             result.Street.Should().Be(person.Address.Street);
@@ -99,6 +102,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
+            result.BirthDate.Should().Be(person.BithDate.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.ZipCode.Should().Be(person.Address.ZipCode);
             result.Street.Should().Be(person.Address.Street);

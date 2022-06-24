@@ -1,9 +1,12 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Command.Validations;
+using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
+using SL.Person.Registration.Domain.Results;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -26,7 +29,10 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             personLaborer.ValidateInstanceByType(PersonType.Tarefeiro);
 
-            personLaborer.SetPresenceAssignment(DateTime.Now, true);
+            var datePresence = DateTime.Now;
+            datePresence.RequestValidateDateAssingment(personLaborer.Assignments);
+
+            personLaborer.SetPresenceAssignment(datePresence, true);
 
             _repository.Update(personLaborer);
 

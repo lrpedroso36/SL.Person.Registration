@@ -349,6 +349,15 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A presença para o tarefeiro já foi confirmada..
+        /// </summary>
+        public static string PresenceAssignmentCommandValidation_RequestInvalid_Presence {
+            get {
+                return ResourceManager.GetString("PresenceAssignmentCommandValidation_RequestInvalid_Presence", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe os dados da pessoa..
         /// </summary>
         public static string UpdatePersonCommandValidation_RequestInvalid {
