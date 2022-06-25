@@ -17,17 +17,17 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
             _context = context;
         }
 
-        public void Delete(long documentNumber)
-            => _context.Collection.DeleteMany(x => x.DocumentNumber == documentNumber);
-
         public PersonRegistration GetByDocument(long documentNumber)
-            => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber);
+            => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber && !x.IsExcluded);
 
         public PersonRegistration GetByDocument(long documentNumber, PersonType personType)
-            => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber && x.Types.Contains(personType));
+            => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber && x.Types.Contains(personType) && !x.IsExcluded);
 
         public IEnumerable<PersonRegistration> GetByName(string name)
-            => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower())).ToList();
+            => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && !x.IsExcluded).ToList();
+
+        public IEnumerable<PersonRegistration> GetByType(PersonType personType)
+            => _context.Collection.AsQueryable().Where(x => x.Types.Contains(personType) && !x.IsExcluded).ToList();
 
         public void Insert(PersonRegistration registration)
             => _context.Collection.InsertOne(registration);

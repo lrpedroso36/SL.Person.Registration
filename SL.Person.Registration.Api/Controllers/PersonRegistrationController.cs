@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Query;
+using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.Domain.Results;
 using SL.Person.Registration.Domain.Results.Base;
@@ -59,6 +60,23 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ResultEntities<IEnumerable<FindPersonResult>>> FindPeople(string parameter, CancellationToken cancellationToken)
             => await _mediator.Send(new FindPeopleQuery(parameter), cancellationToken);
+
+        /// <summary>
+        /// Pesquisar uma lista de pessoas pelo tipo de pessoa
+        /// </summary>
+        /// <param name="personType">Tipo de pessoa</param>
+        /// <param name="cancellationToken"></param>
+        /// <response code="200">Pesquisa realizada com sucesso</response>
+        /// <response code="400">O tipo de pesso</response>
+        /// <response code="404">Pessoa não encontrada</response>
+        /// <returns></returns>
+        [HttpGet("list-persontype/{personType}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ResultEntities<IEnumerable<FindPersonResult>>> FindPeopleType(PersonType personType, CancellationToken cancellationToken)
+            => await _mediator.Send(new FindPeopleTypeQuery(personType), cancellationToken);
 
         /// <summary>
         /// Inserir o registro de uma pessoa

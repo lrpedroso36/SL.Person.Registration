@@ -14,14 +14,14 @@ using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 {
-    public class PresenceAssignmentCommandHandlerTest
+    public class DeletePersonCommandHandlerTest
     {
         [Fact]
         public async void Should_execute_handler_request_invalid()
         {
             //arrange
-            var command = new PresenceAssignmentCommand(0);
-            var commandHandler = new PresenceAssignmentCommandHandler(null);
+            var command = new DeletePersonCommand(0);
+            var commandHandler = new DeletePersonCommandHandler(null);
 
             //act
             Func<Task<Unit>> action = async () => await commandHandler.Handle(command, default);
@@ -36,27 +36,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             //arrage
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(null);
 
-            var command = new PresenceAssignmentCommand(123456789);
-            var commandHandler = new PresenceAssignmentCommandHandler(moqRepository.Object);
-
-            //act
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(command, default);
-
-            //assert
-            await action.Should().ThrowAsync<ApplicationRequestException>();
-        }
-
-        [Fact]
-        public async void Should_execute_handler_date_presence_done()
-        {
-            //arrange
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
-            person.SetPresenceAssignment(DateTime.Now, true);
-
-            var moqRepository = MockPersonRegistrationRepository.GetMockRepository(person);
-
-            var command = new PresenceAssignmentCommand(123456789);
-            var commandHandler = new PresenceAssignmentCommandHandler(moqRepository.Object);
+            var command = new DeletePersonCommand(123456789);
+            var commandHandler = new DeletePersonCommandHandler(moqRepository.Object);
 
             //act
             Func<Task<Unit>> action = async () => await commandHandler.Handle(command, default);
@@ -72,14 +53,14 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             var personNotLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(personNotLaborer);
 
-            var command = new PresenceAssignmentCommand(123456789);
-            var commandHandler = new PresenceAssignmentCommandHandler(moqRepository.Object);
+            var command = new DeletePersonCommand(123456789);
+            var commandHandler = new DeletePersonCommandHandler(moqRepository.Object);
 
             //act
             var result = await commandHandler.Handle(command, default);
 
             //assert
-            moqRepository.Verify(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>()), Times.Once);
+            moqRepository.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.Once);
             moqRepository.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
 
             result.Should().Be(Unit.Value);

@@ -2,7 +2,6 @@
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace SL.Person.Registration.Domain.Results
 {
@@ -40,6 +39,8 @@ namespace SL.Person.Registration.Domain.Results
 
         public bool TratamentInProcess { get; set; }
 
+        public bool LaborerPresenceConfirmed { get; set; }
+
         public long PhoneNumber { get; set; }
 
         public static explicit operator FindPersonResult(PersonRegistration person)
@@ -50,10 +51,11 @@ namespace SL.Person.Registration.Domain.Results
             result.Name = person.Name;
             result.Gender = person.Gender;
             result.YearsOld = GetYearsOld(person.BithDate);
-            result.BirthDate = person.BithDate.ToString("yyyy-MM-dd");
+            result.BirthDate = GetBirthDate(person.BithDate);
             result.DocumentNumber = person.DocumentNumber;
             result.EnabledLaborerPresence = person.EnabledLaborerPresence();
             result.TratamentInProcess = person.TratamentInProcess();
+            result.LaborerPresenceConfirmed = person.LaborerPresenceConfirmed();
 
             if (person.Address != null)
             {
@@ -75,14 +77,14 @@ namespace SL.Person.Registration.Domain.Results
             return result;
         }
 
-        private static int GetYearsOld(DateTime bithDate)
+        private static string GetBirthDate(DateTime? bithDate)
         {
-            if (bithDate == DateTime.MinValue)
-            {
-                return 0;
-            }
+            return bithDate == null ? "0001-01-01" : bithDate.Value.ToString("yyyy-MM-dd");
+        }
 
-            return DateTime.Now.Year - bithDate.Year;
+        private static int GetYearsOld(DateTime? bithDate)
+        {
+            return (bithDate == null || bithDate == DateTime.MinValue) ? 0 : DateTime.Now.Year - bithDate.Value.Year;
         }
     }
 }

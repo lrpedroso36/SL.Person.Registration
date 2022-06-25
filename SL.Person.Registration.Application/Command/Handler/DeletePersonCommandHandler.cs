@@ -24,7 +24,9 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             personRegistration.ValidateInstance();
 
-            _repository.Delete(request.DocumentNumber);
+            personRegistration.SetIsExcluded();
+
+            _repository.Update(personRegistration);
 
             return Unit.Value;
         }

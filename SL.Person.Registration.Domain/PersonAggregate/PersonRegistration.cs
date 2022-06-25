@@ -15,7 +15,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public GenderType Gender { get; private set; }
 
-        public DateTime BithDate { get; private set; }
+        public DateTime? BithDate { get; private set; }
 
         public long DocumentNumber { get; private set; }
 
@@ -26,6 +26,8 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public List<Interview> Interviews { get; private set; }
 
         public List<Assignment> Assignments { get; private set; }
+
+        public bool IsExcluded { get; private set; } = false;
 
         protected PersonRegistration()
         {
@@ -40,7 +42,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             DocumentNumber = documentNumber;
         }
 
-        protected PersonRegistration(List<PersonType> types, string name, GenderType gender, DateTime birthDate, long documentNumber)
+        protected PersonRegistration(List<PersonType> types, string name, GenderType gender, DateTime? birthDate, long documentNumber)
         {
             Types = types;
             Name = name;
@@ -49,7 +51,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             DocumentNumber = documentNumber;
         }
 
-        protected PersonRegistration(Guid id, List<PersonType> types, string name, GenderType gender, DateTime birthDate, long documentNumber)
+        protected PersonRegistration(Guid id, List<PersonType> types, string name, GenderType gender, DateTime? birthDate, long documentNumber)
             : this(types, name, gender, birthDate, documentNumber)
         {
             _id = id;
@@ -58,10 +60,10 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public static PersonRegistration CreateInstanceSimple(Guid id, List<PersonType> types, string name, long documentNumber)
             => new PersonRegistration(id, types, name, documentNumber);
 
-        public static PersonRegistration CreateInstance(List<PersonType> type, string name, GenderType gender, DateTime birthDate, long documentNumber)
+        public static PersonRegistration CreateInstance(List<PersonType> type, string name, GenderType gender, DateTime? birthDate, long documentNumber)
         => new PersonRegistration(type, name, gender, birthDate, documentNumber);
 
-        public static PersonRegistration CreateUpdateInstance(Guid id, List<PersonType> type, string name, GenderType gender, DateTime birthDate, long documentNumber)
+        public static PersonRegistration CreateUpdateInstance(Guid id, List<PersonType> type, string name, GenderType gender, DateTime? birthDate, long documentNumber)
         => new PersonRegistration(id, type, name, gender, birthDate, documentNumber);
 
         private Contact SetContact(Contact contact)
@@ -135,6 +137,16 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public bool EnabledLaborerPresence()
         {
             return Types != null && Types.Any(x => x == PersonType.Tarefeiro);
+        }
+
+        public bool LaborerPresenceConfirmed()
+        {
+            return Assignments != null && Assignments.Any(x => x.Presence && x.Date.Date == DateTime.Now.Date);
+        }
+
+        public void SetIsExcluded()
+        {
+            IsExcluded = true;
         }
     }
 }

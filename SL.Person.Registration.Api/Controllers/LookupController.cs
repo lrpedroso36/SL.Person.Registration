@@ -58,5 +58,15 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
         public async Task<IActionResult> GetGenderTypeAsync()
             => Ok(await _mediator.Send(new FindLookupQuery(typeof(GenderType))));
+
+        /// <summary>
+        /// Dia da semana
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("weakDay")]
+        [ProducesDefaultResponseType]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
+        public async Task<IActionResult> GetWeakDay()
+            => Ok(await _mediator.Send(new FindLookupQuery(typeof(WeakDayType))));
     }
 }

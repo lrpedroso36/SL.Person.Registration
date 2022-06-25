@@ -1,6 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Domain.PersonAggregate;
+using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Results;
 using System;
 using System.Collections.Generic;
@@ -23,14 +24,14 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //act
             var result = (FindPersonResult)person;
 
-            var yearsOld = DateTime.Now.Year - person.BithDate.Year;
+            var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //assert
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
-            result.BirthDate.Should().Be(person.BithDate.ToString("yyyy-MM-dd"));
+            result.BirthDate.Should().Be(person.BithDate.Value.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
         }
 
@@ -41,7 +42,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //arrange
             person.AddContact(Builder<Contact>.CreateNew().Build());
 
-            var yearsOld = DateTime.Now.Year - person.BithDate.Year;
+            var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //act
             var result = (FindPersonResult)person;
@@ -51,7 +52,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
-            result.BirthDate.Should().Be(person.BithDate.ToString("yyyy-MM-dd"));
+            result.BirthDate.Should().Be(person.BithDate.Value.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.DDD.Should().Be(person.Contact.DDD);
             result.PhoneNumber.Should().Be(person.Contact.PhoneNumber);
@@ -64,7 +65,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //arrange
             person.AddAdress(Builder<Address>.CreateNew().Build());
 
-            var yearsOld = DateTime.Now.Year - person.BithDate.Year;
+            var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //act
             var result = (FindPersonResult)person;
@@ -74,7 +75,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
-            result.BirthDate.Should().Be(person.BithDate.ToString("yyyy-MM-dd"));
+            result.BirthDate.Should().Be(person.BithDate.Value.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.ZipCode.Should().Be(person.Address.ZipCode);
             result.Street.Should().Be(person.Address.Street);
@@ -92,7 +93,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             //arrange
             person.AddAdress(Builder<Address>.CreateNew().Build());
             person.AddContact(Builder<Contact>.CreateNew().Build());
-            var yearsOld = DateTime.Now.Year - person.BithDate.Year;
+            var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //act
             var result = (FindPersonResult)person;
@@ -102,7 +103,7 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
-            result.BirthDate.Should().Be(person.BithDate.ToString("yyyy-MM-dd"));
+            result.BirthDate.Should().Be(person.BithDate.Value.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
             result.ZipCode.Should().Be(person.Address.ZipCode);
             result.Street.Should().Be(person.Address.Street);
@@ -113,6 +114,20 @@ namespace SL.Person.Registration.UnitTests.Domain.Results
             result.State.Should().Be(person.Address.State);
             result.DDD.Should().Be(person.Contact.DDD);
             result.PhoneNumber.Should().Be(person.Contact.PhoneNumber);
+        }
+
+        [Fact]
+        public void Should_convert_person_registration_with_birth_date_null()
+        {
+            //arrange
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+
+            //act
+            var result = (FindPersonResult)person;
+
+            //assert
+            result.BirthDate.Should().Be("0001-01-01");
+            result.YearsOld.Should().Be(0);
         }
     }
 }

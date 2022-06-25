@@ -32,6 +32,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.BithDate.Should().Be(birthDate);
             person.DocumentNumber.Should().Be(documentNumber);
             person.DocumentNumber.Should().BeOfType(typeof(long));
+            person.IsExcluded.Should().BeFalse();
 
             person.Address.Should().BeNull();
             person.Contact.Should().BeNull();
@@ -59,6 +60,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.BithDate.Should().Be(birthDate);
             person.DocumentNumber.Should().Be(documentNumber);
             person.DocumentNumber.Should().BeOfType(typeof(long));
+            person.IsExcluded.Should().BeFalse();
 
             person.Address.Should().BeNull();
             person.Contact.Should().BeNull();
@@ -81,9 +83,10 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.Types.Should().BeEquivalentTo(types);
             person.Name.Should().Be(name);
             person.DocumentNumber.Should().Be(documentNumber);
+            person.IsExcluded.Should().BeFalse();
 
             person.Gender.Should().Be(0);
-            person.BithDate.Should().Be(DateTime.MinValue);
+            person.BithDate.Should().Be(null);
             person.Address.Should().BeNull();
             person.Contact.Should().BeNull();
         }
@@ -230,6 +233,60 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
             //assert
             result.Should().Be(resultBe);
+        }
+
+        [Fact]
+        public void Should_set_is_excluded()
+        {
+            //arrange
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+
+            //act
+            person.SetIsExcluded();
+
+            //assert
+            person.IsExcluded.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Should_laborer_presence_confirmed_is_true()
+        {
+            //arrage
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            person.SetPresenceAssignment(DateTime.Now, true);
+
+            //act
+            var result = person.LaborerPresenceConfirmed();
+
+            //assert
+            result.Should().BeTrue();
+        }
+
+        [Fact]
+        public void Should_laborer_presence_confirmed_is_false_with_assignment_is_null()
+        {
+            //arrage
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+
+            //act
+            var result = person.LaborerPresenceConfirmed();
+
+            //assert
+            result.Should().BeFalse();
+        }
+
+        [Fact]
+        public void Should_laborer_presence_confirmed_is_false_with_assignment_date_not_equals()
+        {
+            //arrage
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            person.SetPresenceAssignment(new DateTime(2022,06,23), true);
+
+            //act
+            var result = person.LaborerPresenceConfirmed();
+
+            //assert
+            result.Should().BeFalse();
         }
     }
 }

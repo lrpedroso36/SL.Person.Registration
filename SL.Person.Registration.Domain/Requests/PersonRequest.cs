@@ -13,7 +13,7 @@ namespace SL.Person.Registration.Domain.Requests
 
         public GenderType Gender { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public long DocumentNumber { get; set; }
 

@@ -214,6 +214,15 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informe o tipo da pessoa..
+        /// </summary>
+        public static string FindPeopleTypeQueryValidation_RequestInvalid {
+            get {
+                return ResourceManager.GetString("FindPeopleTypeQueryValidation_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe o número do DDD e Celular..
         /// </summary>
         public static string FindPersonByContactNumberQueryValidation_RequestInvalid {

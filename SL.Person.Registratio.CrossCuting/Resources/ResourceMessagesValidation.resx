@@ -168,6 +168,9 @@
   <data name="FindPeopleQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o nome da pessoa que deseja pesquisar.</value>
   </data>
+  <data name="FindPeopleTypeQueryValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe o tipo da pessoa.</value>
+  </data>
   <data name="FindPersonByContactNumberQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o número do DDD e Celular.</value>
   </data>
