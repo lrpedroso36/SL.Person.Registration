@@ -185,10 +185,10 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var personLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
             person.AddInterview(Interview.CreateInstance(TreatmentType.TratamentoEspiritual, WeakDayType.Sabado, InterviewType.Primeira, new DateTime(2022, 2, 5), personInterviewer, 1, "opnião"));
 
-            var tramentCompare = Tratament.CreateInstance(new DateTime(2022, 2, 10), personLaborer, true);
+            var tramentCompare = Tratament.CreateInstance(new DateTime(2022, 2, 10), true);
 
             //act
-            person.SetPresenceTratament(new DateTime(2022, 2, 10), personLaborer);
+            person.SetPresenceTratament(new DateTime(2022, 2, 10));
 
             //assert
             var interview = person.Interviews.FirstOrDefault();
@@ -280,7 +280,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             //arrage
             var person = Builder<PersonRegistration>.CreateNew().Build();
-            person.SetPresenceAssignment(new DateTime(2022,06,23), true);
+            person.SetPresenceAssignment(new DateTime(2022, 06, 23), true);
 
             //act
             var result = person.LaborerPresenceConfirmed();

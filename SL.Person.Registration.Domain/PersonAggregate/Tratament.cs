@@ -8,8 +8,6 @@ namespace SL.Person.Registration.Domain.PersonAggregate
     {
         public DateTime Date { get; private set; }
 
-        public PersonRegistration Laborer { get; private set; }
-
         public bool? Presence { get; private set; }
 
         protected Tratament()
@@ -17,37 +15,25 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         }
 
-        private Tratament(DateTime date, PersonRegistration laborer)
+        private Tratament(DateTime date)
         {
             Date = date;
-            Laborer = SetLaborer(laborer);
         }
 
-        private Tratament(DateTime date, PersonRegistration laborer, bool presence) : this(date, laborer)
+        private Tratament(DateTime date, bool presence) : this(date)
         {
             Presence = presence;
         }
 
-        private PersonRegistration SetLaborer(PersonRegistration laborer)
-        {
-            if (laborer != null && laborer.Types.Any(x => x == PersonType.Tarefeiro))
-            {
-                return PersonRegistration.CreateInstanceSimple(laborer._id, laborer.Types, laborer.Name, laborer.DocumentNumber);
-            }
+        public static Tratament CreateInstance(DateTime date)
+            => new Tratament(date);
 
-            return null;
-        }
+        public static Tratament CreateInstance(DateTime date, bool presence)
+            => new Tratament(date, presence);
 
-        public static Tratament CreateInstance(DateTime date, PersonRegistration laborer)
-            => new Tratament(date, laborer);
-
-        public static Tratament CreateInstance(DateTime date, PersonRegistration laborer, bool presence)
-            => new Tratament(date, laborer, presence);
-
-        public void SetPresence(DateTime date, PersonRegistration laborer)
+        public void SetPresence(DateTime date)
         {
             Date = date;
-            Laborer = SetLaborer(laborer);
             Presence = true;
         }
     }

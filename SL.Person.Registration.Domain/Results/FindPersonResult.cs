@@ -40,6 +40,7 @@ namespace SL.Person.Registration.Domain.Results
         public bool TratamentInProcess { get; set; }
 
         public bool LaborerPresenceConfirmed { get; set; }
+        public bool TratamentPresenceConfirmed { get; set; }
 
         public long PhoneNumber { get; set; }
 
@@ -55,6 +56,7 @@ namespace SL.Person.Registration.Domain.Results
             result.DocumentNumber = person.DocumentNumber;
             result.EnabledLaborerPresence = person.EnabledLaborerPresence();
             result.TratamentInProcess = person.TratamentInProcess();
+            result.TratamentPresenceConfirmed = person.TratamentPresenceConfirmed();
             result.LaborerPresenceConfirmed = person.LaborerPresenceConfirmed();
 
             if (person.Address != null)

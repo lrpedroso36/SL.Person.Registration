@@ -16,7 +16,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Validations
         public void Should_request_validate(string name)
         {
             //arrange
-            var request = new FindPeopleQuery(name);
+            var request = new FindPeopleQuery(name, null);
             //act
             Action action = () => request.RequestValidate();
 
@@ -28,7 +28,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Validations
         public void Should_request_is_valid()
         {
             //arrange
-            var request = new FindPeopleQuery("teste");
+            var request = new FindPeopleQuery("teste", null);
             //act
             Action action = () => request.RequestValidate();
 

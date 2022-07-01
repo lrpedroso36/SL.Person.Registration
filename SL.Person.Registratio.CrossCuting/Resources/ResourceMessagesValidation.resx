@@ -211,7 +211,7 @@
     <value>Pessoa não encontrada.</value>
   </data>
   <data name="PrecenceCommandValidation_DataRequestInvalid" xml:space="preserve">
-    <value>Informe o documento do paciente ou o documento do tarefeiro.</value>
+    <value>Informe o documento do paciente.</value>
   </data>
   <data name="PresenceAssignmentCommandValidation_RequestInvalid_Document" xml:space="preserve">
     <value>Informe o documento do tarefeiro.</value>

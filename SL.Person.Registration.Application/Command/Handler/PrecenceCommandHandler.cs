@@ -26,11 +26,9 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             personInterviewed.ValidateInstanceByType(PersonType.Assistido);
 
-            var personLaborer = _personRegistrationRepository.GetByDocument(request.LaborerDocument);
+            var date = DateTime.Now;
 
-            personLaborer.ValidateInstanceByType(PersonType.Tarefeiro);
-
-            personInterviewed.SetPresenceTratament(DateTime.Now, personLaborer);
+            personInterviewed.SetPresenceTratament(date);
 
             _personRegistrationRepository.Update(personInterviewed);
 

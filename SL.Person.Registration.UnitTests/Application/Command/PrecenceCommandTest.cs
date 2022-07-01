@@ -11,14 +11,12 @@ namespace SL.Person.Registration.UnitTests.Application.Command
         {
             //arrange
             var interviewDocument = 1;
-            var laborerDocument = 1;
 
             //act
-            var command = new PrecenceCommand(interviewDocument, laborerDocument);
+            var command = new PrecenceCommand(interviewDocument);
 
             //assert
             command.InterviewedDocument.Should().Be(interviewDocument);
-            command.LaborerDocument.Should().Be(laborerDocument);
         }
     }
 }

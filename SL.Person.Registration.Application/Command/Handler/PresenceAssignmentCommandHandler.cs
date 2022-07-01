@@ -26,7 +26,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             personLaborer.ValidateInstanceByType(PersonType.Tarefeiro);
 
-            var datePresence = DateTime.Now;
+            var datePresence = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Local);
             datePresence.RequestValidateDateAssingment(personLaborer.Assignments);
 
             personLaborer.SetPresenceAssignment(datePresence, true);

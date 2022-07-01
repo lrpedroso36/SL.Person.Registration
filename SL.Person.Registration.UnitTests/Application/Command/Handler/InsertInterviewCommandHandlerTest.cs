@@ -60,37 +60,5 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
         }
-
-        [Fact]
-        public async Task Should_execute_handler_not_found_person_interviewed()
-        {
-            //arrange
-            var personInterviewed = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Tarefeiro }, "nome", 123456789);
-            var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personInterviewed);
-
-            //act
-            var commandHandler = new InsertInterviewCommandHandler(moq.Object);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new InsertInterviewCommand(1, 1, new InterviewRequest()), default);
-
-            //assert
-            await action.Should().ThrowAsync<ApplicationRequestException>();
-        }
-
-        [Fact]
-        public async Task Should_execute_handler_not_found_person_interviewer()
-        {
-            //arrange
-            var personInterviewed = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Assistido }, "nome", 123456789);
-            var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personInterviewed);
-
-            //act
-            var commandHandler = new InsertInterviewCommandHandler(moq.Object);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new InsertInterviewCommand(1, 1, new InterviewRequest()), default);
-
-            //assert
-            await action.Should().ThrowAsync<ApplicationRequestException>();
-        }
     }
 }

@@ -32,7 +32,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         public async Task Should_execute_handler()
         {
             //arrange
-            var query = new FindPeopleQuery("teste");
+            var query = new FindPeopleQuery("teste", null);
             var registration = GetPersonRegistration();
             var isSucess = true;
             var errors = new List<string>();
@@ -60,7 +60,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             var queryHandler = new FindPeopleQueryHandler(null);
 
             //act
-            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name), default);
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name, null), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -74,7 +74,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             var queryHandler = new FindPeopleQueryHandler(moq.Object);
 
             //act
-            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("name"), default);
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("name", null), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();

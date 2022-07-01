@@ -12,9 +12,9 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new DateTime(2021,10,25), null, null },
-            new object[] { new DateTime(2021, 10, 25), GetPersonRegistration() , GetPersonRegistration() },
-            new object[] { new DateTime(2021,10,25), Builder<PersonRegistration>.CreateNew().Build(), null}
+            new object[] { new DateTime(2021,10,25) },
+            new object[] { new DateTime(2021, 10, 25) },
+            new object[] { new DateTime(2021,10,25) }
         };
 
         public static PersonRegistration GetPersonRegistration()
@@ -26,32 +26,14 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void Should_set_properties(DateTime date, PersonRegistration laborer, PersonRegistration laborerExpected)
+        public void Should_set_properties(DateTime date)
         {
             //arrange
             //act
-            var presence = Tratament.CreateInstance(date, laborer);
+            var presence = Tratament.CreateInstance(date);
 
             //assert
             presence.Date.Should().Be(date);
-            presence.Laborer.Should().BeEquivalentTo(laborerExpected);
-        }
-
-        [Fact]
-        public void Should_set_presence()
-        {
-            //arrange
-            var date = new DateTime(2022, 2, 10);
-            var laborer = GetPersonRegistration();
-            var tratament = Builder<Tratament>.CreateNew().Build();
-
-            //act
-            tratament.SetPresence(date, laborer);
-
-            //assert
-            tratament.Date.Should().Be(date);
-            tratament.Laborer.Should().BeEquivalentTo(laborer);
-            tratament.Presence.Should().BeTrue();
         }
     }
 }

@@ -5,12 +5,10 @@ namespace SL.Person.Registration.Application.Command
     public class PrecenceCommand : IRequest
     {
         public long InterviewedDocument { get; private set; }
-        public long LaborerDocument { get; private set; }
 
-        public PrecenceCommand(long interviewedDocument, long laborerDocument)
+        public PrecenceCommand(long interviewedDocument)
         {
             InterviewedDocument = interviewedDocument;
-            LaborerDocument = laborerDocument;
         }
     }
 }

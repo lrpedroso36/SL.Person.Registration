@@ -1,5 +1,4 @@
-﻿using FizzWare.NBuilder;
-using FluentAssertions;
+﻿using FluentAssertions;
 using MediatR;
 using Moq;
 using SL.Person.Registration.Application.Command;
@@ -21,13 +20,11 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         public async Task Should_execute_handler_request_validate()
         {
             //arrange
-            var precenceCommand = new PrecenceCommand(1, 1);
+            var precenceCommand = new PrecenceCommand(1);
             var resultExpected = Unit.Value;
             var personWatched = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome", 1234567890);
-            var personLaborer = Builder<PersonRegistration>.CreateNew().Build();
 
             var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(personLaborer);
             moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personWatched);
 
             //act
@@ -38,25 +35,17 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             result.Should().BeEquivalentTo(resultExpected);
 
             moq.Verify(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>()), Times.Once);
-            moq.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.Once);
             moq.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
 
         }
 
-        public static List<object[]> DataInvalid = new List<object[]>()
-        {
-            new object[] { new PrecenceCommand(0, 1234556) },
-            new object[] { new PrecenceCommand(123456,0)},
-        };
-
-        [Theory]
-        [MemberData(nameof(DataInvalid))]
-        public async Task Should_execute_handler_invalid_request(PrecenceCommand command)
+        [Fact]
+        public async Task Should_execute_handler_invalid_request()
         {
             //arrange
             //act
             var commandHandler = new PrecenceCommandHandler(null);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(command, default);
+            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(0), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -66,29 +55,14 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         public async Task Should_execute_handler_not_found_person_interviewed()
         {
             //arrange
-            var personInterviewed = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Tarefeiro }, "nome", 123456789);
+            PersonRegistration personInterviewed = null;
+
             var moq = new Mock<IPersonRegistrationRepository>();
             moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personInterviewed);
 
             //act
             var commandHandler = new PrecenceCommandHandler(moq.Object);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(1, 1), default);
-
-            //assert
-            await action.Should().ThrowAsync<ApplicationRequestException>();
-        }
-
-        [Fact]
-        public async Task Should_execute_handler_not_found_person_laborer()
-        {
-            //arrange
-            var personInterviewed = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Assistido }, "nome", 123456789);
-            var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personInterviewed);
-
-            //act
-            var commandHandler = new PrecenceCommandHandler(moq.Object);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(1, 1), default);
+            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(1), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();

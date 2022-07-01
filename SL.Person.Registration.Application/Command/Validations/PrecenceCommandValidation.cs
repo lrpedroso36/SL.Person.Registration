@@ -9,7 +9,7 @@ namespace SL.Person.Registration.Application.Command.Validations
     {
         public static void RequestValidate(this PrecenceCommand request)
         {
-            if (request.InterviewedDocument == 0 || request.LaborerDocument == 0)
+            if (request.InterviewedDocument == 0)
             {
                 var result = new Result();
                 result.SetErrorType(ErrorType.InvalidParameters);

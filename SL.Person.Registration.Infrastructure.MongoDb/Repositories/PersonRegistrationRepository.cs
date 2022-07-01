@@ -26,6 +26,9 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
         public IEnumerable<PersonRegistration> GetByName(string name)
             => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && !x.IsExcluded).ToList();
 
+        public IEnumerable<PersonRegistration> GetByName(string name, PersonType personType)
+            => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && x.Types.Contains(personType) && !x.IsExcluded).ToList();
+
         public IEnumerable<PersonRegistration> GetByType(PersonType personType)
             => _context.Collection.AsQueryable().Where(x => x.Types.Contains(personType) && !x.IsExcluded).ToList();
 

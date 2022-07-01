@@ -2,7 +2,6 @@
 using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Validations;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using Xunit;
 

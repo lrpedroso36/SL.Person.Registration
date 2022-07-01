@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Application.Query.Validations;
+using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Domain.Results;
 using System.Collections.Generic;
@@ -23,23 +24,70 @@ namespace SL.Person.Registration.Application.Query.Handler
         {
             request.RequestValidate();
 
-            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
-
             if (long.TryParse(request.Parameter, out long documentNumber))
             {
-                var personRegistrationDocument = _repository.GetByDocument(documentNumber);
+                if (request.PersonType.HasValue)
+                {
+                    return FindPeopleByDocumentAndType(documentNumber, request.PersonType.Value);
+                }
 
-                personRegistrationDocument.ValidateInstance();
-
-                result.SetData(new List<FindPersonResult>() { (FindPersonResult)personRegistrationDocument });
-                return result;
+                return FindPeopleByDocument(documentNumber);
             }
 
-            var personRegistration = _repository.GetByName(request.Parameter);
+            if (request.PersonType.HasValue)
+            {
+                return FindPeopleByNameAndType(request.Parameter, request.PersonType.Value);
+            }
+
+            return FindPeopleByName(request.Parameter);
+        }
+        private ResultEntities<IEnumerable<FindPersonResult>> FindPeopleByNameAndType(string name, PersonType type)
+        {
+            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+
+            var personRegistration = _repository.GetByName(name, type);
 
             personRegistration.ValidateList();
 
             result.SetData(personRegistration.Select(x => (FindPersonResult)x).ToList());
+            return result;
+        }
+
+        private ResultEntities<IEnumerable<FindPersonResult>> FindPeopleByName(string name)
+        {
+            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+
+            var personRegistration = _repository.GetByName(name);
+
+            personRegistration.ValidateList();
+
+            result.SetData(personRegistration.Select(x => (FindPersonResult)x).ToList());
+            return result;
+        }
+
+        private ResultEntities<IEnumerable<FindPersonResult>> FindPeopleByDocumentAndType(long documentNumber, PersonType type)
+        {
+            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+
+            var personRegistrationDocument = _repository.GetByDocument(documentNumber, type);
+
+            personRegistrationDocument.ValidateInstance();
+
+            result.SetData(new List<FindPersonResult>() { (FindPersonResult)personRegistrationDocument });
+
+            return result;
+        }
+
+        private ResultEntities<IEnumerable<FindPersonResult>> FindPeopleByDocument(long documentNumber)
+        {
+            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+
+            var personRegistrationDocument = _repository.GetByDocument(documentNumber);
+
+            personRegistrationDocument.ValidateInstance();
+
+            result.SetData(new List<FindPersonResult>() { (FindPersonResult)personRegistrationDocument });
+
             return result;
         }
     }

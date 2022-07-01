@@ -48,7 +48,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
         public static List<Tratament> GetTrataments()
         {
-            return new List<Tratament>() { Tratament.CreateInstance(new DateTime(2021, 10, 23), null) };
+            return new List<Tratament>() { Tratament.CreateInstance(new DateTime(2021, 10, 23)) };
         }
 
         [Theory]
@@ -83,8 +83,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             //arrange
             var trataments = new List<Tratament>()
             {
-                Tratament.CreateInstance(new DateTime(2022,02,12), null),
-                Tratament.CreateInstance(new DateTime(2022,02,19), null)
+                Tratament.CreateInstance(new DateTime(2022,02,12)),
+                Tratament.CreateInstance(new DateTime(2022,02,19))
             };
 
             //act
@@ -113,12 +113,12 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
             var trataments = new List<Tratament>()
             {
-                Tratament.CreateInstance(new DateTime(2022, 2, 10), laborer, true),
-                Tratament.CreateInstance(new DateTime(2022, 2, 19), null)
+                Tratament.CreateInstance(new DateTime(2022, 2, 10), true),
+                Tratament.CreateInstance(new DateTime(2022, 2, 19))
             };
 
             //act
-            interview.SetPresenceTratament(new DateTime(2022, 2, 10), laborer);
+            interview.SetPresenceTratament(new DateTime(2022, 2, 10));
 
             //assert
             interview.Trataments.Should().BeEquivalentTo(trataments);
@@ -135,14 +135,14 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
             var trataments = new List<Tratament>()
             {
-                Tratament.CreateInstance(new DateTime(2022, 2, 08), laborer, true),
-                Tratament.CreateInstance(new DateTime(2022, 2, 09), laborer, true)
+                Tratament.CreateInstance(new DateTime(2022, 2, 08), true),
+                Tratament.CreateInstance(new DateTime(2022, 2, 09), true)
             };
 
             //act
-            interview.SetPresenceTratament(new DateTime(2022, 2, 08), laborer);
-            interview.SetPresenceTratament(new DateTime(2022, 2, 09), laborer);
-            interview.SetPresenceTratament(new DateTime(2022, 2, 10), laborer);
+            interview.SetPresenceTratament(new DateTime(2022, 2, 08));
+            interview.SetPresenceTratament(new DateTime(2022, 2, 09));
+            interview.SetPresenceTratament(new DateTime(2022, 2, 10));
 
             //assert
             interview.Trataments.Should().BeEquivalentTo(trataments);

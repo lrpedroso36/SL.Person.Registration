@@ -340,7 +340,7 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Informe o documento do paciente ou o documento do tarefeiro..
+        ///   Looks up a localized string similar to Informe o documento do paciente..
         /// </summary>
         public static string PrecenceCommandValidation_DataRequestInvalid {
             get {

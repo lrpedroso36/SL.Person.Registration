@@ -113,10 +113,10 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             Interviews.Add(interview);
         }
 
-        public void SetPresenceTratament(DateTime dateTime, PersonRegistration laborer)
+        public void SetPresenceTratament(DateTime dateTime)
         {
             var tratament = Interviews?.FirstOrDefault(x => x.Status == TratamentStatus.InProcess);
-            tratament?.SetPresenceTratament(dateTime, laborer);
+            tratament?.SetPresenceTratament(dateTime);
         }
 
         public void SetPresenceAssignment(DateTime date, bool presence)
@@ -132,6 +132,11 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public bool TratamentInProcess()
         {
             return Interviews != null && Interviews.Any(x => x.Status == TratamentStatus.InProcess);
+        }
+
+        public bool TratamentPresenceConfirmed()
+        {
+            return Interviews != null && Interviews.Any(x => x.Trataments.Any(y => y.Presence == null && x.Date.Date == DateTime.Now.Date));
         }
 
         public bool EnabledLaborerPresence()

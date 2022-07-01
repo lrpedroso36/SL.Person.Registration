@@ -73,16 +73,16 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
                 if ((int)dateTime.DayOfWeek == (int)weakDayType)
                 {
-                    Trataments.Add(Tratament.CreateInstance(dateTime, null));
+                    Trataments.Add(Tratament.CreateInstance(dateTime));
                     count++;
                 }
             }
         }
 
-        public void SetPresenceTratament(DateTime date, PersonRegistration laborer)
+        public void SetPresenceTratament(DateTime date)
         {
             Trataments.OrderBy(x => x.Date)
-                      .FirstOrDefault(x => !x.Presence.HasValue)?.SetPresence(date, laborer);
+                      .FirstOrDefault(x => !x.Presence.HasValue)?.SetPresence(date);
 
             if (Trataments.All(x => x.Presence.HasValue && x.Presence.Value))
             {
