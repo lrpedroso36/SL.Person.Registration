@@ -35,20 +35,23 @@ namespace SL.Person.Registration.Domain.Results
 
         public int DDD { get; set; }
 
+        public long PhoneNumber { get; set; }
+
         public bool EnabledLaborerPresence { get; set; }
 
         public bool TratamentInProcess { get; set; }
 
         public bool LaborerPresenceConfirmed { get; set; }
+
         public bool TratamentPresenceConfirmed { get; set; }
 
-        public long PhoneNumber { get; set; }
+        public bool EnabledTratamentView { get; set; }
 
         public static explicit operator FindPersonResult(PersonRegistration person)
         {
             var result = new FindPersonResult();
 
-            result.Types = person.Types;
+            result.Types = person.Types; 
             result.Name = person.Name;
             result.Gender = person.Gender;
             result.YearsOld = GetYearsOld(person.BithDate);
@@ -58,6 +61,7 @@ namespace SL.Person.Registration.Domain.Results
             result.TratamentInProcess = person.TratamentInProcess();
             result.TratamentPresenceConfirmed = person.TratamentPresenceConfirmed();
             result.LaborerPresenceConfirmed = person.LaborerPresenceConfirmed();
+            result.EnabledTratamentView = person.Interviews != null;
 
             if (person.Address != null)
             {
