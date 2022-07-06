@@ -1,6 +1,4 @@
-﻿using SL.Person.Registration.Domain.PersonAggregate.Enuns;
-using System;
-using System.Linq;
+﻿using System;
 
 namespace SL.Person.Registration.Domain.PersonAggregate
 {

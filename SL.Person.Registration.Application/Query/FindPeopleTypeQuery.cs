@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SL.Person.Registration.Application.Query
 {
-    public class FindPeopleTypeQuery : IRequest<ResultEntities<IEnumerable<FindPersonResult>>>
+    public class FindPeopleTypeQuery : IRequest<ResultEntities<IEnumerable<FindPeopleResult>>>
     {
         public PersonType Type { get; private set; }
 

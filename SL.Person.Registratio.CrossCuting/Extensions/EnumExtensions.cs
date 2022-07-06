@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace SL.Person.Registration.Application.Extensions
+namespace SL.Person.Registratio.CrossCuting.Extensions
 {
     public static class EnumExtensions
     {

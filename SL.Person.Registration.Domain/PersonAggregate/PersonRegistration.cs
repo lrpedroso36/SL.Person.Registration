@@ -136,7 +136,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public bool TratamentPresenceConfirmed()
         {
-            return Interviews != null && Interviews.Any(x => x.Status == TratamentStatus.InProcess && x.Trataments.Where(y => y.Presence != null).Any(y =>  y.Presence.Value && y.Date.Date == DateTime.Now.Date));
+            return Interviews != null && Interviews.Any(x => x.Status == TratamentStatus.InProcess && x.Trataments.Where(y => y.Presence != null).Any(y => y.Presence.Value && y.Date.Date == DateTime.Now.Date));
         }
 
         public bool EnabledLaborerPresence()

@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Extensions;
+using SL.Person.Registratio.CrossCuting.Extensions;
 using System.ComponentModel;
 using Xunit;
 

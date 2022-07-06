@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
-    public class FindPeopleQueryHandler : IRequestHandler<FindPeopleQuery, ResultEntities<IEnumerable<FindPersonResult>>>
+    public class FindPeopleQueryHandler : IRequestHandler<FindPeopleQuery, ResultEntities<IEnumerable<FindPeopleResult>>>
     {
         private readonly IPersonRegistrationRepository _repository;
 
@@ -20,7 +20,7 @@ namespace SL.Person.Registration.Application.Query.Handler
             _repository = repository;
         }
 
-        public async Task<ResultEntities<IEnumerable<FindPersonResult>>> Handle(FindPeopleQuery request, CancellationToken cancellationToken)
+        public async Task<ResultEntities<IEnumerable<FindPeopleResult>>> Handle(FindPeopleQuery request, CancellationToken cancellationToken)
         {
             request.RequestValidate();
 
@@ -41,52 +41,52 @@ namespace SL.Person.Registration.Application.Query.Handler
 
             return FindPeopleByName(request.Parameter);
         }
-        private ResultEntities<IEnumerable<FindPersonResult>> FindPeopleByNameAndType(string name, PersonType type)
+        private ResultEntities<IEnumerable<FindPeopleResult>> FindPeopleByNameAndType(string name, PersonType type)
         {
-            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+            var result = new ResultEntities<IEnumerable<FindPeopleResult>>();
 
             var personRegistration = _repository.GetByName(name, type);
 
             personRegistration.ValidateList();
 
-            result.SetData(personRegistration.Select(x => (FindPersonResult)x).ToList());
+            result.SetData(personRegistration.Select(x => (FindPeopleResult)x).ToList());
             return result;
         }
 
-        private ResultEntities<IEnumerable<FindPersonResult>> FindPeopleByName(string name)
+        private ResultEntities<IEnumerable<FindPeopleResult>> FindPeopleByName(string name)
         {
-            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+            var result = new ResultEntities<IEnumerable<FindPeopleResult>>();
 
             var personRegistration = _repository.GetByName(name);
 
             personRegistration.ValidateList();
 
-            result.SetData(personRegistration.Select(x => (FindPersonResult)x).ToList());
+            result.SetData(personRegistration.Select(x => (FindPeopleResult)x).ToList());
             return result;
         }
 
-        private ResultEntities<IEnumerable<FindPersonResult>> FindPeopleByDocumentAndType(long documentNumber, PersonType type)
+        private ResultEntities<IEnumerable<FindPeopleResult>> FindPeopleByDocumentAndType(long documentNumber, PersonType type)
         {
-            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+            var result = new ResultEntities<IEnumerable<FindPeopleResult>>();
 
             var personRegistrationDocument = _repository.GetByDocument(documentNumber, type);
 
             personRegistrationDocument.ValidateInstance();
 
-            result.SetData(new List<FindPersonResult>() { (FindPersonResult)personRegistrationDocument });
+            result.SetData(new List<FindPeopleResult>() { (FindPeopleResult)personRegistrationDocument });
 
             return result;
         }
 
-        private ResultEntities<IEnumerable<FindPersonResult>> FindPeopleByDocument(long documentNumber)
+        private ResultEntities<IEnumerable<FindPeopleResult>> FindPeopleByDocument(long documentNumber)
         {
-            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+            var result = new ResultEntities<IEnumerable<FindPeopleResult>>();
 
             var personRegistrationDocument = _repository.GetByDocument(documentNumber);
 
             personRegistrationDocument.ValidateInstance();
 
-            result.SetData(new List<FindPersonResult>() { (FindPersonResult)personRegistrationDocument });
+            result.SetData(new List<FindPeopleResult>() { (FindPeopleResult)personRegistrationDocument });
 
             return result;
         }

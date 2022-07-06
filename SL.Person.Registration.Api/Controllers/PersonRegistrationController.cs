@@ -58,7 +58,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ResultEntities<IEnumerable<FindPersonResult>>> FindPeople(string parameter, CancellationToken cancellationToken, [FromQuery] PersonType? personType = null)
+        public async Task<ResultEntities<IEnumerable<FindPeopleResult>>> FindPeople(string parameter, CancellationToken cancellationToken, [FromQuery] PersonType? personType = null)
             => await _mediator.Send(new FindPeopleQuery(parameter, personType), cancellationToken);
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace SL.Person.Registration.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ResultEntities<IEnumerable<FindPersonResult>>> FindPeopleType(PersonType personType, CancellationToken cancellationToken)
+        public async Task<ResultEntities<IEnumerable<FindPeopleResult>>> FindPeopleType(PersonType personType, CancellationToken cancellationToken)
             => await _mediator.Send(new FindPeopleTypeQuery(personType), cancellationToken);
 
         /// <summary>

@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Extensions;
+using SL.Person.Registratio.CrossCuting.Extensions;
 using SL.Person.Registration.Domain.Results;
 using System;
 using System.Collections.Generic;

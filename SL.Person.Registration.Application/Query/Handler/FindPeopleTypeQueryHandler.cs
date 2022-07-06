@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
-    public class FindPeopleTypeQueryHandler : IRequestHandler<FindPeopleTypeQuery, ResultEntities<IEnumerable<FindPersonResult>>>
+    public class FindPeopleTypeQueryHandler : IRequestHandler<FindPeopleTypeQuery, ResultEntities<IEnumerable<FindPeopleResult>>>
     {
         private IPersonRegistrationRepository _repository;
 
@@ -19,17 +19,17 @@ namespace SL.Person.Registration.Application.Query.Handler
             _repository = repository;
         }
 
-        public async Task<ResultEntities<IEnumerable<FindPersonResult>>> Handle(FindPeopleTypeQuery request, CancellationToken cancellationToken)
+        public async Task<ResultEntities<IEnumerable<FindPeopleResult>>> Handle(FindPeopleTypeQuery request, CancellationToken cancellationToken)
         {
             request.RequestValidate();
 
-            var result = new ResultEntities<IEnumerable<FindPersonResult>>();
+            var result = new ResultEntities<IEnumerable<FindPeopleResult>>();
 
             var personRegistration = _repository.GetByType(request.Type);
 
             personRegistration.ValidateList();
 
-            result.SetData(personRegistration.Select(x => (FindPersonResult)x).ToList());
+            result.SetData(personRegistration.Select(x => (FindPeopleResult)x).ToList());
             return result;
         }
     }

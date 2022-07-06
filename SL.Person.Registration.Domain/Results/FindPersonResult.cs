@@ -2,6 +2,7 @@
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SL.Person.Registration.Domain.Results
 {
@@ -37,6 +38,10 @@ namespace SL.Person.Registration.Domain.Results
 
         public long PhoneNumber { get; set; }
 
+        public List<FindInterviewResult> Interviews { get; set; } = new List<FindInterviewResult>();
+
+        public List<FindAssignmentResult> Assignments { get; set; } = new List<FindAssignmentResult>();
+
         public bool EnabledLaborerPresence { get; set; }
 
         public bool TratamentInProcess { get; set; }
@@ -51,7 +56,7 @@ namespace SL.Person.Registration.Domain.Results
         {
             var result = new FindPersonResult();
 
-            result.Types = person.Types; 
+            result.Types = person.Types;
             result.Name = person.Name;
             result.Gender = person.Gender;
             result.YearsOld = GetYearsOld(person.BithDate);
@@ -78,6 +83,16 @@ namespace SL.Person.Registration.Domain.Results
             {
                 result.DDD = person.Contact.DDD;
                 result.PhoneNumber = person.Contact.PhoneNumber;
+            }
+
+            if (person.Interviews != null && person.Interviews.Count > 0)
+            {
+                result.Interviews = person.Interviews.OrderByDescending(x => x.Date).Select(x => (FindInterviewResult)x).ToList();
+            }
+
+            if (person.Assignments != null && person.Assignments.Count > 0)
+            {
+                result.Assignments = person.Assignments.Select(x => (FindAssignmentResult)x).ToList();
             }
 
             return result;
