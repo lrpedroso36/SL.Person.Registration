@@ -79,7 +79,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             var result = await commandHandler.Handle(command, default);
 
             //assert
-            moqRepository.Verify(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>()), Times.Once);
+            moqRepository.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.Once);
             moqRepository.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
 
             result.Should().Be(Unit.Value);

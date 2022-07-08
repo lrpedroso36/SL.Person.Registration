@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Application.Extensions;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
 using System;
 using System.Threading;
@@ -22,9 +21,9 @@ namespace SL.Person.Registration.Application.Command.Handler
         {
             request.RequestValidate();
 
-            var personLaborer = _repository.GetByDocument(request.LaborerDocument, PersonType.Tarefeiro);
+            var personLaborer = _repository.GetByDocument(request.LaborerDocument);
 
-            personLaborer.ValidateInstanceByType(PersonType.Tarefeiro);
+            personLaborer.ValidateInstance();
 
             var datePresence = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Local);
             datePresence.RequestValidateDateAssingment(personLaborer.Assignments);
