@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SL.Person.Registration.Domain.Results.Base;
+using SL.Person.Registration.Application.Results.Base;
 
 namespace SL.Person.Registration.Application.Query
 {

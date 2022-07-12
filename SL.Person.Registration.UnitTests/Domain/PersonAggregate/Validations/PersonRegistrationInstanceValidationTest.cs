@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using FluentValidation.Results;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Validations;
+using SL.Person.Registration.Domain.Resources;
 using System.Collections.Generic;
 using Xunit;
 
@@ -16,7 +16,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange
             PersonRegistration person = null;
-            var validationFailure = new[] { new ValidationFailure("instance", ResourceMessagesValidation.PersonRegistration_InstanceInvalid) };
+            var validationFailure = new[] { new ValidationFailure("instance", DomainMessages.PersonRegistration_InstanceInvalid) };
 
             //act
             var validation = new PersonRegistrationInstanceValidation();
@@ -29,10 +29,10 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
 
         public static List<object[]> Data = new List<object[]>
         {
-            new object[] { PersonType.Tarefeiro, ResourceMessagesValidation.PersonRegistrationLabore_InstanceInvalid },
-            new object[] { PersonType.Assistido, ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid },
-            new object[] { PersonType.Palestrante, ResourceMessagesValidation.PersonRegistrationSpeaker_InstanceInvalid },
-            new object[] { PersonType.Entrevistador, ResourceMessagesValidation.PersonRegistrationInterviewer_InstanceInvalid }
+            new object[] { PersonType.Tarefeiro, DomainMessages.PersonRegistrationLabore_InstanceInvalid },
+            new object[] { PersonType.Assistido, DomainMessages.PersonRegistrationWatched_InstanceInvalid },
+            new object[] { PersonType.Palestrante, DomainMessages.PersonRegistrationSpeaker_InstanceInvalid },
+            new object[] { PersonType.Entrevistador, DomainMessages.PersonRegistrationInterviewer_InstanceInvalid }
         };
 
         [Theory]

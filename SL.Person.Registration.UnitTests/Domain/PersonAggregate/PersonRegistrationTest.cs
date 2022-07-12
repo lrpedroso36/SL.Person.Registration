@@ -218,6 +218,28 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.Assignments.Should().BeEquivalentTo(list);
         }
 
+        public static List<object[]> DateWorkSchedule = new List<object[]>
+        {
+            new object[] { WeakDayType.SextaFeira, new DateTime(2022,2,12), true },
+            new object[] { WeakDayType.SextaFeira, new DateTime(2022,2,12), false }
+        };
+
+        [Theory]
+        [MemberData(nameof(DateWorkSchedule))]
+        public void Should_set_work_schedule(WeakDayType weakDayType, DateTime date, bool doTheReading)
+        {
+            //arrange
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            var list = new List<WorkSchedule>() { WorkSchedule.CreateInstance(weakDayType, date, doTheReading) };
+
+            //act
+            person.SetWorkSchedules(weakDayType, date, doTheReading);
+
+            //assert
+            person.WorkSchedules.Should().HaveCount(1);
+            person.WorkSchedules.Should().BeEquivalentTo(list);
+        }
+
         [Theory]
         [InlineData(PersonType.Tarefeiro, true)]
         [InlineData(PersonType.Entrevistador, false)]

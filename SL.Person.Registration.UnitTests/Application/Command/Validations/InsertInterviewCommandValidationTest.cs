@@ -2,7 +2,7 @@
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Domain.Requests;
+using SL.Person.Registration.Application.Requests;
 using System;
 using System.Collections.Generic;
 using Xunit;

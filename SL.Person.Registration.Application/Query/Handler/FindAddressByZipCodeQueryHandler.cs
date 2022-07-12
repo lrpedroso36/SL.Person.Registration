@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Application.Query.Validations;
+using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Results.Base;
 using SL.Person.Registration.Domain.External.Contracts;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Base;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using SL.Person.Registration.Domain.Resources;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -14,10 +14,10 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
     {
         public static List<object[]> Data = new List<object[]>
         {
-           new object[] { PersonType.Tarefeiro , ResourceMessagesValidation.PersonRegistrationLabore_InstanceInvalid },
-           new object[] { PersonType.Assistido, ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid },
-           new object[] { PersonType.Palestrante, ResourceMessagesValidation.PersonRegistrationSpeaker_InstanceInvalid },
-           new object[] { PersonType.Entrevistador, ResourceMessagesValidation.PersonRegistrationInterviewer_InstanceInvalid }
+           new object[] { PersonType.Tarefeiro , DomainMessages.PersonRegistrationLabore_InstanceInvalid },
+           new object[] { PersonType.Assistido, DomainMessages.PersonRegistrationWatched_InstanceInvalid },
+           new object[] { PersonType.Palestrante, DomainMessages.PersonRegistrationSpeaker_InstanceInvalid },
+           new object[] { PersonType.Entrevistador, DomainMessages.PersonRegistrationInterviewer_InstanceInvalid }
         };
 
         [Theory]
@@ -40,7 +40,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
         public void Should_validate_instance()
         {
             //arrange
-            var expected = new List<string> { ResourceMessagesValidation.PersonRegistration_InstanceInvalid };
+            var expected = new List<string> { DomainMessages.PersonRegistration_InstanceInvalid };
             PersonRegistration person = null;
 
             //act
@@ -57,7 +57,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
         public void Should_validate_have_errors_name(string name)
         {
             //arrange
-            var expected = new List<string> { ResourceMessagesValidation.PersonRegistrationValidation_Name };
+            var expected = new List<string> { DomainMessages.PersonRegistrationValidation_Name };
             var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
 
             //act
@@ -71,7 +71,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
         public void Should_validate_have_errors_document_number()
         {
             //arrange
-            var expected = new List<string> { ResourceMessagesValidation.PersonRegistrationValidation_DocumentNumber };
+            var expected = new List<string> { DomainMessages.PersonRegistrationValidation_DocumentNumber };
             var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
 
             //act

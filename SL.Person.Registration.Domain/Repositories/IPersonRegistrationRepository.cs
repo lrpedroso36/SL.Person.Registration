@@ -10,8 +10,8 @@ namespace SL.Person.Registration.Domain.Repositories
         PersonRegistration GetByDocument(long documentNumber);
         IEnumerable<PersonRegistration> GetByName(string name);
         IEnumerable<PersonRegistration> GetByName(string name, PersonType personType);
-        IEnumerable<PersonRegistration> GetByType(PersonType personType);
         void Update(PersonRegistration registration);
         PersonRegistration GetByDocument(long documentNumber, PersonType personType);
+        IEnumerable<PersonRegistration> Get(PersonType? personType, string name, long documentNumber);
     }
 }

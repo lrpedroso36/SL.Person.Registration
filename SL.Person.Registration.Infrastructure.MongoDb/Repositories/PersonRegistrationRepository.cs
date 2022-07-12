@@ -1,4 +1,5 @@
 ﻿using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
@@ -17,6 +18,29 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
             _context = context;
         }
 
+        public IEnumerable<PersonRegistration> Get(PersonType? personType, string name, long documentNumber)
+        {
+            var builder = Builders<PersonRegistration>.Filter;
+            var filter = builder.Eq(x => x.IsExcluded, false);
+
+            if (personType.HasValue)
+            {
+                filter &= builder.AnyEq(x => x.Types, personType.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                filter &= builder.Regex(x => x.Name, $"/.*{name.ToUpper()}.*/");
+            }
+
+            if (documentNumber != 0)
+            {
+                filter &= builder.Eq(x => x.DocumentNumber, documentNumber);
+            }
+
+            return _context.Collection.Find(filter).ToList();
+        }
+
         public PersonRegistration GetByDocument(long documentNumber)
             => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber && !x.IsExcluded);
 
@@ -29,13 +53,11 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
         public IEnumerable<PersonRegistration> GetByName(string name, PersonType personType)
             => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && x.Types.Contains(personType) && !x.IsExcluded).ToList();
 
-        public IEnumerable<PersonRegistration> GetByType(PersonType personType)
-            => _context.Collection.AsQueryable().Where(x => x.Types.Contains(personType) && !x.IsExcluded).ToList();
-
         public void Insert(PersonRegistration registration)
             => _context.Collection.InsertOne(registration);
 
         public void Update(PersonRegistration registration)
             => _context.Collection.ReplaceOneAsync(x => x._id == registration._id, registration);
     }
+
 }

@@ -1,8 +1,8 @@
 ﻿using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Results.Enums;
 using SL.Person.Registration.Domain.External.Response;
 using SL.Person.Registration.Domain.External.Response.Validations;
-using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Enums;
 
 namespace SL.Person.Registration.Application.Extensions
 {

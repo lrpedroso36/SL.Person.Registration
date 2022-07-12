@@ -1,4 +1,4 @@
-﻿using SL.Person.Registration.Domain.Results.Base;
+﻿using SL.Person.Registration.Application.Results.Base;
 using System;
 
 namespace SL.Person.Registration.Application.Exceptions

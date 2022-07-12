@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL.Person.Registration.Application.Query;
+using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Results.Base;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Base;
 using System.Threading;
 using System.Threading.Tasks;
 

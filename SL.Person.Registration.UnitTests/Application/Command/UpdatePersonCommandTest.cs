@@ -1,7 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Application.Command;
-using SL.Person.Registration.Domain.Requests;
+using SL.Person.Registration.Application.Requests;
 using System.Collections.Generic;
 using Xunit;
 

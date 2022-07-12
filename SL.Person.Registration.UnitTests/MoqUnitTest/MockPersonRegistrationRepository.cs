@@ -22,13 +22,12 @@ namespace SL.Person.Registration.UnitTests.MoqUnitTest
             if (resultSetup == null)
             {
                 moq.Setup(x => x.GetByName(It.IsAny<string>())).Returns<IEnumerable<PersonRegistration>>(null);
-                moq.Setup(x => x.GetByType(It.IsAny<PersonType>())).Returns<IEnumerable<PersonRegistration>>(null);
+                moq.Setup(x => x.Get(It.IsAny<PersonType?>(), It.IsAny<string>(), It.IsAny<long>())).Returns<IEnumerable<PersonRegistration>>(null);
             }
             else
             {
                 moq.Setup(x => x.GetByName(It.IsAny<string>())).Returns(new List<PersonRegistration> { resultSetup });
-                moq.Setup(x => x.GetByType(It.IsAny<PersonType>())).Returns(new List<PersonRegistration> { resultSetup });
-
+                moq.Setup(x => x.Get(It.IsAny<PersonType?>(), It.IsAny<string>(), It.IsAny<long>())).Returns(new List<PersonRegistration> { resultSetup });
             }
         }
     }

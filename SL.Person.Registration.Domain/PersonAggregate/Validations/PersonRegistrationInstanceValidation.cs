@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
-using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using SL.Person.Registration.Domain.Resources;
 using System.Collections.Generic;
 
 namespace SL.Person.Registration.Domain.PersonAggregate.Validations
@@ -10,10 +10,10 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Validations
     {
         private readonly Dictionary<PersonType, string> invalidInstanceMessages = new Dictionary<PersonType, string>()
         {
-            { PersonType.Tarefeiro , ResourceMessagesValidation.PersonRegistrationLabore_InstanceInvalid },
-            { PersonType.Assistido, ResourceMessagesValidation.PersonRegistrationWatched_InstanceInvalid },
-            { PersonType.Palestrante, ResourceMessagesValidation.PersonRegistrationSpeaker_InstanceInvalid },
-            { PersonType.Entrevistador, ResourceMessagesValidation.PersonRegistrationInterviewer_InstanceInvalid }
+            { PersonType.Tarefeiro , DomainMessages.PersonRegistrationLabore_InstanceInvalid },
+            { PersonType.Assistido, DomainMessages.PersonRegistrationWatched_InstanceInvalid },
+            { PersonType.Palestrante, DomainMessages.PersonRegistrationSpeaker_InstanceInvalid },
+            { PersonType.Entrevistador, DomainMessages.PersonRegistrationInterviewer_InstanceInvalid }
         };
 
         private readonly string instanceInvalidTypeMessage;
@@ -25,7 +25,7 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Validations
 
         public PersonRegistrationInstanceValidation()
         {
-            instanceInvalidTypeMessage = ResourceMessagesValidation.PersonRegistration_InstanceInvalid;
+            instanceInvalidTypeMessage = DomainMessages.PersonRegistration_InstanceInvalid;
         }
 
         public override ValidationResult Validate(ValidationContext<PersonRegistration> context)

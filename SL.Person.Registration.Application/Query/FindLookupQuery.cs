@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Application.Results;
 using System;
 using System.Collections.Generic;
 

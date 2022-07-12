@@ -7,19 +7,21 @@ namespace SL.Person.Registration.UnitTests.Application.Query
 {
     public class FindPersonByNameQueryTest
     {
-        [Theory]
-        [InlineData("nome", PersonType.Palestrante)]
-        [InlineData("nome", null)]
-
-        public void Should_set_properties(string parameter, PersonType? personType)
+        [Fact]
+        public void Should_set_properties()
         {
             //arrange
+            var name = "name";
+            var documentNumber = 123456789;
+            var personType = PersonType.Tarefeiro;
+
             //act
-            var query = new FindPeopleQuery(parameter, personType);
+            var query = new FindPeopleQuery(name, documentNumber, personType);
 
             //assert
-            query.Parameter.Should().Be(parameter);
+            query.Name.Should().Be(name);
             query.PersonType.Should().Be(personType);
+            query.DocumentNumber.Should().Be(documentNumber);
         }
     }
 }

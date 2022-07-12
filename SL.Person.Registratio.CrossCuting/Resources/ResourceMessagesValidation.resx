@@ -123,41 +123,14 @@
   <data name="AddressCommandValidation_RequestInvalid_Document" xml:space="preserve">
     <value>Informe o documento da pessoa que deseja adicionar o endereço.</value>
   </data>
-  <data name="AddressValidation_City" xml:space="preserve">
-    <value>Cidade é obrigatória.</value>
-  </data>
-  <data name="AddressValidation_Neighborhood" xml:space="preserve">
-    <value>Bairro é obrigatório.</value>
-  </data>
-  <data name="AddressValidation_Number" xml:space="preserve">
-    <value>Número é obrigatório.</value>
-  </data>
-  <data name="AddressValidation_State" xml:space="preserve">
-    <value>Estado é obrigatório.</value>
-  </data>
-  <data name="AddressValidation_Street" xml:space="preserve">
-    <value>Logradouro é obrigatório.</value>
-  </data>
-  <data name="AddressValidation_ZipCode" xml:space="preserve">
-    <value>CEP é obrigatório.</value>
-  </data>
   <data name="ContactCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados do contato</value>
   </data>
   <data name="ContactCommandValidation_RequestInvalid_Document" xml:space="preserve">
     <value>Informe o documento da pessoa que deseja adicionar o contato.</value>
   </data>
-  <data name="ContactValidation_DDD" xml:space="preserve">
-    <value>DDD é obrigatório.</value>
-  </data>
-  <data name="ContactValidation_PhoneNumber" xml:space="preserve">
-    <value>Número de telefone é obrigatório.</value>
-  </data>
   <data name="DeletePersonCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o documento da pessoa.</value>
-  </data>
-  <data name="FindAddressByZipCodeValidation_NotFound" xml:space="preserve">
-    <value>Endereço não encontrado.</value>
   </data>
   <data name="FindAddressByZipCodeValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o CEP do endereço.</value>
@@ -188,27 +161,6 @@
   </data>
   <data name="InsertPersonCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da pessoa.</value>
-  </data>
-  <data name="PersonRegistrationInterviewer_InstanceInvalid" xml:space="preserve">
-    <value>Entrevistador não encontrado.</value>
-  </data>
-  <data name="PersonRegistrationLabore_InstanceInvalid" xml:space="preserve">
-    <value>Tarefeiro não encontrado.</value>
-  </data>
-  <data name="PersonRegistrationSpeaker_InstanceInvalid" xml:space="preserve">
-    <value>Palestranete não encontrado.</value>
-  </data>
-  <data name="PersonRegistrationValidation_DocumentNumber" xml:space="preserve">
-    <value>Número do documento é obrigatório.</value>
-  </data>
-  <data name="PersonRegistrationValidation_Name" xml:space="preserve">
-    <value>Nome é obrigatório</value>
-  </data>
-  <data name="PersonRegistrationWatched_InstanceInvalid" xml:space="preserve">
-    <value>Assistido não encontrado.</value>
-  </data>
-  <data name="PersonRegistration_InstanceInvalid" xml:space="preserve">
-    <value>Pessoa não encontrada.</value>
   </data>
   <data name="PrecenceCommandValidation_DataRequestInvalid" xml:space="preserve">
     <value>Informe o documento do paciente.</value>

@@ -2,8 +2,8 @@
 using Moq;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Handler;
+using SL.Person.Registration.Application.Requests;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.Requests;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System.Threading.Tasks;
 using Xunit;

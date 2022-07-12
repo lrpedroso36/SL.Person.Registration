@@ -1,10 +1,10 @@
 ﻿using SL.Person.Registratio.CrossCuting.Resources;
 using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Results.Enums;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Validations;
-using SL.Person.Registration.Domain.Results;
-using SL.Person.Registration.Domain.Results.Enums;
 using System.Collections.Generic;
 using System.Linq;
 

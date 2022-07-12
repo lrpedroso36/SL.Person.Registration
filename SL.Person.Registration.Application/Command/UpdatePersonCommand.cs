@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SL.Person.Registration.Domain.Requests;
+using SL.Person.Registration.Application.Requests;
 
 namespace SL.Person.Registration.Application.Command
 {

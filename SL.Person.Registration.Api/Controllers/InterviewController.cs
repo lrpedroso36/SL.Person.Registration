@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL.Person.Registration.Application.Command;
-using SL.Person.Registration.Domain.Requests;
-using SL.Person.Registration.Domain.Results;
+using SL.Person.Registration.Application.Requests;
+using SL.Person.Registration.Application.Results;
 using System.Threading;
 using System.Threading.Tasks;
 

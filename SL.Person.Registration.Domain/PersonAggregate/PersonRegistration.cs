@@ -27,6 +27,8 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public List<Assignment> Assignments { get; private set; }
 
+        public List<WorkSchedule> WorkSchedules { get; private set; }
+
         public bool IsExcluded { get; private set; } = false;
 
         protected PersonRegistration()
@@ -129,6 +131,16 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             Assignments.Add(Assignment.CreateInstance(date, presence));
         }
 
+        public void SetWorkSchedules(WeakDayType weakDayType, DateTime date, bool doTheReading)
+        {
+            if (WorkSchedules == null)
+            {
+                WorkSchedules = new List<WorkSchedule>();
+            }
+
+            WorkSchedules.Add(WorkSchedule.CreateInstance(weakDayType, date, doTheReading));
+        }
+
         public bool TratamentInProcess()
         {
             return Interviews != null && Interviews.Any(x => x.Status == TratamentStatus.InProcess);
@@ -136,7 +148,8 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public bool TratamentPresenceConfirmed()
         {
-            return Interviews != null && Interviews.Any(x => x.Status == TratamentStatus.InProcess && x.Trataments.Where(y => y.Presence != null).Any(y => y.Presence.Value && y.Date.Date == DateTime.Now.Date));
+            return Interviews != null && Interviews.Any(x => x.Status == TratamentStatus.InProcess &&
+                                                             x.Trataments.Where(y => y.Presence != null).Any(y => y.Presence.Value && y.Date.Date == DateTime.Now.Date));
         }
 
         public bool EnabledLaborerPresence()

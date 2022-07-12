@@ -3,9 +3,10 @@ using FluentAssertions;
 using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Query;
 using SL.Person.Registration.Application.Query.Handler;
+using SL.Person.Registration.Application.Results.Base;
+using SL.Person.Registration.Application.Results.Enums;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.Results.Base;
-using SL.Person.Registration.Domain.Results.Enums;
+using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         public async Task Should_execute_handler()
         {
             //arrange
-            var query = new FindPeopleQuery("teste", null);
+            var query = new FindPeopleQuery("teste", 123456, PersonType.Tarefeiro);
             var registration = GetPersonRegistration();
             var isSucess = true;
             var errors = new List<string>();
@@ -51,16 +52,16 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         }
 
         [Theory]
-        [InlineData("")]
-        [InlineData(" ")]
-        [InlineData(null)]
-        public async Task Should_execute_handler_invalid_request(string name)
+        [InlineData("", 0, null)]
+        [InlineData(" ", 0, null)]
+        [InlineData(null, 0, null)]
+        public async Task Should_execute_handler_invalid_request(string name, long documentNumber, PersonType? personType)
         {
             //arrange
             var queryHandler = new FindPeopleQueryHandler(null);
 
             //act
-            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name, null), default);
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name, documentNumber, personType), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -74,10 +75,11 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             var queryHandler = new FindPeopleQueryHandler(moq.Object);
 
             //act
-            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("name", null), default);
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("teste", 123456, PersonType.Tarefeiro), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
         }
     }
 }
+
