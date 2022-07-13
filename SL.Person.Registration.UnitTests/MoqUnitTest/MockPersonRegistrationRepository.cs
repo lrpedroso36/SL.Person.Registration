@@ -11,6 +11,7 @@ namespace SL.Person.Registration.UnitTests.MoqUnitTest
         public static Mock<IPersonRegistrationRepository> GetMockRepository(PersonRegistration resultSetup)
         {
             var moq = new Mock<IPersonRegistrationRepository>();
+            moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(resultSetup);
             moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(resultSetup);
             moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(resultSetup);
             MoqGetByName(moq, resultSetup);

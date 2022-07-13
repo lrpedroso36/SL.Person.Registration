@@ -97,7 +97,7 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Informe o documento da pessoa..
+        ///   Looks up a localized string similar to Informe o &apos;Id&apos; da pessoa..
         /// </summary>
         public static string DeletePersonCommandValidation_RequestInvalid {
             get {
@@ -151,11 +151,11 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Informe o número do Documento..
+        ///   Looks up a localized string similar to Informe o &apos;Id&apos; da pessoa.
         /// </summary>
-        public static string FindPersonByDocumentQueryValidation_RequestInvalid {
+        public static string FindPersonByIdValidation_RequestInvalid {
             get {
-                return ResourceManager.GetString("FindPersonByDocumentQueryValidation_RequestInvalid", resourceCulture);
+                return ResourceManager.GetString("FindPersonByIdValidation_RequestInvalid", resourceCulture);
             }
         }
         
@@ -196,7 +196,7 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Informe o documento do paciente..
+        ///   Looks up a localized string similar to Informe o &apos;Id&apos; do paciente..
         /// </summary>
         public static string PrecenceCommandValidation_DataRequestInvalid {
             get {
@@ -205,11 +205,11 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Informe o documento do tarefeiro..
+        ///   Looks up a localized string similar to Informe o &apos;Id&apos; do tarefeiro..
         /// </summary>
-        public static string PresenceAssignmentCommandValidation_RequestInvalid_Document {
+        public static string PresenceAssignmentCommandValidation_RequestInvalid_Id {
             get {
-                return ResourceManager.GetString("PresenceAssignmentCommandValidation_RequestInvalid_Document", resourceCulture);
+                return ResourceManager.GetString("PresenceAssignmentCommandValidation_RequestInvalid_Id", resourceCulture);
             }
         }
         

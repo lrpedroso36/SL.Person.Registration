@@ -23,9 +23,9 @@ namespace SL.Person.Registration.Application.Command.Handler
         {
             request.RequestValidate();
 
-            var personInterviewed = _personRegistrationRepository.GetByDocument(request.InterviewedDocument);
+            var personInterviewed = _personRegistrationRepository.GetById(request.InterviewedId);
 
-            var personInterviewer = _personRegistrationRepository.GetByDocument(request.InterviewerDocument, PersonType.Entrevistador);
+            var personInterviewer = _personRegistrationRepository.GetById(request.InterviewerId);
 
             personInterviewer.ValidateInstanceByType(PersonType.Entrevistador);
 

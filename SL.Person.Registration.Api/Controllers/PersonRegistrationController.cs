@@ -28,21 +28,21 @@ namespace SL.Person.Registration.Controllers
         }
 
         /// <summary>
-        /// Pesquisar registro de pessoa pelo o número do documento
+        /// Pesquisar registro de pessoa pelo 'Id'
         /// </summary>
-        /// <param name="documentNumber">Número do documento da pessoa</param>
+        /// <param name="id">id da pessoa</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Pesquisa realizada com sucesso</response>
-        /// <response code="400">Informe o número do Documento</response>
+        /// <response code="400">Informe o 'Id' da pessoa</response>
         /// <response code="404">Pessoa não encontrada</response>
         /// <returns></returns>
-        [HttpGet("{documentNumber}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ResultBase> FindPersonByDocumentAsync(long documentNumber, CancellationToken cancellationToken)
-            => await _mediator.Send(new FindPersonByDocumentQuery(documentNumber), cancellationToken);
+        public async Task<ResultBase> FindPersonByDocumentAsync(string id, CancellationToken cancellationToken)
+            => await _mediator.Send(new FindPersonByIdQuery(id), cancellationToken);
 
         /// <summary>
         /// Pesquisar uma lista de pessoas pelo o nome, documento ou pelo o tipo de pessoa
@@ -100,21 +100,21 @@ namespace SL.Person.Registration.Controllers
             => await _mediator.Send(new UpdatePersonCommand(request), cancellationToken);
 
         /// <summary>
-        /// Exclui o registro da pessoa
+        /// Exclui o registro da pessoa por 'Id'
         /// </summary>
-        /// <param name="documentNumber"></param>
+        /// <param name="id">'Id' da pessoa</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Pessoa excluida com sucesso</response>
         /// <response code="400">Informe os dados da pessoa</response>
         /// <response code="404">Pessoa não encontrada</response>
         /// <response code="409">Dados inválidos ao atualizar a pessoa</response>
         /// <returns></returns>
-        [HttpDelete("{documentNumber}")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-        public async Task DeleteAsync(long documentNumber, CancellationToken cancellationToken)
-            => await _mediator.Send(new DeletePersonCommand(documentNumber), cancellationToken);
+        public async Task DeleteAsync(string id, CancellationToken cancellationToken)
+            => await _mediator.Send(new DeletePersonCommand(id), cancellationToken);
     }
 }

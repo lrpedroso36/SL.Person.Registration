@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using SL.Person.Registration.Application.Command;
+using System;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Command
@@ -10,12 +11,12 @@ namespace SL.Person.Registration.UnitTests.Application.Command
         public void Should_set_laborer_document()
         {
             //arrange
-            var laborerDocument = 1234567890;
+            var id = Guid.NewGuid().ToString();
             //act
-            var command = new PresenceAssignmentCommand(laborerDocument);
+            var command = new PresenceAssignmentCommand(id);
 
             //assert
-            command.LaborerDocument.Should().Be(laborerDocument);
+            command.Id.Should().Be(id);
         }
     }
 }

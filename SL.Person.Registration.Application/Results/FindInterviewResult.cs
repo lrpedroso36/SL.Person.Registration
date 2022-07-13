@@ -8,11 +8,6 @@ namespace SL.Person.Registration.Application.Results
 {
     public class FindInterviewResult
     {
-        public string Id
-        {
-            get { return Guid.NewGuid().ToString(); }
-        }
-
         public string TreatmentType { get; set; }
 
         public string WeakDayType { get; set; }

@@ -130,7 +130,7 @@
     <value>Informe o documento da pessoa que deseja adicionar o contato.</value>
   </data>
   <data name="DeletePersonCommandValidation_RequestInvalid" xml:space="preserve">
-    <value>Informe o documento da pessoa.</value>
+    <value>Informe o 'Id' da pessoa.</value>
   </data>
   <data name="FindAddressByZipCodeValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o CEP do endereço.</value>
@@ -147,8 +147,8 @@
   <data name="FindPersonByContactNumberQueryValidation_RequestInvalid" xml:space="preserve">
     <value>Informe o número do DDD e Celular.</value>
   </data>
-  <data name="FindPersonByDocumentQueryValidation_RequestInvalid" xml:space="preserve">
-    <value>Informe o número do Documento.</value>
+  <data name="FindPersonByIdValidation_RequestInvalid" xml:space="preserve">
+    <value>Informe o 'Id' da pessoa</value>
   </data>
   <data name="InsertInterviewCommandValidation_DataRequestInvalid" xml:space="preserve">
     <value>Informe o documento do paciente ou o documento do entrevistador.</value>
@@ -163,10 +163,10 @@
     <value>Informe os dados da pessoa.</value>
   </data>
   <data name="PrecenceCommandValidation_DataRequestInvalid" xml:space="preserve">
-    <value>Informe o documento do paciente.</value>
+    <value>Informe o 'Id' do paciente.</value>
   </data>
-  <data name="PresenceAssignmentCommandValidation_RequestInvalid_Document" xml:space="preserve">
-    <value>Informe o documento do tarefeiro.</value>
+  <data name="PresenceAssignmentCommandValidation_RequestInvalid_Id" xml:space="preserve">
+    <value>Informe o 'Id' do tarefeiro.</value>
   </data>
   <data name="PresenceAssignmentCommandValidation_RequestInvalid_Presence" xml:space="preserve">
     <value>A presença para o tarefeiro já foi confirmada.</value>

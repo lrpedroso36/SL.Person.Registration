@@ -9,11 +9,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
 {
     public class DeletePersonCommandValidationTest
     {
-        [Fact]
-        public void Should_request_invalid()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        [InlineData("asdasdasd")]
+        public void Should_request_invalid(string id)
         {
             //arrange
-            var request = new DeletePersonCommand(0);
+            var request = new DeletePersonCommand(id);
 
             //act
             Action action = () => request.RequestValidate();
@@ -26,7 +30,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
         public void Should_request_valid()
         {
             //arrange
-            var request = new DeletePersonCommand(1234567890);
+            var request = new DeletePersonCommand(Guid.NewGuid().ToString());
 
             //act
             Action action = () => request.RequestValidate();

@@ -23,8 +23,8 @@ namespace SL.Person.Registration.Api.Controllers
         /// <summary>
         /// Inserir entrevista
         /// </summary>
-        /// <param name="interviewedDocument">Número do documento do entrevistado</param>
-        /// <param name="interviewerDocument">Número do documento do entrevistador</param>
+        /// <param name="interviewedId">'Id' do entrevistado</param>
+        /// <param name="interviewerId">'Id' do entrevistador</param>
         /// <param name="request"></param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Entrevista inserida com sucesso</response>
@@ -35,23 +35,23 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
-        public async Task PostAsync(long interviewedDocument, long interviewerDocument, [FromBody] InterviewRequest request, CancellationToken cancellationToken)
-            => await _mediator.Send(new InsertInterviewCommand(interviewedDocument, interviewerDocument, request), cancellationToken);
+        public async Task PostAsync(string interviewedId, string interviewerId, [FromBody] InterviewRequest request, CancellationToken cancellationToken)
+            => await _mediator.Send(new InsertInterviewCommand(interviewedId, interviewerId, request), cancellationToken);
 
         /// <summary>
         /// Inserir a presença no tratamento
         /// </summary>
-        /// <param name="interviewedDocument">Número do documento do entrevistado</param>
+        /// <param name="interviewedDocument">'Id' do entrevistado</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Presença inserida com sucesso</response>
         /// <response code="400">Informe os dados da pessoa</response>
         /// <response code="404">Pessoa não encontrada</response>
         /// <returns></returns>
-        [HttpPost("presence/{interviewedDocument}")]
+        [HttpPost("presence/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
-        public async Task PresenceAsync(long interviewedDocument, CancellationToken cancellationToken)
-            => await _mediator.Send(new PrecenceCommand(interviewedDocument), cancellationToken);
+        public async Task PresenceAsync(string id, CancellationToken cancellationToken)
+            => await _mediator.Send(new PrecenceCommand(id), cancellationToken);
     }
 }

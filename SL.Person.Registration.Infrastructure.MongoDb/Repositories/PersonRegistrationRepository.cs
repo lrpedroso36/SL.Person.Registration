@@ -4,6 +4,7 @@ using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,9 +15,7 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
         private readonly IPersonRegistrationDbContext<PersonRegistration> _context;
 
         public PersonRegistrationRepository(IPersonRegistrationDbContext<PersonRegistration> context)
-        {
-            _context = context;
-        }
+            => (_context) = context;
 
         public IEnumerable<PersonRegistration> Get(PersonType? personType, string name, long documentNumber)
         {
@@ -46,6 +45,9 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
 
         public PersonRegistration GetByDocument(long documentNumber, PersonType personType)
             => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber && x.Types.Contains(personType) && !x.IsExcluded);
+
+        public PersonRegistration GetById(string id)
+            => _context.Collection.AsQueryable().FirstOrDefault(x => x._id == new Guid(id) && !x.IsExcluded);
 
         public IEnumerable<PersonRegistration> GetByName(string name)
             => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && !x.IsExcluded).ToList();

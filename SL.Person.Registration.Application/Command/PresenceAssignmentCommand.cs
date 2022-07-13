@@ -4,11 +4,11 @@ namespace SL.Person.Registration.Application.Command
 {
     public class PresenceAssignmentCommand : IRequest
     {
-        public long LaborerDocument { get; private set; }
+        public string Id { get; private set; }
 
-        public PresenceAssignmentCommand(long laborerDocument)
+        public PresenceAssignmentCommand(string id)
         {
-            LaborerDocument = laborerDocument;
+            Id = id;
         }
     }
 }

@@ -10,20 +10,20 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.Handler
 {
-    public class FindPersonByDocumentQueryHandler : IRequestHandler<FindPersonByDocumentQuery, ResultBase>
+    public class FindPersonByIdQueryHandler : IRequestHandler<FindPersonByIdQuery, ResultBase>
     {
         private readonly IPersonRegistrationRepository _repository;
 
-        public FindPersonByDocumentQueryHandler(IPersonRegistrationRepository repository)
+        public FindPersonByIdQueryHandler(IPersonRegistrationRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<ResultBase> Handle(FindPersonByDocumentQuery request, CancellationToken cancellationToken)
+        public async Task<ResultBase> Handle(FindPersonByIdQuery request, CancellationToken cancellationToken)
         {
             request.RequestValidate();
 
-            var personRegistration = _repository.GetByDocument(request.DocumentNumber);
+            var personRegistration = _repository.GetById(request.Id);
 
             personRegistration.ValidateInstance();
 

@@ -20,7 +20,7 @@ namespace SL.Person.Registration.Application.Command.Handler
         {
             request.RequestValidate();
 
-            var personRegistration = _repository.GetByDocument(request.DocumentNumber);
+            var personRegistration = _repository.GetById(request.Id);
 
             personRegistration.ValidateInstance();
 

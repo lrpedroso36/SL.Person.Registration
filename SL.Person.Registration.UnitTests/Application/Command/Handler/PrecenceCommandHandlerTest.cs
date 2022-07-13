@@ -20,12 +20,12 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         public async Task Should_execute_handler_request_validate()
         {
             //arrange
-            var precenceCommand = new PrecenceCommand(1);
+            var precenceCommand = new PrecenceCommand(Guid.NewGuid().ToString());
             var resultExpected = Unit.Value;
             var personWatched = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome", 1234567890);
 
             var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personWatched);
+            moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(personWatched);
 
             //act
             var commandHandler = new PrecenceCommandHandler(moq.Object);
@@ -34,18 +34,22 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             //assert
             result.Should().BeEquivalentTo(resultExpected);
 
-            moq.Verify(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>()), Times.Once);
+            moq.Verify(x => x.GetById(It.IsAny<string>()), Times.Once);
             moq.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
 
         }
 
-        [Fact]
-        public async Task Should_execute_handler_invalid_request()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        [InlineData("asdasdasd")]
+        public async Task Should_execute_handler_invalid_request(string id)
         {
             //arrange
             //act
             var commandHandler = new PrecenceCommandHandler(null);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(0), default);
+            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(id), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -58,11 +62,11 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             PersonRegistration personInterviewed = null;
 
             var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personInterviewed);
+            moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(personInterviewed);
 
             //act
             var commandHandler = new PrecenceCommandHandler(moq.Object);
-            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(1), default);
+            Func<Task<Unit>> action = async () => await commandHandler.Handle(new PrecenceCommand(Guid.NewGuid().ToString()), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();

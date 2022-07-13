@@ -9,11 +9,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
 {
     public class PrecenceCommandValidationTest
     {
-        [Fact]
-        public void Should_request_invalid()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        [InlineData("asdasdasd")]
+        public void Should_request_invalid(string id)
         {
             //arrange
-            var request = new PrecenceCommand(0);
+            var request = new PrecenceCommand(id);
             //act
             Action action = () => request.RequestValidate();
 
@@ -25,7 +29,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
         public void Should_request_valid()
         {
             //arrange
-            var request = new PrecenceCommand(1);
+            var request = new PrecenceCommand(Guid.NewGuid().ToString());
 
             //act
             Action action = () => request.RequestValidate();

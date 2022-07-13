@@ -4,11 +4,11 @@ namespace SL.Person.Registration.Application.Command
 {
     public class PrecenceCommand : IRequest
     {
-        public long InterviewedDocument { get; private set; }
+        public string Id { get; private set; }
 
-        public PrecenceCommand(long interviewedDocument)
+        public PrecenceCommand(string id)
         {
-            InterviewedDocument = interviewedDocument;
+            Id = id;
         }
     }
 }

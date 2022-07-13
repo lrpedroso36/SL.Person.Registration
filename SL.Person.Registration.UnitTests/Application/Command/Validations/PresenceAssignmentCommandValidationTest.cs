@@ -9,11 +9,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
 {
     public class PresenceAssignmentCommandValidationTest
     {
-        [Fact]
-        public void Should_request_invalid()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        [InlineData("asdasd")]
+        public void Should_request_invalid(string id)
         {
             //arrange
-            var request = new PresenceAssignmentCommand(0);
+            var request = new PresenceAssignmentCommand(id);
 
             //act
             Action action = () => request.RequestValidate();
@@ -26,7 +30,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
         public void Should_request_valid()
         {
             //arrange
-            var request = new PresenceAssignmentCommand(1234567890);
+            var request = new PresenceAssignmentCommand(Guid.NewGuid().ToString());
 
             //act
             Action action = () => request.RequestValidate();

@@ -13,10 +13,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
     {
         public static List<object[]> Data = new List<object[]>
         {
-            new object[] { new InsertInterviewCommand(0, 0, null) },
-            new object[] { new InsertInterviewCommand(0, 0, new InterviewRequest()) },
-            new object[] { new InsertInterviewCommand(1, 0, new InterviewRequest()) },
-            new object[] { new InsertInterviewCommand(0, 1, new InterviewRequest()) }
+            new object[] { new InsertInterviewCommand("", Guid.NewGuid().ToString(), null) },
+            new object[] { new InsertInterviewCommand(" ", Guid.NewGuid().ToString(), new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand(null, Guid.NewGuid().ToString(), new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand("asdasdasd", Guid.NewGuid().ToString(), new InterviewRequest()) },
+
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), "",  null) },
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), " ",  new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), null,  new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), "asdasdasd", new InterviewRequest()) }
         };
 
         [Theory]
@@ -35,7 +40,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
         public void Should_request_valid()
         {
             //arrange
-            var request = new InsertInterviewCommand(1, 1, new InterviewRequest());
+            var request = new InsertInterviewCommand(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), new InterviewRequest());
             //act
             Action action = () => request.RequestValidate();
 

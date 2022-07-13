@@ -27,6 +27,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //assert
+            result.Id.Should().Be(person._id.ToString());
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
@@ -48,6 +49,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var result = (FindPersonResult)person;
 
             //assert
+            result.Id.Should().Be(person._id.ToString());
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
@@ -71,6 +73,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var result = (FindPersonResult)person;
 
             //assert
+            result.Id.Should().Be(person._id.ToString());
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
@@ -99,6 +102,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var result = (FindPersonResult)person;
 
             //assert
+            result.Id.Should().Be(person._id.ToString());
             result.Types.Should().BeEquivalentTo(person.Types);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);

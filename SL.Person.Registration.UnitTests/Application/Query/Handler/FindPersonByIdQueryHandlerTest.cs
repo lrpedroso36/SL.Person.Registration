@@ -14,7 +14,7 @@ using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Query.Handler
 {
-    public class FindPersonByDocumentQueryHandlerTest
+    public class FindPersonByIdQueryHandlerTest
     {
         public static PersonRegistration GetPersonRegistration()
         {
@@ -28,7 +28,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         public async Task Should_execute_handler()
         {
             //arrange
-            var query = new FindPersonByDocumentQuery(123456789);
+            var query = new FindPersonByIdQuery(Guid.NewGuid().ToString());
             var registration = GetPersonRegistration();
             var isSucess = true;
             var errors = new List<string>();
@@ -37,7 +37,7 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(registration);
 
             //act
-            var resultHandler = new FindPersonByDocumentQueryHandler(moqRepository.Object);
+            var resultHandler = new FindPersonByIdQueryHandler(moqRepository.Object);
             var handler = await resultHandler.Handle(query, default);
 
             //assert
@@ -46,14 +46,18 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
             handler.ErrorType.Should().Be(errorType);
         }
 
-        [Fact]
-        public async Task Should_execute_handler_invalid_request()
+        [Theory]
+        [InlineData(" ")]
+        [InlineData("")]
+        [InlineData(null)]
+        [InlineData("asdas")]
+        public async Task Should_execute_handler_invalid_request(string id)
         {
             //arrange
-            var queryHandler = new FindPersonByDocumentQueryHandler(null);
+            var queryHandler = new FindPersonByIdQueryHandler(null);
 
             //act
-            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByDocumentQuery(0), default);
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByIdQuery(id), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -64,10 +68,10 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         {
             //arrange
             var moq = MockPersonRegistrationRepository.GetMockRepository(null);
-            var queryHandler = new FindPersonByDocumentQueryHandler(moq.Object);
+            var queryHandler = new FindPersonByIdQueryHandler(moq.Object);
 
             //act
-            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByDocumentQuery(1), default);
+            Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByIdQuery(Guid.NewGuid().ToString()), default);
 
             //assert
             await action.Should().ThrowAsync<ApplicationRequestException>();

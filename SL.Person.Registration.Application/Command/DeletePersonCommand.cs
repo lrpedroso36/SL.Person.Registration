@@ -4,11 +4,11 @@ namespace SL.Person.Registration.Application.Command
 {
     public class DeletePersonCommand : IRequest
     {
-        public long DocumentNumber { get; private set; }
+        public string Id { get; private set; }
 
-        public DeletePersonCommand(long documentNumber)
+        public DeletePersonCommand(string id)
         {
-            DocumentNumber = documentNumber;
+            Id = id;
         }
     }
 }

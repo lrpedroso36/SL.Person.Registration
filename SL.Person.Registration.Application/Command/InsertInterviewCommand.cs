@@ -5,16 +5,16 @@ namespace SL.Person.Registration.Application.Command
 {
     public class InsertInterviewCommand : IRequest
     {
-        public long InterviewedDocument { get; }
+        public string InterviewedId { get; }
 
-        public long InterviewerDocument { get; }
+        public string InterviewerId { get; }
 
         public InterviewRequest Interview { get; }
 
-        public InsertInterviewCommand(long interviewedDocument, long interviewerDocument, InterviewRequest interview)
+        public InsertInterviewCommand(string interviewedId, string interviewerId, InterviewRequest interview)
         {
-            InterviewedDocument = interviewedDocument;
-            InterviewerDocument = interviewerDocument;
+            InterviewedId = interviewedId;
+            InterviewerId = interviewerId;
             Interview = interview;
         }
     }

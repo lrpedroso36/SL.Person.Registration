@@ -16,11 +16,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 {
     public class PresenceAssignmentCommandHandlerTest
     {
-        [Fact]
-        public async void Should_execute_handler_request_invalid()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        [InlineData("asdasdasd")]
+        public async void Should_execute_handler_request_invalid(string id)
         {
             //arrange
-            var command = new PresenceAssignmentCommand(0);
+            var command = new PresenceAssignmentCommand(id);
             var commandHandler = new PresenceAssignmentCommandHandler(null);
 
             //act
@@ -36,7 +40,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             //arrage
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(null);
 
-            var command = new PresenceAssignmentCommand(123456789);
+            var command = new PresenceAssignmentCommand(Guid.NewGuid().ToString());
             var commandHandler = new PresenceAssignmentCommandHandler(moqRepository.Object);
 
             //act
@@ -55,7 +59,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(person);
 
-            var command = new PresenceAssignmentCommand(123456789);
+            var command = new PresenceAssignmentCommand(Guid.NewGuid().ToString());
             var commandHandler = new PresenceAssignmentCommandHandler(moqRepository.Object);
 
             //act
@@ -72,14 +76,14 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             var personNotLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
             var moqRepository = MockPersonRegistrationRepository.GetMockRepository(personNotLaborer);
 
-            var command = new PresenceAssignmentCommand(123456789);
+            var command = new PresenceAssignmentCommand(Guid.NewGuid().ToString());
             var commandHandler = new PresenceAssignmentCommandHandler(moqRepository.Object);
 
             //act
             var result = await commandHandler.Handle(command, default);
 
             //assert
-            moqRepository.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.Once);
+            moqRepository.Verify(x => x.GetById(It.IsAny<string>()), Times.Once);
             moqRepository.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
 
             result.Should().Be(Unit.Value);

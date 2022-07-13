@@ -13,11 +13,11 @@ namespace SL.Person.Registration.Application.Command.Validations
     {
         public static void RequestValidate(this PresenceAssignmentCommand request)
         {
-            if (request.LaborerDocument == 0)
+            if (!Guid.TryParse(request.Id, out Guid id))
             {
                 var result = new Result();
                 result.SetErrorType(ErrorType.InvalidParameters);
-                result.AddErrors(ResourceMessagesValidation.PresenceAssignmentCommandValidation_RequestInvalid_Document);
+                result.AddErrors(ResourceMessagesValidation.PresenceAssignmentCommandValidation_RequestInvalid_Id);
                 throw new ApplicationRequestException(result);
             }
         }

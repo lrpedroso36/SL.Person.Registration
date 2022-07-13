@@ -21,7 +21,7 @@ namespace SL.Person.Registration.Application.Command.Handler
         {
             request.RequestValidate();
 
-            var personLaborer = _repository.GetByDocument(request.LaborerDocument);
+            var personLaborer = _repository.GetById(request.Id);
 
             personLaborer.ValidateInstance();
 

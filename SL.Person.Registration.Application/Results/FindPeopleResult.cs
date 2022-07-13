@@ -6,6 +6,8 @@ namespace SL.Person.Registration.Application.Results
 {
     public class FindPeopleResult
     {
+        public string Id { get; set; }
+
         public List<PersonType> Types { get; set; } = new List<PersonType>();
 
         public string Name { get; set; }
@@ -26,6 +28,7 @@ namespace SL.Person.Registration.Application.Results
         {
             var result = new FindPeopleResult();
 
+            result.Id = person._id.ToString();
             result.Types = person.Types;
             result.Name = person.Name;
             result.DocumentNumber = person.DocumentNumber;

@@ -22,14 +22,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
         public async Task Should_execute_handler()
         {
             //arrange
-            var command = new InsertInterviewCommand(1, 1, Builder<InterviewRequest>.CreateNew().Build());
+            var interviewId = Guid.NewGuid();
+            var command = new InsertInterviewCommand(Guid.NewGuid().ToString(), interviewId.ToString(), Builder<InterviewRequest>.CreateNew().Build());
             var atMostInsert = 2;
             var personRegistration = Builder<PersonRegistration>.CreateNew().Build();
-            var personInterview = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Entrevistador }, "nome", 123456789);
+            var personInterview = PersonRegistration.CreateInstanceSimple(interviewId, new List<PersonType>() { PersonType.Entrevistador }, "nome", 123456789);
 
             var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(personRegistration);
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(personInterview);
+            moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(personRegistration);
+            moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(personInterview);
 
             //act
             var commandHandler = new InsertInterviewCommandHandler(moq.Object);
@@ -42,10 +43,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 
         public static List<object[]> DataInvalid = new List<object[]>()
         {
-            new object[] { new InsertInterviewCommand(0, 0, null) },
-            new object[] { new InsertInterviewCommand(0, 0, new InterviewRequest()) },
-            new object[] { new InsertInterviewCommand(1, 0, new InterviewRequest()) },
-            new object[] { new InsertInterviewCommand(0, 1, new InterviewRequest()) }
+            new object[] { new InsertInterviewCommand("", Guid.NewGuid().ToString(), null) },
+            new object[] { new InsertInterviewCommand(" ", Guid.NewGuid().ToString(), new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand(null, Guid.NewGuid().ToString(), new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand("asdasdasd", Guid.NewGuid().ToString(), new InterviewRequest()) },
+
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), "",  null) },
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), " ",  new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), null,  new InterviewRequest()) },
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), "asdasdasd", new InterviewRequest()) }
         };
 
         [Theory]

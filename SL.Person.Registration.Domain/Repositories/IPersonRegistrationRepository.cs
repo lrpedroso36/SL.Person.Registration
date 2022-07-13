@@ -13,5 +13,6 @@ namespace SL.Person.Registration.Domain.Repositories
         void Update(PersonRegistration registration);
         PersonRegistration GetByDocument(long documentNumber, PersonType personType);
         IEnumerable<PersonRegistration> Get(PersonType? personType, string name, long documentNumber);
+        PersonRegistration GetById(string id);
     }
 }

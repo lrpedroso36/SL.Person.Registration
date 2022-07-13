@@ -22,17 +22,17 @@ namespace SL.Person.Registration.Api.Controllers
         /// <summary>
         /// Inserir a precença do tarefeiro
         /// </summary>
-        /// <param name="laborerDocument"></param>
+        /// <param name="id"></param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Precença inserida com sucesso</response>
-        /// <response code="400">Informe o documento do terefeiro</response>
+        /// <response code="400">Informe o 'Id' do terefeiro</response>
         /// <response code="404">Tarefeiro não econtrado</response>
         /// <returns></returns>
-        [HttpPut("{laborerDocument}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
-        public async Task PutAsync(long laborerDocument, CancellationToken cancellationToken)
-            => await _mediator.Send(new PresenceAssignmentCommand(laborerDocument), cancellationToken);
+        public async Task PutAsync(string id, CancellationToken cancellationToken)
+            => await _mediator.Send(new PresenceAssignmentCommand(id), cancellationToken);
     }
 }

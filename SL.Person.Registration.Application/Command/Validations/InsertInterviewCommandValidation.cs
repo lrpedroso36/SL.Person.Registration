@@ -2,6 +2,7 @@
 using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Results;
 using SL.Person.Registration.Application.Results.Enums;
+using System;
 
 namespace SL.Person.Registration.Application.Command.Validations
 {
@@ -18,7 +19,7 @@ namespace SL.Person.Registration.Application.Command.Validations
                 throw new ApplicationRequestException(result);
             }
 
-            if (request.InterviewedDocument == 0 || request.InterviewerDocument == 0)
+            if (!Guid.TryParse(request.InterviewedId, out Guid idInterviewed) || !Guid.TryParse(request.InterviewerId, out Guid id))
             {
                 result.AddErrors(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid);
                 throw new ApplicationRequestException(result);

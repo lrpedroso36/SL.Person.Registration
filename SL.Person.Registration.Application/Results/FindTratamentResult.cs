@@ -5,10 +5,6 @@ namespace SL.Person.Registration.Application.Results
 {
     public class FindTratamentResult
     {
-        public string Id
-        {
-            get { return Guid.NewGuid().ToString(); }
-        }
         public string Date { get; private set; }
 
         public string Presence { get; private set; }

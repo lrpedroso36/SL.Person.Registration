@@ -2,6 +2,7 @@
 using FluentAssertions;
 using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Requests;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -11,8 +12,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command
     {
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { new InsertInterviewCommand(0,0,null), null },
-            new object[] { new InsertInterviewCommand(1,1,Builder<InterviewRequest>.CreateNew().Build()), Builder<InterviewRequest>.CreateNew().Build() }
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), null), null },
+            new object[] { new InsertInterviewCommand(Guid.NewGuid().ToString(), Guid.NewGuid().ToString(), Builder<InterviewRequest>.CreateNew().Build()), Builder<InterviewRequest>.CreateNew().Build() }
         };
 
         [Theory]

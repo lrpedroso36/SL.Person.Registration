@@ -22,7 +22,7 @@ namespace SL.Person.Registration.Application.Command.Handler
         {
             request.RequestValidate();
 
-            var personInterviewed = _personRegistrationRepository.GetByDocument(request.InterviewedDocument, PersonType.Assistido);
+            var personInterviewed = _personRegistrationRepository.GetById(request.Id);
 
             personInterviewed.ValidateInstanceByType(PersonType.Assistido);
 
