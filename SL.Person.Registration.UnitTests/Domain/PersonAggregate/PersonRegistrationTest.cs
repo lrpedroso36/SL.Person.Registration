@@ -48,9 +48,12 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var gender = GenderType.Masculino;
             var birthDate = new DateTime(1988, 04, 29);
             var documentNumber = 123456789L;
+            var interviews = Builder<Interview>.CreateListOfSize(1).Build().ToList();
+            var assignments = Builder<Assignment>.CreateListOfSize(1).Build().ToList();
+            var workSchedules = Builder<WorkSchedule>.CreateListOfSize(1).Build().ToList();
 
             //act
-            var person = PersonRegistration.CreateUpdateInstance(id, types, name, gender, birthDate, documentNumber);
+            var person = PersonRegistration.CreateUpdateInstance(id, types, name, gender, birthDate, documentNumber, interviews, assignments, workSchedules);
 
             //assert
             person.Types.Should().BeEquivalentTo(types);

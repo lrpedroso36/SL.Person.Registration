@@ -53,20 +53,25 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             DocumentNumber = documentNumber;
         }
 
-        protected PersonRegistration(Guid id, List<PersonType> types, string name, GenderType gender, DateTime? birthDate, long documentNumber)
+        protected PersonRegistration(Guid id, List<PersonType> types, string name, GenderType gender, DateTime? birthDate, long documentNumber,
+            List<Interview> interviews, List<Assignment> assignments, List<WorkSchedule> workSchedules)
             : this(types, name, gender, birthDate, documentNumber)
         {
             _id = id;
+            SetInterviews(interviews);
+            SetAssingments(assignments);
+            SetWorkSchedules(workSchedules);
         }
 
         public static PersonRegistration CreateInstanceSimple(Guid id, List<PersonType> types, string name, long documentNumber)
-            => new PersonRegistration(id, types, name, documentNumber);
+            => new(id, types, name, documentNumber);
 
         public static PersonRegistration CreateInstance(List<PersonType> type, string name, GenderType gender, DateTime? birthDate, long documentNumber)
-        => new PersonRegistration(type, name, gender, birthDate, documentNumber);
+        => new(type, name, gender, birthDate, documentNumber);
 
-        public static PersonRegistration CreateUpdateInstance(Guid id, List<PersonType> type, string name, GenderType gender, DateTime? birthDate, long documentNumber)
-        => new PersonRegistration(id, type, name, gender, birthDate, documentNumber);
+        public static PersonRegistration CreateUpdateInstance(Guid id, List<PersonType> type, string name, GenderType gender, DateTime? birthDate, long documentNumber,
+            List<Interview> interviews, List<Assignment> assignments, List<WorkSchedule> workSchedules)
+        => new(id, type, name, gender, birthDate, documentNumber, interviews, assignments, workSchedules);
 
         private Contact SetContact(Contact contact)
         {
@@ -76,6 +81,39 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         private Address SetAddress(Address address)
         {
             return address ?? null;
+        }
+
+        private void SetInterviews(List<Interview> interviews)
+        {
+            if(interviews == null)
+            {
+                return;
+            }
+
+            Interviews = new List<Interview>();
+            Interviews.AddRange(interviews);
+        }
+
+        private void SetAssingments(List<Assignment> assignments)
+        {
+            if (assignments == null)
+            {
+                return;
+            }
+
+            Assignments = new List<Assignment>();
+            Assignments.AddRange(assignments);
+        }
+
+        private void SetWorkSchedules(List<WorkSchedule> workSchedules)
+        {
+            if (workSchedules == null)
+            {
+                return;
+            }
+
+            WorkSchedules = new List<WorkSchedule>();
+            WorkSchedules.AddRange(workSchedules);
         }
 
         public void AddPersonType(PersonType personType)

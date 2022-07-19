@@ -1,5 +1,4 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate;
-using System;
 
 namespace SL.Person.Registration.Application.Results
 {

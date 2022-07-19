@@ -196,6 +196,15 @@ namespace SL.Person.Registratio.CrossCuting.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Informe o &apos;Id&apos; ou a lista de escala..
+        /// </summary>
+        public static string InsertWorkSchedulesCommand_RequestInvalid {
+            get {
+                return ResourceManager.GetString("InsertWorkSchedulesCommand_RequestInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Informe o &apos;Id&apos; do paciente..
         /// </summary>
         public static string PrecenceCommandValidation_DataRequestInvalid {

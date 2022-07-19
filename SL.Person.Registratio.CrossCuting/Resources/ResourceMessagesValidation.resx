@@ -162,6 +162,9 @@
   <data name="InsertPersonCommandValidation_RequestInvalid" xml:space="preserve">
     <value>Informe os dados da pessoa.</value>
   </data>
+  <data name="InsertWorkSchedulesCommand_RequestInvalid" xml:space="preserve">
+    <value>Informe o 'Id' ou a lista de escala.</value>
+  </data>
   <data name="PrecenceCommandValidation_DataRequestInvalid" xml:space="preserve">
     <value>Informe o 'Id' do paciente.</value>
   </data>

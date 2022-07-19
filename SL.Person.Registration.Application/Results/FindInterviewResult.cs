@@ -1,6 +1,5 @@
 ﻿using SL.Person.Registratio.CrossCuting.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 

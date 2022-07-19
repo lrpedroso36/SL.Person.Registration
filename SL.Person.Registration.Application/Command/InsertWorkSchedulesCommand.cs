@@ -7,11 +7,11 @@ namespace SL.Person.Registration.Application.Command
 {
     public class InsertWorkSchedulesCommand : IRequest
     {
-        public List<WorkScheduleCommand> WorkScheduleCommands { get; set; }
+        public string Id { get; set; }
+        public List<WorkScheduleCommand> Works { get; set; }
 
         public class WorkScheduleCommand
         {
-            public long DocumentNumber { get; set; }
             public WeakDayType WeakDayType { get; set; }
             public DateTime Date { get; set; }
             public bool DoTheReading { get; set; }
