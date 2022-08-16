@@ -8,6 +8,9 @@ namespace SL.Person.Registration.Domain.PersonAggregate
         public WeakDayType WeakDayType { get; private set; }
         public DateTime Date { get; private set; }
         public bool DoTheReading { get; private set; }
+
+        protected WorkSchedule() { }
+
         protected WorkSchedule(WeakDayType weakDayType, DateTime date, bool doTheReading)
         {
             WeakDayType = weakDayType;

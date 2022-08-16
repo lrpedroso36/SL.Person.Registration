@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using SL.Person.Registratio.CrossCuting.Configurations.Contracts;
+using SL.Person.Registration.Domain.Configurations;
 using SL.Person.Registration.Domain.External.Contracts;
 using SL.Person.Registration.Domain.External.Response;
 using System.Net.Http;

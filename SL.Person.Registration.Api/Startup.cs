@@ -7,8 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using SL.Person.Registratio.CrossCuting;
 using SL.Person.Registration.Api.Filters;
-using SL.Person.Registration.Extensions;
 using System;
 using System.IO;
 using System.Linq;
@@ -66,7 +66,6 @@ namespace SL.Person.Registration
 
             services.AddHttpClient();
             services.AddConfiguration(Configuration);
-            services.AddAppHealthCheck(Configuration);
             services.AddInfraestructure();
             services.AddInfraestructureExternal();
             services.AddMediatorQuery();

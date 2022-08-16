@@ -4,10 +4,7 @@ using SL.Person.Registration.Application.Command;
 using SL.Person.Registration.Application.Command.Validations;
 using SL.Person.Registration.Application.Exceptions;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 using static SL.Person.Registration.Application.Command.InsertWorkSchedulesCommand;
 

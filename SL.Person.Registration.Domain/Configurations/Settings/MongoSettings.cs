@@ -1,4 +1,4 @@
-﻿namespace SL.Person.Registratio.CrossCuting.Configurations
+﻿namespace SL.Person.Registration.Domain.Configurations.Settings
 {
     public class MongoSettings
     {

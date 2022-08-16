@@ -1,5 +1,5 @@
 ﻿using MongoDB.Driver;
-using SL.Person.Registratio.CrossCuting.Configurations.Contracts;
+using SL.Person.Registration.Domain.Configurations;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts.Contracts;
 using System;

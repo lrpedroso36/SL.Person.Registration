@@ -65,8 +65,10 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.DocumentNumber.Should().BeOfType(typeof(long));
             person.IsExcluded.Should().BeFalse();
 
-            person.Address.Should().BeNull();
-            person.Contact.Should().BeNull();
+            person.Interviews.Should().NotBeNull();
+            person.Assignments.Should().NotBeNull();
+            person.WorkSchedules.Should().NotBeNull();
+
         }
 
         [Fact]

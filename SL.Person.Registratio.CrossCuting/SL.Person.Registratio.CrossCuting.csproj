@@ -9,7 +9,13 @@
     <None Remove="Configurations\Contracts\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Configurations\Contracts\" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
+    <ProjectReference Include="..\SL.Person.Registration.Infrastructure.External\SL.Person.Registration.Infrastructure.External.csproj" />
+    <ProjectReference Include="..\SL.Person.Registration.Infrastructure.MongoDb\SL.Person.Registration.Infrastructure.MongoDb.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\ResourceMessagesValidation.Designer.cs">

@@ -22,7 +22,7 @@ namespace SL.Person.Registration.Api.Controllers
         /// <summary>
         /// Inserir a precença do tarefeiro
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">'Id' da pessoa</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Precença inserida com sucesso</response>
         /// <response code="400">Informe o 'Id' do terefeiro</response>

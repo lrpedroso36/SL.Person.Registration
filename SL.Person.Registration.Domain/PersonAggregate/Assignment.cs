@@ -8,6 +8,11 @@ namespace SL.Person.Registration.Domain.PersonAggregate
 
         public bool Presence { get; private set; }
 
+        protected Assignment()
+        {
+
+        }
+
         protected Assignment(DateTime date, bool presence)
         {
             Date = date;

@@ -26,6 +26,6 @@ namespace SL.Person.Registration.Domain.PersonAggregate.Enuns
         PasseP41 = 7,
 
         [Description("Passe de Limpeza")]
-        PasseLimpeza
+        PasseLimpeza = 8
     }
 }

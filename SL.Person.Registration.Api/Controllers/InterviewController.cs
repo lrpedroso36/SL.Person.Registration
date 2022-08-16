@@ -41,7 +41,7 @@ namespace SL.Person.Registration.Api.Controllers
         /// <summary>
         /// Inserir a presença no tratamento
         /// </summary>
-        /// <param name="interviewedDocument">'Id' do entrevistado</param>
+        /// <param name="id">'Id' do entrevistado</param>
         /// <param name="cancellationToken"></param>
         /// <response code="200">Presença inserida com sucesso</response>
         /// <response code="400">Informe os dados da pessoa</response>

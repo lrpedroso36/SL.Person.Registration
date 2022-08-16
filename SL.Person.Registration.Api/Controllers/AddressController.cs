@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL.Person.Registration.Application.Query;
-using SL.Person.Registration.Application.Results;
 using SL.Person.Registration.Application.Results.Base;
-using SL.Person.Registration.Domain.PersonAggregate;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,9 +30,9 @@ namespace SL.Person.Registration.Api.Controllers
         /// <response code="404">Não foi possível encontrar o endereço</response>
         /// <returns></returns>
         [HttpGet("{zipCode}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<Address>))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<Address>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<Address>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultBase))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultBase))]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultBase))]
         public async Task<ResultBase> GetAsync(string zipCode, CancellationToken cancellationToken)
             => await _mediator.Send(new FindAddressByZipCodeQuery(zipCode), cancellationToken);
     }

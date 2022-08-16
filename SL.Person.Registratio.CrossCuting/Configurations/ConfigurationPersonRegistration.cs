@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
-using SL.Person.Registratio.CrossCuting.Configurations;
-using SL.Person.Registratio.CrossCuting.Configurations.Contracts;
+using SL.Person.Registration.Domain.Configurations;
+using SL.Person.Registration.Domain.Configurations.Settings;
 
-namespace SL.Person.Registration.Configurations
+namespace SL.Person.Registratio.CrossCuting.Configurations
 {
     public class ConfigurationPersonRegistration : IConfigurationPersonRegistration
     {

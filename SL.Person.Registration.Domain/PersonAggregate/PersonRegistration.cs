@@ -73,19 +73,13 @@ namespace SL.Person.Registration.Domain.PersonAggregate
             List<Interview> interviews, List<Assignment> assignments, List<WorkSchedule> workSchedules)
         => new(id, type, name, gender, birthDate, documentNumber, interviews, assignments, workSchedules);
 
-        private Contact SetContact(Contact contact)
-        {
-            return contact ?? null;
-        }
+        private Contact SetContact(Contact contact) => contact ?? null;
 
-        private Address SetAddress(Address address)
-        {
-            return address ?? null;
-        }
+        private Address SetAddress(Address address) => address ?? null;
 
         private void SetInterviews(List<Interview> interviews)
         {
-            if(interviews == null)
+            if (interviews == null)
             {
                 return;
             }

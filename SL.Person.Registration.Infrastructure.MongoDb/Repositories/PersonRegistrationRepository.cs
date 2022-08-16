@@ -22,7 +22,7 @@ namespace SL.Person.Registration.Infrastructure.MongoDb.Repositories
             var builder = Builders<PersonRegistration>.Filter;
             var filter = builder.Eq(x => x.IsExcluded, false);
 
-            if (personType.HasValue)
+            if (personType.HasValue && personType.Value != PersonType.Todos)
             {
                 filter &= builder.AnyEq(x => x.Types, personType.Value);
             }
