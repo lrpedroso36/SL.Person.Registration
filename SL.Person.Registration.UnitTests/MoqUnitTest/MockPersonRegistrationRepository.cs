@@ -2,6 +2,7 @@
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
+using System;
 using System.Collections.Generic;
 
 namespace SL.Person.Registration.UnitTests.MoqUnitTest

@@ -20,11 +20,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
         public void Should_request_invalid_id(string id)
         {
             //arrange
-            var request = new InsertWorkSchedulesCommand()
-            {
-                Id = id,
-                Works = Builder<WorkScheduleCommand>.CreateListOfSize(2).Build().ToList()
-            };
+            var request = new InsertWorkSchedulesCommand(id, Builder<WorkScheduleCommand>.CreateListOfSize(2).Build().ToList());
 
             //act
             Action action = () => request.RequestValidate();
@@ -37,11 +33,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Validations
         public void Should_request_valid()
         {
             //arrange
-            var request = new InsertWorkSchedulesCommand()
-            {
-                Id = Guid.NewGuid().ToString(),
-                Works = Builder<WorkScheduleCommand>.CreateListOfSize(2).Build().ToList()
-            };
+            var request = new InsertWorkSchedulesCommand(Guid.NewGuid().ToString(), Builder<WorkScheduleCommand>.CreateListOfSize(2).Build().ToList());
 
             //act
             Action action = () => request.RequestValidate();

@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Serilog;
-using SL.Person.Registration.Extensions;
 using System;
 
 namespace SL.Person.Registration
@@ -13,11 +11,9 @@ namespace SL.Person.Registration
             try
             {
                 CreateHostBuilder(args).Build().Run();
-                Log.Information("Iniciando a aplicação.");
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host encerrado inesperadamente");
                 return;
             }
         }
@@ -26,9 +22,7 @@ namespace SL.Person.Registration
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config.AddConfigurationSerilog();
                 })
-                .UseSerilog()
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

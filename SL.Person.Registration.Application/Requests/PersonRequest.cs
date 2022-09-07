@@ -50,12 +50,12 @@ namespace SL.Person.Registration.Application.Requests
 
             if (CheckInformationAddress())
             {
-                person.AddAdress(Address.CreateInstance(ZipCode, 
-                                                        Street.ToUpper(), 
-                                                        Number.ToUpper(), 
-                                                        Neighborhood.ToUpper(), 
-                                                        Complement.ToUpper(), 
-                                                        City.ToUpper(), 
+                person.AddAdress(Address.CreateInstance(ZipCode,
+                                                        Street.ToUpper(),
+                                                        Number.ToUpper(),
+                                                        Neighborhood.ToUpper(),
+                                                        Complement.ToUpper(),
+                                                        City.ToUpper(),
                                                         State.ToUpper()));
             }
 

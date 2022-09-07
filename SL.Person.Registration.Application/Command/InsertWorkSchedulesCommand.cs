@@ -7,8 +7,14 @@ namespace SL.Person.Registration.Application.Command
 {
     public class InsertWorkSchedulesCommand : IRequest
     {
-        public string Id { get; set; }
-        public List<WorkScheduleCommand> Works { get; set; }
+        public string Id { get; }
+        public List<WorkScheduleCommand> Works { get; } = new List<WorkScheduleCommand>();
+
+        public InsertWorkSchedulesCommand(string id, List<WorkScheduleCommand> works)
+        {
+            Id = id;
+            Works = works;
+        }
 
         public class WorkScheduleCommand
         {

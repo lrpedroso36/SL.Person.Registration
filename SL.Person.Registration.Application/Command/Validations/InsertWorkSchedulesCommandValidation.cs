@@ -11,7 +11,7 @@ namespace SL.Person.Registration.Application.Command.Validations
     {
         public static void RequestValidate(this InsertWorkSchedulesCommand request)
         {
-            if (!Guid.TryParse(request.Id, out Guid id) || (request.Works == null && !request.Works.Any()))
+            if (!Guid.TryParse(request.Id, out Guid id) || request.Works.Count == 0)
             {
                 var result = new Result();
                 result.SetErrorType(ErrorType.InvalidParameters);

@@ -1,20 +1,14 @@
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SL.Person.Registratio.CrossCuting;
 using SL.Person.Registration.Api.Filters;
 using System;
 using System.IO;
-using System.Linq;
-using System.Net.Mime;
 using System.Reflection;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace SL.Person.Registration
@@ -37,8 +31,8 @@ namespace SL.Person.Registration
             {
                 options.AddPolicy("CorsPolicy", builder =>
                 builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+                       .AllowAnyMethod()
+                       .AllowAnyHeader());
             });
 
             services.AddControllers(options =>
@@ -68,7 +62,7 @@ namespace SL.Person.Registration
             services.AddConfiguration(Configuration);
             services.AddInfraestructure();
             services.AddInfraestructureExternal();
-            services.AddMediatorQuery();
+            services.AddMediator();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -79,41 +73,18 @@ namespace SL.Person.Registration
             }
 
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseSwagger();
-
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SL.Person.Registration");
             });
 
             app.UseCors("CorsPolicy");
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-
-                endpoints.MapHealthChecks("/health",
-                    new HealthCheckOptions
-                    {
-                        ResponseWriter = async (context, report) =>
-                        {
-                            var result = JsonSerializer.Serialize(
-                                new
-                                {
-                                    status = report.Status.ToString(),
-                                    monitors = report.Entries.Select(e => new { key = e.Key, value = Enum.GetName(typeof(HealthStatus), e.Value.Status) })
-                                });
-
-                            context.Response.ContentType = MediaTypeNames.Application.Json;
-                            await context.Response.WriteAsync(result);
-                        }
-                    }
-                );
             });
         }
     }

@@ -40,7 +40,7 @@ namespace SL.Person.Registratio.CrossCuting
             return service;
         }
 
-        public static IServiceCollection AddMediatorQuery(this IServiceCollection service)
+        public static IServiceCollection AddMediator(this IServiceCollection service)
         {
             var assembly = AppDomain.CurrentDomain.Load("SL.Person.Registration.Application");
             service.AddMediatR(assembly);

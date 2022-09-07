@@ -18,11 +18,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command
             var works = Builder<WorkScheduleCommand>.CreateListOfSize(2).Build().ToList();
 
             //act
-            var command = new InsertWorkSchedulesCommand
-            {
-                Id = id,
-                Works = works
-            };
+            var command = new InsertWorkSchedulesCommand(id, works);
 
             //assert
             command.Id.Should().Be(id);

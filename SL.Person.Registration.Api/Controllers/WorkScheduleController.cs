@@ -36,6 +36,6 @@ namespace SL.Person.Registration.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
         public async Task PutAsync(string id, [FromBody] List<WorkScheduleCommand> works, CancellationToken cancellationToken)
-            => await _mediator.Send(new InsertWorkSchedulesCommand() { Id = id, Works = works }, cancellationToken);
+            => await _mediator.Send(new InsertWorkSchedulesCommand(id, works), cancellationToken);
     }
 }

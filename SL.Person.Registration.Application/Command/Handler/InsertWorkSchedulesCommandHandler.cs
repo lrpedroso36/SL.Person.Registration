@@ -22,7 +22,7 @@ namespace SL.Person.Registration.Application.Command.Handler
 
             var personResult = _repository.GetById(request.Id);
 
-            personResult.ValidateFoundInstance();
+            personResult.ValidateInstance();
 
             foreach (var item in request.Works)
             {
