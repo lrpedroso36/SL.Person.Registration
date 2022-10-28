@@ -1,8 +1,7 @@
-﻿namespace SL.Person.Registration.Application.Results.Contrats
+﻿namespace SL.Person.Registration.Application.Results.Contrats;
+
+public interface IResult<T>
 {
-    public interface IResult<T>
-    {
-        T Data { get; }
-        public void SetData(T data);
-    }
+    T Data { get; }
+    public void SetData(T data);
 }

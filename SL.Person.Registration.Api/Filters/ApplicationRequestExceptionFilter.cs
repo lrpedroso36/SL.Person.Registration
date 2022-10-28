@@ -5,37 +5,36 @@ using SL.Person.Registration.Application.Results.Base;
 using SL.Person.Registration.Application.Results.Enums;
 using System.Net;
 
-namespace SL.Person.Registration.Api.Filters
+namespace SL.Person.Registration.Api.Filters;
+
+public class ApplicationRequestExceptionFilter : IActionFilter
 {
-    public class ApplicationRequestExceptionFilter : IActionFilter
+    public void OnActionExecuting(ActionExecutingContext context) { }
+
+    public void OnActionExecuted(ActionExecutedContext context)
     {
-        public void OnActionExecuting(ActionExecutingContext context) { }
-
-        public void OnActionExecuted(ActionExecutedContext context)
+        if (context.Exception is ApplicationRequestException requestException)
         {
-            if (context.Exception is ApplicationRequestException requestException)
+            context.Result = new ObjectResult(requestException.Result)
             {
-                context.Result = new ObjectResult(requestException.Result)
-                {
-                    StatusCode = GetStatusCode(requestException.Result)
-                };
+                StatusCode = GetStatusCode(requestException.Result)
             };
+        };
 
-            context.ExceptionHandled = true;
-        }
+        context.ExceptionHandled = true;
+    }
 
-        private int? GetStatusCode(ResultBase result)
-        {
-            if (!result.IsSuccess && result.ErrorType == ErrorType.InvalidParameters)
-                return (int)HttpStatusCode.BadRequest;
+    private int? GetStatusCode(ResultBase result)
+    {
+        if (!result.IsSuccess && result.ErrorType == ErrorType.InvalidParameters)
+            return (int)HttpStatusCode.BadRequest;
 
-            if (!result.IsSuccess && result.ErrorType == ErrorType.NotFoundData)
-                return (int)HttpStatusCode.NotFound;
+        if (!result.IsSuccess && result.ErrorType == ErrorType.NotFoundData)
+            return (int)HttpStatusCode.NotFound;
 
-            if (!result.IsSuccess && result.ErrorType == ErrorType.Found)
-                return (int)HttpStatusCode.UnprocessableEntity;
+        if (!result.IsSuccess && result.ErrorType == ErrorType.Found)
+            return (int)HttpStatusCode.UnprocessableEntity;
 
-            return (int)HttpStatusCode.OK;
-        }
+        return (int)HttpStatusCode.OK;
     }
 }

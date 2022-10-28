@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Query;
+using SL.Person.Registration.Application.Query.FindPersonById;
 using System;
 using Xunit;
 

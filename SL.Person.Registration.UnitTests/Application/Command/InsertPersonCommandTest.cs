@@ -1,6 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
-using SL.Person.Registration.Application.Command;
+using SL.Person.Registration.Application.Command.InsertPerson;
 using SL.Person.Registration.Application.Requests;
 using System.Collections.Generic;
 using Xunit;

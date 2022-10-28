@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Query;
-using SL.Person.Registration.Application.Query.Handler;
+using SL.Person.Registration.Application.Query.FindLookup;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;

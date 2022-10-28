@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
 using MediatR;
 using Moq;
-using SL.Person.Registration.Application.Command;
-using SL.Person.Registration.Application.Command.Handler;
+using SL.Person.Registration.Application.Command.Precence;
 using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;

@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Command;
+using SL.Person.Registration.Application.Command.DeletePerson;
 using System;
 using Xunit;
 

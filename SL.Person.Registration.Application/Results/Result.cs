@@ -1,8 +1,7 @@
 ﻿using SL.Person.Registration.Application.Results.Base;
 
-namespace SL.Person.Registration.Application.Results
+namespace SL.Person.Registration.Application.Results;
+
+public class Result : ResultBase
 {
-    public class Result : ResultBase
-    {
-    }
 }

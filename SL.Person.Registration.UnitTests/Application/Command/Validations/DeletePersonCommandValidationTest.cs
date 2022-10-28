@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Command;
-using SL.Person.Registration.Application.Command.Validations;
+using SL.Person.Registration.Application.Command.DeletePerson;
 using SL.Person.Registration.Application.Exceptions;
 using System;
 using Xunit;

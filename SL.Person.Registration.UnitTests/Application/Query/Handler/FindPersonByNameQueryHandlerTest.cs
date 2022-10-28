@@ -1,8 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Application.Query;
-using SL.Person.Registration.Application.Query.Handler;
+using SL.Person.Registration.Application.Query.FindPeople;
 using SL.Person.Registration.Application.Results.Base;
 using SL.Person.Registration.Application.Results.Enums;
 using SL.Person.Registration.Domain.PersonAggregate;

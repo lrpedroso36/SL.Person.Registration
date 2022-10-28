@@ -1,19 +1,18 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System.Diagnostics.CodeAnalysis;
 
-namespace SL.Person.Registration.Application.Requests
+namespace SL.Person.Registration.Application.Requests;
+
+[ExcludeFromCodeCoverage]
+public class InterviewRequest
 {
-    [ExcludeFromCodeCoverage]
-    public class InterviewRequest
-    {
-        public TreatmentType TreatmentType { get; set; }
+    public TreatmentType TreatmentType { get; set; }
 
-        public WeakDayType WeakDayType { get; set; }
+    public WeakDayType WeakDayType { get; set; }
 
-        public InterviewType Type { get; set; }
+    public InterviewType Type { get; set; }
 
-        public int Amount { get; set; }
+    public int Amount { get; set; }
 
-        public string Opinion { get; set; }
-    }
+    public string Opinion { get; set; }
 }

@@ -2,8 +2,7 @@
 using FluentAssertions;
 using Moq;
 using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Application.Query;
-using SL.Person.Registration.Application.Query.Handler;
+using SL.Person.Registration.Application.Query.FindAddressByZipCode;
 using SL.Person.Registration.Application.Results.Base;
 using SL.Person.Registration.Domain.External.Contracts;
 using SL.Person.Registration.Domain.External.Response;

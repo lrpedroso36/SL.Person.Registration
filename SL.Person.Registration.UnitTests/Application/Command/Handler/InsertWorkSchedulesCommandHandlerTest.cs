@@ -2,10 +2,8 @@
 using FluentAssertions;
 using MediatR;
 using Moq;
-using SL.Person.Registration.Application.Command;
-using SL.Person.Registration.Application.Command.Handler;
+using SL.Person.Registration.Application.Command.InsertWorkSchedules;
 using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Application.Requests;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
@@ -14,7 +12,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using static System.Collections.Specialized.BitVector32;
 
 namespace SL.Person.Registration.UnitTests.Application.Command.Handler
 {

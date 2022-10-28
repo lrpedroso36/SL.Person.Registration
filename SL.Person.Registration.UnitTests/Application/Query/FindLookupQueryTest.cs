@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Query;
+using SL.Person.Registration.Application.Query.FindLookup;
 using System;
 using System.Collections.Generic;
 using Xunit;

@@ -1,10 +1,9 @@
-﻿namespace SL.Person.Registration.Application.Results.Enums
+﻿namespace SL.Person.Registration.Application.Results.Enums;
+
+public enum ErrorType
 {
-    public enum ErrorType
-    {
-        InvalidParameters = 1,
-        NotFoundData = 2,
-        EntitiesProperty = 3,
-        Found = 4
-    }
+    InvalidParameters = 1,
+    NotFoundData = 2,
+    EntitiesProperty = 3,
+    Found = 4
 }

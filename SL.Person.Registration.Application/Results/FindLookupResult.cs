@@ -1,14 +1,13 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace SL.Person.Registration.Application.Results
+namespace SL.Person.Registration.Application.Results;
+
+[ExcludeFromCodeCoverage]
+public class FindLookupResult
 {
-    [ExcludeFromCodeCoverage]
-    public class FindLookupResult
-    {
-        public int Id { get; set; }
+    public int Id { get; set; }
 
-        public string Name { get; set; }
+    public string Name { get; set; }
 
-        public string Description { get; set; }
-    }
+    public string Description { get; set; }
 }

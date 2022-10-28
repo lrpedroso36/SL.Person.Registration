@@ -5,31 +5,30 @@ using SL.Person.Registration.Application.Results.Base;
 using SL.Person.Registration.Application.Results.Enums;
 using System.Net;
 
-namespace SL.Person.Registration.Api.Filters
+namespace SL.Person.Registration.Api.Filters;
+
+public class DomainExceptionFilter : IActionFilter
 {
-    public class DomainExceptionFilter : IActionFilter
+    public void OnActionExecuting(ActionExecutingContext context) { }
+
+    public void OnActionExecuted(ActionExecutedContext context)
     {
-        public void OnActionExecuting(ActionExecutingContext context) { }
-
-        public void OnActionExecuted(ActionExecutedContext context)
+        if (context.Exception is DomainException domainException)
         {
-            if (context.Exception is DomainException domainException)
+            context.Result = new ObjectResult(domainException.Result)
             {
-                context.Result = new ObjectResult(domainException.Result)
-                {
-                    StatusCode = GetStatusCode(domainException.Result)
-                };
+                StatusCode = GetStatusCode(domainException.Result)
             };
+        };
 
-            context.ExceptionHandled = true;
-        }
+        context.ExceptionHandled = true;
+    }
 
-        private int? GetStatusCode(ResultBase result)
-        {
-            if (!result.IsSuccess && result.ErrorType == ErrorType.EntitiesProperty)
-                return (int)HttpStatusCode.Conflict;
+    private int? GetStatusCode(ResultBase result)
+    {
+        if (!result.IsSuccess && result.ErrorType == ErrorType.EntitiesProperty)
+            return (int)HttpStatusCode.Conflict;
 
-            return (int)HttpStatusCode.OK;
-        }
+        return (int)HttpStatusCode.OK;
     }
 }

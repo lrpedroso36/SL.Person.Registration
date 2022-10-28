@@ -1,12 +1,11 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
-using SL.Person.Registration.Application.Command;
-using SL.Person.Registration.Application.Command.Validations;
+using SL.Person.Registration.Application.Command.InsertWorkSchedules;
 using SL.Person.Registration.Application.Exceptions;
 using System;
 using System.Linq;
 using Xunit;
-using static SL.Person.Registration.Application.Command.InsertWorkSchedulesCommand;
+using static SL.Person.Registration.Application.Command.InsertWorkSchedules.InsertWorkSchedulesCommand;
 
 namespace SL.Person.Registration.UnitTests.Application.Command.Validations
 {

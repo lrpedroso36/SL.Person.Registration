@@ -2,8 +2,7 @@
 using FluentAssertions;
 using MediatR;
 using Moq;
-using SL.Person.Registration.Application.Command;
-using SL.Person.Registration.Application.Command.Hanler;
+using SL.Person.Registration.Application.Command.InsertPerson;
 using SL.Person.Registration.Application.Exceptions;
 using SL.Person.Registration.Application.Requests;
 using SL.Person.Registration.Domain.PersonAggregate;

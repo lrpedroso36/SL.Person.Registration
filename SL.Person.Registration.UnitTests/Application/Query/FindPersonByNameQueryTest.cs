@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Query;
+using SL.Person.Registration.Application.Query.FindPeople;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using Xunit;
 
