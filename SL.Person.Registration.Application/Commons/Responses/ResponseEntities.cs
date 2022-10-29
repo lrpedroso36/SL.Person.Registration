@@ -4,7 +4,7 @@ using SL.Person.Registration.Application.Commons.Responses.Contrats;
 
 namespace SL.Person.Registration.Application.Commons.Responses;
 
-public class ResultEntities<T> : ResultBase, IResult<T> where T : class
+public class ResponseEntities<T> : ResponseBase, IResponse<T> where T : class
 {
     public T Data { get; private set; }
 

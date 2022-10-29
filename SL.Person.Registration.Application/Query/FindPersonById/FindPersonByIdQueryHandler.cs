@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.FindPersonById;
 
-public class FindPersonByIdQueryHandler : IRequestHandler<FindPersonByIdQuery, ResultBase>
+public class FindPersonByIdQueryHandler : IRequestHandler<FindPersonByIdQuery, ResponseBase>
 {
     private readonly IPersonRegistrationRepository _repository;
 
@@ -20,7 +20,7 @@ public class FindPersonByIdQueryHandler : IRequestHandler<FindPersonByIdQuery, R
         _repository = repository;
     }
 
-    public async Task<ResultBase> Handle(FindPersonByIdQuery request, CancellationToken cancellationToken)
+    public async Task<ResponseBase> Handle(FindPersonByIdQuery request, CancellationToken cancellationToken)
     {
         request.RequestValidate();
 
@@ -28,7 +28,7 @@ public class FindPersonByIdQueryHandler : IRequestHandler<FindPersonByIdQuery, R
 
         personRegistration.ValidateIsNotFoundInstance();
 
-        var resultFindPerson = new ResultEntities<FindPersonResponse>();
+        var resultFindPerson = new ResponseEntities<FindPersonResponse>();
 
         resultFindPerson.SetData((FindPersonResponse)personRegistration);
 

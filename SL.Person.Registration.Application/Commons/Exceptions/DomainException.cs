@@ -5,8 +5,8 @@ namespace SL.Person.Registration.Application.Commons.Exceptions;
 
 public class DomainException : Exception
 {
-    public ResultBase Result { get; }
+    public ResponseBase Result { get; }
 
-    public DomainException(ResultBase resultBase)
+    public DomainException(ResponseBase resultBase)
         => Result = resultBase;
 }

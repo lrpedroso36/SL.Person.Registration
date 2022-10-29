@@ -5,8 +5,8 @@ namespace SL.Person.Registration.Application.Commons.Exceptions;
 
 public class ApplicationRequestException : Exception
 {
-    public ResultBase Result { get; }
+    public ResponseBase Result { get; }
 
-    public ApplicationRequestException(ResultBase resultBase)
+    public ApplicationRequestException(ResponseBase resultBase)
         => Result = resultBase;
 }

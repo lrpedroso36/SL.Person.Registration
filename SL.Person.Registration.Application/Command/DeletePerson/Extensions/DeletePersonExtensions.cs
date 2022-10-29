@@ -12,7 +12,7 @@ public static class DeletePersonExtensions
     {
         if (!Guid.TryParse(command.Id, out _))
         {
-            var result = new Result();
+            var result = new Response();
             result.SetErrorType(ErrorType.InvalidParameters);
             result.AddErrors(ResourceMessagesValidation.DeletePersonCommandValidation_RequestInvalid);
             throw new ApplicationRequestException(result);

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.FindPeople;
 
-public class FindPeopleQueryHandler : IRequestHandler<FindPeopleQuery, ResultEntities<IEnumerable<FindPeopleResponse>>>
+public class FindPeopleQueryHandler : IRequestHandler<FindPeopleQuery, ResponseEntities<IEnumerable<FindPeopleResponse>>>
 {
     private readonly IPersonRegistrationRepository _repository;
 
@@ -19,11 +19,11 @@ public class FindPeopleQueryHandler : IRequestHandler<FindPeopleQuery, ResultEnt
         _repository = repository;
     }
 
-    public async Task<ResultEntities<IEnumerable<FindPeopleResponse>>> Handle(FindPeopleQuery request, CancellationToken cancellationToken)
+    public async Task<ResponseEntities<IEnumerable<FindPeopleResponse>>> Handle(FindPeopleQuery request, CancellationToken cancellationToken)
     {
         request.RequestValidate();
 
-        var result = new ResultEntities<IEnumerable<FindPeopleResponse>>();
+        var result = new ResponseEntities<IEnumerable<FindPeopleResponse>>();
 
         var personRegistration = _repository.Get(request.PersonType, request.Name, request.DocumentNumber);
 

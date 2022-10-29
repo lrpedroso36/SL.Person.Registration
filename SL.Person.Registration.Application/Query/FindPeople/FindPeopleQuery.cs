@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SL.Person.Registration.Application.Query.FindPeople;
 
-public class FindPeopleQuery : IRequest<ResultEntities<IEnumerable<FindPeopleResponse>>>
+public class FindPeopleQuery : IRequest<ResponseEntities<IEnumerable<FindPeopleResponse>>>
 {
     public string Name { get; private set; }
 

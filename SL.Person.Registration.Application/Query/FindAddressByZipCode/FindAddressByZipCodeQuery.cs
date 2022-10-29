@@ -3,7 +3,7 @@ using SL.Person.Registration.Application.Commons.Responses.Base;
 
 namespace SL.Person.Registration.Application.Query.FindAddressByZipCode;
 
-public class FindAddressByZipCodeQuery : IRequest<ResultBase>
+public class FindAddressByZipCodeQuery : IRequest<ResponseBase>
 {
     public string ZipCode { get; }
 

@@ -42,11 +42,11 @@ public class PersonController : ControllerBase
     /// <response code="404">Pessoa não encontrada</response>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<FindPersonResponse>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResponse>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResponse>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseEntities<FindPersonResponse>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseEntities<FindPersonResponse>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResponseEntities<FindPersonResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ResultBase> FindPersonByDocumentAsync(string id, CancellationToken cancellationToken)
+    public async Task<ResponseBase> FindPersonByDocumentAsync(string id, CancellationToken cancellationToken)
         => await _mediator.Send(new FindPersonByIdQuery(id), cancellationToken);
 
     /// <summary>
@@ -61,11 +61,11 @@ public class PersonController : ControllerBase
     /// <response code="404">Pessoa não encontrada</response>
     /// <returns></returns>
     [HttpGet()]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<IEnumerable<FindPersonResponse>>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResponse>>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResponse>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseEntities<IEnumerable<FindPersonResponse>>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseEntities<IEnumerable<FindPersonResponse>>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResponseEntities<FindPersonResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ResultEntities<IEnumerable<FindPeopleResponse>>> FindPeople([FromQuery] string name, long documentNumber, PersonType? personType, CancellationToken cancellationToken)
+    public async Task<ResponseEntities<IEnumerable<FindPeopleResponse>>> FindPeople([FromQuery] string name, long documentNumber, PersonType? personType, CancellationToken cancellationToken)
         => await _mediator.Send(new FindPeopleQuery(name, documentNumber, personType), cancellationToken);
 
     /// <summary>
@@ -80,9 +80,9 @@ public class PersonController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(Result))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status422UnprocessableEntity, Type = typeof(Response))]
     public async Task PostAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
         => await _mediator.Send(new InsertPersonCommand(request), cancellationToken);
 
@@ -98,9 +98,9 @@ public class PersonController : ControllerBase
     /// <returns></returns>
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Response))]
     public async Task PutAsync([FromBody] PersonRequest request, CancellationToken cancellationToken)
         => await _mediator.Send(new UpdatePersonCommand(request), cancellationToken);
 
@@ -116,9 +116,9 @@ public class PersonController : ControllerBase
     /// <returns></returns>
     [HttpDelete("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Result))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status409Conflict, Type = typeof(Response))]
     public async Task DeleteAsync(string id, CancellationToken cancellationToken)
         => await _mediator.Send(new DeletePersonCommand(id), cancellationToken);
 }

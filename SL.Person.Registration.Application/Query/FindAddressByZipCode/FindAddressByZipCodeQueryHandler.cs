@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SL.Person.Registration.Application.Query.FindAddressByZipCode;
 
-public class FindAddressByZipCodeQueryHandler : IRequestHandler<FindAddressByZipCodeQuery, ResultBase>
+public class FindAddressByZipCodeQueryHandler : IRequestHandler<FindAddressByZipCodeQuery, ResponseBase>
 {
     private readonly IAddressApi _addressApi;
 
@@ -18,7 +18,7 @@ public class FindAddressByZipCodeQueryHandler : IRequestHandler<FindAddressByZip
         _addressApi = addressApi;
     }
 
-    public async Task<ResultBase> Handle(FindAddressByZipCodeQuery request, CancellationToken cancellationToken)
+    public async Task<ResponseBase> Handle(FindAddressByZipCodeQuery request, CancellationToken cancellationToken)
     {
         request.RequestValidate();
 
@@ -26,7 +26,7 @@ public class FindAddressByZipCodeQueryHandler : IRequestHandler<FindAddressByZip
 
         addressResponse.ValidateInstance();
 
-        var result = new ResultEntities<Address>();
+        var result = new ResponseEntities<Address>();
         result.SetData(addressResponse.GetAddress());
 
         return result;

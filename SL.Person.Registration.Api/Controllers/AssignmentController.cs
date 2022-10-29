@@ -30,8 +30,8 @@ public class AssignmentController : ControllerBase
     /// <returns></returns>
     [HttpPut("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
     public async Task PutAsync(string id, CancellationToken cancellationToken)
         => await _mediator.Send(new PresenceAssignmentCommand(id), cancellationToken);
 }

@@ -34,8 +34,8 @@ public class InterviewController : ControllerBase
     /// <returns></returns>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
     public async Task PostAsync(string interviewedId, string interviewerId, [FromBody] InterviewRequest request, CancellationToken cancellationToken)
         => await _mediator.Send(new InsertInterviewCommand(interviewedId, interviewerId, request), cancellationToken);
 
@@ -50,8 +50,8 @@ public class InterviewController : ControllerBase
     /// <returns></returns>
     [HttpPost("presence/{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
     public async Task PresenceAsync(string id, CancellationToken cancellationToken)
         => await _mediator.Send(new PrecenceCommand(id), cancellationToken);
 }

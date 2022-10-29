@@ -1,9 +1,9 @@
 ﻿using SL.Person.Registration.Application.Command.Person.Insert;
 using SL.Person.Registration.Application.Command.Person.Update;
 using SL.Person.Registration.Application.Commons.Exceptions;
-using SL.Person.Registration.Application.Commons.Extensions;
 using SL.Person.Registration.Application.Commons.Responses;
 using SL.Person.Registration.Application.Commons.Responses.Enums;
+using SL.Person.Registration.Application.Commons.Responses.Extensions;
 using SL.Person.Registration.CrossCuting.Resources;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Validations;
@@ -16,7 +16,7 @@ public static class PersonExtensions
     {
         if (request.Person == null || request.Person.DocumentNumber == 0)
         {
-            var result = new Result();
+            var result = new Response();
             result.ToInvalidParameter(ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid);
             throw new ApplicationRequestException(result);
         }
@@ -26,7 +26,7 @@ public static class PersonExtensions
     {
         if (request.Person == null || request.Person.DocumentNumber == 0)
         {
-            var result = new Result();
+            var result = new Response();
             result.ToInvalidParameter(ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid);
             throw new ApplicationRequestException(result);
         }
@@ -36,7 +36,7 @@ public static class PersonExtensions
     {
         if (person != null)
         {
-            var result = new Result();
+            var result = new Response();
             result.ToNotFound(ResourceMessagesValidation.InsertPersonCommandHandler_Found);
             throw new ApplicationRequestException(result);
         }
@@ -49,7 +49,7 @@ public static class PersonExtensions
 
         if (!validation.IsValid)
         {
-            var result = new ResultEntities<PersonRegistration>();
+            var result = new ResponseEntities<PersonRegistration>();
             result.SetErrorType(ErrorType.NotFoundData);
             validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage));
             throw new ApplicationRequestException(result);
@@ -63,7 +63,7 @@ public static class PersonExtensions
 
         if (!validation.IsValid)
         {
-            var result = new Result();
+            var result = new Response();
             result.ToEntitiesProperty(validation);
             throw new DomainException(result);
         }

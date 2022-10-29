@@ -11,15 +11,15 @@ namespace SL.Person.Registration.UnitTests.Application.Results
     {
         public static List<object[]> Data = new List<object[]>
         {
-            new object[] { Builder<ResultEntities<ResultMoq>>.CreateNew().Build(), true, null, new List<string>() },
-            new object[] { Builder<ResultEntities<ResultMoq>>.CreateNew().Build(), true, " ", new List<string>() },
-            new object[] { Builder<ResultEntities<ResultMoq>>.CreateNew().Build(), true, "", new List<string>() },
-            new object[] { Builder<ResultEntities<ResultMoq>>.CreateNew().Build(), false, "teste", new List<string>() { "teste" } },
+            new object[] { Builder<ResponseEntities<ResultMoq>>.CreateNew().Build(), true, null, new List<string>() },
+            new object[] { Builder<ResponseEntities<ResultMoq>>.CreateNew().Build(), true, " ", new List<string>() },
+            new object[] { Builder<ResponseEntities<ResultMoq>>.CreateNew().Build(), true, "", new List<string>() },
+            new object[] { Builder<ResponseEntities<ResultMoq>>.CreateNew().Build(), false, "teste", new List<string>() { "teste" } },
         };
 
         [Theory]
         [MemberData(nameof(Data))]
-        public void Should_set_properties(ResultEntities<ResultMoq> result, bool sucess, string error, List<string> errors)
+        public void Should_set_properties(ResponseEntities<ResultMoq> result, bool sucess, string error, List<string> errors)
         {
             //arrange
             //act
@@ -35,7 +35,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
         public void Should_not_add_same_errors()
         {
             //arrage
-            var result = Builder<ResultEntities<ResultMoq>>.CreateNew().Build();
+            var result = Builder<ResponseEntities<ResultMoq>>.CreateNew().Build();
 
             //act
             result.SetErrorType(ErrorType.InvalidParameters);

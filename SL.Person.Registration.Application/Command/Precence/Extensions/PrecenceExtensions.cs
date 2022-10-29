@@ -1,6 +1,6 @@
 ﻿using SL.Person.Registration.Application.Commons.Exceptions;
-using SL.Person.Registration.Application.Commons.Extensions;
 using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Commons.Responses.Extensions;
 using SL.Person.Registration.CrossCuting.Resources;
 using System;
 
@@ -12,7 +12,7 @@ public static class PrecenceExtensions
     {
         if (!Guid.TryParse(request.Id, out _))
         {
-            var result = new Result();
+            var result = new Response();
             result.ToInvalidParameter(ResourceMessagesValidation.PrecenceCommandValidation_DataRequestInvalid);
             throw new ApplicationRequestException(result);
         }

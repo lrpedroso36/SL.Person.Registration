@@ -33,8 +33,8 @@ public class WorkScheduleController : ControllerBase
     /// <returns></returns>
     [HttpPost("{id}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Result))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Result))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(Response))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(Response))]
     public async Task PutAsync(string id, [FromBody] List<WorkScheduleCommand> works, CancellationToken cancellationToken)
         => await _mediator.Send(new InsertWorkSchedulesCommand(id, works), cancellationToken);
 }

@@ -1,6 +1,6 @@
 ﻿using SL.Person.Registration.Application.Commons.Exceptions;
-using SL.Person.Registration.Application.Commons.Extensions;
 using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Commons.Responses.Extensions;
 using SL.Person.Registration.CrossCuting.Resources;
 using System;
 
@@ -10,7 +10,7 @@ public static class InsertInterviewExtensions
 {
     public static void RequestValidate(this InsertInterviewCommand request)
     {
-        var result = new Result();
+        var result = new Response();
 
         if (request.Interview == null)
         {

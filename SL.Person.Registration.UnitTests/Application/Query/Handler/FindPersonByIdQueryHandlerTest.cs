@@ -56,7 +56,7 @@ public class FindPersonByIdQueryHandlerTest
         var queryHandler = new FindPersonByIdQueryHandler(null);
 
         //act
-        Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByIdQuery(id), default);
+        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindPersonByIdQuery(id), default);
 
         //assert
         await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -70,7 +70,7 @@ public class FindPersonByIdQueryHandlerTest
         var queryHandler = new FindPersonByIdQueryHandler(moq.Object);
 
         //act
-        Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPersonByIdQuery(Guid.NewGuid().ToString()), default);
+        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindPersonByIdQuery(Guid.NewGuid().ToString()), default);
 
         //assert
         await action.Should().ThrowAsync<ApplicationRequestException>();

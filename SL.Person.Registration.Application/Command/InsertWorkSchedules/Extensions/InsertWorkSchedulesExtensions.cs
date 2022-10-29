@@ -1,6 +1,6 @@
 ﻿using SL.Person.Registration.Application.Commons.Exceptions;
-using SL.Person.Registration.Application.Commons.Extensions;
 using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Commons.Responses.Extensions;
 using SL.Person.Registration.CrossCuting.Resources;
 using System;
 
@@ -12,7 +12,7 @@ public static class InsertWorkSchedulesExtensions
     {
         if (!Guid.TryParse(request.Id, out _) || request.Works.Count == 0)
         {
-            var result = new Result();
+            var result = new Response();
             result.ToInvalidParameter(ResourceMessagesValidation.InsertWorkSchedulesCommand_RequestInvalid);
             throw new ApplicationRequestException(result);
         }

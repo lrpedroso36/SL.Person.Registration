@@ -14,7 +14,7 @@ public static class FindAddressByZipCodeExtensions
     {
         if (string.IsNullOrWhiteSpace(request.ZipCode))
         {
-            var result = new ResultEntities<Address>();
+            var result = new ResponseEntities<Address>();
             result.ToInvalidParameter(ResourceMessagesValidation.FindAddressByZipCodeValidation_RequestInvalid);
             throw new ApplicationRequestException(result);
         }
@@ -27,7 +27,7 @@ public static class FindAddressByZipCodeExtensions
 
         if (!validation.IsValid)
         {
-            var result = new Result();
+            var result = new Response();
             result.SetErrorType(ErrorType.NotFoundData);
             validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage));
             throw new ApplicationRequestException(result);

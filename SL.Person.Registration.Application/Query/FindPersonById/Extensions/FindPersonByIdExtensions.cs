@@ -12,7 +12,7 @@ public static class FindPersonByIdExtensions
     {
         if (!Guid.TryParse(request.Id, out _))
         {
-            var result = new ResultEntities<FindPersonResponse>();
+            var result = new ResponseEntities<FindPersonResponse>();
             result.ToInvalidParameter(ResourceMessagesValidation.FindPersonByIdValidation_RequestInvalid);
             throw new ApplicationRequestException(result);
         }

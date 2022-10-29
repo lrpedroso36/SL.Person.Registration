@@ -42,7 +42,7 @@ public class FindAddressByZipCodeQueryHandlerTest
         var queryHandler = new FindAddressByZipCodeQueryHandler(null);
 
         //act
-        Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindAddressByZipCodeQuery(zipCode), default);
+        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindAddressByZipCodeQuery(zipCode), default);
 
         //assert
         await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -60,7 +60,7 @@ public class FindAddressByZipCodeQueryHandlerTest
         var queryHandler = new FindAddressByZipCodeQueryHandler(moq.Object);
 
         //act
-        Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindAddressByZipCodeQuery("13295478"), default);
+        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindAddressByZipCodeQuery("13295478"), default);
 
         //assert
         await action.Should().ThrowAsync<ApplicationRequestException>();

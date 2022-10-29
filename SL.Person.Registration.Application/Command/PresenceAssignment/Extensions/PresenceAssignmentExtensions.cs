@@ -1,6 +1,6 @@
 ﻿using SL.Person.Registration.Application.Commons.Exceptions;
-using SL.Person.Registration.Application.Commons.Extensions;
 using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Commons.Responses.Extensions;
 using SL.Person.Registration.CrossCuting.Resources;
 using SL.Person.Registration.Domain.PersonAggregate;
 using System;
@@ -15,7 +15,7 @@ public static class PresenceAssignmentExtensions
     {
         if (!Guid.TryParse(request.Id, out _))
         {
-            var result = new Result();
+            var result = new Response();
             result.ToInvalidParameter(ResourceMessagesValidation.PresenceAssignmentCommandValidation_RequestInvalid_Id);
             throw new ApplicationRequestException(result);
         }
@@ -25,7 +25,7 @@ public static class PresenceAssignmentExtensions
     {
         if (assignments != null && assignments.Any(x => x.Date.Date == datePresence.Date))
         {
-            var result = new Result();
+            var result = new Response();
             result.ToInvalidParameter(ResourceMessagesValidation.PresenceAssignmentCommandValidation_RequestInvalid_Presence);
             throw new ApplicationRequestException(result);
         }

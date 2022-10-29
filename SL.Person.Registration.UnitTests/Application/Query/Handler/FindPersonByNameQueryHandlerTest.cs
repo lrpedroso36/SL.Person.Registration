@@ -60,7 +60,7 @@ public class FindPersonByNameQueryHandlerTest
         var queryHandler = new FindPeopleQueryHandler(null);
 
         //act
-        Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name, documentNumber, personType), default);
+        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name, documentNumber, personType), default);
 
         //assert
         await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -74,7 +74,7 @@ public class FindPersonByNameQueryHandlerTest
         var queryHandler = new FindPeopleQueryHandler(moq.Object);
 
         //act
-        Func<Task<ResultBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("teste", 123456, PersonType.Tarefeiro), default);
+        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("teste", 123456, PersonType.Tarefeiro), default);
 
         //assert
         await action.Should().ThrowAsync<ApplicationRequestException>();

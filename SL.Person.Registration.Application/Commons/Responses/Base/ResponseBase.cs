@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace SL.Person.Registration.Application.Commons.Responses.Base;
 
-public abstract class ResultBase
+public abstract class ResponseBase
 {
     [JsonIgnore]
     public ErrorType ErrorType { get; private set; }

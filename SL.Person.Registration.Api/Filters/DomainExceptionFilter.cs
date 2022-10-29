@@ -24,7 +24,7 @@ public class DomainExceptionFilter : IActionFilter
         context.ExceptionHandled = true;
     }
 
-    private int? GetStatusCode(ResultBase result)
+    private int? GetStatusCode(ResponseBase result)
     {
         if (!result.IsSuccess && result.ErrorType == ErrorType.EntitiesProperty)
             return (int)HttpStatusCode.Conflict;

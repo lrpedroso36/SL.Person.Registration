@@ -1,6 +1,6 @@
 ﻿using SL.Person.Registration.Application.Commons.Exceptions;
-using SL.Person.Registration.Application.Commons.Extensions;
 using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Commons.Responses.Extensions;
 using SL.Person.Registration.Application.Query.FindPeople.Responses;
 using SL.Person.Registration.CrossCuting.Resources;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -15,7 +15,7 @@ public static class FindPeopleExtensions
     {
         if (string.IsNullOrWhiteSpace(request.Name) && request.DocumentNumber == 0 && !request.PersonType.HasValue)
         {
-            var result = new ResultEntities<IEnumerable<FindPersonResponse>>();
+            var result = new ResponseEntities<IEnumerable<FindPersonResponse>>();
             result.ToInvalidParameter(ResourceMessagesValidation.FindPeopleQueryValidation_RequestInvalid);
             throw new ApplicationRequestException(result);
         }
@@ -25,7 +25,7 @@ public static class FindPeopleExtensions
     {
         if (persons == null || !persons.Any())
         {
-            var result = new Result();
+            var result = new Response();
             result.ToNotFound(ResourceMessagesValidation.FindPeopleQueryValidation_NotFound);
             throw new ApplicationRequestException(result);
         }

@@ -13,7 +13,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
         {
             //arrange
             //act
-            var result = new Result();
+            var result = new Response();
 
             //assert
             result.IsSuccess.Should().BeTrue();
@@ -31,7 +31,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var errorsExpected = new List<string>() { error };
 
             //act
-            var result = new Result();
+            var result = new Response();
             result.SetErrorType(errorType);
             result.AddErrors(error);
 
@@ -46,7 +46,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
         {
             //arrage
             //act
-            var result = new Result();
+            var result = new Response();
             result.SetErrorType(ErrorType.InvalidParameters);
             result.AddErrors("teste");
             result.AddErrors("teste");

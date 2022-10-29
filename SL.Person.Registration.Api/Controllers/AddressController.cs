@@ -30,9 +30,9 @@ public class AddressController : ControllerBase
     /// <response code="404">Não foi possível encontrar o endereço</response>
     /// <returns></returns>
     [HttpGet("{zipCode}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultBase))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultBase))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultBase))]
-    public async Task<ResultBase> GetAsync(string zipCode, CancellationToken cancellationToken)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResponseBase))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseBase))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResponseBase))]
+    public async Task<ResponseBase> GetAsync(string zipCode, CancellationToken cancellationToken)
         => await _mediator.Send(new FindAddressByZipCodeQuery(zipCode), cancellationToken);
 }

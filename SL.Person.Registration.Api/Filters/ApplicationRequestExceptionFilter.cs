@@ -24,7 +24,7 @@ public class ApplicationRequestExceptionFilter : IActionFilter
         context.ExceptionHandled = true;
     }
 
-    private int? GetStatusCode(ResultBase result)
+    private int? GetStatusCode(ResponseBase result)
     {
         if (!result.IsSuccess && result.ErrorType == ErrorType.InvalidParameters)
             return (int)HttpStatusCode.BadRequest;
