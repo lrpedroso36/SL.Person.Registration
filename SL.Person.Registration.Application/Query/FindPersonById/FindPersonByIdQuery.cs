@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Results.Base;
+using SL.Person.Registration.Application.Commons.Responses.Base;
 
 namespace SL.Person.Registration.Application.Query.FindPersonById;
 

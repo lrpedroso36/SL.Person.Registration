@@ -1,7 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
-using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Application.Extensions;
+using SL.Person.Registration.Application.Commons.Exceptions;
+using SL.Person.Registration.Application.Query.FindAddressByZipCode.Extensions;
 using SL.Person.Registration.Domain.External.Response;
 using System;
 using Xunit;

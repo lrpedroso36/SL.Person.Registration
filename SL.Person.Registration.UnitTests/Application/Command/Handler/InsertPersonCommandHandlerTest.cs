@@ -2,9 +2,9 @@
 using FluentAssertions;
 using MediatR;
 using Moq;
-using SL.Person.Registration.Application.Command.InsertPerson;
-using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Application.Requests;
+using SL.Person.Registration.Application.Command.Person.Insert;
+using SL.Person.Registration.Application.Commons.Exceptions;
+using SL.Person.Registration.Application.Commons.Requests;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;

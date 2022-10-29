@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using SL.Person.Registration.Application.Command.PresenceAssignment;
-using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Command.PresenceAssignment.Extensions;
+using SL.Person.Registration.Application.Commons.Exceptions;
 using System;
 using Xunit;
 

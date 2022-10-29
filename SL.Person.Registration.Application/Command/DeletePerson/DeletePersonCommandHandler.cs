@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Extensions;
+using SL.Person.Registration.Application.Command.DeletePerson.Extensions;
+using SL.Person.Registration.Application.Command.Person.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ public class DeletePersonCommandHandler : IRequestHandler<DeletePersonCommand>
 
         var personRegistration = _repository.GetById(request.Id);
 
-        personRegistration.ValidateInstance();
+        personRegistration.ValidateIsNotFoundInstance();
 
         personRegistration.SetIsExcluded();
 

@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Application.Extensions;
+using SL.Person.Registration.Application.Command.Person.Extensions;
+using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Resources;
@@ -12,30 +12,6 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
 {
     public class PersonRegistrationExtensionsTest
     {
-        public static List<object[]> Data = new List<object[]>
-        {
-           new object[] { PersonType.Tarefeiro , DomainMessages.PersonRegistrationLabore_InstanceInvalid },
-           new object[] { PersonType.Assistido, DomainMessages.PersonRegistrationWatched_InstanceInvalid },
-           new object[] { PersonType.Palestrante, DomainMessages.PersonRegistrationSpeaker_InstanceInvalid },
-           new object[] { PersonType.Entrevistador, DomainMessages.PersonRegistrationInterviewer_InstanceInvalid }
-        };
-
-        [Theory]
-        [MemberData(nameof(Data))]
-        public void Should_validate_instance_type(PersonType personType, string messageValidate)
-        {
-            //arrange 
-            var expected = new List<string> { messageValidate };
-            PersonRegistration person = null;
-
-            //act
-            Action action = () => person.ValidateInstanceByType(personType);
-
-            //assert
-            action.Should().Throw<ApplicationRequestException>();
-        }
-
-
         [Fact]
         public void Should_validate_instance()
         {
@@ -44,7 +20,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
             PersonRegistration person = null;
 
             //act
-            Action action = () => person.ValidateInstance();
+            Action action = () => person.ValidateIsNotFoundInstance();
 
             //assert
             action.Should().Throw<ApplicationRequestException>();

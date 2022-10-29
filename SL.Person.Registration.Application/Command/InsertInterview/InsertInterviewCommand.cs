@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Requests;
+using SL.Person.Registration.Application.Commons.Requests;
 
 namespace SL.Person.Registration.Application.Command.InsertInterview;
 

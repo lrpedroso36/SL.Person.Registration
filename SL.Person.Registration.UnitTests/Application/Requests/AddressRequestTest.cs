@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Requests;
+using SL.Person.Registration.Application.Commons.Requests;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Requests

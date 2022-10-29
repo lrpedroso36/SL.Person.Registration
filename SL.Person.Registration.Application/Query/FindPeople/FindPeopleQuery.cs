@@ -1,11 +1,12 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Query.FindPersonById.Responses;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System.Collections.Generic;
 
 namespace SL.Person.Registration.Application.Query.FindPeople;
 
-public class FindPeopleQuery : IRequest<ResultEntities<IEnumerable<FindPeopleResult>>>
+public class FindPeopleQuery : IRequest<ResultEntities<IEnumerable<FindPeopleResponse>>>
 {
     public string Name { get; private set; }
 

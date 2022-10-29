@@ -1,6 +1,6 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Extensions;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using SL.Person.Registration.Application.Command.Person.Extensions;
+using SL.Person.Registration.Application.Command.Precence.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using System;
 using System.Threading;
@@ -23,7 +23,7 @@ public class PrecenceCommandHandler : IRequestHandler<PrecenceCommand>
 
         var personInterviewed = _personRegistrationRepository.GetById(request.Id);
 
-        personInterviewed.ValidateInstanceByType(PersonType.Assistido);
+        personInterviewed.ValidateIsNotFoundInstance();
 
         var date = DateTime.Now;
 

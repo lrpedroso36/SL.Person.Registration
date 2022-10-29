@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Extensions;
+using SL.Person.Registration.Application.Command.InsertInterview.Extensions;
+using SL.Person.Registration.Application.Command.Person.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
@@ -26,7 +27,7 @@ public class InsertInterviewCommandHandler : IRequestHandler<InsertInterviewComm
 
         var personInterviewer = _personRegistrationRepository.GetById(request.InterviewerId);
 
-        personInterviewer.ValidateInstanceByType(PersonType.Entrevistador);
+        personInterviewer.ValidateIsNotFoundInstance();
 
         personInterviewed.AddInterview(Interview.CreateInstance(request.Interview.TreatmentType, request.Interview.WeakDayType,
             request.Interview.Type, DateTime.Now, personInterviewer, request.Interview.Amount, request.Interview.Opinion));

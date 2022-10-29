@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Extensions;
+using SL.Person.Registration.Application.Command.Person.Extensions;
+using SL.Person.Registration.Application.Command.PresenceAssignment.Extensions;
 using SL.Person.Registration.Domain.Repositories;
 using System;
 using System.Threading;
@@ -22,7 +23,7 @@ public class PresenceAssignmentCommandHandler : IRequestHandler<PresenceAssignme
 
         var personLaborer = _repository.GetById(request.Id);
 
-        personLaborer.ValidateInstance();
+        personLaborer.ValidateIsNotFoundInstance();
 
         var datePresence = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Local);
         datePresence.RequestValidateDateAssingment(personLaborer.Assignments);

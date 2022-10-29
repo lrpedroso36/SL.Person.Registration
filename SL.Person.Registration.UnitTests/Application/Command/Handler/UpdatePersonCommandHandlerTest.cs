@@ -1,7 +1,7 @@
 ﻿using FizzWare.NBuilder;
 using Moq;
-using SL.Person.Registration.Application.Command.UpdatePerson;
-using SL.Person.Registration.Application.Requests;
+using SL.Person.Registration.Application.Command.Person.Update;
+using SL.Person.Registration.Application.Commons.Requests;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System.Threading.Tasks;

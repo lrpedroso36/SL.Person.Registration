@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Query.FindPersonById;
+using SL.Person.Registration.Application.Query.FindPersonById.Extensions;
 using System;
 using Xunit;
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Application.Results.Base;
-using SL.Person.Registration.Application.Results.Enums;
+using SL.Person.Registration.Application.Commons.Exceptions;
+using SL.Person.Registration.Application.Commons.Responses.Base;
+using SL.Person.Registration.Application.Commons.Responses.Enums;
 using System.Net;
 
 namespace SL.Person.Registration.Api.Filters;

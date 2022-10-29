@@ -1,0 +1,20 @@
+﻿using SL.Person.Registration.Application.Commons.Exceptions;
+using SL.Person.Registration.Application.Commons.Extensions;
+using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.CrossCuting.Resources;
+using System;
+
+namespace SL.Person.Registration.Application.Command.InsertWorkSchedules.Extensions;
+
+public static class InsertWorkSchedulesExtensions
+{
+    public static void RequestValidate(this InsertWorkSchedulesCommand request)
+    {
+        if (!Guid.TryParse(request.Id, out _) || request.Works.Count == 0)
+        {
+            var result = new Result();
+            result.ToInvalidParameter(ResourceMessagesValidation.InsertWorkSchedulesCommand_RequestInvalid);
+            throw new ApplicationRequestException(result);
+        }
+    }
+}

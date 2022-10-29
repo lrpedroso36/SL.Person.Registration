@@ -3,13 +3,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SL.Person.Registration.Application.Command.DeletePerson;
-using SL.Person.Registration.Application.Command.InsertPerson;
-using SL.Person.Registration.Application.Command.UpdatePerson;
+using SL.Person.Registration.Application.Command.Person.Insert;
+using SL.Person.Registration.Application.Command.Person.Update;
+using SL.Person.Registration.Application.Commons.Requests;
+using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Commons.Responses.Base;
 using SL.Person.Registration.Application.Query.FindPeople;
+using SL.Person.Registration.Application.Query.FindPeople.Responses;
 using SL.Person.Registration.Application.Query.FindPersonById;
-using SL.Person.Registration.Application.Requests;
-using SL.Person.Registration.Application.Results;
-using SL.Person.Registration.Application.Results.Base;
+using SL.Person.Registration.Application.Query.FindPersonById.Responses;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System.Collections.Generic;
 using System.Threading;
@@ -40,9 +42,9 @@ public class PersonController : ControllerBase
     /// <response code="404">Pessoa não encontrada</response>
     /// <returns></returns>
     [HttpGet("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<FindPersonResult>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResult>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<FindPersonResponse>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<FindPersonResponse>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<ResultBase> FindPersonByDocumentAsync(string id, CancellationToken cancellationToken)
         => await _mediator.Send(new FindPersonByIdQuery(id), cancellationToken);
@@ -59,11 +61,11 @@ public class PersonController : ControllerBase
     /// <response code="404">Pessoa não encontrada</response>
     /// <returns></returns>
     [HttpGet()]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResult>>))]
-    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResult>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ResultEntities<IEnumerable<FindPersonResponse>>))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResultEntities<IEnumerable<FindPersonResponse>>))]
+    [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResultEntities<FindPersonResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ResultEntities<IEnumerable<FindPeopleResult>>> FindPeople([FromQuery] string name, long documentNumber, PersonType? personType, CancellationToken cancellationToken)
+    public async Task<ResultEntities<IEnumerable<FindPeopleResponse>>> FindPeople([FromQuery] string name, long documentNumber, PersonType? personType, CancellationToken cancellationToken)
         => await _mediator.Send(new FindPeopleQuery(name, documentNumber, personType), cancellationToken);
 
     /// <summary>

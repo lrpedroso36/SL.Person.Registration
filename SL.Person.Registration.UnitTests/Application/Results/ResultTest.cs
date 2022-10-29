@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
-using SL.Person.Registration.Application.Results;
-using SL.Person.Registration.Application.Results.Enums;
+using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Commons.Responses.Enums;
 using System.Collections.Generic;
 using Xunit;
 

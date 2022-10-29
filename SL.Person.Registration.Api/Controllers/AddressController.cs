@@ -1,8 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SL.Person.Registration.Application.Commons.Responses.Base;
 using SL.Person.Registration.Application.Query.FindAddressByZipCode;
-using SL.Person.Registration.Application.Results.Base;
 using System.Threading;
 using System.Threading.Tasks;
 

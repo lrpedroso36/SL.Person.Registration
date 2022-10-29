@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL.Person.Registration.Application.Command.InsertWorkSchedules;
-using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Commons.Responses;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

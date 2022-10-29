@@ -3,7 +3,7 @@ using FluentAssertions;
 using MediatR;
 using Moq;
 using SL.Person.Registration.Application.Command.InsertWorkSchedules;
-using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;

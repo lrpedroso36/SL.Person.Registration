@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using SL.Person.Registration.Application.Command.Precence;
-using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Command.Precence.Extensions;
+using SL.Person.Registration.Application.Commons.Exceptions;
 using System;
 using Xunit;
 

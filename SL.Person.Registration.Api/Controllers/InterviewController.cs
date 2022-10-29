@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL.Person.Registration.Application.Command.InsertInterview;
 using SL.Person.Registration.Application.Command.Precence;
-using SL.Person.Registration.Application.Requests;
-using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Commons.Requests;
+using SL.Person.Registration.Application.Commons.Responses;
 using System.Threading;
 using System.Threading.Tasks;
 

@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using SL.Person.Registration.Application.Extensions;
-using SL.Person.Registration.Application.Results;
-using SL.Person.Registration.Application.Results.Base;
+using SL.Person.Registration.Application.Commons.Responses;
+using SL.Person.Registration.Application.Commons.Responses.Base;
+using SL.Person.Registration.Application.Query.FindAddressByZipCode.Extensions;
 using SL.Person.Registration.Domain.External.Contracts;
 using SL.Person.Registration.Domain.PersonAggregate;
 using System.Threading;
@@ -27,7 +27,6 @@ public class FindAddressByZipCodeQueryHandler : IRequestHandler<FindAddressByZip
         addressResponse.ValidateInstance();
 
         var result = new ResultEntities<Address>();
-
         result.SetData(addressResponse.GetAddress());
 
         return result;

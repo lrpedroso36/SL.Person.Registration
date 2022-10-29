@@ -1,6 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
-using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Query.FindPeople.Responses;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
@@ -22,7 +22,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
         {
             //arrange
             //act
-            var result = (FindPersonResult)person;
+            var result = (FindPersonResponse)person;
 
             var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
@@ -46,7 +46,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //act
-            var result = (FindPersonResult)person;
+            var result = (FindPersonResponse)person;
 
             //assert
             result.Id.Should().Be(person._id.ToString());
@@ -70,7 +70,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //act
-            var result = (FindPersonResult)person;
+            var result = (FindPersonResponse)person;
 
             //assert
             result.Id.Should().Be(person._id.ToString());
@@ -99,7 +99,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //act
-            var result = (FindPersonResult)person;
+            var result = (FindPersonResponse)person;
 
             //assert
             result.Id.Should().Be(person._id.ToString());
@@ -127,7 +127,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
 
             //act
-            var result = (FindPersonResult)person;
+            var result = (FindPersonResponse)person;
 
             //assert
             result.BirthDate.Should().Be("0001-01-01");

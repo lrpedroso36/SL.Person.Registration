@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SL.Person.Registration.Application.Query.FindLookup;
-using SL.Person.Registration.Application.Results;
+using SL.Person.Registration.Application.Query.FindLookup.Responses;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System.Threading.Tasks;
 
@@ -25,7 +25,7 @@ public class LookupController : ControllerBase
     /// <returns>l</returns>
     [HttpGet("interview")]
     [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResponse))]
     public async Task<IActionResult> GetInterviewTypeAsync()
         => Ok(await _mediator.Send(new FindLookupQuery(typeof(InterviewType))));
 
@@ -35,7 +35,7 @@ public class LookupController : ControllerBase
     /// <returns></returns>
     [HttpGet("treatment")]
     [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResponse))]
     public async Task<IActionResult> GetTreatmentTypeAsync()
         => Ok(await _mediator.Send(new FindLookupQuery(typeof(TreatmentType))));
 
@@ -45,7 +45,7 @@ public class LookupController : ControllerBase
     /// <returns></returns>
     [HttpGet("person")]
     [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResponse))]
     public async Task<IActionResult> GetPersonTypeAsync()
         => Ok(await _mediator.Send(new FindLookupQuery(typeof(PersonType))));
 
@@ -55,7 +55,7 @@ public class LookupController : ControllerBase
     /// <returns></returns>
     [HttpGet("gender")]
     [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResponse))]
     public async Task<IActionResult> GetGenderTypeAsync()
         => Ok(await _mediator.Send(new FindLookupQuery(typeof(GenderType))));
 
@@ -65,7 +65,7 @@ public class LookupController : ControllerBase
     /// <returns></returns>
     [HttpGet("weakDay")]
     [ProducesDefaultResponseType]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResult))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResponse))]
     public async Task<IActionResult> GetWeakDay()
         => Ok(await _mediator.Send(new FindLookupQuery(typeof(WeakDayType))));
 }

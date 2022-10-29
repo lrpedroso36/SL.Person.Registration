@@ -1,7 +1,8 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Application.Command.InsertWorkSchedules;
-using SL.Person.Registration.Application.Exceptions;
+using SL.Person.Registration.Application.Command.InsertWorkSchedules.Extensions;
+using SL.Person.Registration.Application.Commons.Exceptions;
 using System;
 using System.Linq;
 using Xunit;

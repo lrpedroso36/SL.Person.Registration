@@ -1,7 +1,8 @@
 ﻿using FluentAssertions;
 using SL.Person.Registration.Application.Command.InsertInterview;
-using SL.Person.Registration.Application.Exceptions;
-using SL.Person.Registration.Application.Requests;
+using SL.Person.Registration.Application.Command.InsertInterview.Extensions;
+using SL.Person.Registration.Application.Commons.Exceptions;
+using SL.Person.Registration.Application.Commons.Requests;
 using System;
 using System.Collections.Generic;
 using Xunit;
