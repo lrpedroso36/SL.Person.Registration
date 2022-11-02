@@ -1,13 +1,12 @@
 ﻿using System.ComponentModel;
 
-namespace SL.Person.Registration.Domain.PersonAggregate.Enuns
-{
-    public enum InterviewType
-    {
-        [Description("Primeira entrevista")]
-        Primeira = 1,
+namespace SL.Person.Registration.Domain.PersonAggregate.Enuns;
 
-        [Description("Retorno entrevista")]
-        Retorno = 2
-    }
+public enum InterviewType
+{
+    [Description("Primeira entrevista")]
+    Primeira = 1,
+
+    [Description("Retorno entrevista")]
+    Retorno = 2
 }

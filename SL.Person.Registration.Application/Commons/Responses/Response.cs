@@ -4,4 +4,5 @@ namespace SL.Person.Registration.Application.Commons.Responses;
 
 public class Response : ResponseBase
 {
+
 }

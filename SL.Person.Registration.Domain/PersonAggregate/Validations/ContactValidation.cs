@@ -1,19 +1,17 @@
 ﻿using FluentValidation;
-using SL.Person.Registration.Domain.Resources;
 
-namespace SL.Person.Registration.Domain.PersonAggregate.Validations
+namespace SL.Person.Registration.Domain.PersonAggregate.Validations;
+
+public class ContactValidation : AbstractValidator<Contact>
 {
-    public class ContactValidation : AbstractValidator<Contact>
+    public ContactValidation()
     {
-        public ContactValidation()
-        {
-            RuleFor(x => x.DDD)
-                .NotEqual(0)
-                .WithMessage(DomainMessages.ContactValidation_DDD);
+        RuleFor(x => x.DDD)
+            .NotEqual(0)
+            .WithMessage("Informe o DDD do contato.");
 
-            RuleFor(x => x.PhoneNumber)
-               .NotEqual(0)
-               .WithMessage(DomainMessages.ContactValidation_PhoneNumber);
-        }
+        RuleFor(x => x.PhoneNumber)
+           .NotEqual(0)
+           .WithMessage("Informe o Número do contato.");
     }
 }

@@ -24,4 +24,10 @@ public class ResponseEntities<T> : ResponseBase, IResponse<T> where T : class
         SetErrorType(Enums.ErrorType.EntitiesProperty);
         validationResult.Errors.ForEach(error => AddErrors(error.ErrorMessage));
     }
+
+    public void ToNotFound(ValidationResult validationResult)
+    {
+        SetErrorType(Enums.ErrorType.NotFoundData);
+        validationResult.Errors.ForEach(error => AddErrors(error.ErrorMessage));
+    }
 }

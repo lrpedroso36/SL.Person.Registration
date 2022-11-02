@@ -1,7 +1,6 @@
 ﻿using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Commons.Responses;
 using SL.Person.Registration.Application.Commons.Responses.Enums;
-using SL.Person.Registration.CrossCuting.Resources;
 using SL.Person.Registration.Domain.External.Response;
 using SL.Person.Registration.Domain.External.Response.Validations;
 using SL.Person.Registration.Domain.PersonAggregate;
@@ -15,7 +14,7 @@ public static class FindAddressByZipCodeExtensions
         if (string.IsNullOrWhiteSpace(request.ZipCode))
         {
             var result = new ResponseEntities<Address>();
-            result.ToInvalidParameter(ResourceMessagesValidation.FindAddressByZipCodeValidation_RequestInvalid);
+            result.ToInvalidParameter("Informe o CEP.");
             throw new ApplicationRequestException(result);
         }
     }

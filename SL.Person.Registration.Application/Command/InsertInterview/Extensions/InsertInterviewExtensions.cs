@@ -1,7 +1,6 @@
 ﻿using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Commons.Responses;
 using SL.Person.Registration.Application.Commons.Responses.Extensions;
-using SL.Person.Registration.CrossCuting.Resources;
 using System;
 
 namespace SL.Person.Registration.Application.Command.InsertInterview.Extensions;
@@ -14,13 +13,13 @@ public static class InsertInterviewExtensions
 
         if (request.Interview == null)
         {
-            result.ToInvalidParameter(ResourceMessagesValidation.InsertInterviewCommandValidation_RequestInvalid);
+            result.ToInvalidParameter("Informe os dados da entrevista.");
             throw new ApplicationRequestException(result);
         }
 
         if (!Guid.TryParse(request.InterviewedId, out _) || !Guid.TryParse(request.InterviewerId, out _))
         {
-            result.ToInvalidParameter(ResourceMessagesValidation.InsertInterviewCommandValidation_DataRequestInvalid);
+            result.ToInvalidParameter("Informe o código da pessoa entrevistada.");
             throw new ApplicationRequestException(result);
         }
     }

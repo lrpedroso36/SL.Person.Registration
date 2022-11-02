@@ -4,36 +4,35 @@ using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Infrastructure.MongoDb.Contexts.Contracts;
 using System;
 
-namespace SL.Person.Registration.Infrastructure.MongoDb.Contexts
+namespace SL.Person.Registration.Infrastructure.MongoDb.Contexts;
+
+public class PersonRegistrationDbContext : IPersonRegistrationDbContext<PersonRegistration>
 {
-    public class PersonRegistrationDbContext : IPersonRegistrationDbContext<PersonRegistration>
+    private readonly IMongoDatabase _dataBase;
+    private readonly string _personRegistrationCollection;
+
+    public PersonRegistrationDbContext(IConfigurationPersonRegistration configuration)
     {
-        private readonly IMongoDatabase _dataBase;
-        private readonly string _personRegistrationCollection;
-
-        public PersonRegistrationDbContext(IConfigurationPersonRegistration configuration)
+        try
         {
-            try
-            {
-                var mongoSettings = configuration.GetMongoSettings();
+            var mongoSettings = configuration.GetMongoSettings();
 
-                _personRegistrationCollection = mongoSettings.PersonCollection;
+            _personRegistrationCollection = mongoSettings.PersonCollection;
 
-                var client = new MongoClient(new MongoUrl(mongoSettings.ConnectionString));
-                _dataBase = client.GetDatabase(_personRegistrationCollection);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            var client = new MongoClient(new MongoUrl(mongoSettings.ConnectionString));
+            _dataBase = client.GetDatabase(_personRegistrationCollection);
         }
-
-        public IMongoCollection<PersonRegistration> Collection
+        catch (Exception ex)
         {
-            get
-            {
-                return _dataBase.GetCollection<PersonRegistration>(_personRegistrationCollection);
-            }
+            throw new Exception(ex.Message);
+        }
+    }
+
+    public IMongoCollection<PersonRegistration> Collection
+    {
+        get
+        {
+            return _dataBase.GetCollection<PersonRegistration>(_personRegistrationCollection);
         }
     }
 }

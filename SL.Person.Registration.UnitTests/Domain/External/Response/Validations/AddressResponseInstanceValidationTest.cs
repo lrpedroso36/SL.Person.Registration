@@ -2,7 +2,6 @@
 using FluentValidation.Results;
 using SL.Person.Registration.Domain.External.Response;
 using SL.Person.Registration.Domain.External.Response.Validations;
-using SL.Person.Registration.Domain.Resources;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.External.Response.Validations
@@ -14,7 +13,7 @@ namespace SL.Person.Registration.UnitTests.Domain.External.Response.Validations
         {
             //arrange
             AddressResponse addressResponse = null;
-            var validationFailure = new[] { new ValidationFailure("instance", DomainMessages.FindAddressByZipCodeValidation_NotFound) };
+            var validationFailure = new[] { new ValidationFailure("instance", "Endereço não encontrado.") };
 
             //act
             var validation = new AddressResponseInstanceValidation();

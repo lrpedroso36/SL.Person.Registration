@@ -2,7 +2,6 @@
 using FluentValidation.Results;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Validations;
-using SL.Person.Registration.Domain.Resources;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
@@ -14,7 +13,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange
             PersonRegistration person = null;
-            var validationFailure = new[] { new ValidationFailure("instance", DomainMessages.PersonRegistration_InstanceInvalid) };
+            var validationFailure = new[] { new ValidationFailure("instance", "Pessoa não encontrada.") };
 
             //act
             var validation = new PersonRegistrationInstanceValidation();

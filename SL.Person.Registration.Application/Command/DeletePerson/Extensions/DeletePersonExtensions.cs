@@ -1,7 +1,6 @@
 ﻿using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Commons.Responses;
-using SL.Person.Registration.Application.Commons.Responses.Enums;
-using SL.Person.Registration.CrossCuting.Resources;
+using SL.Person.Registration.Application.Commons.Responses.Extensions;
 using System;
 
 namespace SL.Person.Registration.Application.Command.DeletePerson.Extensions;
@@ -13,8 +12,7 @@ public static class DeletePersonExtensions
         if (!Guid.TryParse(command.Id, out _))
         {
             var result = new Response();
-            result.SetErrorType(ErrorType.InvalidParameters);
-            result.AddErrors(ResourceMessagesValidation.DeletePersonCommandValidation_RequestInvalid);
+            result.ToInvalidParameter("Informe o código da pessoa.");
             throw new ApplicationRequestException(result);
         }
 

@@ -2,18 +2,17 @@
 using System.ComponentModel;
 using System.Reflection;
 
-namespace SL.Person.Registratio.CrossCuting.Extensions
+namespace SL.Person.Registratio.CrossCuting.Extensions;
+
+public static class EnumExtensions
 {
-    public static class EnumExtensions
+    public static string GetDescription(this Enum valeu)
     {
-        public static string GetDescription(this Enum valeu)
-        {
-            var fieldInfo = valeu.GetType().GetField(valeu.ToString());
+        var fieldInfo = valeu.GetType().GetField(valeu.ToString());
 
-            if (fieldInfo == null) return null;
+        if (fieldInfo == null) return null;
 
-            var attribute = (DescriptionAttribute)fieldInfo.GetCustomAttribute(typeof(DescriptionAttribute));
-            return attribute.Description;
-        }
+        var attribute = (DescriptionAttribute)fieldInfo.GetCustomAttribute(typeof(DescriptionAttribute));
+        return attribute.Description;
     }
 }

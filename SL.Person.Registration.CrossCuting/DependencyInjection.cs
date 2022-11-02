@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SL.Person.Registratio.CrossCuting.Configurations;
+using SL.Person.Registration.CrossCuting.Configurations;
 using SL.Person.Registration.Domain.Configurations;
 using SL.Person.Registration.Domain.Configurations.Settings;
 using SL.Person.Registration.Domain.External.Contracts;

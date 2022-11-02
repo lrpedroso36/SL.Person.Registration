@@ -1,7 +1,6 @@
-﻿namespace SL.Person.Registration.Domain.Configurations.Settings
+﻿namespace SL.Person.Registration.Domain.Configurations.Settings;
+
+public class AddressApiSettings
 {
-    public class AddressApiSettings
-    {
-        public string GetAddressByZipCode { get; set; }
-    }
+    public string GetAddressByZipCode { get; set; }
 }

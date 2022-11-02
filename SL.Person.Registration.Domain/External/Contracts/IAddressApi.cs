@@ -2,10 +2,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SL.Person.Registration.Domain.External.Contracts
+namespace SL.Person.Registration.Domain.External.Contracts;
+
+public interface IAddressApi
 {
-    public interface IAddressApi
-    {
-        Task<AddressResponse> GetAddressByZipCode(string zipCode, CancellationToken cancellationToken);
-    }
+    Task<AddressResponse> GetAddressByZipCode(string zipCode, CancellationToken cancellationToken);
 }

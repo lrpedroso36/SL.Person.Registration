@@ -6,37 +6,33 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SL.Person.Registration.Infrastructure.External.Api
+namespace SL.Person.Registration.Infrastructure.External.Api;
+
+public class AddressApi : IAddressApi
 {
-    public class AddressApi : IAddressApi
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IConfigurationPersonRegistration _configuration;
+
+    public AddressApi(IHttpClientFactory httpClientFactory,
+                      IConfigurationPersonRegistration configuration)
+        => (_configuration, _httpClientFactory) = (configuration, httpClientFactory);
+
+    public async Task<AddressResponse> GetAddressByZipCode(string zipCode, CancellationToken cancellationToken)
     {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IConfigurationPersonRegistration _configuration;
+        var request = new HttpRequestMessage(HttpMethod.Get, string.Format(_configuration.GetAddressApiSettings().GetAddressByZipCode, zipCode.Trim()));
 
-        public AddressApi(IHttpClientFactory httpClientFactory,
-                          IConfigurationPersonRegistration configuration)
+        var client = _httpClientFactory.CreateClient();
+
+        var response = await client.SendAsync(request, cancellationToken);
+
+        if (response.IsSuccessStatusCode)
         {
-            _configuration = configuration;
-            _httpClientFactory = httpClientFactory;
+            var content = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<AddressResponse>(content);
+
+            return string.IsNullOrWhiteSpace(result.Cep) ? null : result;
         }
 
-        public async Task<AddressResponse> GetAddressByZipCode(string zipCode, CancellationToken cancellationToken)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Get, string.Format(_configuration.GetAddressApiSettings().GetAddressByZipCode, zipCode.Trim()));
-
-            var client = _httpClientFactory.CreateClient();
-
-            var response = await client.SendAsync(request, cancellationToken);
-
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<AddressResponse>(content);
-
-                return string.IsNullOrWhiteSpace(result.Cep) ? null : result;
-            }
-
-            return null;
-        }
+        return null;
     }
 }

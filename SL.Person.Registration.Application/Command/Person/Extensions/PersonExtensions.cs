@@ -2,9 +2,7 @@
 using SL.Person.Registration.Application.Command.Person.Update;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Commons.Responses;
-using SL.Person.Registration.Application.Commons.Responses.Enums;
 using SL.Person.Registration.Application.Commons.Responses.Extensions;
-using SL.Person.Registration.CrossCuting.Resources;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Validations;
 
@@ -17,7 +15,7 @@ public static class PersonExtensions
         if (request.Person == null || request.Person.DocumentNumber == 0)
         {
             var result = new Response();
-            result.ToInvalidParameter(ResourceMessagesValidation.InsertPersonCommandValidation_RequestInvalid);
+            result.ToInvalidParameter("Informe os dados da Pessoa.");
             throw new ApplicationRequestException(result);
         }
     }
@@ -27,7 +25,7 @@ public static class PersonExtensions
         if (request.Person == null || request.Person.DocumentNumber == 0)
         {
             var result = new Response();
-            result.ToInvalidParameter(ResourceMessagesValidation.UpdatePersonCommandValidation_RequestInvalid);
+            result.ToInvalidParameter("Informe os dados da Pessoa.");
             throw new ApplicationRequestException(result);
         }
     }
@@ -37,7 +35,7 @@ public static class PersonExtensions
         if (person != null)
         {
             var result = new Response();
-            result.ToNotFound(ResourceMessagesValidation.InsertPersonCommandHandler_Found);
+            result.ToNotFound("Pessoa já cadastrada.");
             throw new ApplicationRequestException(result);
         }
     }
@@ -50,8 +48,7 @@ public static class PersonExtensions
         if (!validation.IsValid)
         {
             var result = new ResponseEntities<PersonRegistration>();
-            result.SetErrorType(ErrorType.NotFoundData);
-            validation.Errors.ForEach(error => result.AddErrors(error.ErrorMessage));
+            result.ToNotFound(validation);
             throw new ApplicationRequestException(result);
         }
     }

@@ -17,10 +17,7 @@ public abstract class ResponseBase
 
     public void AddErrors(string error)
     {
-        if (Errors == null)
-        {
-            Errors = new List<string>();
-        }
+        Errors ??= new List<string>();
 
         if (!string.IsNullOrWhiteSpace(error) && !Errors.Contains(error))
             Errors.Add(error);
