@@ -22,7 +22,7 @@ public class FindAddressByZipCodeQueryHandler : IRequestHandler<FindAddressByZip
     {
         request.RequestValidate();
 
-        var addressResponse = await _addressApi.GetAddressByZipCode(request.ZipCode, cancellationToken);
+        var addressResponse = await _addressApi.GetAddressByZipCodeAsync(request.ZipCode, cancellationToken);
 
         addressResponse.ValidateInstance();
 

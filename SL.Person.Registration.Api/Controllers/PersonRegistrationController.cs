@@ -12,7 +12,7 @@ using SL.Person.Registration.Application.Query.FindPeople;
 using SL.Person.Registration.Application.Query.FindPeople.Responses;
 using SL.Person.Registration.Application.Query.FindPersonById;
 using SL.Person.Registration.Application.Query.FindPersonById.Responses;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -54,7 +54,7 @@ public class PersonController : ControllerBase
     /// </summary>
     /// <param name="name">Nome da pessoa</param>
     /// <param name="documentNumber">Document da pessoa</param>
-    /// <param name="personType">Tipo da pessoa</param>
+    /// <param name="personTypeId">Código do tipo da pessoa</param>
     /// <param name="cancellationToken"></param>
     /// <response code="200">Pesquisa realizada com sucesso</response>
     /// <response code="400">Informe o nome ou o documento da pessoa que deseja pesquisar</response>
@@ -65,8 +65,8 @@ public class PersonController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ResponseEntities<IEnumerable<FindPersonResponse>>))]
     [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(ResponseEntities<FindPersonResponse>))]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<ResponseEntities<IEnumerable<FindPeopleResponse>>> FindPeople([FromQuery] string name, long documentNumber, PersonType? personType, CancellationToken cancellationToken)
-        => await _mediator.Send(new FindPeopleQuery(name, documentNumber, personType), cancellationToken);
+    public async Task<ResponseEntities<IEnumerable<FindPeopleResponse>>> FindPeople([FromQuery] string name, long documentNumber, Guid? personTypeId, CancellationToken cancellationToken)
+        => await _mediator.Send(new FindPeopleQuery(name, documentNumber, personTypeId), cancellationToken);
 
     /// <summary>
     /// Inserir o registro de uma pessoa

@@ -38,7 +38,7 @@ public class FindPersonResponse
 
     public int DDD { get; set; }
 
-    public long PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
 
     public List<FindInterviewResponse> Interviews { get; set; } = new List<FindInterviewResponse>();
 
@@ -58,8 +58,8 @@ public class FindPersonResponse
     {
         var result = new FindPersonResponse();
 
-        result.Id = person._id.ToString();
-        result.Types = person.Types;
+        result.Id = person.Id.ToString();
+        result.Types = [.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)];
         result.Name = person.Name;
         result.Gender = person.Gender;
         result.YearsOld = GetYearsOld(person.BithDate);

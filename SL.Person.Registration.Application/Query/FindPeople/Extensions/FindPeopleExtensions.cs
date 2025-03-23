@@ -12,7 +12,7 @@ public static class FindPeopleExtensions
 {
     public static void RequestValidate(this FindPeopleQuery request)
     {
-        if (string.IsNullOrWhiteSpace(request.Name) && request.DocumentNumber == 0 && !request.PersonType.HasValue)
+        if (string.IsNullOrWhiteSpace(request.Name) && request.DocumentNumber == 0 && !request.PersonTypeId.HasValue)
         {
             var result = new ResponseEntities<IEnumerable<FindPersonResponse>>();
             result.ToInvalidParameter("Informe o nome, o documento ou o tipo de pessoa que deseja fazer a pesquisa.");

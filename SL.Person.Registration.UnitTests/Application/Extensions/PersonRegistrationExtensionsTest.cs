@@ -2,7 +2,6 @@
 using SL.Person.Registration.Application.Command.Person.Extensions;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
 using Xunit;
@@ -33,7 +32,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
         {
             //arrange
             var expected = new List<string> { "Informe o Nome da pessoa." };
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, name, 123456789);
 
             //act
             Action action = () => person.Validate();
@@ -47,7 +46,7 @@ namespace SL.Person.Registration.UnitTests.Application.Extensions
         {
             //arrange
             var expected = new List<string> { "Informe o Número do documento da pessoa." };
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 0);
 
             //act
             Action action = () => person.Validate();

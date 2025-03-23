@@ -27,8 +27,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             var result = await commandHandler.Handle(command, default);
 
             //assert
-            mockRepository.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.AtMost(atMostGet));
-            mockRepository.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.AtMost(atMostUpdate));
+            mockRepository.Verify(x => x.GetByDocumentASync(It.IsAny<long>(), default), Times.AtMost(atMostGet));
+            mockRepository.Verify(x => x.UpdateAsync(It.IsAny<PersonRegistration>(), default), Times.AtMost(atMostUpdate));
         }
     }
 }

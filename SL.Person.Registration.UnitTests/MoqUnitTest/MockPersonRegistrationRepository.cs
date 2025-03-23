@@ -1,7 +1,7 @@
 ﻿using Moq;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
+using System;
 using System.Collections.Generic;
 
 namespace SL.Person.Registration.UnitTests.MoqUnitTest
@@ -11,9 +11,9 @@ namespace SL.Person.Registration.UnitTests.MoqUnitTest
         public static Mock<IPersonRegistrationRepository> GetMockRepository(PersonRegistration resultSetup)
         {
             var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(resultSetup);
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>())).Returns(resultSetup);
-            moq.Setup(x => x.GetByDocument(It.IsAny<long>(), It.IsAny<PersonType>())).Returns(resultSetup);
+            moq.Setup(x => x.GetByIdAsync(It.IsAny<string>(), default)).ReturnsAsync(resultSetup);
+            moq.Setup(x => x.GetByDocumentASync(It.IsAny<long>(), default)).ReturnsAsync(resultSetup);
+            moq.Setup(x => x.GetByDocumentAsync(It.IsAny<long>(), It.IsAny<Guid>(), default)).ReturnsAsync(resultSetup);
             MoqGetByName(moq, resultSetup);
             return moq;
         }
@@ -22,13 +22,14 @@ namespace SL.Person.Registration.UnitTests.MoqUnitTest
         {
             if (resultSetup == null)
             {
-                moq.Setup(x => x.GetByName(It.IsAny<string>())).Returns<IEnumerable<PersonRegistration>>(null);
-                moq.Setup(x => x.Get(It.IsAny<PersonType?>(), It.IsAny<string>(), It.IsAny<long>())).Returns<IEnumerable<PersonRegistration>>(null);
+                List<PersonRegistration> listNull = null;
+                moq.Setup(x => x.GetByNameAsync(It.IsAny<string>(), default)).ReturnsAsync(listNull);
+                moq.Setup(x => x.GetAsync(It.IsAny<Guid?>(), It.IsAny<string>(), It.IsAny<long>(), default)).ReturnsAsync(listNull);
             }
             else
             {
-                moq.Setup(x => x.GetByName(It.IsAny<string>())).Returns(new List<PersonRegistration> { resultSetup });
-                moq.Setup(x => x.Get(It.IsAny<PersonType?>(), It.IsAny<string>(), It.IsAny<long>())).Returns(new List<PersonRegistration> { resultSetup });
+                moq.Setup(x => x.GetByNameAsync(It.IsAny<string>(), default)).ReturnsAsync(new List<PersonRegistration> { resultSetup });
+                moq.Setup(x => x.GetAsync(It.IsAny<Guid?>(), It.IsAny<string>(), It.IsAny<long>(), default)).ReturnsAsync(new List<PersonRegistration> { resultSetup });
             }
         }
     }

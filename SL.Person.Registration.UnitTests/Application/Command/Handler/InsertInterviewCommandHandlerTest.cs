@@ -6,7 +6,6 @@ using SL.Person.Registration.Application.Command.InsertInterview;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Commons.Requests;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -25,19 +24,19 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             var command = new InsertInterviewCommand(Guid.NewGuid().ToString(), interviewId.ToString(), Builder<InterviewRequest>.CreateNew().Build());
             var atMostInsert = 2;
             var personRegistration = Builder<PersonRegistration>.CreateNew().Build();
-            var personInterview = PersonRegistration.CreateInstanceSimple(interviewId, new List<PersonType>() { PersonType.Entrevistador }, "nome", 123456789);
+            var personInterview = PersonRegistration.CreateInstanceSimple(interviewId, new List<PersonType>() { PersonType.Entrevistador() }, "nome", 123456789);
 
             var moq = new Mock<IPersonRegistrationRepository>();
-            moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(personRegistration);
-            moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(personInterview);
+            moq.Setup(x => x.GetByIdAsync(It.IsAny<string>(), default)).ReturnsAsync(personRegistration);
+            moq.Setup(x => x.GetByIdAsync(It.IsAny<string>(), default)).ReturnsAsync(personInterview);
 
             //act
             var commandHandler = new InsertInterviewCommandHandler(moq.Object);
             var result = await commandHandler.Handle(command, default);
 
             //assert
-            moq.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
-            moq.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
+            moq.Verify(x => x.InsertAsync(It.IsAny<PersonRegistration>(), default), Times.AtMost(atMostInsert));
+            moq.Verify(x => x.UpdateAsync(It.IsAny<PersonRegistration>(), default), Times.Once);
         }
 
         public static List<object[]> DataInvalid = new List<object[]>()

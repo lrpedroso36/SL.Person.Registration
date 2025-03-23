@@ -1,9 +1,9 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
@@ -20,8 +20,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         public static PersonRegistration GetPersonRegistration()
         {
             var person = Builder<PersonRegistration>.CreateNew().Build();
-            person.AddPersonType(PersonType.Tarefeiro);
-            return PersonRegistration.CreateInstanceSimple(person._id, person.Types, person.Name, person.DocumentNumber);
+            person.AddPersonType(PersonType.Tarefeiro());
+            return PersonRegistration.CreateInstanceSimple(person.Id, [.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)], person.Name, person.DocumentNumber);
         }
 
         [Theory]

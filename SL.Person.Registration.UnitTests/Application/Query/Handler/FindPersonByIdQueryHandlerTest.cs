@@ -1,5 +1,6 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
+using FluentValidation.Results;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Commons.Responses.Base;
 using SL.Person.Registration.Application.Commons.Responses.Enums;
@@ -8,6 +9,7 @@ using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -18,6 +20,7 @@ public class FindPersonByIdQueryHandlerTest
     public static PersonRegistration GetPersonRegistration()
     {
         var person = Builder<PersonRegistration>.CreateNew().Build();
+        person.AddPersonType(Builder<PersonType>.CreateNew().Build());
         person.AddAdress(Builder<Address>.CreateNew().Build());
         person.AddContact(Builder<Contact>.CreateNew().Build());
         return person;

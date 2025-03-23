@@ -47,7 +47,8 @@ public class LookupController : ControllerBase
     [ProducesDefaultResponseType]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FindLookupResponse))]
     public async Task<IActionResult> GetPersonTypeAsync()
-        => Ok(await _mediator.Send(new FindLookupQuery(typeof(PersonType))));
+        => Ok();
+    //TODO=> Ok(await _mediator.Send(new FindLookupQuery(typeof(PersonType))));
 
     /// <summary>
     /// Lista de tipos de genero

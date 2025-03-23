@@ -21,7 +21,7 @@ public class PrecenceCommandHandler : IRequestHandler<PrecenceCommand>
     {
         request.RequestValidate();
 
-        var personInterviewed = _personRegistrationRepository.GetById(request.Id);
+        var personInterviewed = await _personRegistrationRepository.GetByIdAsync(request.Id, cancellationToken);
 
         personInterviewed.ValidateIsNotFoundInstance();
 
@@ -29,7 +29,7 @@ public class PrecenceCommandHandler : IRequestHandler<PrecenceCommand>
 
         personInterviewed.SetPresenceTratament(date);
 
-        _personRegistrationRepository.Update(personInterviewed);
+        await _personRegistrationRepository.UpdateAsync(personInterviewed, cancellationToken);
 
         return Unit.Value;
     }

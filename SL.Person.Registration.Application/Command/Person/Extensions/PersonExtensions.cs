@@ -35,7 +35,7 @@ public static class PersonExtensions
         if (person != null)
         {
             var result = new Response();
-            result.ToNotFound("Pessoa já cadastrada.");
+            result.ToFound("Pessoa já cadastrada.");
             throw new ApplicationRequestException(result);
         }
     }

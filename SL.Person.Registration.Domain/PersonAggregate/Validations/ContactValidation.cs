@@ -11,7 +11,8 @@ public class ContactValidation : AbstractValidator<Contact>
             .WithMessage("Informe o DDD do contato.");
 
         RuleFor(x => x.PhoneNumber)
-           .NotEqual(0)
+           .NotEmpty()
+           .NotNull()
            .WithMessage("Informe o Número do contato.");
     }
 }

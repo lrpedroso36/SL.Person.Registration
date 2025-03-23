@@ -33,7 +33,7 @@ public class FindInterviewResponse
         {
             TreatmentType = interview.TreatmentType.GetDescription(),
             WeakDayType = interview.WeakDayType.GetDescription(),
-            Type = interview.Type.GetDescription(),
+            Type = interview.InterviewType.GetDescription(),
             Date = interview.Date.ToShortDateString(),
             Status = interview.Status.GetDescription(),
             Interviewer = interview.Interviewer.Name,

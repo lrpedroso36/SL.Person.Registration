@@ -1,13 +1,12 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
-using System.Collections.Generic;
 
 namespace SL.Person.Registration.Application.Commons.Requests;
 
 public class PersonRequest
 {
-    public List<PersonType> Types { get; set; } = new List<PersonType>();
+    public PersonType Type { get; set; }
 
     public string Name { get; set; }
 
@@ -19,7 +18,7 @@ public class PersonRequest
 
     public int DDD { get; set; }
 
-    public long PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; }
 
     public string ZipCode { get; set; }
 
@@ -37,7 +36,7 @@ public class PersonRequest
 
     public PersonRegistration GetPersonRegistration()
     {
-        var person = PersonRegistration.CreateInstance(Types,
+        var person = PersonRegistration.CreateInstance(new() { Type },
             Name.ToUpper(),
             Gender,
             BirthDate,
@@ -64,7 +63,7 @@ public class PersonRequest
 
     private bool CheckInformationContact()
     {
-        return DDD != 0 || PhoneNumber != 0;
+        return DDD != 0 || !string.IsNullOrWhiteSpace(PhoneNumber);
     }
 
     private bool CheckInformationAddress()

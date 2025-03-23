@@ -4,7 +4,6 @@ using Moq;
 using SL.Person.Registration.Application.Command.Precence;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -21,10 +20,10 @@ public class PrecenceCommandHandlerTest
         //arrange
         var precenceCommand = new PrecenceCommand(Guid.NewGuid().ToString());
         var resultExpected = Unit.Value;
-        var personWatched = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "nome", 1234567890);
+        var personWatched = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "nome", 1234567890);
 
         var moq = new Mock<IPersonRegistrationRepository>();
-        moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(personWatched);
+        moq.Setup(x => x.GetByIdAsync(It.IsAny<string>(), default)).ReturnsAsync(personWatched);
 
         //act
         var commandHandler = new PrecenceCommandHandler(moq.Object);
@@ -33,8 +32,8 @@ public class PrecenceCommandHandlerTest
         //assert
         result.Should().BeEquivalentTo(resultExpected);
 
-        moq.Verify(x => x.GetById(It.IsAny<string>()), Times.Once);
-        moq.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
+        moq.Verify(x => x.GetByIdAsync(It.IsAny<string>(), default), Times.Once);
+        moq.Verify(x => x.UpdateAsync(It.IsAny<PersonRegistration>(), default), Times.Once);
 
     }
 
@@ -61,7 +60,7 @@ public class PrecenceCommandHandlerTest
         PersonRegistration personInterviewed = null;
 
         var moq = new Mock<IPersonRegistrationRepository>();
-        moq.Setup(x => x.GetById(It.IsAny<string>())).Returns(personInterviewed);
+        moq.Setup(x => x.GetByIdAsync(It.IsAny<string>(), default)).ReturnsAsync(personInterviewed);
 
         //act
         var commandHandler = new PrecenceCommandHandler(moq.Object);

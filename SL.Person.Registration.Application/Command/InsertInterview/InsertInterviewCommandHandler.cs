@@ -2,7 +2,6 @@
 using SL.Person.Registration.Application.Command.InsertInterview.Extensions;
 using SL.Person.Registration.Application.Command.Person.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.Repositories;
 using System;
 using System.Threading;
@@ -23,18 +22,18 @@ public class InsertInterviewCommandHandler : IRequestHandler<InsertInterviewComm
     {
         request.RequestValidate();
 
-        var personInterviewed = _personRegistrationRepository.GetById(request.InterviewedId);
+        var personInterviewed = await _personRegistrationRepository.GetByIdAsync(request.InterviewedId, cancellationToken);
 
-        var personInterviewer = _personRegistrationRepository.GetById(request.InterviewerId);
+        var personInterviewer = await _personRegistrationRepository.GetByIdAsync(request.InterviewerId, cancellationToken);
 
         personInterviewer.ValidateIsNotFoundInstance();
 
         personInterviewed.AddInterview(Interview.CreateInstance(request.Interview.TreatmentType, request.Interview.WeakDayType,
             request.Interview.Type, DateTime.Now, personInterviewer, request.Interview.Amount, request.Interview.Opinion));
 
-        personInterviewed.AddPersonType(PersonType.Assistido);
+        personInterviewed.AddPersonType(PersonType.Assistido());
 
-        _personRegistrationRepository.Update(personInterviewed);
+        await _personRegistrationRepository.UpdateAsync(personInterviewed, cancellationToken);
 
         return Unit.Value;
     }

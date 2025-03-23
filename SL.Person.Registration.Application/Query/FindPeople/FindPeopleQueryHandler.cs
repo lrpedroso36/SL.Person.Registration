@@ -25,7 +25,7 @@ public class FindPeopleQueryHandler : IRequestHandler<FindPeopleQuery, ResponseE
 
         var result = new ResponseEntities<IEnumerable<FindPeopleResponse>>();
 
-        var personRegistration = _repository.Get(request.PersonType, request.Name, request.DocumentNumber);
+        var personRegistration = await _repository.GetAsync(request.PersonTypeId, request.Name, request.DocumentNumber, cancellationToken);
 
         personRegistration.ValidateList();
 

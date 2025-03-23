@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +15,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SL.Person.Registration.Domain\SL.Person.Registration.Domain.csproj" />
     <ProjectReference Include="..\SL.Person.Registration.Infrastructure.External\SL.Person.Registration.Infrastructure.External.csproj" />
-    <ProjectReference Include="..\SL.Person.Registration.Infrastructure.MongoDb\SL.Person.Registration.Infrastructure.MongoDb.csproj" />
+    <ProjectReference Include="..\SL.Person.Registration.Infrastructure.Postgresql\SL.Person.Registration.Infrastructure.Postgresql.csproj" />
   </ItemGroup>
 </Project>

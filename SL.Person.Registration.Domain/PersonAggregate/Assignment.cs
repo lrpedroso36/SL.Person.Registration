@@ -1,12 +1,16 @@
-﻿using System;
+﻿using SL.Person.Registration.Domain.PersonAggregate.Base;
+using System;
 
 namespace SL.Person.Registration.Domain.PersonAggregate;
 
-public class Assignment
+public class Assignment : Entity
 {
     public DateTime Date { get; private set; }
 
     public bool Presence { get; private set; }
+
+    public Guid PersonRegistrationId { get; set; }
+    public PersonRegistration PersonRegistration { get; set; }
 
     protected Assignment()
     {

@@ -4,6 +4,7 @@ using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
@@ -16,7 +17,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 WeakDayType.Sabado,
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
-                Builder<PersonRegistration>.CreateNew().Build(),
+                PersonRegistration.CreateInstance(
+                    new() { PersonType.Tarefeiro() }, "nome", GenderType.Masculino, new DateTime(1988,04,29), 1234567890),
                 1,
                 "opinião",
                 null,
@@ -27,7 +29,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Assistido}, "nome", GenderType.Masculino, new DateTime(1988,04,29), 1234567890),
+                    new() { PersonType.Tarefeiro() }, "nome", GenderType.Masculino, new DateTime(1988,04,29), 1234567890),
                 1,
                 "opinião",
                 null,
@@ -38,10 +40,10 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
                 InterviewType.Primeira,
                 new DateTime(2021,10,20),
                 PersonRegistration.CreateInstance(
-                    new List<PersonType> { PersonType.Entrevistador}, "nome", GenderType.Masculino, new DateTime(1988,04,29) , 1234567890),
+                    new() { PersonType.Tarefeiro() }, "nome", GenderType.Masculino, new DateTime(1988,04,29) , 1234567890),
                 1,
                 "opinião",
-                PersonRegistration.CreateInstanceSimple(Guid.Empty, new List<PersonType> { PersonType.Entrevistador}, "nome",1234567890),
+                PersonRegistration.CreateInstanceSimple(Guid.Empty, new() { PersonType.Tarefeiro() }, "nome",1234567890),
                 GetTrataments()
             }
         };
@@ -65,11 +67,9 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
             interview.WeakDayType.Should().Be(weakDayType);
 
-            interview.Type.Should().Be(type);
+            interview.InterviewType.Should().Be(type);
 
             interview.Date.Should().Be(date);
-
-            interview.Interviewer.Should().BeEquivalentTo(interviewer);
 
             interview.Opinion.Should().Be(opinion);
             interview.Opinion.Should().BeOfType(typeof(string));
@@ -89,7 +89,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
 
             //act
             var interview = Interview.CreateInstance(TreatmentType.PasseA3, WeakDayType.Sabado, InterviewType.Retorno, new DateTime(2022, 02, 09),
-                Builder<PersonRegistration>.CreateNew().Build(), 2, "teste opniao");
+                GetPersonRegistration(), 2, "teste opniao");
 
             //assert
             interview.Trataments.Should().BeEquivalentTo(trataments);
@@ -98,8 +98,15 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         public static PersonRegistration GetPersonLaborer()
         {
             var person = Builder<PersonRegistration>.CreateNew().Build();
-            person.AddPersonType(PersonType.Tarefeiro);
-            return PersonRegistration.CreateInstanceSimple(person._id, person.Types, person.Name, person.DocumentNumber);
+            person.AddPersonType(PersonType.Tarefeiro());
+            return PersonRegistration.CreateInstanceSimple(person.Id, [.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)], person.Name, person.DocumentNumber);
+        }
+
+        public static PersonRegistration GetPersonRegistration()
+        {
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            person.AddPersonType(Builder<PersonType>.CreateNew().Build());
+            return person;
         }
 
         [Fact]
@@ -109,7 +116,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var laborer = GetPersonLaborer();
 
             var interview = Interview.CreateInstance(TreatmentType.PasseA3, WeakDayType.Sabado, InterviewType.Retorno, new DateTime(2022, 02, 09),
-                Builder<PersonRegistration>.CreateNew().Build(), 2, "teste opniao");
+                GetPersonRegistration(), 2, "teste opniao");
 
             var trataments = new List<Tratament>()
             {
@@ -131,7 +138,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var laborer = GetPersonLaborer();
 
             var interview = Interview.CreateInstance(TreatmentType.PasseA3, WeakDayType.Sabado, InterviewType.Retorno, new DateTime(2022, 01, 09),
-                Builder<PersonRegistration>.CreateNew().Build(), 2, "teste opniao");
+                GetPersonRegistration(), 2, "teste opniao");
 
             var trataments = new List<Tratament>()
             {

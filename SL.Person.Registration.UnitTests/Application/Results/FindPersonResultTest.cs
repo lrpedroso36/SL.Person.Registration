@@ -1,19 +1,29 @@
 ﻿using FizzWare.NBuilder;
 using FluentAssertions;
+using SL.Person.Registration.Application.Commons.Requests;
 using SL.Person.Registration.Application.Query.FindPeople.Responses;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Results
 {
     public class FindPersonResultTest
     {
+        public static PersonRegistration GetPersonRegistration()
+        {
+            var person = Builder<PersonRegistration>.CreateNew().Build();
+            person.AddPersonType(Builder<PersonType>.CreateNew().Build());
+            person.AddAdress(Builder<Address>.CreateNew().Build());
+            person.AddContact(Builder<Contact>.CreateNew().Build());
+            return person;
+        }
+
         public static List<object[]> Data = new List<object[]>()
         {
-            new object[] { Builder<PersonRegistration>.CreateNew().Build() }
+            new object[] { GetPersonRegistration() }
         };
 
         [Theory]
@@ -27,8 +37,8 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var yearsOld = DateTime.Now.Year - person.BithDate.Value.Year;
 
             //assert
-            result.Id.Should().Be(person._id.ToString());
-            result.Types.Should().BeEquivalentTo(person.Types);
+            result.Id.Should().Be(person.Id.ToString());
+            result.Types.Should().BeEquivalentTo([.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)]);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
@@ -49,8 +59,8 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var result = (FindPersonResponse)person;
 
             //assert
-            result.Id.Should().Be(person._id.ToString());
-            result.Types.Should().BeEquivalentTo(person.Types);
+            result.Id.Should().Be(person.Id.ToString());
+            result.Types.Should().BeEquivalentTo([.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)]);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
@@ -73,8 +83,8 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var result = (FindPersonResponse)person;
 
             //assert
-            result.Id.Should().Be(person._id.ToString());
-            result.Types.Should().BeEquivalentTo(person.Types);
+            result.Id.Should().Be(person.Id.ToString());
+            result.Types.Should().BeEquivalentTo([.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)]);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
@@ -102,8 +112,8 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             var result = (FindPersonResponse)person;
 
             //assert
-            result.Id.Should().Be(person._id.ToString());
-            result.Types.Should().BeEquivalentTo(person.Types);
+            result.Id.Should().Be(person.Id.ToString());
+            result.Types.Should().BeEquivalentTo([.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)]);
             result.Name.Should().Be(person.Name);
             result.Gender.Should().Be(person.Gender);
             result.YearsOld.Should().Be(yearsOld);
@@ -124,7 +134,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
         public void Should_convert_person_registration_with_birth_date_null()
         {
             //arrange
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new() { PersonType.Tarefeiro() }, "nome", 123456789);
 
             //act
             var result = (FindPersonResponse)person;

@@ -4,7 +4,6 @@ using Moq;
 using SL.Person.Registration.Application.Command.DeletePerson;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System;
 using System.Collections.Generic;
@@ -53,7 +52,7 @@ public class DeletePersonCommandHandlerTest
     public async void Should_execute_handler()
     {
         //arrage
-        var personNotLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+        var personNotLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro() }, "nome", 123456789);
         var moqRepository = MockPersonRegistrationRepository.GetMockRepository(personNotLaborer);
 
         var command = new DeletePersonCommand(Guid.NewGuid().ToString());
@@ -63,8 +62,8 @@ public class DeletePersonCommandHandlerTest
         var result = await commandHandler.Handle(command, default);
 
         //assert
-        moqRepository.Verify(x => x.GetById(It.IsAny<string>()), Times.Once);
-        moqRepository.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
+        moqRepository.Verify(x => x.GetByIdAsync(It.IsAny<string>(), default), Times.Once);
+        moqRepository.Verify(x => x.UpdateAsync(It.IsAny<PersonRegistration>(), default), Times.Once);
 
         result.Should().Be(Unit.Value);
     }

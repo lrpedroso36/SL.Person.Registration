@@ -18,7 +18,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_not_have_errors()
         {
             //arrange 
-            var contact = Contact.CreateInstance(11, 123456789);
+            var contact = Contact.CreateInstance(11, "123456789");
 
             //act
             var result = _contactValidation.TestValidate(contact);
@@ -32,7 +32,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_ddd()
         {
             //arrange 
-            var address = Contact.CreateInstance(0, 123456789);
+            var address = Contact.CreateInstance(0, "123456789");
 
             //act
             var result = _contactValidation.TestValidate(address);
@@ -41,11 +41,14 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
             result.ShouldHaveValidationErrorFor(contact => contact.DDD);
         }
 
-        [Fact]
-        public void Should_validation_have_errors_in_phone_number()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Should_validation_have_errors_in_phone_number(string phoneNumber)
         {
             //arrange 
-            var address = Contact.CreateInstance(11, 0);
+            var address = Contact.CreateInstance(11, phoneNumber);
 
             //act
             var result = _contactValidation.TestValidate(address);

@@ -2,6 +2,7 @@
 using FluentAssertions;
 using SL.Person.Registration.Application.Commons.Requests;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Requests
@@ -22,7 +23,8 @@ namespace SL.Person.Registration.UnitTests.Application.Requests
             var person = personRequest.GetPersonRegistration();
 
             //assert
-            person.Types.Should().BeEquivalentTo(personRequest.Types);
+            var personTypes = person.PersonRegistrationPersonTypes.Select(x => x.PersonType).ToList();
+            personTypes.Should().Contain(personRequest.Type);
             person.Name.Should().Be(personRequest.Name.ToUpper());
             person.Gender.Should().Be(personRequest.Gender);
             person.BithDate.Should().Be(personRequest.BirthDate);
@@ -39,10 +41,10 @@ namespace SL.Person.Registration.UnitTests.Application.Requests
         }
 
         [Theory]
-        [InlineData(11, 0)]
-        [InlineData(0, 123456789)]
-        [InlineData(11, 123456789)]
-        public void Should_get_contact_person(int ddd, long phoneNumber)
+        [InlineData(11, "0")]
+        [InlineData(0, "123456789")]
+        [InlineData(11, "123456789")]
+        public void Should_get_contact_person(int ddd, string phoneNumber)
         {
             //arrange
             var personRequest = Builder<PersonRequest>.CreateNew().Build();
@@ -62,7 +64,7 @@ namespace SL.Person.Registration.UnitTests.Application.Requests
             //arrange
             var personRequest = Builder<PersonRequest>.CreateNew().Build();
             personRequest.DDD = 0;
-            personRequest.PhoneNumber = 0;
+            personRequest.PhoneNumber = "";
 
             //act
             var person = personRequest.GetPersonRegistration();

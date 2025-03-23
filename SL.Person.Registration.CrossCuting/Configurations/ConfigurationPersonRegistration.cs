@@ -6,10 +6,10 @@ namespace SL.Person.Registration.CrossCuting.Configurations;
 
 public class ConfigurationPersonRegistration : IConfigurationPersonRegistration
 {
-    private readonly IOptions<MongoSettings> _mongoSettings;
+    private readonly IOptions<PostgreSettings> _mongoSettings;
     private readonly IOptions<AddressApiSettings> _addressApiSettings;
 
-    public ConfigurationPersonRegistration(IOptions<MongoSettings> mongoSettings,
+    public ConfigurationPersonRegistration(IOptions<PostgreSettings> mongoSettings,
                                            IOptions<AddressApiSettings> addressApiSettings)
     {
         _mongoSettings = mongoSettings;
@@ -19,6 +19,6 @@ public class ConfigurationPersonRegistration : IConfigurationPersonRegistration
     public AddressApiSettings GetAddressApiSettings()
         => _addressApiSettings.Value;
 
-    public MongoSettings GetMongoSettings()
+    public PostgreSettings GetMongoSettings()
         => _mongoSettings.Value;
 }

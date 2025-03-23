@@ -1,8 +1,6 @@
 ﻿namespace SL.Person.Registration.Domain.Configurations.Settings;
 
-public class MongoSettings
+public class PostgreSettings
 {
     public string ConnectionString { get; set; }
-
-    public string PersonCollection { get; set; }
 }

@@ -20,7 +20,7 @@ public class InsertWorkSchedulesCommandHandler : IRequestHandler<InsertWorkSched
     {
         request.RequestValidate();
 
-        var personResult = _repository.GetById(request.Id);
+        var personResult = await _repository.GetByIdAsync(request.Id, cancellationToken);
 
         personResult.ValidateIsNotFoundInstance();
 
@@ -29,7 +29,7 @@ public class InsertWorkSchedulesCommandHandler : IRequestHandler<InsertWorkSched
             personResult.SetWorkSchedules(item.WeakDayType, item.Date, item.DoTheReading);
         }
 
-        _repository.Update(personResult);
+        await _repository.UpdateAsync(personResult, cancellationToken);
 
         return Unit.Value;
     }

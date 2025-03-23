@@ -24,7 +24,7 @@ public class FindPersonByIdQueryHandler : IRequestHandler<FindPersonByIdQuery, R
     {
         request.RequestValidate();
 
-        var personRegistration = _repository.GetById(request.Id);
+        var personRegistration = await _repository.GetByIdAsync(request.Id, cancellationToken);
 
         personRegistration.ValidateIsNotFoundInstance();
 

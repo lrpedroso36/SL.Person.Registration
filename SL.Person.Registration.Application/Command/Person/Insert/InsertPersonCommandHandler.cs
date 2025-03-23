@@ -2,6 +2,7 @@
 using SL.Person.Registration.Application.Command.Person.Extensions;
 using SL.Person.Registration.Domain.PersonAggregate;
 using SL.Person.Registration.Domain.Repositories;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +21,7 @@ public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand>
     {
         request.RequestValidate();
 
-        var personResult = _repository.GetByDocument(request.Person.DocumentNumber);
+        var personResult = await _repository.GetByDocumentASync(request.Person.DocumentNumber, cancellationToken);
 
         personResult.ValidateFoundInstance();
 
@@ -28,11 +29,11 @@ public class InsertPersonCommandHandler : IRequestHandler<InsertPersonCommand>
 
         person.Validate();
 
-        var registration = PersonRegistration.CreateInstance(person.Types, person.Name, person.Gender, person.BithDate, person.DocumentNumber);
+        var registration = PersonRegistration.CreateInstance([.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)], person.Name, person.Gender, person.BithDate, person.DocumentNumber);
         registration.AddContact(person.Contact);
         registration.AddAdress(person.Address);
 
-        _repository.Insert(registration);
+        await _repository.InsertAsync(registration, cancellationToken);
 
         return Unit.Value;
     }

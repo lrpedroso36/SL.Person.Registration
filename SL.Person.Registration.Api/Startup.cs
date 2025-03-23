@@ -4,8 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using SL.Person.Registratio.CrossCuting;
 using SL.Person.Registration.Api.Filters;
+using SL.Person.Registration.CrossCuting;
 using System;
 using System.IO;
 using System.Reflection;
@@ -60,7 +60,7 @@ public class Startup
 
         services.AddHttpClient();
         services.AddConfiguration(Configuration);
-        services.AddInfraestructure();
+        services.AddInfraestructure(Configuration);
         services.AddInfraestructureExternal();
         services.AddMediator();
     }

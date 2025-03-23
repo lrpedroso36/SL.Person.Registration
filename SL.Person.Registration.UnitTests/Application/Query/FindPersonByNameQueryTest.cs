@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using SL.Person.Registration.Application.Query.FindPeople;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+using System;
 using Xunit;
 
 namespace SL.Person.Registration.UnitTests.Application.Query
@@ -13,14 +13,14 @@ namespace SL.Person.Registration.UnitTests.Application.Query
             //arrange
             var name = "name";
             var documentNumber = 123456789;
-            var personType = PersonType.Tarefeiro;
+            var personType = Guid.NewGuid();
 
             //act
             var query = new FindPeopleQuery(name, documentNumber, personType);
 
             //assert
             query.Name.Should().Be(name);
-            query.PersonType.Should().Be(personType);
+            query.PersonTypeId.Should().Be(personType);
             query.DocumentNumber.Should().Be(documentNumber);
         }
     }

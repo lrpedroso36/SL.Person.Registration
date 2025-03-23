@@ -4,7 +4,6 @@ using Moq;
 using SL.Person.Registration.Application.Command.PresenceAssignment;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System;
 using System.Collections.Generic;
@@ -53,7 +52,7 @@ public class PresenceAssignmentCommandHandlerTest
     public async void Should_execute_handler_date_presence_done()
     {
         //arrange
-        var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+        var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro() }, "nome", 123456789);
         person.SetPresenceAssignment(DateTime.Now, true);
 
         var moqRepository = MockPersonRegistrationRepository.GetMockRepository(person);
@@ -72,7 +71,7 @@ public class PresenceAssignmentCommandHandlerTest
     public async void Should_execute_handler()
     {
         //arrage
-        var personNotLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+        var personNotLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro() }, "nome", 123456789);
         var moqRepository = MockPersonRegistrationRepository.GetMockRepository(personNotLaborer);
 
         var command = new PresenceAssignmentCommand(Guid.NewGuid().ToString());
@@ -82,8 +81,8 @@ public class PresenceAssignmentCommandHandlerTest
         var result = await commandHandler.Handle(command, default);
 
         //assert
-        moqRepository.Verify(x => x.GetById(It.IsAny<string>()), Times.Once);
-        moqRepository.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
+        moqRepository.Verify(x => x.GetByIdAsync(It.IsAny<string>(), default), Times.Once);
+        moqRepository.Verify(x => x.UpdateAsync(It.IsAny<PersonRegistration>(), default), Times.Once);
 
         result.Should().Be(Unit.Value);
     }

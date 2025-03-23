@@ -1,6 +1,5 @@
 ﻿using FluentValidation.TestHelper;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.Domain.PersonAggregate.Validations;
 using System;
 using System.Collections.Generic;
@@ -24,7 +23,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_name(string name)
         {
             //arrange 
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, name, 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, name, 123456789);
 
             //act
             var result = _personRegistrationValidation.TestValidate(person);
@@ -37,7 +36,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_document_number()
         {
             //arrange 
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 0);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 0);
 
             //act
             var result = _personRegistrationValidation.TestValidate(person);
@@ -50,7 +49,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_not_have_errors_person()
         {
             //arrange 
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
 
             //act
             var result = _personRegistrationValidation.TestValidate(person);
@@ -64,8 +63,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_ddd()
         {
             //arrange 
-            var contact = Contact.CreateInstance(0, 123456789);
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var contact = Contact.CreateInstance(0, "123456789");
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddContact(contact);
 
             //act
@@ -79,8 +78,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_not_have_errors_in_contact()
         {
             //arrange 
-            var contact = Contact.CreateInstance(11, 123456789);
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var contact = Contact.CreateInstance(11, "123456789");
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddContact(contact);
 
             //act
@@ -92,12 +91,15 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
 
         }
 
-        [Fact]
-        public void Should_validation_have_errors_in_phoneNumber()
+        [Theory]
+        [InlineData("")]
+        [InlineData(" ")]
+        [InlineData(null)]
+        public void Should_validation_have_errors_in_phoneNumber(string phoneNumber)
         {
             //arrange 
-            var contact = Contact.CreateInstance(11, 0);
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var contact = Contact.CreateInstance(11, phoneNumber);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddContact(contact);
 
             //act
@@ -115,7 +117,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange 
             var address = Address.CreateInstance(zipCode, "rua", "numero", "bairro", "complemento", "cidade", "estado");
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddAdress(address);
 
             //act
@@ -133,7 +135,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange 
             var address = Address.CreateInstance("zipCode", street, "numero", "bairro", "complemento", "cidade", "estado");
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddAdress(address);
 
             //act
@@ -151,7 +153,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange 
             var address = Address.CreateInstance("zipCode", "rua", number, "bairro", "complemento", "cidade", "estado");
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddAdress(address);
 
             //act
@@ -169,7 +171,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange 
             var address = Address.CreateInstance("zipCode", "rua", "numero", neighborhood, "complemento", "cidade", "estado");
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddAdress(address);
 
             //act
@@ -187,7 +189,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange 
             var address = Address.CreateInstance("zipCode", "rua", "numero", "bairro", "complemento", city, "estado");
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddAdress(address);
 
             //act
@@ -205,7 +207,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange 
             var address = Address.CreateInstance("zipCode", "rua", "numero", "bairro", "complemento", "cidade", state);
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddAdress(address);
 
             //act
@@ -220,7 +222,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         {
             //arrange 
             var address = Address.CreateInstance("cep", "rua", "numero", "bairro", "complemento", "cidade", "estado");
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "name", 123456789);
             person.AddAdress(address);
 
             //act

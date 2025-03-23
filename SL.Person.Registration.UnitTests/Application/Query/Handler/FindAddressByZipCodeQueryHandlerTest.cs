@@ -19,7 +19,7 @@ public class FindAddressByZipCodeQueryHandlerTest
     {
         //arrange
         var mockApi = new Mock<IAddressApi>();
-        mockApi.Setup(x => x.GetAddressByZipCode(It.IsAny<string>(), default))
+        mockApi.Setup(x => x.GetAddressByZipCodeAsync(It.IsAny<string>(), default))
             .ReturnsAsync(Builder<AddressResponse>.CreateNew().Build());
 
         var queryHandler = new FindAddressByZipCodeQueryHandler(mockApi.Object);
@@ -55,7 +55,7 @@ public class FindAddressByZipCodeQueryHandlerTest
         AddressResponse addressResponse = null;
 
         var moq = new Mock<IAddressApi>();
-        moq.Setup(x => x.GetAddressByZipCode(It.IsAny<string>(), default)).ReturnsAsync(addressResponse);
+        moq.Setup(x => x.GetAddressByZipCodeAsync(It.IsAny<string>(), default)).ReturnsAsync(addressResponse);
 
         var queryHandler = new FindAddressByZipCodeQueryHandler(moq.Object);
 

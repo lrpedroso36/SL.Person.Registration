@@ -4,7 +4,7 @@ namespace SL.Person.Registration.Domain.Configurations
 {
     public interface IConfigurationPersonRegistration
     {
-        MongoSettings GetMongoSettings();
+        PostgreSettings GetMongoSettings();
 
         AddressApiSettings GetAddressApiSettings();
     }

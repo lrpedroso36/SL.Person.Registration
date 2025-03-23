@@ -20,13 +20,13 @@ public class DeletePersonCommandHandler : IRequestHandler<DeletePersonCommand>
     {
         request.RequestValidate();
 
-        var personRegistration = _repository.GetById(request.Id);
+        var personRegistration = await _repository.GetByIdAsync(request.Id, cancellationToken);
 
         personRegistration.ValidateIsNotFoundInstance();
 
         personRegistration.SetIsExcluded();
 
-        _repository.Update(personRegistration);
+        await _repository.UpdateAsync(personRegistration, cancellationToken);
 
         return Unit.Value;
     }

@@ -17,7 +17,7 @@ public class AddressApi : IAddressApi
                       IConfigurationPersonRegistration configuration)
         => (_configuration, _httpClientFactory) = (configuration, httpClientFactory);
 
-    public async Task<AddressResponse> GetAddressByZipCode(string zipCode, CancellationToken cancellationToken)
+    public async Task<AddressResponse> GetAddressByZipCodeAsync(string zipCode, CancellationToken cancellationToken)
     {
         var request = new HttpRequestMessage(HttpMethod.Get, string.Format(_configuration.GetAddressApiSettings().GetAddressByZipCode, zipCode.Trim()));
 

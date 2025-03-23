@@ -19,7 +19,8 @@ public class ApplicationRequestExceptionFilter : IActionFilter
             {
                 StatusCode = GetStatusCode(requestException.Result)
             };
-        };
+        }
+        ;
 
         context.ExceptionHandled = true;
     }

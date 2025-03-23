@@ -1,22 +1,24 @@
-﻿using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+﻿using SL.Person.Registration.Domain.PersonAggregate.Base;
+using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SL.Person.Registration.Domain.PersonAggregate;
 
-public class Interview
+public class Interview : Entity
 {
     public TreatmentType TreatmentType { get; private set; }
 
     public WeakDayType WeakDayType { get; private set; }
 
-    public InterviewType Type { get; private set; }
+    public InterviewType InterviewType { get; private set; }
 
     public DateTime Date { get; private set; }
 
     public TratamentStatus Status { get; private set; }
 
+    public Guid InterviewerId { get; set; }
     public PersonRegistration Interviewer { get; private set; }
 
     public int Amount { get; private set; }
@@ -25,16 +27,19 @@ public class Interview
 
     public List<Tratament> Trataments { get; private set; }
 
+    public Guid PersonRegistrationId { get; set; }
+    public PersonRegistration PersonRegistration { get; set; }
+
     protected Interview()
     {
 
     }
 
-    protected Interview(TreatmentType treatmentType, WeakDayType weakDayType, InterviewType type, DateTime date, PersonRegistration person, int amount, string opinion)
+    protected Interview(TreatmentType treatmentType, WeakDayType weakDayType, InterviewType interviewType, DateTime date, PersonRegistration person, int amount, string opinion)
     {
         TreatmentType = treatmentType;
         WeakDayType = weakDayType;
-        Type = type;
+        InterviewType = interviewType;
         Date = date;
         Interviewer = SetPerson(person);
         Amount = amount;
@@ -48,13 +53,14 @@ public class Interview
                                            PersonRegistration person,
                                            int amount,
                                            string opinion)
-    => new Interview(treatmentType, weakDayType, type, date, person, amount, opinion);
+    => new(treatmentType, weakDayType, type, date, person, amount, opinion);
 
     private PersonRegistration SetPerson(PersonRegistration person)
     {
-        if (person.Types.Contains(PersonType.Entrevistador))
+        if (person.PersonRegistrationPersonTypes.Any(x => x.PersonType.Name == "Entrevistador"))
         {
-            return PersonRegistration.CreateInstanceSimple(person._id, person.Types, person.Name, person.DocumentNumber);
+            return PersonRegistration.CreateInstanceSimple(person.Id, [.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)], 
+                person.Name, person.DocumentNumber);
         }
 
         return null;

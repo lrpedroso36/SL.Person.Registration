@@ -2,7 +2,6 @@
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Query.FindPeople;
 using SL.Person.Registration.Application.Query.FindPeople.Extensions;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using Xunit;
 
@@ -14,10 +13,10 @@ public class FindPersonByNameQueryValidationTest
     [InlineData(null, 0, null)]
     [InlineData(" ", 0, null)]
     [InlineData("", 0, null)]
-    public void Should_request_validate(string name, long documentNumber, PersonType? personType)
+    public void Should_request_validate(string name, long documentNumber, Guid? personTypeId)
     {
         //arrange
-        var request = new FindPeopleQuery(name, documentNumber, personType);
+        var request = new FindPeopleQuery(name, documentNumber, personTypeId);
         //act
         Action action = () => request.RequestValidate();
 
@@ -53,7 +52,7 @@ public class FindPersonByNameQueryValidationTest
     public void Should_request_is_valid_recevied_person_type()
     {
         //arrange
-        var request = new FindPeopleQuery(null, 0, PersonType.Tarefeiro);
+        var request = new FindPeopleQuery(null, 0, Guid.NewGuid());
         //act
         Action action = () => request.RequestValidate();
 
@@ -65,7 +64,7 @@ public class FindPersonByNameQueryValidationTest
     public void Should_request_is_valid_recevied_all_parameter()
     {
         //arrange
-        var request = new FindPeopleQuery("teste", 12345789, PersonType.Tarefeiro);
+        var request = new FindPeopleQuery("teste", 12345789, Guid.NewGuid());
         //act
         Action action = () => request.RequestValidate();
 

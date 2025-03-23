@@ -15,7 +15,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         public void Shoud_set_properties()
         {
             //arrange
-            var types = new List<PersonType> { PersonType.Assistido };
+            var types = new List<PersonType> { PersonType.Assistido() };
             var name = "Nome";
             var gender = GenderType.Masculino;
             var birthDate = new DateTime(1988, 04, 29);
@@ -25,7 +25,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var person = PersonRegistration.CreateInstance(types, name, gender, birthDate, documentNumber);
 
             //assert
-            person.Types.Should().BeEquivalentTo(types);
+            var personTypes = person.PersonRegistrationPersonTypes.Select(x => x.PersonType);
+            personTypes.Should().BeEquivalentTo(types);
             person.Name.Should().Be(name);
             person.Name.Should().BeOfType(typeof(string));
             person.Gender.Should().Be(gender);
@@ -43,7 +44,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             //arrange
             var id = Guid.NewGuid();
-            var types = new List<PersonType> { PersonType.Assistido };
+            var types = new List<PersonType> { PersonType.Assistido() };
             var name = "Nome";
             var gender = GenderType.Masculino;
             var birthDate = new DateTime(1988, 04, 29);
@@ -56,7 +57,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var person = PersonRegistration.CreateUpdateInstance(id, types, name, gender, birthDate, documentNumber, interviews, assignments, workSchedules);
 
             //assert
-            person.Types.Should().BeEquivalentTo(types);
+            var personTypes = person.PersonRegistrationPersonTypes.Select(x => x.PersonType);
+            personTypes.Should().BeEquivalentTo(types);
             person.Name.Should().Be(name);
             person.Name.Should().BeOfType(typeof(string));
             person.Gender.Should().Be(gender);
@@ -76,7 +78,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             //arrange
             var id = Guid.NewGuid();
-            var types = new List<PersonType> { PersonType.Assistido };
+            var types = new List<PersonType> { PersonType.Assistido() };
             var name = "Nome";
             var documentNumber = 123456789L;
 
@@ -84,8 +86,9 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             var person = PersonRegistration.CreateInstanceSimple(id, types, name, documentNumber);
 
             //asserts
-            person._id.Should().Be(id);
-            person.Types.Should().BeEquivalentTo(types);
+            person.Id.Should().Be(id);
+            var personTypes = person.PersonRegistrationPersonTypes.Select(x => x.PersonType);
+            personTypes.Should().BeEquivalentTo(types);
             person.Name.Should().Be(name);
             person.DocumentNumber.Should().Be(documentNumber);
             person.IsExcluded.Should().BeFalse();
@@ -100,21 +103,22 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         public void Should_add_person_type()
         {
             //arrange
-            var personType = PersonType.Palestrante;
+            var personType = PersonType.Assistido();
             var person = Builder<PersonRegistration>.CreateNew().Build();
 
             //act
             person.AddPersonType(personType);
 
             //assert
-            person.Types.Should().Contain(personType);
+            var personTypes = person.PersonRegistrationPersonTypes.Select(x => x.PersonType);
+            personTypes.Should().Contain(personType);
         }
 
         [Fact]
         public void Should_not_add_person_type()
         {
             //arrage
-            var personType = PersonType.Palestrante;
+            var personType = PersonType.Assistido();
             var person = Builder<PersonRegistration>.CreateNew().Build();
 
             //act
@@ -122,8 +126,9 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.AddPersonType(personType);
 
             //assert
-            person.Types.Should().HaveCount(1);
-            person.Types.Should().Contain(personType);
+            var personTypes = person.PersonRegistrationPersonTypes.Select(x => x.PersonType);
+            personTypes.Should().HaveCount(1);
+            personTypes.Should().Contain(personType);
         }
 
         [Fact]
@@ -186,8 +191,8 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
         {
             //arrange
             var person = Builder<PersonRegistration>.CreateNew().Build();
-            var personInterviewer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Entrevistador }, "nome", 123456789);
-            var personLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Tarefeiro }, "nome", 123456789);
+            var personInterviewer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "nome", 123456789);
+            var personLaborer = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido() }, "nome", 123456789);
             person.AddInterview(Interview.CreateInstance(TreatmentType.TratamentoEspiritual, WeakDayType.Sabado, InterviewType.Primeira, new DateTime(2022, 2, 5), personInterviewer, 1, "opnião"));
 
             var tramentCompare = Tratament.CreateInstance(new DateTime(2022, 2, 10), true);
@@ -245,11 +250,16 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate
             person.WorkSchedules.Should().BeEquivalentTo(list);
         }
 
+        public static List<object[]> Precenses = new List<object[]>
+        {
+            new object[] { PersonType.Tarefeiro(), true },
+            new object[] { PersonType.Assistido(), false },
+            new object[] { PersonType.Palestrante(), false },
+            new object[] { PersonType.Entrevistador(), false }
+        };
+
         [Theory]
-        [InlineData(PersonType.Tarefeiro, true)]
-        [InlineData(PersonType.Entrevistador, false)]
-        [InlineData(PersonType.Palestrante, false)]
-        [InlineData(PersonType.Assistido, false)]
+        [MemberData(nameof(Precenses))]
         public void Should_Enable_Laborer_Presence(PersonType personType, bool resultBe)
         {
             //arrange

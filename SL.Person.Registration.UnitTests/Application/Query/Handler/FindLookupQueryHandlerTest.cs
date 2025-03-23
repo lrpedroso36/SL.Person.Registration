@@ -14,7 +14,6 @@ namespace SL.Person.Registration.UnitTests.Application.Query.Handler
         {
             new object[] { typeof(InterviewType), 2 },
             new object[] { typeof(TreatmentType), 8 },
-            new object[] { typeof(PersonType), 5 },
             new object[] { typeof(WeakDayType), 4},
             new object[] { typeof(GenderType), 3},
 

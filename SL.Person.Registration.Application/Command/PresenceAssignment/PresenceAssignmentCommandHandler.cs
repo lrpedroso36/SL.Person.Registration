@@ -21,7 +21,7 @@ public class PresenceAssignmentCommandHandler : IRequestHandler<PresenceAssignme
     {
         request.RequestValidate();
 
-        var personLaborer = _repository.GetById(request.Id);
+        var personLaborer = await _repository.GetByIdAsync(request.Id, cancellationToken);
 
         personLaborer.ValidateIsNotFoundInstance();
 
@@ -30,7 +30,7 @@ public class PresenceAssignmentCommandHandler : IRequestHandler<PresenceAssignme
 
         personLaborer.SetPresenceAssignment(datePresence, true);
 
-        _repository.Update(personLaborer);
+        await _repository.UpdateAsync(personLaborer, cancellationToken);
 
         return Unit.Value;
     }

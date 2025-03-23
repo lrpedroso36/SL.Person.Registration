@@ -5,7 +5,6 @@ using Moq;
 using SL.Person.Registration.Application.Command.InsertWorkSchedules;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System;
 using System.Collections.Generic;
@@ -76,7 +75,7 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             //arrage
             var id = Guid.NewGuid();
             var works = Builder<InsertWorkSchedulesCommand.WorkScheduleCommand>.CreateListOfSize(1).Build().ToList();
-            var person = PersonRegistration.CreateInstanceSimple(id, new List<PersonType>() { PersonType.Assistido }, "nome", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(id, new List<PersonType>() { PersonType.Assistido() }, "nome", 123456789);
 
             var respository = MockPersonRegistrationRepository.GetMockRepository(person);
             var command = new InsertWorkSchedulesCommand(id.ToString(), works);
@@ -87,8 +86,8 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             await commandHandler.Handle(command, default);
 
             //assert
-            respository.Verify(x => x.GetById(It.IsAny<string>()), Times.Once());
-            respository.Verify(x => x.Update(It.IsAny<PersonRegistration>()), Times.Once);
+            respository.Verify(x => x.GetByIdAsync(It.IsAny<string>(), default), Times.Once());
+            respository.Verify(x => x.UpdateAsync(It.IsAny<PersonRegistration>(), default), Times.Once);
         }
     }
 }

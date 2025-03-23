@@ -19,7 +19,8 @@ public class DomainExceptionFilter : IActionFilter
             {
                 StatusCode = GetStatusCode(domainException.Result)
             };
-        };
+        }
+        ;
 
         context.ExceptionHandled = true;
     }

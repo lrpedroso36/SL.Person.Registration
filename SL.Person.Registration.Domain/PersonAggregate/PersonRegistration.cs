@@ -1,15 +1,14 @@
-﻿using SL.Person.Registration.Domain.PersonAggregate.Enuns;
+﻿using SL.Person.Registration.Domain.PersonAggregate.Base;
+using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SL.Person.Registration.Domain.PersonAggregate;
 
-public class PersonRegistration
+public class PersonRegistration : Entity
 {
-    public Guid _id { get; private set; }
-
-    public List<PersonType> Types { get; set; } = new List<PersonType>();
+    public List<PersonRegistrationPersonType> PersonRegistrationPersonTypes { get; set; } = [];
 
     public string Name { get; private set; }
 
@@ -19,8 +18,10 @@ public class PersonRegistration
 
     public long DocumentNumber { get; private set; }
 
-    public Address Address { get; private set; }
+    public Guid? AddressId { get; set; }
+    public Address Address { get; private set; } = null!;
 
+    public Guid ContactId { get; set; }
     public Contact Contact { get; private set; }
 
     public List<Interview> Interviews { get; private set; }
@@ -31,6 +32,9 @@ public class PersonRegistration
 
     public bool IsExcluded { get; private set; } = false;
 
+    public Guid InterviewerId { get; set; }
+    public Interview Interviewer { get; private set; }
+
     protected PersonRegistration()
     {
 
@@ -38,26 +42,34 @@ public class PersonRegistration
 
     protected PersonRegistration(Guid id, List<PersonType> types, string name, long documentNumber)
     {
-        _id = id;
-        Types = types;
+        Id = id;
         Name = name;
         DocumentNumber = documentNumber;
+
+        foreach (PersonType type in types)
+        {
+            AddPersonType(type);
+        }
     }
 
     protected PersonRegistration(List<PersonType> types, string name, GenderType gender, DateTime? birthDate, long documentNumber)
     {
-        Types = types;
         Name = name;
         Gender = gender;
         BithDate = birthDate;
         DocumentNumber = documentNumber;
+
+        foreach (PersonType type in types)
+        {
+            AddPersonType(type);
+        }
     }
 
     protected PersonRegistration(Guid id, List<PersonType> types, string name, GenderType gender, DateTime? birthDate, long documentNumber,
         List<Interview> interviews, List<Assignment> assignments, List<WorkSchedule> workSchedules)
         : this(types, name, gender, birthDate, documentNumber)
     {
-        _id = id;
+        Id = id;
         SetInterviews(interviews);
         SetAssingments(assignments);
         SetWorkSchedules(workSchedules);
@@ -66,12 +78,12 @@ public class PersonRegistration
     public static PersonRegistration CreateInstanceSimple(Guid id, List<PersonType> types, string name, long documentNumber)
         => new(id, types, name, documentNumber);
 
-    public static PersonRegistration CreateInstance(List<PersonType> type, string name, GenderType gender, DateTime? birthDate, long documentNumber)
-    => new(type, name, gender, birthDate, documentNumber);
+    public static PersonRegistration CreateInstance(List<PersonType> types, string name, GenderType gender, DateTime? birthDate, long documentNumber)
+    => new(types, name, gender, birthDate, documentNumber);
 
-    public static PersonRegistration CreateUpdateInstance(Guid id, List<PersonType> type, string name, GenderType gender, DateTime? birthDate, long documentNumber,
+    public static PersonRegistration CreateUpdateInstance(Guid id, List<PersonType> types, string name, GenderType gender, DateTime? birthDate, long documentNumber,
         List<Interview> interviews, List<Assignment> assignments, List<WorkSchedule> workSchedules)
-    => new(id, type, name, gender, birthDate, documentNumber, interviews, assignments, workSchedules);
+    => new(id, types, name, gender, birthDate, documentNumber, interviews, assignments, workSchedules);
 
     private Contact SetContact(Contact contact) => contact ?? null;
 
@@ -112,13 +124,10 @@ public class PersonRegistration
 
     public void AddPersonType(PersonType personType)
     {
-        if (Types == null)
+        if (!PersonRegistrationPersonTypes.Any(x => x.PersonType.Name == personType.Name))
         {
-            Types = new List<PersonType>();
+            PersonRegistrationPersonTypes.Add(PersonRegistrationPersonType.CreateInstance(this, personType));
         }
-
-        if (!Types.Contains(personType))
-            Types.Add(personType);
     }
 
     public void AddAdress(Address address)
@@ -186,7 +195,8 @@ public class PersonRegistration
 
     public bool EnabledLaborerPresence()
     {
-        return Types != null && Types.Any(x => x == PersonType.Tarefeiro);
+        return PersonRegistrationPersonTypes != null &&
+               PersonRegistrationPersonTypes.Any(x => x.PersonType.Name == "Tarefeiro");
     }
 
     public bool LaborerPresenceConfirmed()

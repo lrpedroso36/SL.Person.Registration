@@ -5,7 +5,6 @@ using SL.Person.Registration.Application.Commons.Responses.Base;
 using SL.Person.Registration.Application.Commons.Responses.Enums;
 using SL.Person.Registration.Application.Query.FindPeople;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System;
 using System.Collections.Generic;
@@ -22,6 +21,7 @@ public class FindPersonByNameQueryHandlerTest
         var person = Builder<PersonRegistration>.CreateListOfSize(1).Build();
         foreach (var item in person)
         {
+            item.AddPersonType(Builder<PersonType>.CreateNew().Build());
             item.AddAdress(Builder<Address>.CreateNew().Build());
             item.AddContact(Builder<Contact>.CreateNew().Build());
             yield return item;
@@ -32,7 +32,7 @@ public class FindPersonByNameQueryHandlerTest
     public async Task Should_execute_handler()
     {
         //arrange
-        var query = new FindPeopleQuery("teste", 123456, PersonType.Tarefeiro);
+        var query = new FindPeopleQuery("teste", 123456, Guid.NewGuid());
         var registration = GetPersonRegistration();
         var isSucess = true;
         var errors = new List<string>();
@@ -54,13 +54,13 @@ public class FindPersonByNameQueryHandlerTest
     [InlineData("", 0, null)]
     [InlineData(" ", 0, null)]
     [InlineData(null, 0, null)]
-    public async Task Should_execute_handler_invalid_request(string name, long documentNumber, PersonType? personType)
+    public async Task Should_execute_handler_invalid_request(string name, long documentNumber, Guid? personTypeId)
     {
         //arrange
         var queryHandler = new FindPeopleQueryHandler(null);
 
         //act
-        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name, documentNumber, personType), default);
+        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery(name, documentNumber, personTypeId), default);
 
         //assert
         await action.Should().ThrowAsync<ApplicationRequestException>();
@@ -74,7 +74,7 @@ public class FindPersonByNameQueryHandlerTest
         var queryHandler = new FindPeopleQueryHandler(moq.Object);
 
         //act
-        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("teste", 123456, PersonType.Tarefeiro), default);
+        Func<Task<ResponseBase>> action = async () => await queryHandler.Handle(new FindPeopleQuery("teste", 123456, Guid.NewGuid()), default);
 
         //assert
         await action.Should().ThrowAsync<ApplicationRequestException>();

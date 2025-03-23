@@ -6,5 +6,5 @@ namespace SL.Person.Registration.Domain.External.Contracts;
 
 public interface IAddressApi
 {
-    Task<AddressResponse> GetAddressByZipCode(string zipCode, CancellationToken cancellationToken);
+    Task<AddressResponse> GetAddressByZipCodeAsync(string zipCode, CancellationToken cancellationToken);
 }

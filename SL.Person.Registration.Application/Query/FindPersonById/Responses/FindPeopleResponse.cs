@@ -1,6 +1,6 @@
 ﻿using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SL.Person.Registration.Application.Query.FindPersonById.Responses;
 
@@ -28,8 +28,8 @@ public class FindPeopleResponse
     {
         var result = new FindPeopleResponse();
 
-        result.Id = person._id.ToString();
-        result.Types = person.Types;
+        result.Id = person.Id.ToString();
+        result.Types = [.. person.PersonRegistrationPersonTypes.Select(x => x.PersonType)];
         result.Name = person.Name;
         result.DocumentNumber = person.DocumentNumber;
         result.EnabledLaborerPresence = person.EnabledLaborerPresence();

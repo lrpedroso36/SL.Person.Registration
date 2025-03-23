@@ -1,6 +1,9 @@
-﻿namespace SL.Person.Registration.Domain.PersonAggregate;
+﻿using SL.Person.Registration.Domain.PersonAggregate.Base;
+using System;
 
-public class Address
+namespace SL.Person.Registration.Domain.PersonAggregate;
+
+public class Address : Entity
 {
     public string ZipCode { get; private set; }
 
@@ -15,6 +18,9 @@ public class Address
     public string City { get; private set; }
 
     public string State { get; set; }
+
+    public Guid PersonRegistrationId { get; set; }
+    public PersonRegistration PersonRegistration { get; set; }
 
     protected Address()
     {

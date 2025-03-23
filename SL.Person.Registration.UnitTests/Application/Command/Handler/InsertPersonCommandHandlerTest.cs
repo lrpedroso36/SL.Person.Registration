@@ -6,7 +6,6 @@ using SL.Person.Registration.Application.Command.Person.Insert;
 using SL.Person.Registration.Application.Commons.Exceptions;
 using SL.Person.Registration.Application.Commons.Requests;
 using SL.Person.Registration.Domain.PersonAggregate;
-using SL.Person.Registration.Domain.PersonAggregate.Enuns;
 using SL.Person.Registration.UnitTests.MoqUnitTest;
 using System;
 using System.Collections.Generic;
@@ -31,15 +30,15 @@ namespace SL.Person.Registration.UnitTests.Application.Command.Handler
             var result = await commandHandler.Handle(command, default);
 
             //assert
-            mockRepository.Verify(x => x.Insert(It.IsAny<PersonRegistration>()), Times.AtMost(atMostInsert));
-            mockRepository.Verify(x => x.GetByDocument(It.IsAny<long>()), Times.Once);
+            mockRepository.Verify(x => x.InsertAsync(It.IsAny<PersonRegistration>(), default), Times.AtMost(atMostInsert));
+            mockRepository.Verify(x => x.GetByDocumentASync(It.IsAny<long>(), default), Times.Once);
         }
 
         [Fact]
         public async Task Should_execute_handler_invalid_found_person()
         {
             //arrange
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Assistido }, "nome", 123456789);
+            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType>() { PersonType.Assistido() }, "nome", 123456789);
             var mockRepository = MockPersonRegistrationRepository.GetMockRepository(person);
 
             //act
