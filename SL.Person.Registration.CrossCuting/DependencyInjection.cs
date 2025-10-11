@@ -13,38 +13,37 @@ using SL.Person.Registration.Infrastructure.MongoDb.Contexts.Contracts;
 using SL.Person.Registration.Infrastructure.MongoDb.Repositories;
 using System;
 
-namespace SL.Person.Registratio.CrossCuting
+namespace SL.Person.Registration.CrossCuting;
+
+public static class DependencyInjection
 {
-    public static class DependencyInjection
+    public static IServiceCollection AddConfiguration(this IServiceCollection service, IConfiguration configuration)
     {
-        public static IServiceCollection AddConfiguration(this IServiceCollection service, IConfiguration configuration)
-        {
-            service.Configure<MongoSettings>(configuration.GetSection("MongoSettings"));
-            service.Configure<AddressApiSettings>(configuration.GetSection("AddressApiSettings"));
+        service.Configure<MongoSettings>(configuration.GetSection("MongoSettings"));
+        service.Configure<AddressApiSettings>(configuration.GetSection("AddressApiSettings"));
 
-            service.AddSingleton<IConfigurationPersonRegistration, ConfigurationPersonRegistration>();
-            return service;
-        }
+        service.AddSingleton<IConfigurationPersonRegistration, ConfigurationPersonRegistration>();
+        return service;
+    }
 
-        public static IServiceCollection AddInfraestructureExternal(this IServiceCollection service)
-        {
-            service.AddScoped<IAddressApi, AddressApi>();
-            return service;
-        }
+    public static IServiceCollection AddInfraestructureExternal(this IServiceCollection service)
+    {
+        service.AddScoped<IAddressApi, AddressApi>();
+        return service;
+    }
 
-        public static IServiceCollection AddInfraestructure(this IServiceCollection service)
-        {
-            service.AddScoped<IPersonRegistrationDbContext<PersonRegistration>, PersonRegistrationDbContext>();
+    public static IServiceCollection AddInfraestructure(this IServiceCollection service)
+    {
+        service.AddScoped<IPersonRegistrationDbContext<PersonRegistration>, PersonRegistrationDbContext>();
 
-            service.AddScoped<IPersonRegistrationRepository, PersonRegistrationRepository>();
-            return service;
-        }
+        service.AddScoped<IPersonRegistrationRepository, PersonRegistrationRepository>();
+        return service;
+    }
 
-        public static IServiceCollection AddMediator(this IServiceCollection service)
-        {
-            var assembly = AppDomain.CurrentDomain.Load("SL.Person.Registration.Application");
-            service.AddMediatR(assembly);
-            return service;
-        }
+    public static IServiceCollection AddMediator(this IServiceCollection service)
+    {
+        var assembly = AppDomain.CurrentDomain.Load("SL.Person.Registration.Application");
+        service.AddMediatR(assembly);
+        return service;
     }
 }

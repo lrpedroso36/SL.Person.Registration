@@ -14,7 +14,7 @@ public class Address
 
     public string City { get; private set; }
 
-    public string State { get; set; }
+    public string State { get; private set; }
 
     protected Address()
     {
