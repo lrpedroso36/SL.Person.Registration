@@ -61,25 +61,10 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         }
 
         [Fact]
-        public void Should_validation_have_errors_in_ddd()
-        {
-            //arrange 
-            var contact = Contact.CreateInstance(0, 123456789);
-            var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
-            person.AddContact(contact);
-
-            //act
-            var result = _personRegistrationValidation.TestValidate(person);
-
-            //assert
-            result.ShouldHaveValidationErrorFor(person => person.Contact.DDD);
-        }
-
-        [Fact]
         public void Should_validation_not_have_errors_in_contact()
         {
             //arrange 
-            var contact = Contact.CreateInstance(11, 123456789);
+            var contact = Contact.CreateInstance("123456789");
             var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
             person.AddContact(contact);
 
@@ -87,8 +72,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
             var result = _personRegistrationValidation.TestValidate(person);
 
             //assert
-            result.ShouldNotHaveValidationErrorFor(person => person.Contact.DDD);
-            result.ShouldNotHaveValidationErrorFor(person => person.Contact.PhoneNumber);
+            result.ShouldNotHaveValidationErrorFor(person => person.Contact.Number);
 
         }
 
@@ -96,7 +80,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_have_errors_in_phoneNumber()
         {
             //arrange 
-            var contact = Contact.CreateInstance(11, 0);
+            var contact = Contact.CreateInstance(string.Empty);
             var person = PersonRegistration.CreateInstanceSimple(Guid.NewGuid(), new List<PersonType> { PersonType.Assistido }, "name", 123456789);
             person.AddContact(contact);
 
@@ -104,7 +88,7 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
             var result = _personRegistrationValidation.TestValidate(person);
 
             //assert
-            result.ShouldHaveValidationErrorFor(person => person.Contact.PhoneNumber);
+            result.ShouldHaveValidationErrorFor(person => person.Contact.Number);
         }
 
         [Theory]

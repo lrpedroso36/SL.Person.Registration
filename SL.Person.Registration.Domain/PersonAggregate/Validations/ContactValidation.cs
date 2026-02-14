@@ -6,12 +6,9 @@ public class ContactValidation : AbstractValidator<Contact>
 {
     public ContactValidation()
     {
-        RuleFor(x => x.DDD)
-            .NotEqual(0)
-            .WithMessage("Informe o DDD do contato.");
-
-        RuleFor(x => x.PhoneNumber)
-           .NotEqual(0)
+        RuleFor(x => x.Number)
+           .NotNull()
+           .NotEmpty()
            .WithMessage("Informe o Número do contato.");
     }
 }

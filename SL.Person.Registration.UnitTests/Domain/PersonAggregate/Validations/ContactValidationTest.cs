@@ -18,40 +18,27 @@ namespace SL.Person.Registration.UnitTests.Domain.PersonAggregate.Validations
         public void Should_validation_not_have_errors()
         {
             //arrange 
-            var contact = Contact.CreateInstance(11, 123456789);
+            var contact = Contact.CreateInstance("123456789");
 
             //act
             var result = _contactValidation.TestValidate(contact);
 
             //assert
-            result.ShouldNotHaveValidationErrorFor(contact => contact.DDD);
-            result.ShouldNotHaveValidationErrorFor(contact => contact.PhoneNumber);
+            result.ShouldNotHaveValidationErrorFor(contact => contact.Number);
         }
 
+
         [Fact]
-        public void Should_validation_have_errors_in_ddd()
+        public void Should_validation_have_errors_in_number()
         {
             //arrange 
-            var address = Contact.CreateInstance(0, 123456789);
+            var address = Contact.CreateInstance(string.Empty);
 
             //act
             var result = _contactValidation.TestValidate(address);
 
             //assert
-            result.ShouldHaveValidationErrorFor(contact => contact.DDD);
-        }
-
-        [Fact]
-        public void Should_validation_have_errors_in_phone_number()
-        {
-            //arrange 
-            var address = Contact.CreateInstance(11, 0);
-
-            //act
-            var result = _contactValidation.TestValidate(address);
-
-            //assert
-            result.ShouldHaveValidationErrorFor(contact => contact.PhoneNumber);
+            result.ShouldHaveValidationErrorFor(contact => contact.Number);
         }
     }
 }

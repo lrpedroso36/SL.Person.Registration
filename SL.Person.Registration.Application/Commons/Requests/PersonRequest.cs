@@ -17,9 +17,7 @@ public class PersonRequest
 
     public long DocumentNumber { get; set; }
 
-    public int DDD { get; set; }
-
-    public long PhoneNumber { get; set; }
+    public string ContactNumber { get; set; }
 
     public string ZipCode { get; set; }
 
@@ -45,7 +43,7 @@ public class PersonRequest
 
         if (CheckInformationContact())
         {
-            person.AddContact(Contact.CreateInstance(DDD, PhoneNumber));
+            person.AddContact(Contact.CreateInstance(ContactNumber));
         }
 
         if (CheckInformationAddress())
@@ -64,7 +62,7 @@ public class PersonRequest
 
     private bool CheckInformationContact()
     {
-        return DDD != 0 || PhoneNumber != 0;
+        return !string.IsNullOrEmpty(ContactNumber);
     }
 
     private bool CheckInformationAddress()

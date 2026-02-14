@@ -36,9 +36,7 @@ public class FindPersonResponse
 
     public string State { get; set; }
 
-    public int DDD { get; set; }
-
-    public long PhoneNumber { get; set; }
+    public string ContactNumber { get; set; }
 
     public List<FindInterviewResponse> Interviews { get; set; } = new List<FindInterviewResponse>();
 
@@ -84,8 +82,7 @@ public class FindPersonResponse
 
         if (person.Contact != null)
         {
-            result.DDD = person.Contact.DDD;
-            result.PhoneNumber = person.Contact.PhoneNumber;
+            result.ContactNumber = person.Contact.Number;
         }
 
         if (person.Interviews != null && person.Interviews.Count > 0)

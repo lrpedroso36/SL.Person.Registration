@@ -56,8 +56,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             result.YearsOld.Should().Be(yearsOld);
             result.BirthDate.Should().Be(person.BithDate.Value.ToString("yyyy-MM-dd"));
             result.DocumentNumber.Should().Be(person.DocumentNumber);
-            result.DDD.Should().Be(person.Contact.DDD);
-            result.PhoneNumber.Should().Be(person.Contact.PhoneNumber);
+            result.ContactNumber.Should().Be(person.Contact.Number);
         }
 
         [Theory]
@@ -116,8 +115,7 @@ namespace SL.Person.Registration.UnitTests.Application.Results
             result.Complement.Should().Be(person.Address.Complement);
             result.City.Should().Be(person.Address.City);
             result.State.Should().Be(person.Address.State);
-            result.DDD.Should().Be(person.Contact.DDD);
-            result.PhoneNumber.Should().Be(person.Contact.PhoneNumber);
+            result.ContactNumber.Should().Be(person.Contact.Number);
         }
 
         [Fact]

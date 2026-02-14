@@ -41,19 +41,29 @@ public class PersonRegistrationRepository : IPersonRegistrationRepository
     }
 
     public PersonRegistration GetByDocument(long documentNumber)
-        => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber && !x.IsExcluded);
+        => _context.Collection
+            .AsQueryable()
+            .FirstOrDefault(x => x.DocumentNumber == documentNumber && !x.IsExcluded);
 
     public PersonRegistration GetByDocument(long documentNumber, PersonType personType)
         => _context.Collection.AsQueryable().FirstOrDefault(x => x.DocumentNumber == documentNumber && x.Types.Contains(personType) && !x.IsExcluded);
 
     public PersonRegistration GetById(string id)
-        => _context.Collection.AsQueryable().FirstOrDefault(x => x._id == new Guid(id) && !x.IsExcluded);
+        => _context.Collection
+            .AsQueryable()
+            .FirstOrDefault(x => x._id == new Guid(id) && !x.IsExcluded);
 
     public IEnumerable<PersonRegistration> GetByName(string name)
-        => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && !x.IsExcluded).ToList();
+        => _context.Collection
+            .AsQueryable()
+            .Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && !x.IsExcluded)
+            .ToList();
 
     public IEnumerable<PersonRegistration> GetByName(string name, PersonType personType)
-        => _context.Collection.AsQueryable().Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && x.Types.Contains(personType) && !x.IsExcluded).ToList();
+        => _context.Collection
+            .AsQueryable()
+            .Where(x => x.Name.ToLower().StartsWith(name.ToLower()) && x.Types.Contains(personType) && !x.IsExcluded)
+            .ToList();
 
     public void Insert(PersonRegistration registration)
         => _context.Collection.InsertOne(registration);

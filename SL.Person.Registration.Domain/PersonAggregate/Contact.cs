@@ -2,21 +2,18 @@
 
 public class Contact
 {
-    public int DDD { get; private set; }
-
-    public long PhoneNumber { get; private set; }
+    public string Number { get; private set; }
 
     protected Contact()
     {
 
     }
 
-    protected Contact(int ddd, long phoneNumber)
+    protected Contact(string number)
     {
-        DDD = ddd;
-        PhoneNumber = phoneNumber;
+        Number = number;
     }
 
-    public static Contact CreateInstance(int ddd, long phoneNumber)
-        => new Contact(ddd, phoneNumber);
+    public static Contact CreateInstance(string number)
+        => new(number);
 }

@@ -27,8 +27,7 @@ namespace SL.Person.Registration.UnitTests.Application.Requests
             person.Gender.Should().Be(personRequest.Gender);
             person.BithDate.Should().Be(personRequest.BirthDate);
             person.DocumentNumber.Should().Be(personRequest.DocumentNumber);
-            person.Contact.DDD.Should().Be(personRequest.DDD);
-            person.Contact.PhoneNumber.Should().Be(personRequest.PhoneNumber);
+            person.Contact.Number.Should().Be(personRequest.ContactNumber);
             person.Address.ZipCode.Should().Be(personRequest.ZipCode);
             person.Address.Street.Should().Be(personRequest.Street.ToUpper());
             person.Address.Number.Should().Be(personRequest.Number.ToUpper());
@@ -39,15 +38,12 @@ namespace SL.Person.Registration.UnitTests.Application.Requests
         }
 
         [Theory]
-        [InlineData(11, 0)]
-        [InlineData(0, 123456789)]
-        [InlineData(11, 123456789)]
-        public void Should_get_contact_person(int ddd, long phoneNumber)
+        [InlineData("0123456789")]
+        public void Should_get_contact_person(string number)
         {
             //arrange
             var personRequest = Builder<PersonRequest>.CreateNew().Build();
-            personRequest.DDD = ddd;
-            personRequest.PhoneNumber = phoneNumber;
+            personRequest.ContactNumber = number;
 
             //act
             var person = personRequest.GetPersonRegistration();
@@ -61,8 +57,7 @@ namespace SL.Person.Registration.UnitTests.Application.Requests
         {
             //arrange
             var personRequest = Builder<PersonRequest>.CreateNew().Build();
-            personRequest.DDD = 0;
-            personRequest.PhoneNumber = 0;
+            personRequest.ContactNumber = string.Empty;
 
             //act
             var person = personRequest.GetPersonRegistration();
